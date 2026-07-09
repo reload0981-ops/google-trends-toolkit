@@ -1,0 +1,51 @@
+﻿Keyword_ID,Keyword_TH,Tier,Segment,Factor,Case_ID,Case_Type,Family_ID,Family_Name_TH,Current_Status
+FP014,สมัครงาน,T1,Formal,Pull,FP014,keyword,,,active_current_official
+FP019,หางาน,T1,Formal,Pull,FP019,keyword,,,active_current_official
+FP038,สอบครูผู้ช่วย,T1,Formal,Pull,FP038,keyword,,,active_current_official
+FU014,ลงทะเบียนว่างงาน ประกันสังคม,T1,Formal,Push,FU014,keyword,,,active_current_official
+FU015,ลาออกจากงาน,T1,Formal,Push,FU015,keyword,,,active_current_official
+FU018,ว่างงาน ประกันสังคม,T1,Formal,Push,FU018,keyword,,,active_current_official
+TU068,ปิดร้าน,T1,Informal-Traditional,Push,TU068,keyword,,,active_current_official
+FP109,สมัครงาน โรงพยาบาล,T1,Formal,Pull,FP109,keyword,,,active_current_official
+FP118,สมัครงาน พยาบาล,T1,Formal,Pull,FP118,keyword,,,active_current_official
+FP301,สอบราชการ,T1,Formal,Pull,FP301,keyword,,,active_current_official
+FP306,สอบท้องถิ่น,T1,Formal,Pull,FP306,keyword,,,active_current_official
+FP317,สอบ ก.พ.,T1,Formal,Pull,FP317,keyword,,,active_current_official
+FP321,สอบครู,T1,Formal,Pull,FP321,keyword,,,active_current_official
+FP331,สอบตำรวจ,T1,Formal,Pull,FP331,keyword,,,active_current_official
+FU064,รายงานตัวว่างงาน,T1,Formal,Push,FU064,keyword,,,active_current_official
+FU078,ว่างงาน รายงานตัว,T1,Formal,Push,FU078,keyword,,,active_current_official
+FP023,หางาน นิคมอุตสาหกรรม,T2,Formal,Pull,FPF03,family_member,FPF03,หางานโรงงาน,active_current_official
+FP026,หางาน โรงงาน,T2,Formal,Pull,FPF03,family_member,FPF03,หางานโรงงาน,active_current_official
+FP108,สมัครงาน โรงงาน,T2,Formal,Pull,FPF03,family_member,FPF03,หางานโรงงาน,active_current_official
+TP010,รถเข็นขายของ,T2,Informal-Traditional,Pull,TPF02,family_member,TPF02,หาบเร่/ตลาดนัด,active_current_official
+TP041,ตลาดนัดขายของ,T2,Informal-Traditional,Pull,TPF02,family_member,TPF02,หาบเร่/ตลาดนัด,active_current_official
+TU067,เซ้งร้าน,T2,Informal-Traditional,Push,TUF01,family_member,TUF01,ปิดกิจการ,active_current_official
+TU069,เลิกกิจการ,T2,Informal-Traditional,Push,TUF01,family_member,TUF01,ปิดกิจการ,active_current_official
+TU070,ขายกิจการ,T2,Informal-Traditional,Push,TUF01,family_member,TUF01,ปิดกิจการ,active_current_official
+TU071,ขายร้านต่อ,T2,Informal-Traditional,Push,TUF01,family_member,TUF01,ปิดกิจการ,active_current_official
+TU005,ขายของไม่ดี,T2,Informal-Traditional,Push,TUF02,family_member,TUF02,ขายไม่ดี,active_current_official
+TU048,ราคาของขึ้น ขายของ,T2,Informal-Traditional,Push,TUF02,family_member,TUF02,ขายไม่ดี,active_current_official
+TU062,ขายของได้น้อย,T2,Informal-Traditional,Push,TUF02,family_member,TUF02,ขายไม่ดี,active_current_official
+NP023,สมัครแกร็บ,T2,Informal-New,Pull,NPF01,family_member,NPF01,สมัครไรเดอร์,active_current_official
+NP024,สมัครไรเดอร์,T2,Informal-New,Pull,NPF01,family_member,NPF01,สมัครไรเดอร์,active_current_official
+NP025,สมัครไลน์แมน,T2,Informal-New,Pull,NPF01,family_member,NPF01,สมัครไรเดอร์,active_current_official
+NP044,สมัครส่งอาหาร,T2,Informal-New,Pull,NPF01,family_member,NPF01,สมัครไรเดอร์,active_current_official
+FP111,สมัครงาน โรงเรียน,T2,Formal,Pull,FPF05,family_member,FPF05,โรงเรียน/ครู/อาจารย์,active_current_official
+FP112,สมัครงาน ครู,T2,Formal,Pull,FPF05,family_member,FPF05,โรงเรียน/ครู/อาจารย์,active_current_official
+FP135,สมัครงาน อาจารย์,T2,Formal,Pull,FPF05,family_member,FPF05,โรงเรียน/ครู/อาจารย์,active_current_official
+FP153,หางาน โรงเรียน,T2,Formal,Pull,FPF05,family_member,FPF05,โรงเรียน/ครู/อาจารย์,active_current_official
+FP159,หางาน ครู,T2,Formal,Pull,FPF05,family_member,FPF05,โรงเรียน/ครู/อาจารย์,active_current_official
+FP176,หางาน อาจารย์,T2,Formal,Pull,FPF05,family_member,FPF05,โรงเรียน/ครู/อาจารย์,active_current_official
+FP136,สมัครงาน พาร์ทไทม์,T2,Formal,Pull,FPF08,family_member,FPF08,พาร์ทไทม์/งานเสริม,active_current_official
+FP169,หางาน พาร์ทไทม์,T2,Formal,Pull,FPF08,family_member,FPF08,พาร์ทไทม์/งานเสริม,active_current_official
+FP302,สมัครสอบราชการ,T2,Formal,Pull,FPF09,family_member,FPF09,สอบราชการ,active_current_official
+FP318,สมัครสอบ ก.พ.,T2,Formal,Pull,FPF09,family_member,FPF09,สอบราชการ,active_current_official
+FP333,สอบทหาร,T2,Formal,Pull,FPF09,family_member,FPF09,สอบราชการ,active_current_official
+FP334,สอบนายสิบ,T2,Formal,Pull,FPF09,family_member,FPF09,สอบราชการ,active_current_official
+NP061,งานออนไลน์,T1,Informal-New,Pull,NP061,keyword,,,active_current_official
+FP510,งาน บัญชี,T1,Formal,Pull,FP510,keyword,,,active_current_official
+FP607,งาน ครู,T1,Formal,Pull,FP607,keyword,,,active_current_official
+NP081,ขายของออนไลน์,T1,Informal-New,Pull,NP081,keyword,,,active_current_official
+FP511,งาน การเงิน,T1,Formal,Pull,FP511,keyword,,,active_current_official
+FP512,งาน จัดซื้อ,T1,Formal,Pull,FP512,keyword,,,active_current_official

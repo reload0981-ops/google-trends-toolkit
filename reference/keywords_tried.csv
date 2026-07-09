@@ -1,0 +1,1193 @@
+﻿keyword_id,canonical_keyword,variations,cell,segment,factor,occupation_group,best_stage,national_zero_months,regional_final_tier,active_v25,recommended_action
+REVIEW_PIDRAN_TIKTOK,ปิดร้าน Tiktok,,,,,,WEAK,40,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+REVIEW_PIDRAN_TIKTOK_SHOP,ปิดร้าน Tiktok Shop,,,,,,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+BACKUP-FP01,เรซูเม่สมัครงานตัวอย่าง,resume ตัวอย่าง | เรซูเม่สมัครงานตัวอย่าง,FP,Formal,Pull,general,candidate_only,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+BACKUP-FP02,เปลี่ยนงาน,หางานใหม่ | เปลี่ยนงาน,FP,Formal,Pull,general,candidate_only,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP001,Cover letter ตัวอย่าง,Cover letter ตัวอย่าง | จดหมายสมัครงาน ตัวอย่าง | ตัวอย่าง cover letter,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP002,Interview เทคนิค,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP003,LinkedIn หางาน,LinkedIn หางาน | หางาน LinkedIn | หางาน linkedin,FP,Formal,Pull,White-collar,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP004,Portfolio สมัครงาน,Portfolio สมัครงาน | พอร์ตโฟลิโอ สมัครงาน,FP,Formal,Pull,Creative,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP005,jobsdb,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP006,jobthai,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP007,ข้าราชการ สอบบรรจุ,,FP,Formal,Pull,Public-sector,national_pass,0,Archive,N,Archive จาก region/tier review
+FP008,งานราชการ รับสมัคร,,FP,Formal,Pull,Public-sector,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP009,ฐานเงินเดือน,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP010,ทดลองงาน กี่เดือน,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP011,รัฐวิสาหกิจ รับสมัคร,,FP,Formal,Pull,Public-sector,national_pass,6,Archive,N,Archive จาก region/tier review
+FP012,รับสมัครพนักงาน,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP013,วิธีทำเรซูเม่,วิธีทำ resume | วิธีทำเรซูเม | วิธีทำเรซูเม่,FP,Formal,Pull,general,WEAK,41,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP014,สมัครงาน,,FP,Formal,Pull,general,active_v25,0,T1,Y,ใช้ได้แล้วใน Interactive v25
+FP015,สวัสดิการดีบริษัท,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP016,สอบ ก.พ. ภาค ก,,FP,Formal,Pull,Public-sector,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP017,สัญญาจ้างงาน,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP018,สัมภาษณ์งาน,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP019,หางาน,,FP,Formal,Pull,general,active_v25,0,T1,Y,ใช้ได้แล้วใน Interactive v25
+FP020,หางาน work from home,,FP,Formal,Pull,White-collar,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP021,หางาน จบใหม่,,FP,Formal,Pull,general,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP022,หางาน ต่างจังหวัด,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP023,หางาน นิคมอุตสาหกรรม,,FP,Formal,Pull,Blue-collar,active_v25,2,Archive,Y,ใช้ได้แล้วใน Interactive v25
+FP024,หางาน ประสบการณ์น้อย,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP025,หางาน เงินเดือน 20000,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP026,หางาน โรงงาน,,FP,Formal,Pull,Blue-collar,active_v25,0,T2,Y,ใช้ได้แล้วใน Interactive v25
+FP027,เงินเดือนสตาร์ท,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP028,เด็กจบใหม่ หางาน,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP029,เปลี่ยนงาน,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP030,เรซูเม่,resume | เรซูเม | เรซูเม่,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP031,เรียกเงินเดือนเท่าไหร่ดี,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP032,แนะนำตัว สัมภาษณ์,,FP,Formal,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP033,งานประจำมีประกันสังคม,,FP,Formal,Pull,general,WEAK,54,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP034,สมัครงานพนักงานฝ่ายผลิต,งานพนักงานฝ่ายผลิต | สมัครงานพนักงานฝ่ายผลิต,FP,Formal,Pull,Blue-collar,WEAK,33,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP035,งานโรงงานวุฒิ ม.6,,FP,Formal,Pull,Blue-collar,WEAK,43,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP036,สมัครงานธุรการ วุฒิ ปวส,,FP,Formal,Pull,White-collar,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP037,งานบริษัทวุฒิปริญญาตรี,,FP,Formal,Pull,White-collar,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FP038,สอบครูผู้ช่วย,,FP,Formal,Pull,Public-sector,active_v25,0,T1,Y,ใช้ได้แล้วใน Interactive v25
+FP101,สมัครงาน โรงแรม,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP102,สมัครงาน ก่อสร้าง,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3_demoted_from_T2,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP103,สมัครงาน เซเว่น,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP104,สมัครงาน ห้าง,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP105,สมัครงาน โลตัส,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP106,สมัครงาน บิ๊กซี,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP107,สมัครงาน รับเหมา,,FP,Formal,Pull,fp_branch_scout,national_pass,6,T3_demoted_from_T2,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP108,สมัครงาน โรงงาน,,FP,Formal,Pull,fp_branch_scout,active_v25,0,T2,Y,ใช้ได้แล้วใน Interactive v25
+FP109,สมัครงาน โรงพยาบาล,,FP,Formal,Pull,fp_branch_scout,active_v25,0,T1,Y,ใช้ได้แล้วใน Interactive v25
+FP110,สมัครงาน โรงบาล,,FP,Formal,Pull,fp_branch_scout,regional_pass,0,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP111,สมัครงาน โรงเรียน,,FP,Formal,Pull,fp_branch_scout,active_v25,0,T2_family,Y,ใช้ได้แล้วใน Interactive v25
+FP112,สมัครงาน ครู,,FP,Formal,Pull,fp_branch_scout,active_v25,0,T2_family,Y,ใช้ได้แล้วใน Interactive v25
+FP113,สมัครงาน โรงหนัง,,FP,Formal,Pull,fp_branch_scout,national_pass,9,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP114,สมัครงาน ขนส่ง,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP115,สมัครงาน ต่างประเทศ,,FP,Formal,Pull,fp_branch_scout,regional_pass,0,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP116,สมัครงาน ร้านเหล้า,,FP,Formal,Pull,fp_branch_scout,national_pass,15,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP117,สมัครงาน ร้านนวด,,FP,Formal,Pull,fp_branch_scout,national_pass,16,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP118,สมัครงาน พยาบาล,,FP,Formal,Pull,fp_branch_scout,active_v25,0,T1,Y,ใช้ได้แล้วใน Interactive v25
+FP119,สมัครงาน หมอ,,FP,Formal,Pull,fp_branch_scout,regional_pass,0,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP120,สมัครงาน วิศวะ,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP121,สมัครงาน ช่าง,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3_demoted_from_T2,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP122,สมัครงาน ล้างจาน,,FP,Formal,Pull,fp_branch_scout,national_pass,6,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP123,สมัครงาน คาเฟ่,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP124,สมัครงาน แม่บ้าน,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3_demoted_from_T2,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP125,สมัครงาน รปภ,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP126,สมัครงาน รักษาความปลอดภัย,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP127,สมัครงาน ธนาคาร,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP128,สมัครงาน นักวิเคราะห์,,FP,Formal,Pull,fp_branch_scout,national_pass,4,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP129,สมัครงาน บัญชี,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP130,สมัครงาน HR,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP131,สมัครงาน ป่าไม้,,FP,Formal,Pull,fp_branch_scout,regional_pass,0,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP132,สมัครงาน ทหาร,,FP,Formal,Pull,fp_branch_scout,regional_pass,0,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP133,สมัครงาน ฝ่ายขาย,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP134,สมัครงาน เทศบาล,,FP,Formal,Pull,fp_branch_scout,regional_pass,0,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP135,สมัครงาน อาจารย์,,FP,Formal,Pull,fp_branch_scout,active_v25,0,T2_family,Y,ใช้ได้แล้วใน Interactive v25
+FP136,สมัครงาน พาร์ทไทม์,,FP,Formal,Pull,fp_branch_scout,active_v25,0,T2_family,Y,ใช้ได้แล้วใน Interactive v25
+FP137,สมัครงาน ประจำ,,FP,Formal,Pull,fp_branch_scout,regional_pass,0,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP138,สมัครงาน อะไรดี,,FP,Formal,Pull,fp_branch_scout,regional_pass,0,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP139,สมัครงาน IT,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP140,สมัครงาน การตลาด,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP141,สมัครงาน บริการ,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP142,หางาน โรงงาน,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP143,หางาน ก่อสร้าง,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3_demoted_from_T2,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP144,หางาน ช่าง,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3_demoted_from_T2,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP145,หางาน ขนส่ง,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP146,หางาน รปภ,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP147,หางาน โรงแรม,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP148,หางาน เซเว่น,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP149,หางาน ห้าง,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP150,หางาน คาเฟ่,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP151,หางาน บริการ,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP152,หางาน โรงพยาบาล,,FP,Formal,Pull,fp_branch_scout,regional_pass,0,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP153,หางาน โรงเรียน,,FP,Formal,Pull,fp_branch_scout,active_v25,0,T2_family,Y,ใช้ได้แล้วใน Interactive v25
+FP154,หางาน แม่บ้าน,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3_demoted_from_T2,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP155,หางาน รักษาความปลอดภัย,,FP,Formal,Pull,fp_branch_scout,national_pass,14,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP156,หางาน ล้างจาน,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP157,หางาน รับเหมา,,FP,Formal,Pull,fp_branch_scout,national_pass,4,T3_demoted_from_T2,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP158,หางาน พยาบาล,,FP,Formal,Pull,fp_branch_scout,regional_pass,0,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP159,หางาน ครู,,FP,Formal,Pull,fp_branch_scout,active_v25,0,T2_family,Y,ใช้ได้แล้วใน Interactive v25
+FP160,หางาน เทศบาล,,FP,Formal,Pull,fp_branch_scout,regional_pass,0,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP161,หางาน บัญชี,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP162,หางาน HR,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP163,หางาน IT,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP164,หางาน การตลาด,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP165,หางาน ฝ่ายขาย,,FP,Formal,Pull,fp_branch_scout,national_pass,6,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP166,หางาน ธนาคาร,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP167,หางาน บิ๊กซี,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP168,หางาน โลตัส,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP169,หางาน พาร์ทไทม์,,FP,Formal,Pull,fp_branch_scout,active_v25,0,T2_family,Y,ใช้ได้แล้วใน Interactive v25
+FP170,หางาน ประจำ,,FP,Formal,Pull,fp_branch_scout,regional_pass,0,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP171,หางาน คนสวน,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3_demoted_from_T2,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP172,หางาน ร้านเหล้า,,FP,Formal,Pull,fp_branch_scout,national_pass,12,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP173,หางาน ร้านนวด,,FP,Formal,Pull,fp_branch_scout,national_pass,6,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP174,หางาน วิศวะ,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP175,หางาน หมอ,,FP,Formal,Pull,fp_branch_scout,regional_pass,0,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP176,หางาน อาจารย์,,FP,Formal,Pull,fp_branch_scout,active_v25,1,T2_family,Y,ใช้ได้แล้วใน Interactive v25
+FP177,หางาน ทหาร,,FP,Formal,Pull,fp_branch_scout,regional_pass,0,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP178,หางาน ต่างประเทศ,,FP,Formal,Pull,fp_branch_scout,regional_pass,0,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP179,หางาน แคชเชียร์,,FP,Formal,Pull,fp_branch_scout,national_pass,15,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP180,สมัครงาน แคชเชียร์,,FP,Formal,Pull,fp_branch_scout,national_pass,2,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP181,หางาน พนักงานขาย,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP182,หางาน แม่ครัว,,FP,Formal,Pull,fp_branch_scout,national_pass,9,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP183,หางาน แพ็คของ,,FP,Formal,Pull,fp_branch_scout,national_pass,12,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP184,หางาน ธุรการ,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP185,สมัครงาน ธุรการ,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP186,หางาน คนขับรถ,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP187,สมัครงาน คนขับรถ,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP188,หางาน แอดมิน,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP189,สมัครงาน แอดมิน,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP190,หางาน คีย์ข้อมูล,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP191,สมัครงาน คีย์ข้อมูล,,FP,Formal,Pull,fp_branch_scout,national_pass,4,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP192,หางาน ช่างยนต์,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3_demoted_from_T2,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP193,สมัครงาน ช่างยนต์,,FP,Formal,Pull,fp_branch_scout,national_pass,3,T3_demoted_from_T2,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP194,หางาน ผู้ช่วยพยาบาล,,FP,Formal,Pull,fp_branch_scout,regional_pass,1,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP195,สมัครงาน ผู้ช่วยพยาบาล,,FP,Formal,Pull,fp_branch_scout,regional_pass,0,T2_family,N,ผ่าน Regional แล้ว รอ/ใช้ใน family review หรือ interactive รุ่นถัดไป
+FP196,หางาน Call Center,,FP,Formal,Pull,fp_branch_scout,national_pass,3,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP197,สมัครงาน Call Center,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP198,หางาน จัดซื้อ,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP199,สมัครงาน จัดซื้อ,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP200,หางาน การเงิน,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP201,สมัครงาน การเงิน,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP202,หางาน ช่างเชื่อม,,FP,Formal,Pull,fp_branch_scout,national_pass,4,T3_demoted_from_T2,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP203,หางาน เกษตร,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP204,สมัครงาน เกษตร,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP205,หางาน ฟาร์ม,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP206,สมัครงาน ฟาร์ม,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP207,สมัครงาน ประกัน,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP208,หางาน ประกัน,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP209,หางาน คลังสินค้า,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP210,สมัครงาน คลังสินค้า,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP211,หางาน เชฟ,,FP,Formal,Pull,fp_branch_scout,national_pass,1,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP212,สมัครงาน เชฟ,,FP,Formal,Pull,fp_branch_scout,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FP301,สอบ ก.พ./ราชการ,สอบบรรจุราชการ | สอบเข้าราชการ,FP,Formal,Pull,Public-sector,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+FP302,สมัครสอบราชการ,รับสมัครสอบราชการ | เปิดรับสมัครสอบราชการ,FP,Formal,Pull,Public-sector,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+FP303,ประกาศสอบราชการ,ข่าวสอบราชการ | ประกาศรับสมัครสอบราชการ,FP,Formal,Pull,Public-sector,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP304,สอบพนักงานราชการ,พนักงานราชการ เปิดสอบ | สมัครสอบพนักงานราชการ,FP,Formal,Pull,Public-sector,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP305,สมัครสอบพนักงานราชการ,รับสมัครสอบพนักงานราชการ | เปิดสอบพนักงานราชการ,FP,Formal,Pull,Public-sector,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP306,สอบราชการ (other),สอบท้องถิ่น อปท | สอบราชการท้องถิ่น,FP,Formal,Pull,Public/Local-government,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+FP307,สมัครสอบท้องถิ่น,รับสมัครสอบท้องถิ่น | สมัครสอบ อปท,FP,Formal,Pull,Public/Local-government,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP308,สอบเทศบาล,สมัครสอบเทศบาล | เปิดสอบเทศบาล,FP,Formal,Pull,Public/Local-government,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP309,สอบ อบต,สมัครสอบ อบต | สอบอบต,FP,Formal,Pull,Public/Local-government,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP310,สอบ อบจ,สมัครสอบ อบจ | สอบอบจ,FP,Formal,Pull,Public/Local-government,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP311,สอบปลัดอำเภอ,สมัครสอบปลัดอำเภอ | เปิดสอบปลัดอำเภอ,FP,Formal,Pull,Public/Administration,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP312,สอบกรมการปกครอง,สมัครสอบกรมการปกครอง | เปิดสอบกรมการปกครอง,FP,Formal,Pull,Public/Administration,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP313,สอบสรรพากร,สมัครสอบสรรพากร | เปิดสอบกรมสรรพากร,FP,Formal,Pull,Public/Administration,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP314,สอบกรมที่ดิน,สมัครสอบกรมที่ดิน | เปิดสอบกรมที่ดิน,FP,Formal,Pull,Public/Administration,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP315,สอบกรมป่าไม้,สมัครสอบกรมป่าไม้ | เปิดสอบกรมป่าไม้,FP,Formal,Pull,Public/Administration,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP316,สอบรัฐวิสาหกิจ,สมัครสอบรัฐวิสาหกิจ | เปิดสอบรัฐวิสาหกิจ,FP,Formal,Pull,Public/State-enterprise,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP317,สอบตำรวจ/ทหาร,สอบ กพ | สอบกพ,FP,Formal,Pull,Public-sector,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+FP318,สมัครสอบ ก.พ.,รับสมัครสอบ ก.พ. | สมัครสอบ กพ,FP,Formal,Pull,Public-sector,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+FP319,สอบ ก.พ. ภาค ข,สอบ ภาค ข ก.พ. | สอบภาค ข,FP,Formal,Pull,Public-sector,national_pass,5,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP320,สอบ ก.พ. ภาค ค,สอบภาค ค | สอบสัมภาษณ์ ก.พ.,FP,Formal,Pull,Public-sector,WEAK,33,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP321,สอบเทศบาล (or similar),ประกาศสอบครู | สมัครสอบครู,FP,Formal,Pull,Public/Education,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+FP322,สอบครู กทม.,สมัครสอบครู กทม. | เปิดสอบครู กทม.,FP,Formal,Pull,Public/Education,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP323,สอบครูอาชีวศึกษา,สมัครสอบครูอาชีวศึกษา | เปิดสอบครูอาชีวะ,FP,Formal,Pull,Public/Education,WEAK,42,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP324,สอบครูเทศบาล,สมัครสอบครูเทศบาล | เปิดสอบครูเทศบาล,FP,Formal,Pull,Public/Education,WEAK,48,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP325,สอบอาจารย์มหาวิทยาลัย,สมัครสอบอาจารย์มหาวิทยาลัย | เปิดสอบอาจารย์มหาวิทยาลัย,FP,Formal,Pull,Public/Education,WEAK,46,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP326,สอบบรรจุพยาบาล,สมัครสอบบรรจุพยาบาล | สอบพยาบาลบรรจุ,FP,Formal,Pull,Public/Healthcare,national_pass,17,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP327,สอบผู้ช่วยพยาบาล,สมัครสอบผู้ช่วยพยาบาล | เปิดสอบผู้ช่วยพยาบาล,FP,Formal,Pull,Public/Healthcare,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP328,สอบสาธารณสุข,สมัครสอบสาธารณสุข | เปิดสอบสาธารณสุข,FP,Formal,Pull,Public/Healthcare,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP329,สอบนักวิชาการสาธารณสุข,สมัครสอบนักวิชาการสาธารณสุข | เปิดสอบนักวิชาการสาธารณสุข,FP,Formal,Pull,Public/Healthcare,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP330,สอบโรงพยาบาล,ประกาศสอบโรงพยาบาล | สมัครสอบโรงพยาบาล,FP,Formal,Pull,Public/Healthcare,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP331,สอบ (other government),สมัครสอบตำรวจ | เปิดสอบตำรวจ,FP,Formal,Pull,Public/Security,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+FP332,สอบนายสิบตำรวจ,สมัครสอบนายสิบตำรวจ | เปิดสอบนายสิบตำรวจ,FP,Formal,Pull,Public/Security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP333,สอบทหาร,สมัครสอบทหาร | เปิดสอบทหาร,FP,Formal,Pull,Public/Security,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+FP334,สอบนายสิบ,สมัครสอบนายสิบ | เปิดสอบนายสิบ,FP,Formal,Pull,Public/Security,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+FP335,สอบนายร้อย,สมัครสอบนายร้อย | เปิดสอบนายร้อย,FP,Formal,Pull,Public/Security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP336,สอบเจ้าหน้าที่ธุรการ,สมัครสอบเจ้าหน้าที่ธุรการ | เปิดสอบเจ้าหน้าที่ธุรการ,FP,Formal,Pull,Public/Administration,WEAK,54,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP337,สอบนักวิเคราะห์นโยบายและแผน,สมัครสอบนักวิเคราะห์นโยบายและแผน | เปิดสอบนักวิเคราะห์นโยบาย,FP,Formal,Pull,Public/Administration,national_pass,2,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP338,สอบนิติกร,สมัครสอบนิติกร | เปิดสอบนิติกร,FP,Formal,Pull,Public/Administration,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP339,งานพาร์ทไทม์ เสาร์ อาทิตย์,งานพาร์ทไทม์เสาร์อาทิตย์ | พาร์ทไทม์เสาร์อาทิตย์,FP,Formal,Pull,Work-form/Part-time,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP340,งานพาร์ทไทม์ หลังเลิกงาน,งานพาร์ทไทม์หลังเลิกงาน | พาร์ทไทม์หลังเลิกงาน,FP,Formal,Pull,Work-form/Part-time,WEAK,34,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP341,งานพาร์ทไทม์ รายวัน,งานพาร์ทไทม์จ่ายรายวัน | พาร์ทไทม์รายวัน,FP,Formal,Pull,Work-form/Part-time,national_pass,6,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP342,งานพาร์ทไทม์ รายชั่วโมง,งานรายชั่วโมง | พาร์ทไทม์รายชั่วโมง,FP,Formal,Pull,Work-form/Part-time,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP343,งานพาร์ทไทม์ ใกล้ฉัน,พาร์ทไทม์ใกล้ฉัน | หางานพาร์ทไทม์ใกล้ฉัน,FP,Formal,Pull,Work-form/Part-time,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP344,งานพาร์ทไทม์ นักศึกษา,งานนักศึกษาพาร์ทไทม์ | พาร์ทไทม์นักศึกษา,FP,Formal,Pull,Student/Entry-level,WEAK,34,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP345,งานพาร์ทไทม์ ปิดเทอม,งานช่วงปิดเทอม | พาร์ทไทม์ปิดเทอม,FP,Formal,Pull,Student/Entry-level,WEAK,44,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP346,งานพาร์ทไทม์ จบใหม่,งานจบใหม่พาร์ทไทม์ | พาร์ทไทม์จบใหม่,FP,Formal,Pull,Student/Entry-level,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP347,งานพาร์ทไทม์ ไม่จำกัดวุฒิ,งานไม่จำกัดวุฒิพาร์ทไทม์ | พาร์ทไทม์ไม่จำกัดวุฒิ,FP,Formal,Pull,Work-form/Part-time,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP348,งานพาร์ทไทม์ วุฒิ ม.6,งานวุฒิ ม.6 พาร์ทไทม์ | พาร์ทไทม์วุฒิ ม.6,FP,Formal,Pull,Work-form/Part-time,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP349,งานพาร์ทไทม์ อายุ 18,งานอายุ 18 พาร์ทไทม์ | พาร์ทไทม์อายุ 18,FP,Formal,Pull,Work-form/Part-time,WEAK,47,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP350,สมัครงานพาร์ทไทม์ เซเว่น,งานพาร์ทไทม์เซเว่น | สมัครพาร์ทไทม์เซเว่น,FP,Formal,Pull,Organized retail/service,national_pass,8,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP351,สมัครงานพาร์ทไทม์ โลตัส,งานพาร์ทไทม์โลตัส | สมัครพาร์ทไทม์โลตัส,FP,Formal,Pull,Organized retail/service,national_pass,14,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP352,สมัครงานพาร์ทไทม์ บิ๊กซี,งานพาร์ทไทม์บิ๊กซี | สมัครพาร์ทไทม์บิ๊กซี,FP,Formal,Pull,Organized retail/service,WEAK,36,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP353,สมัครงานพาร์ทไทม์ ร้านอาหาร,งานพาร์ทไทม์ร้านอาหาร | สมัครพาร์ทไทม์ร้านอาหาร,FP,Formal,Pull,Food service,WEAK,55,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP354,สมัครงานพาร์ทไทม์ คาเฟ่,งานพาร์ทไทม์คาเฟ่ | สมัครพาร์ทไทม์คาเฟ่,FP,Formal,Pull,Food service,WEAK,56,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP355,สมัครงานพาร์ทไทม์ ห้าง,งานพาร์ทไทม์ห้าง | สมัครพาร์ทไทม์ห้าง,FP,Formal,Pull,Organized retail/service,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP356,สมัครงานพาร์ทไทม์ โรงหนัง,งานพาร์ทไทม์โรงหนัง | สมัครพาร์ทไทม์โรงหนัง,FP,Formal,Pull,Organized retail/service,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP357,สมัครงานพาร์ทไทม์ ร้านสะดวกซื้อ,งานพาร์ทไทม์ร้านสะดวกซื้อ | สมัครพาร์ทไทม์ร้านสะดวกซื้อ,FP,Formal,Pull,Organized retail/service,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP358,สมัครงานพาร์ทไทม์ แคชเชียร์,งานพาร์ทไทม์แคชเชียร์ | สมัครพาร์ทไทม์แคชเชียร์,FP,Formal,Pull,Organized retail/service,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP359,สมัครงานพาร์ทไทม์ คลังสินค้า,งานพาร์ทไทม์คลังสินค้า | สมัครพาร์ทไทม์คลังสินค้า,FP,Formal,Pull,Factory/logistics,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP360,สมัครงานพาร์ทไทม์ แพ็คของ,งานพาร์ทไทม์แพ็คของ | สมัครพาร์ทไทม์แพ็คของ,FP,Formal,Pull,Factory/logistics,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP361,สมัครงานพาร์ทไทม์ ส่งของ,งานพาร์ทไทม์ส่งของ | สมัครพาร์ทไทม์ส่งของ,FP,Formal,Pull,Factory/logistics,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP362,สมัครงานพาร์ทไทม์ ร้านกาแฟ,งานพาร์ทไทม์ร้านกาแฟ | สมัครพาร์ทไทม์ร้านกาแฟ,FP,Formal,Pull,Food service,WEAK,49,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP363,สมัครงานพาร์ทไทม์ บาริสต้า,งานพาร์ทไทม์บาริสต้า | สมัครพาร์ทไทม์บาริสต้า,FP,Formal,Pull,Food service,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP364,หางานพาร์ทไทม์ เสาร์ อาทิตย์,พาร์ทไทม์เสาร์อาทิตย์ | หางานพาร์ทไทม์เสาร์อาทิตย์,FP,Formal,Pull,Work-form/Part-time,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP365,หางานพาร์ทไทม์ หลังเลิกงาน,พาร์ทไทม์หลังเลิกงาน | หางานพาร์ทไทม์หลังเลิกงาน,FP,Formal,Pull,Work-form/Part-time,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP366,หางานพาร์ทไทม์ รายวัน,งานพาร์ทไทม์จ่ายรายวัน | หางานพาร์ทไทม์รายวัน,FP,Formal,Pull,Work-form/Part-time,WEAK,42,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP367,หางานพาร์ทไทม์ นักศึกษา,งานพาร์ทไทม์นักศึกษา | หางานพาร์ทไทม์นักศึกษา,FP,Formal,Pull,Student/Entry-level,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP368,หางานพาร์ทไทม์ ร้านอาหาร,พาร์ทไทม์ร้านอาหาร | หางานพาร์ทไทม์ร้านอาหาร,FP,Formal,Pull,Food service,WEAK,52,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP369,หางานพาร์ทไทม์ คาเฟ่,พาร์ทไทม์คาเฟ่ | หางานพาร์ทไทม์คาเฟ่,FP,Formal,Pull,Food service,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP370,หางานพาร์ทไทม์ เซเว่น,พาร์ทไทม์เซเว่น | หางานพาร์ทไทม์เซเว่น,FP,Formal,Pull,Organized retail/service,WEAK,39,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP371,หางานพาร์ทไทม์ ห้าง,พาร์ทไทม์ห้าง | หางานพาร์ทไทม์ห้าง,FP,Formal,Pull,Organized retail/service,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP372,หางานพาร์ทไทม์ คลังสินค้า,พาร์ทไทม์คลังสินค้า | หางานพาร์ทไทม์คลังสินค้า,FP,Formal,Pull,Factory/logistics,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP373,หางานพาร์ทไทม์ แพ็คของ,พาร์ทไทม์แพ็คของ | หางานพาร์ทไทม์แพ็คของ,FP,Formal,Pull,Factory/logistics,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP374,งานเสริมหลังเลิกงาน,รายได้เสริมหลังเลิกงาน | หางานเสริมหลังเลิกงาน,FP,Formal,Pull,Work-form/Part-time,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP375,งานเสริมเสาร์อาทิตย์,รายได้เสริมเสาร์อาทิตย์ | หางานเสริมเสาร์อาทิตย์,FP,Formal,Pull,Work-form/Part-time,WEAK,21,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP376,หางานเสริมหลังเลิกงาน,งานเสริมหลังเลิกงาน | หาเงินหลังเลิกงาน,FP,Formal,Pull,Work-form/Part-time,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP377,หางานเสริมเสาร์อาทิตย์,งานเสริมเสาร์อาทิตย์ | หาเงินเสาร์อาทิตย์,FP,Formal,Pull,Work-form/Part-time,WEAK,44,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP378,รายได้เสริมหลังเลิกงาน,งานรายได้เสริมหลังเลิกงาน | หาเงินเสริมหลังเลิกงาน,FP,Formal,Pull,Work-form/Part-time,national_pass,3,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP379,หาเงินเสริมหลังเลิกงาน,งานหลังเลิกงาน | รายได้เสริมหลังเลิกงาน,FP,Formal,Pull,Work-form/Part-time,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP380,ทำงานพาร์ทไทม์,ทำพาร์ทไทม์ | อยากทำงานพาร์ทไทม์,FP,Formal,Pull,Work-form/Part-time,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP381,รับงานพาร์ทไทม์,รับงานแบบพาร์ทไทม์ | รับพาร์ทไทม์,FP,Formal,Pull,Work-form/Part-time,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP382,พนักงานพาร์ทไทม์,งานพนักงานพาร์ทไทม์ | สมัครพนักงานพาร์ทไทม์,FP,Formal,Pull,Work-form/Part-time,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP383,งานพาร์ทไทม์ที่บ้าน,งานทำที่บ้านพาร์ทไทม์ | พาร์ทไทม์ทำที่บ้าน,FP,Formal,Pull,Work-form/Part-time,national_pass,3,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP384,พาร์ทไทม์ แคชเชียร์,งานพาร์ทไทม์แคชเชียร์ | แคชเชียร์พาร์ทไทม์,FP,Formal,Pull,Organized retail/service,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP385,พาร์ทไทม์ พนักงานขาย,งานพาร์ทไทม์พนักงานขาย | พนักงานขายพาร์ทไทม์,FP,Formal,Pull,Organized retail/service,WEAK,57,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP386,พาร์ทไทม์ เสิร์ฟอาหาร,งานพาร์ทไทม์เสิร์ฟอาหาร | เสิร์ฟอาหารพาร์ทไทม์,FP,Formal,Pull,Food service,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP387,พาร์ทไทม์ ล้างจาน,งานพาร์ทไทม์ล้างจาน | ล้างจานพาร์ทไทม์,FP,Formal,Pull,Food service,WEAK,55,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP388,พาร์ทไทม์ พนักงานเสิร์ฟ,งานพาร์ทไทม์พนักงานเสิร์ฟ | พนักงานเสิร์ฟพาร์ทไทม์,FP,Formal,Pull,Food service,WEAK,55,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP389,งานรายวัน,สมัครงานรายวัน | หางานรายวัน,FP,Formal,Pull,general,MISSING,,,N,มี job แล้วแต่ยังไม่ usable ต้อง retry/download ใหม่
+FP390,หางานรายวัน,งานรายวัน | สมัครงานรายวัน,FP,Formal,Pull,general,MISSING,,,N,มี job แล้วแต่ยังไม่ usable ต้อง retry/download ใหม่
+FP391,สมัครงานรายวัน,งานรายวัน | หางานรายวัน,FP,Formal,Pull,general,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP392,งานชั่วคราว,สมัครงานชั่วคราว | หางานชั่วคราว,FP,Formal,Pull,general,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP393,หางานชั่วคราว,งานชั่วคราว | สมัครงานชั่วคราว,FP,Formal,Pull,general,national_pass,5,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP394,สมัครงานชั่วคราว,งานชั่วคราว | หางานชั่วคราว,FP,Formal,Pull,general,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP395,งานกะกลางคืน,สมัครงานกะกลางคืน | หางานกะกลางคืน,FP,Formal,Pull,general,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP396,หางานกะกลางคืน,งานกะกลางคืน | สมัครงานกะกลางคืน,FP,Formal,Pull,general,WEAK,29,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP397,สมัครงานกะกลางคืน,งานกะกลางคืน | หางานกะกลางคืน,FP,Formal,Pull,general,WEAK,51,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP398,งานกะเย็น,สมัครงานกะเย็น | หางานกะเย็น,FP,Formal,Pull,general,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP399,หางานกะเย็น,งานกะเย็น | สมัครงานกะเย็น,FP,Formal,Pull,general,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP400,งานเสาร์อาทิตย์,สมัครงานเสาร์อาทิตย์ | หางานเสาร์อาทิตย์,FP,Formal,Pull,general,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP401,หางานเสาร์อาทิตย์,งานเสาร์อาทิตย์ | สมัครงานเสาร์อาทิตย์,FP,Formal,Pull,general,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP402,สมัครงานเสาร์อาทิตย์,งานเสาร์อาทิตย์ | หางานเสาร์อาทิตย์,FP,Formal,Pull,general,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP403,งานไม่จำกัดวุฒิ,สมัครงานไม่จำกัดวุฒิ | หางานไม่จำกัดวุฒิ,FP,Formal,Pull,general,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP404,หางานไม่จำกัดวุฒิ,งานไม่จำกัดวุฒิ | สมัครงานไม่จำกัดวุฒิ,FP,Formal,Pull,general,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP405,สมัครงานไม่จำกัดวุฒิ,งานไม่จำกัดวุฒิ | หางานไม่จำกัดวุฒิ,FP,Formal,Pull,general,WEAK,17,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP406,งานวุฒิ ม.6,งานวุฒิม.6 | สมัครงานวุฒิ ม.6,FP,Formal,Pull,general,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP407,สมัครงานวุฒิ ม.6,งานวุฒิ ม.6 | สมัครงาน ม.6,FP,Formal,Pull,general,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP408,งานใกล้บ้าน,สมัครงานใกล้บ้าน | หางานใกล้บ้าน,FP,Formal,Pull,general,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP409,หางานใกล้บ้าน,งานใกล้บ้าน | สมัครงานใกล้บ้าน,FP,Formal,Pull,general,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP410,สมัครงานใกล้บ้าน,งานใกล้บ้าน | หางานใกล้บ้าน,FP,Formal,Pull,general,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP411,งานใกล้ฉัน,สมัครงานใกล้ฉัน | หางานใกล้ฉัน,FP,Formal,Pull,general,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP412,สมัครงานใกล้ฉัน,งานใกล้ฉัน | หางานใกล้ฉัน,FP,Formal,Pull,general,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP413,งานร้านอาหาร,สมัครงานร้านอาหาร | หางานร้านอาหาร,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP414,หางานร้านอาหาร,งานร้านอาหาร | สมัครงานร้านอาหาร,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP415,สมัครงานร้านอาหาร,งานร้านอาหาร | หางานร้านอาหาร,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP416,งานร้านกาแฟ,สมัครงานร้านกาแฟ | หางานร้านกาแฟ,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP417,หางานร้านกาแฟ,งานร้านกาแฟ | สมัครงานร้านกาแฟ,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP418,สมัครงานร้านกาแฟ,งานร้านกาแฟ | หางานร้านกาแฟ,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP419,งานคาเฟ่,สมัครงานคาเฟ่ | หางานคาเฟ่,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP420,หางานคาเฟ่,งานคาเฟ่ | สมัครงานคาเฟ่,FP,Formal,Pull,Service/Retail,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP421,สมัครงานคาเฟ่,งานคาเฟ่ | หางานคาเฟ่,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP422,งานโรงแรม,สมัครงานโรงแรม | หางานโรงแรม,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP423,หางานโรงแรม,งานโรงแรม | สมัครงานโรงแรม,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP424,สมัครงานโรงแรม,งานโรงแรม | หางานโรงแรม,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP425,สมัครงานเซเว่น,งานเซเว่น | หางานเซเว่น,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP426,หางานเซเว่น,งานเซเว่น | สมัครงานเซเว่น,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP427,งานเซเว่น,สมัครงานเซเว่น | หางานเซเว่น,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP428,สมัครงานโลตัส,งานโลตัส | หางานโลตัส,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP429,หางานโลตัส,งานโลตัส | สมัครงานโลตัส,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP430,งานโลตัส,สมัครงานโลตัส | หางานโลตัส,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP431,สมัครงานบิ๊กซี,งานบิ๊กซี | หางานบิ๊กซี,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP432,หางานบิ๊กซี,งานบิ๊กซี | สมัครงานบิ๊กซี,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP433,งานบิ๊กซี,สมัครงานบิ๊กซี | หางานบิ๊กซี,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP434,สมัครงานแม็คโคร,งานแม็คโคร | หางานแม็คโคร,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP435,หางานแม็คโคร,งานแม็คโคร | สมัครงานแม็คโคร,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP436,งานแม็คโคร,สมัครงานแม็คโคร | หางานแม็คโคร,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP437,สมัครงานไทวัสดุ,งานไทวัสดุ | หางานไทวัสดุ,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP438,หางานไทวัสดุ,งานไทวัสดุ | สมัครงานไทวัสดุ,FP,Formal,Pull,Service/Retail,national_pass,14,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP439,สมัครงานโฮมโปร,งานโฮมโปร | หางานโฮมโปร,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP440,หางานโฮมโปร,งานโฮมโปร | สมัครงานโฮมโปร,FP,Formal,Pull,Service/Retail,national_pass,11,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP441,สมัครงานคลังสินค้า,งานคลังสินค้า | หางานคลังสินค้า,FP,Formal,Pull,Logistics/Warehouse,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP442,หางานคลังสินค้า,งานคลังสินค้า | สมัครงานคลังสินค้า,FP,Formal,Pull,Logistics/Warehouse,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP443,งานคลังสินค้า,สมัครงานคลังสินค้า | หางานคลังสินค้า,FP,Formal,Pull,Logistics/Warehouse,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP444,งานแพ็คของ,สมัครงานแพ็คของ | หางานแพ็คของ,FP,Formal,Pull,Logistics/Warehouse,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP445,สมัครงานแพ็คของ,งานแพ็คของ | หางานแพ็คของ,FP,Formal,Pull,Logistics/Warehouse,WEAK,33,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP446,หางานแพ็คของ,งานแพ็คของ | สมัครงานแพ็คของ,FP,Formal,Pull,Logistics/Warehouse,national_pass,13,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP447,งานจัดเรียงสินค้า,สมัครงานจัดเรียงสินค้า | หางานจัดเรียงสินค้า,FP,Formal,Pull,Service/Retail,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP448,สมัครงานจัดเรียงสินค้า,งานจัดเรียงสินค้า | หางานจัดเรียงสินค้า,FP,Formal,Pull,Service/Retail,WEAK,30,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP449,หางานจัดเรียงสินค้า,งานจัดเรียงสินค้า | สมัครงานจัดเรียงสินค้า,FP,Formal,Pull,Service/Retail,WEAK,33,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP450,สมัครงานส่งของ,งานขับรถส่งของ | หางานส่งของ,FP,Formal,Pull,Logistics/Warehouse,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP451,หางานส่งของ,งานขับรถส่งของ | สมัครงานส่งของ,FP,Formal,Pull,Logistics/Warehouse,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP452,งานขับรถส่งของ,สมัครงานขับรถส่งของ | หางานขับรถส่งของ,FP,Formal,Pull,Logistics/Warehouse,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP453,สมัครงานขับรถส่งของ,งานขับรถส่งของ | หางานขับรถส่งของ,FP,Formal,Pull,Logistics/Warehouse,national_pass,3,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP454,หางานขับรถส่งของ,งานขับรถส่งของ | สมัครงานขับรถส่งของ,FP,Formal,Pull,Logistics/Warehouse,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP455,งานแม่บ้าน,สมัครงานแม่บ้าน | หางานแม่บ้าน,FP,Formal,Pull,Manual/Service,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP456,สมัครงานแม่บ้าน,งานแม่บ้าน | หางานแม่บ้าน,FP,Formal,Pull,Manual/Service,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP457,หางานแม่บ้าน,งานแม่บ้าน | สมัครงานแม่บ้าน,FP,Formal,Pull,Manual/Service,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP458,งาน รปภ,สมัครงาน รปภ | หางาน รปภ,FP,Formal,Pull,Manual/Service,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP459,สมัครงาน รปภ,งาน รปภ | หางาน รปภ,FP,Formal,Pull,Manual/Service,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP460,หางาน รปภ,งาน รปภ | สมัครงาน รปภ,FP,Formal,Pull,Manual/Service,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP461,งานดูแลผู้สูงอายุ,สมัครงานดูแลผู้สูงอายุ | หางานดูแลผู้สูงอายุ,FP,Formal,Pull,Healthcare support,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP462,สมัครงานดูแลผู้สูงอายุ,งานดูแลผู้สูงอายุ | หางานดูแลผู้สูงอายุ,FP,Formal,Pull,Healthcare support,national_pass,7,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP463,หางานดูแลผู้สูงอายุ,งานดูแลผู้สูงอายุ | สมัครงานดูแลผู้สูงอายุ,FP,Formal,Pull,Healthcare support,national_pass,2,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP464,งานผู้ช่วยพยาบาล,สมัครงานผู้ช่วยพยาบาล | หางานผู้ช่วยพยาบาล,FP,Formal,Pull,Healthcare support,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP465,สมัครงานผู้ช่วยพยาบาล,งานผู้ช่วยพยาบาล | หางานผู้ช่วยพยาบาล,FP,Formal,Pull,Healthcare support,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP466,หางานผู้ช่วยพยาบาล,งานผู้ช่วยพยาบาล | สมัครงานผู้ช่วยพยาบาล,FP,Formal,Pull,Healthcare support,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP467,งานฝ่ายผลิต,สมัครงานฝ่ายผลิต | หางานฝ่ายผลิต,FP,Formal,Pull,Manufacturing,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP468,สมัครงานฝ่ายผลิต,งานฝ่ายผลิต | หางานฝ่ายผลิต,FP,Formal,Pull,Manufacturing,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP469,สมัครงาน พนักงานขาย,,FP,Formal,Pull,,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP470,งาน พนักงานขาย,สมัครงาน พนักงานขาย | หางาน พนักงานขาย,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP471,งาน แคชเชียร์,สมัครงาน แคชเชียร์ | หางาน แคชเชียร์,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP472,งาน พนักงานคลังสินค้า,สมัครงาน พนักงานคลังสินค้า | หางาน พนักงานคลังสินค้า,FP,Formal,Pull,Formal job-entry,national_pass,10,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP473,หางาน พนักงานแพ็คของ,งาน พนักงานแพ็คของ | หางานพนักงานแพ็คของ,FP,Formal,Pull,Formal job-entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP474,สมัครงาน พนักงานแพ็คของ,งาน พนักงานแพ็คของ | สมัครงานพนักงานแพ็คของ,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP475,งาน พนักงานแพ็คของ,สมัครงาน พนักงานแพ็คของ | หางาน พนักงานแพ็คของ,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP476,หางาน ฝ่ายผลิต,งาน ฝ่ายผลิต | หางานฝ่ายผลิต,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP477,หางาน พนักงานติดตั้งสินค้า,หางาน พนักงานติดตั้งสินค้า รายได้ | หางาน พนักงานติดตั้งสินค้า ใกล้ฉัน,FP,Formal,Pull,Formal service operations,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP478,สมัครงาน พนักงานติดตั้งสินค้า,สมัครงาน พนักงานติดตั้งสินค้า รายได้ | สมัครงาน พนักงานติดตั้งสินค้า ใกล้ฉัน,FP,Formal,Pull,Formal service operations,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP479,หางาน พนักงานโรงงาน,งาน พนักงานโรงงาน | หางานพนักงานโรงงาน,FP,Formal,Pull,Formal job-entry,WEAK,21,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP480,สมัครงาน พนักงานโรงงาน,งาน พนักงานโรงงาน | สมัครงานพนักงานโรงงาน,FP,Formal,Pull,Formal job-entry,national_pass,4,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP481,งาน พนักงานโรงงาน,สมัครงาน พนักงานโรงงาน | หางาน พนักงานโรงงาน,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP482,หางาน พนักงานร้านอาหาร,งาน พนักงานร้านอาหาร | หางานพนักงานร้านอาหาร,FP,Formal,Pull,Formal job-entry,WEAK,48,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP483,สมัครงาน พนักงานร้านอาหาร,งาน พนักงานร้านอาหาร | สมัครงานพนักงานร้านอาหาร,FP,Formal,Pull,Formal job-entry,WEAK,30,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP484,งาน พนักงานร้านอาหาร,สมัครงาน พนักงานร้านอาหาร | หางาน พนักงานร้านอาหาร,FP,Formal,Pull,Formal job-entry,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP485,งาน พนักงานเสิร์ฟ,สมัครงาน พนักงานเสิร์ฟ | หางาน พนักงานเสิร์ฟ,FP,Formal,Pull,Formal job-entry,national_pass,12,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP486,หางาน บาริสต้า,งาน บาริสต้า | หางานบาริสต้า,FP,Formal,Pull,Formal job-entry,national_pass,8,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP487,สมัครงาน บาริสต้า,งาน บาริสต้า | สมัครงานบาริสต้า,FP,Formal,Pull,Formal job-entry,national_pass,9,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP488,งาน บาริสต้า,สมัครงาน บาริสต้า | หางาน บาริสต้า,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP489,หางาน พนักงานร้านกาแฟ,งาน พนักงานร้านกาแฟ | หางานพนักงานร้านกาแฟ,FP,Formal,Pull,Formal job-entry,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP490,สมัครงาน พนักงานร้านกาแฟ,งาน พนักงานร้านกาแฟ | สมัครงานพนักงานร้านกาแฟ,FP,Formal,Pull,Formal job-entry,WEAK,40,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP491,งาน พนักงานร้านกาแฟ,สมัครงาน พนักงานร้านกาแฟ | หางาน พนักงานร้านกาแฟ,FP,Formal,Pull,Formal job-entry,WEAK,24,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP492,หางาน พนักงานคาเฟ่,งาน พนักงานคาเฟ่ | หางานพนักงานคาเฟ่,FP,Formal,Pull,Formal job-entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP493,สมัครงาน พนักงานคาเฟ่,งาน พนักงานคาเฟ่ | สมัครงานพนักงานคาเฟ่,FP,Formal,Pull,Formal job-entry,WEAK,56,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP494,งาน พนักงานคาเฟ่,สมัครงาน พนักงานคาเฟ่ | หางาน พนักงานคาเฟ่,FP,Formal,Pull,Formal job-entry,WEAK,47,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP495,หางาน พนักงานโรงแรม,งาน พนักงานโรงแรม | หางานพนักงานโรงแรม,FP,Formal,Pull,Formal job-entry,WEAK,24,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP496,สมัครงาน พนักงานโรงแรม,งาน พนักงานโรงแรม | สมัครงานพนักงานโรงแรม,FP,Formal,Pull,Formal job-entry,national_pass,3,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP497,งาน พนักงานโรงแรม,สมัครงาน พนักงานโรงแรม | หางาน พนักงานโรงแรม,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP498,หางาน แม่บ้านโรงแรม,งาน แม่บ้านโรงแรม | หางานแม่บ้านโรงแรม,FP,Formal,Pull,Formal job-entry,national_pass,11,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP499,สมัครงาน แม่บ้านโรงแรม,งาน แม่บ้านโรงแรม | สมัครงานแม่บ้านโรงแรม,FP,Formal,Pull,Formal job-entry,WEAK,20,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP500,งาน แม่บ้านโรงแรม,สมัครงาน แม่บ้านโรงแรม | หางาน แม่บ้านโรงแรม,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP501,งาน พนักงานทำความสะอาด,สมัครงาน พนักงานทำความสะอาด | หางาน พนักงานทำความสะอาด,FP,Formal,Pull,Formal job-entry,WEAK,25,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP502,หางาน พนักงานขับรถ,งาน พนักงานขับรถ | หางานพนักงานขับรถ,FP,Formal,Pull,Formal job-entry,national_pass,2,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP503,สมัครงาน พนักงานขับรถ,งาน พนักงานขับรถ | สมัครงานพนักงานขับรถ,FP,Formal,Pull,Formal job-entry,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP504,งาน พนักงานขับรถ,สมัครงาน พนักงานขับรถ | หางาน พนักงานขับรถ,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP505,หางาน พนักงานส่งของ,งาน พนักงานส่งของ | หางานพนักงานส่งของ,FP,Formal,Pull,Formal job-entry,WEAK,19,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP506,สมัครงาน พนักงานส่งของ,งาน พนักงานส่งของ | สมัครงานพนักงานส่งของ,FP,Formal,Pull,Formal job-entry,WEAK,17,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP507,งาน พนักงานส่งของ,สมัครงาน พนักงานส่งของ | หางาน พนักงานส่งของ,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP508,งาน ธุรการ,สมัครงาน ธุรการ | หางาน ธุรการ,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP509,งาน คีย์ข้อมูล,สมัครงาน คีย์ข้อมูล | หางาน คีย์ข้อมูล,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP510,งาน บัญชี,สมัครงาน บัญชี | หางาน บัญชี,FP,Formal,Pull,Formal job-entry,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+FP511,งาน การเงิน,สมัครงาน การเงิน | หางาน การเงิน,FP,Formal,Pull,Formal job-entry,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+FP512,งาน จัดซื้อ,สมัครงาน จัดซื้อ | หางาน จัดซื้อ,FP,Formal,Pull,Formal job-entry,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+FP513,งาน พนักงานติดตั้งสินค้า,งาน พนักงานติดตั้งสินค้า รายได้ | งาน พนักงานติดตั้งสินค้า ใกล้ฉัน,FP,Formal,Pull,Formal service operations,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP514,หางาน เจ้าหน้าที่รับออเดอร์,หางาน เจ้าหน้าที่รับออเดอร์ รายได้ | หางาน เจ้าหน้าที่รับออเดอร์ ใกล้ฉัน,FP,Formal,Pull,Formal sales support,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP515,สมัครงาน เจ้าหน้าที่รับออเดอร์,สมัครงาน เจ้าหน้าที่รับออเดอร์ รายได้ | สมัครงาน เจ้าหน้าที่รับออเดอร์ ใกล้ฉัน,FP,Formal,Pull,Formal sales support,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP516,หางาน สต๊อกสินค้า,งาน สต๊อกสินค้า | หางานสต๊อกสินค้า,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP517,สมัครงาน สต๊อกสินค้า,งาน สต๊อกสินค้า | สมัครงานสต๊อกสินค้า,FP,Formal,Pull,Formal job-entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP518,งาน สต๊อกสินค้า,สมัครงาน สต๊อกสินค้า | หางาน สต๊อกสินค้า,FP,Formal,Pull,Formal job-entry,national_pass,15,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP519,หางาน โลจิสติกส์,งาน โลจิสติกส์ | หางานโลจิสติกส์,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP520,สมัครงาน โลจิสติกส์,งาน โลจิสติกส์ | สมัครงานโลจิสติกส์,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP521,งาน โลจิสติกส์,สมัครงาน โลจิสติกส์ | หางาน โลจิสติกส์,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP522,หางาน โฟล์คลิฟท์,งาน โฟล์คลิฟท์ | หางานโฟล์คลิฟท์,FP,Formal,Pull,Formal job-entry,national_pass,8,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP523,สมัครงาน โฟล์คลิฟท์,งาน โฟล์คลิฟท์ | สมัครงานโฟล์คลิฟท์,FP,Formal,Pull,Formal job-entry,WEAK,28,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP524,งาน โฟล์คลิฟท์,สมัครงาน โฟล์คลิฟท์ | หางาน โฟล์คลิฟท์,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP525,งาน ช่างซ่อมบำรุง,สมัครงาน ช่างซ่อมบำรุง | หางาน ช่างซ่อมบำรุง,FP,Formal,Pull,Formal job-entry,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP526,หางาน ช่างไฟฟ้า,งาน ช่างไฟฟ้า | หางานช่างไฟฟ้า,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP527,สมัครงาน ช่างไฟฟ้า,งาน ช่างไฟฟ้า | สมัครงานช่างไฟฟ้า,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP528,งาน ช่างไฟฟ้า,สมัครงาน ช่างไฟฟ้า | หางาน ช่างไฟฟ้า,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP529,งาน ช่างแอร์,สมัครงาน ช่างแอร์ | หางาน ช่างแอร์,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP530,งาน ช่างยนต์,สมัครงาน ช่างยนต์ | หางาน ช่างยนต์,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP531,งาน ช่างเชื่อม,สมัครงาน ช่างเชื่อม | หางาน ช่างเชื่อม,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP532,หางาน ช่างกล,งาน ช่างกล | หางานช่างกล,FP,Formal,Pull,Formal job-entry,WEAK,51,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP533,สมัครงาน ช่างกล,งาน ช่างกล | สมัครงานช่างกล,FP,Formal,Pull,Formal job-entry,WEAK,52,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP534,งาน ช่างกล,สมัครงาน ช่างกล | หางาน ช่างกล,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP535,หางาน ช่างก่อสร้าง,งาน ช่างก่อสร้าง | หางานช่างก่อสร้าง,FP,Formal,Pull,Formal job-entry,WEAK,55,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP536,สมัครงาน ช่างก่อสร้าง,งาน ช่างก่อสร้าง | สมัครงานช่างก่อสร้าง,FP,Formal,Pull,Formal job-entry,WEAK,57,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP537,งาน ช่างก่อสร้าง,สมัครงาน ช่างก่อสร้าง | หางาน ช่างก่อสร้าง,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP538,หางาน ช่างประปา,งาน ช่างประปา | หางานช่างประปา,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP539,สมัครงาน ช่างประปา,งาน ช่างประปา | สมัครงานช่างประปา,FP,Formal,Pull,Formal job-entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP540,งาน ช่างประปา,สมัครงาน ช่างประปา | หางาน ช่างประปา,FP,Formal,Pull,Formal job-entry,national_pass,9,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP541,หางาน ช่างทาสี,งาน ช่างทาสี | หางานช่างทาสี,FP,Formal,Pull,Formal job-entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP542,สมัครงาน ช่างทาสี,งาน ช่างทาสี | สมัครงานช่างทาสี,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP543,งาน ช่างทาสี,สมัครงาน ช่างทาสี | หางาน ช่างทาสี,FP,Formal,Pull,Formal job-entry,WEAK,43,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP544,หางาน QC,งาน QC | หางานQC,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP545,สมัครงาน QC,งาน QC | สมัครงานQC,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP546,งาน QC,สมัครงาน QC | หางาน QC,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP547,หางาน QA,งาน QA | หางานQA,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP548,สมัครงาน QA,งาน QA | สมัครงานQA,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP549,งาน QA,สมัครงาน QA | หางาน QA,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP550,หางาน เจ้าหน้าที่ความปลอดภัย,งาน เจ้าหน้าที่ความปลอดภัย | หางานเจ้าหน้าที่ความปลอดภัย,FP,Formal,Pull,Formal job-entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP551,สมัครงาน เจ้าหน้าที่ความปลอดภัย,งาน เจ้าหน้าที่ความปลอดภัย | สมัครงานเจ้าหน้าที่ความปลอดภัย,FP,Formal,Pull,Formal job-entry,WEAK,53,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP552,งาน เจ้าหน้าที่ความปลอดภัย,สมัครงาน เจ้าหน้าที่ความปลอดภัย | หางาน เจ้าหน้าที่ความปลอดภัย,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP553,หางาน จป วิชาชีพ,งาน จป วิชาชีพ | หางานจป วิชาชีพ,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP554,สมัครงาน จป วิชาชีพ,งาน จป วิชาชีพ | สมัครงานจป วิชาชีพ,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP555,งาน จป วิชาชีพ,สมัครงาน จป วิชาชีพ | หางาน จป วิชาชีพ,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP556,งาน Call Center,สมัครงาน Call Center | หางาน Call Center,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP557,หางาน บริการลูกค้า,งาน บริการลูกค้า | หางานบริการลูกค้า,FP,Formal,Pull,Formal job-entry,WEAK,40,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP558,สมัครงาน บริการลูกค้า,งาน บริการลูกค้า | สมัครงานบริการลูกค้า,FP,Formal,Pull,Formal job-entry,national_pass,10,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP559,งาน บริการลูกค้า,สมัครงาน บริการลูกค้า | หางาน บริการลูกค้า,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP560,งาน แอดมิน,สมัครงาน แอดมิน | หางาน แอดมิน,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP561,หางาน พนักงานไลฟ์สด,งาน พนักงานไลฟ์สด | หางานพนักงานไลฟ์สด,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP562,สมัครงาน พนักงานไลฟ์สด,งาน พนักงานไลฟ์สด | สมัครงานพนักงานไลฟ์สด,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP563,งาน พนักงานไลฟ์สด,สมัครงาน พนักงานไลฟ์สด | หางาน พนักงานไลฟ์สด,FP,Formal,Pull,Formal job-entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP564,หางาน Digital Marketing,งาน Digital Marketing | หางานDigital Marketing,FP,Formal,Pull,Formal job-entry,WEAK,44,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP565,สมัครงาน Digital Marketing,งาน Digital Marketing | สมัครงานDigital Marketing,FP,Formal,Pull,Formal job-entry,WEAK,22,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP566,งาน Digital Marketing,สมัครงาน Digital Marketing | หางาน Digital Marketing,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP567,หางาน กราฟิกดีไซน์,งาน กราฟิกดีไซน์ | หางานกราฟิกดีไซน์,FP,Formal,Pull,Formal job-entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP568,สมัครงาน กราฟิกดีไซน์,งาน กราฟิกดีไซน์ | สมัครงานกราฟิกดีไซน์,FP,Formal,Pull,Formal job-entry,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP569,งาน กราฟิกดีไซน์,สมัครงาน กราฟิกดีไซน์ | หางาน กราฟิกดีไซน์,FP,Formal,Pull,Formal job-entry,national_pass,6,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP570,หางาน ช่างภาพ,งาน ช่างภาพ | หางานช่างภาพ,FP,Formal,Pull,Formal job-entry,national_pass,7,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP571,สมัครงาน ช่างภาพ,งาน ช่างภาพ | สมัครงานช่างภาพ,FP,Formal,Pull,Formal job-entry,national_pass,10,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP572,งาน ช่างภาพ,สมัครงาน ช่างภาพ | หางาน ช่างภาพ,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP573,หางาน ตัดต่อวิดีโอ,งาน ตัดต่อวิดีโอ | หางานตัดต่อวิดีโอ,FP,Formal,Pull,Formal job-entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP574,สมัครงาน ตัดต่อวิดีโอ,งาน ตัดต่อวิดีโอ | สมัครงานตัดต่อวิดีโอ,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP575,งาน ตัดต่อวิดีโอ,สมัครงาน ตัดต่อวิดีโอ | หางาน ตัดต่อวิดีโอ,FP,Formal,Pull,Formal job-entry,national_pass,2,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP576,หางาน Content Creator,งาน Content Creator | หางานContent Creator,FP,Formal,Pull,Formal job-entry,WEAK,43,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP577,สมัครงาน Content Creator,งาน Content Creator | สมัครงานContent Creator,FP,Formal,Pull,Formal job-entry,WEAK,20,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP578,งาน Content Creator,สมัครงาน Content Creator | หางาน Content Creator,FP,Formal,Pull,Formal job-entry,national_pass,6,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP579,หางาน พนักงานขายออนไลน์,งาน พนักงานขายออนไลน์ | หางานพนักงานขายออนไลน์,FP,Formal,Pull,Formal job-entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP580,สมัครงาน พนักงานขายออนไลน์,งาน พนักงานขายออนไลน์ | สมัครงานพนักงานขายออนไลน์,FP,Formal,Pull,Formal job-entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP581,งาน พนักงานขายออนไลน์,สมัครงาน พนักงานขายออนไลน์ | หางาน พนักงานขายออนไลน์,FP,Formal,Pull,Formal job-entry,WEAK,48,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP582,หางาน พนักงานขับรถ 6 ล้อ,งาน พนักงานขับรถ 6 ล้อ | หางานพนักงานขับรถ 6 ล้อ,FP,Formal,Pull,Formal job-entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP583,สมัครงาน พนักงานขับรถ 6 ล้อ,งาน พนักงานขับรถ 6 ล้อ | สมัครงานพนักงานขับรถ 6 ล้อ,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP584,งาน พนักงานขับรถ 6 ล้อ,สมัครงาน พนักงานขับรถ 6 ล้อ | หางาน พนักงานขับรถ 6 ล้อ,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP585,หางาน ขับรถโฟล์คลิฟท์,งาน ขับรถโฟล์คลิฟท์ | หางานขับรถโฟล์คลิฟท์,FP,Formal,Pull,Formal job-entry,WEAK,28,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP586,สมัครงาน ขับรถโฟล์คลิฟท์,งาน ขับรถโฟล์คลิฟท์ | สมัครงานขับรถโฟล์คลิฟท์,FP,Formal,Pull,Formal job-entry,WEAK,57,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP587,งาน ขับรถโฟล์คลิฟท์,สมัครงาน ขับรถโฟล์คลิฟท์ | หางาน ขับรถโฟล์คลิฟท์,FP,Formal,Pull,Formal job-entry,national_pass,16,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP588,หางาน พนักงานขนส่ง,งาน พนักงานขนส่ง | หางานพนักงานขนส่ง,FP,Formal,Pull,Formal job-entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP589,สมัครงาน พนักงานขนส่ง,งาน พนักงานขนส่ง | สมัครงานพนักงานขนส่ง,FP,Formal,Pull,Formal job-entry,WEAK,47,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP590,งาน พนักงานขนส่ง,สมัครงาน พนักงานขนส่ง | หางาน พนักงานขนส่ง,FP,Formal,Pull,Formal job-entry,national_pass,5,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP591,งาน เจ้าหน้าที่รับออเดอร์,งาน เจ้าหน้าที่รับออเดอร์ รายได้ | งาน เจ้าหน้าที่รับออเดอร์ ใกล้ฉัน,FP,Formal,Pull,Formal sales support,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP592,หางาน ผู้ช่วยเภสัช,งาน ผู้ช่วยเภสัช | หางานผู้ช่วยเภสัช,FP,Formal,Pull,Formal job-entry,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP593,สมัครงาน ผู้ช่วยเภสัช,งาน ผู้ช่วยเภสัช | สมัครงานผู้ช่วยเภสัช,FP,Formal,Pull,Formal job-entry,WEAK,52,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP594,งาน ผู้ช่วยเภสัช,สมัครงาน ผู้ช่วยเภสัช | หางาน ผู้ช่วยเภสัช,FP,Formal,Pull,Formal job-entry,WEAK,28,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP595,หางาน เวรเปล,งาน เวรเปล | หางานเวรเปล,FP,Formal,Pull,Formal job-entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP596,สมัครงาน เวรเปล,งาน เวรเปล | สมัครงานเวรเปล,FP,Formal,Pull,Formal job-entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP597,งาน เวรเปล,สมัครงาน เวรเปล | หางาน เวรเปล,FP,Formal,Pull,Formal job-entry,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP598,หางาน พนักงานดูแลสต๊อก,หางาน พนักงานดูแลสต๊อก รายได้ | หางาน พนักงานดูแลสต๊อก ใกล้ฉัน,FP,Formal,Pull,Formal inventory operations,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP599,สมัครงาน พนักงานดูแลสต๊อก,สมัครงาน พนักงานดูแลสต๊อก รายได้ | สมัครงาน พนักงานดูแลสต๊อก ใกล้ฉัน,FP,Formal,Pull,Formal inventory operations,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP600,งาน พนักงานดูแลสต๊อก,งาน พนักงานดูแลสต๊อก รายได้ | งาน พนักงานดูแลสต๊อก ใกล้ฉัน,FP,Formal,Pull,Formal inventory operations,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP601,หางาน พี่เลี้ยงเด็ก,งาน พี่เลี้ยงเด็ก | หางานพี่เลี้ยงเด็ก,FP,Formal,Pull,Formal job-entry,national_pass,6,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP602,สมัครงาน พี่เลี้ยงเด็ก,งาน พี่เลี้ยงเด็ก | สมัครงานพี่เลี้ยงเด็ก,FP,Formal,Pull,Formal job-entry,WEAK,23,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP603,งาน พี่เลี้ยงเด็ก,สมัครงาน พี่เลี้ยงเด็ก | หางาน พี่เลี้ยงเด็ก,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP604,หางาน ผู้ช่วยทันตแพทย์,งาน ผู้ช่วยทันตแพทย์ | หางานผู้ช่วยทันตแพทย์,FP,Formal,Pull,Formal job-entry,national_pass,10,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP605,สมัครงาน ผู้ช่วยทันตแพทย์,งาน ผู้ช่วยทันตแพทย์ | สมัครงานผู้ช่วยทันตแพทย์,FP,Formal,Pull,Formal job-entry,WEAK,17,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP606,งาน ผู้ช่วยทันตแพทย์,สมัครงาน ผู้ช่วยทันตแพทย์ | หางาน ผู้ช่วยทันตแพทย์,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP607,งาน ครู,สมัครงาน ครู | หางาน ครู,FP,Formal,Pull,Formal job-entry,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+FP608,หางาน ครูผู้ช่วย,งาน ครูผู้ช่วย | หางานครูผู้ช่วย,FP,Formal,Pull,Formal job-entry,WEAK,30,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP609,สมัครงาน ครูผู้ช่วย,งาน ครูผู้ช่วย | สมัครงานครูผู้ช่วย,FP,Formal,Pull,Formal job-entry,national_pass,7,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP610,งาน ครูผู้ช่วย,สมัครงาน ครูผู้ช่วย | หางาน ครูผู้ช่วย,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP611,หางาน ครูอัตราจ้าง,งาน ครูอัตราจ้าง | หางานครูอัตราจ้าง,FP,Formal,Pull,Formal job-entry,WEAK,25,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP612,สมัครงาน ครูอัตราจ้าง,งาน ครูอัตราจ้าง | สมัครงานครูอัตราจ้าง,FP,Formal,Pull,Formal job-entry,national_pass,8,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP613,งาน ครูอัตราจ้าง,สมัครงาน ครูอัตราจ้าง | หางาน ครูอัตราจ้าง,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP614,หางาน ครูเอกชน,งาน ครูเอกชน | หางานครูเอกชน,FP,Formal,Pull,Formal job-entry,WEAK,24,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP615,สมัครงาน ครูเอกชน,งาน ครูเอกชน | สมัครงานครูเอกชน,FP,Formal,Pull,Formal job-entry,national_pass,6,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP616,งาน ครูเอกชน,สมัครงาน ครูเอกชน | หางาน ครูเอกชน,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP617,งาน อาจารย์,สมัครงาน อาจารย์ | หางาน อาจารย์,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP618,หางาน ติวเตอร์,งาน ติวเตอร์ | หางานติวเตอร์,FP,Formal,Pull,Formal job-entry,WEAK,46,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP619,สมัครงาน ติวเตอร์,งาน ติวเตอร์ | สมัครงานติวเตอร์,FP,Formal,Pull,Formal job-entry,WEAK,45,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP620,งาน ติวเตอร์,สมัครงาน ติวเตอร์ | หางาน ติวเตอร์,FP,Formal,Pull,Formal job-entry,national_pass,2,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP621,หางาน พนักงานบิ๊กซี,งาน พนักงานบิ๊กซี | หางานพนักงานบิ๊กซี,FP,Formal,Pull,Formal job-entry,WEAK,56,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP622,สมัครงาน พนักงานบิ๊กซี,งาน พนักงานบิ๊กซี | สมัครงานพนักงานบิ๊กซี,FP,Formal,Pull,Formal job-entry,WEAK,38,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP623,งาน พนักงานบิ๊กซี,สมัครงาน พนักงานบิ๊กซี | หางาน พนักงานบิ๊กซี,FP,Formal,Pull,Formal job-entry,national_pass,13,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP624,หางาน พนักงานโลตัส,งาน พนักงานโลตัส | หางานพนักงานโลตัส,FP,Formal,Pull,Formal job-entry,WEAK,43,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP625,สมัครงาน พนักงานโลตัส,งาน พนักงานโลตัส | สมัครงานพนักงานโลตัส,FP,Formal,Pull,Formal job-entry,national_pass,9,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP626,งาน พนักงานโลตัส,สมัครงาน พนักงานโลตัส | หางาน พนักงานโลตัส,FP,Formal,Pull,Formal job-entry,national_pass,2,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP627,หางาน พนักงานเซเว่น,งาน พนักงานเซเว่น | หางานพนักงานเซเว่น,FP,Formal,Pull,Formal job-entry,WEAK,40,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP628,สมัครงาน พนักงานเซเว่น,งาน พนักงานเซเว่น | สมัครงานพนักงานเซเว่น,FP,Formal,Pull,Formal job-entry,national_pass,3,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP629,งาน พนักงานเซเว่น,สมัครงาน พนักงานเซเว่น | หางาน พนักงานเซเว่น,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP630,หางาน พนักงานแม็คโคร,งาน พนักงานแม็คโคร | หางานพนักงานแม็คโคร,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP631,สมัครงาน พนักงานแม็คโคร,งาน พนักงานแม็คโคร | สมัครงานพนักงานแม็คโคร,FP,Formal,Pull,Formal job-entry,WEAK,55,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP632,งาน พนักงานแม็คโคร,สมัครงาน พนักงานแม็คโคร | หางาน พนักงานแม็คโคร,FP,Formal,Pull,Formal job-entry,WEAK,28,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP633,หางาน พนักงานไทวัสดุ,งาน พนักงานไทวัสดุ | หางานพนักงานไทวัสดุ,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP634,สมัครงาน พนักงานไทวัสดุ,งาน พนักงานไทวัสดุ | สมัครงานพนักงานไทวัสดุ,FP,Formal,Pull,Formal job-entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP635,งาน พนักงานไทวัสดุ,สมัครงาน พนักงานไทวัสดุ | หางาน พนักงานไทวัสดุ,FP,Formal,Pull,Formal job-entry,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP636,หางาน พนักงานโฮมโปร,งาน พนักงานโฮมโปร | หางานพนักงานโฮมโปร,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP637,สมัครงาน พนักงานโฮมโปร,งาน พนักงานโฮมโปร | สมัครงานพนักงานโฮมโปร,FP,Formal,Pull,Formal job-entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP638,งาน พนักงานโฮมโปร,สมัครงาน พนักงานโฮมโปร | หางาน พนักงานโฮมโปร,FP,Formal,Pull,Formal job-entry,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP639,หางาน พนักงานร้านสะดวกซื้อ,งาน พนักงานร้านสะดวกซื้อ | หางานพนักงานร้านสะดวกซื้อ,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP640,สมัครงาน พนักงานร้านสะดวกซื้อ,งาน พนักงานร้านสะดวกซื้อ | สมัครงานพนักงานร้านสะดวกซื้อ,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP641,งาน พนักงานร้านสะดวกซื้อ,สมัครงาน พนักงานร้านสะดวกซื้อ | หางาน พนักงานร้านสะดวกซื้อ,FP,Formal,Pull,Formal job-entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP642,หางาน พนักงานขายมือถือ,งาน พนักงานขายมือถือ | หางานพนักงานขายมือถือ,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP643,สมัครงาน พนักงานขายมือถือ,งาน พนักงานขายมือถือ | สมัครงานพนักงานขายมือถือ,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP644,งาน พนักงานขายมือถือ,สมัครงาน พนักงานขายมือถือ | หางาน พนักงานขายมือถือ,FP,Formal,Pull,Formal job-entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP645,หางาน พนักงานขายรถ,งาน พนักงานขายรถ | หางานพนักงานขายรถ,FP,Formal,Pull,Formal job-entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP646,สมัครงาน พนักงานขายรถ,งาน พนักงานขายรถ | สมัครงานพนักงานขายรถ,FP,Formal,Pull,Formal job-entry,WEAK,51,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP647,งาน พนักงานขายรถ,สมัครงาน พนักงานขายรถ | หางาน พนักงานขายรถ,FP,Formal,Pull,Formal job-entry,WEAK,19,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP648,หางาน พนักงานประกัน,งาน พนักงานประกัน | หางานพนักงานประกัน,FP,Formal,Pull,Formal job-entry,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP649,สมัครงาน พนักงานประกัน,งาน พนักงานประกัน | สมัครงานพนักงานประกัน,FP,Formal,Pull,Formal job-entry,WEAK,39,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP650,งาน พนักงานประกัน,สมัครงาน พนักงานประกัน | หางาน พนักงานประกัน,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP651,หางาน เซลล์,งาน เซลล์ | หางานเซลล์,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP652,สมัครงาน เซลล์,งาน เซลล์ | สมัครงานเซลล์,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP653,งาน เซลล์,สมัครงาน เซลล์ | หางาน เซลล์,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP654,หางาน พนักงานขายวัสดุก่อสร้าง,งาน พนักงานขายวัสดุก่อสร้าง | หางานพนักงานขายวัสดุก่อสร้าง,FP,Formal,Pull,Formal job-entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP655,สมัครงาน พนักงานขายวัสดุก่อสร้าง,งาน พนักงานขายวัสดุก่อสร้าง | สมัครงานพนักงานขายวัสดุก่อสร้าง,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP656,งาน พนักงานขายวัสดุก่อสร้าง,สมัครงาน พนักงานขายวัสดุก่อสร้าง | หางาน พนักงานขายวัสดุก่อสร้าง,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP657,หางาน พนักงานซ่อมมือถือ,งาน พนักงานซ่อมมือถือ | หางานพนักงานซ่อมมือถือ,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP658,สมัครงาน พนักงานซ่อมมือถือ,งาน พนักงานซ่อมมือถือ | สมัครงานพนักงานซ่อมมือถือ,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP659,งาน พนักงานซ่อมมือถือ,สมัครงาน พนักงานซ่อมมือถือ | หางาน พนักงานซ่อมมือถือ,FP,Formal,Pull,Formal job-entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP660,หางาน ช่างคอมพิวเตอร์,งาน ช่างคอมพิวเตอร์ | หางานช่างคอมพิวเตอร์,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP661,สมัครงาน ช่างคอมพิวเตอร์,งาน ช่างคอมพิวเตอร์ | สมัครงานช่างคอมพิวเตอร์,FP,Formal,Pull,Formal job-entry,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP662,งาน ช่างคอมพิวเตอร์,สมัครงาน ช่างคอมพิวเตอร์ | หางาน ช่างคอมพิวเตอร์,FP,Formal,Pull,Formal job-entry,WEAK,22,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP663,หางาน IT Support,งาน IT Support | หางานIT Support,FP,Formal,Pull,Formal job-entry,national_pass,6,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP664,สมัครงาน IT Support,งาน IT Support | สมัครงานIT Support,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP665,งาน IT Support,สมัครงาน IT Support | หางาน IT Support,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP666,หางาน โปรแกรมเมอร์,งาน โปรแกรมเมอร์ | หางานโปรแกรมเมอร์,FP,Formal,Pull,Formal job-entry,national_pass,10,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP667,สมัครงาน โปรแกรมเมอร์,งาน โปรแกรมเมอร์ | สมัครงานโปรแกรมเมอร์,FP,Formal,Pull,Formal job-entry,WEAK,30,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP668,งาน โปรแกรมเมอร์,สมัครงาน โปรแกรมเมอร์ | หางาน โปรแกรมเมอร์,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP669,หางาน System Admin,งาน System Admin | หางานSystem Admin,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP670,สมัครงาน System Admin,งาน System Admin | สมัครงานSystem Admin,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP671,งาน System Admin,สมัครงาน System Admin | หางาน System Admin,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP672,หางาน Web Designer,งาน Web Designer | หางานWeb Designer,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP673,สมัครงาน Web Designer,งาน Web Designer | สมัครงานWeb Designer,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP674,งาน Web Designer,สมัครงาน Web Designer | หางาน Web Designer,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP675,หางาน UX UI,งาน UX UI | หางานUX UI,FP,Formal,Pull,Formal job-entry,WEAK,36,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP676,สมัครงาน UX UI,งาน UX UI | สมัครงานUX UI,FP,Formal,Pull,Formal job-entry,WEAK,32,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP677,งาน UX UI,สมัครงาน UX UI | หางาน UX UI,FP,Formal,Pull,Formal job-entry,national_pass,2,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP678,หางาน พนักงานร้านยา,งาน พนักงานร้านยา | หางานพนักงานร้านยา,FP,Formal,Pull,Formal job-entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP679,สมัครงาน พนักงานร้านยา,งาน พนักงานร้านยา | สมัครงานพนักงานร้านยา,FP,Formal,Pull,Formal job-entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP680,งาน พนักงานร้านยา,สมัครงาน พนักงานร้านยา | หางาน พนักงานร้านยา,FP,Formal,Pull,Formal job-entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP681,หางาน เภสัชกร,งาน เภสัชกร | หางานเภสัชกร,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP682,สมัครงาน เภสัชกร,งาน เภสัชกร | สมัครงานเภสัชกร,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP683,งาน เภสัชกร,สมัครงาน เภสัชกร | หางาน เภสัชกร,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP684,หางาน นักเทคนิคการแพทย์,งาน นักเทคนิคการแพทย์ | หางานนักเทคนิคการแพทย์,FP,Formal,Pull,Formal job-entry,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP685,สมัครงาน นักเทคนิคการแพทย์,งาน นักเทคนิคการแพทย์ | สมัครงานนักเทคนิคการแพทย์,FP,Formal,Pull,Formal job-entry,WEAK,47,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP686,งาน นักเทคนิคการแพทย์,สมัครงาน นักเทคนิคการแพทย์ | หางาน นักเทคนิคการแพทย์,FP,Formal,Pull,Formal job-entry,national_pass,4,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FP687,หางาน นักกายภาพบำบัด,งาน นักกายภาพบำบัด | หางานนักกายภาพบำบัด,FP,Formal,Pull,Formal job-entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FP688,สมัครงาน นักกายภาพบำบัด,งาน นักกายภาพบำบัด | สมัครงานนักกายภาพบำบัด,FP,Formal,Pull,Formal job-entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FP689,สมัครงาน พนักงานขาย,งาน พนักงานขาย | สมัครงานพนักงานขาย,FP,Formal,Pull,Formal job-entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU001,Toxic workplace,Toxic workplace | toxic ที่ทำงาน | ที่ทำงาน toxic,FU,Formal,Push,White-collar,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU002,burnout หมดไฟ,burnout หมดไฟ | หมดไฟทำงาน | เบิร์นเอาท์,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU003,ข้ออ้างลาออก,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU004,ตกงาน หางานใหม่,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU005,ทำงานไม่ไหว,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU006,นายจ้างหักโอที,,FU,Formal,Push,general,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU007,นายจ้างไม่จ่ายเงินเดือน,,FU,Formal,Push,general,national_pass,0,Archive,N,Archive จาก region/tier review
+FU008,บริษัทงดจ่ายโบนัส,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU009,บริษัทจะปิดกิจการ,,FU,Formal,Push,general,WEAK,52,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU010,บริษัทเจ๊ง,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU011,ผู้ประกันตน ม.39,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU012,ย้ายที่ทำงาน ไม่อยากไป,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU013,รายงานตัวว่างงาน ออนไลน์,,FU,Formal,Push,general,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+FU014,ลงทะเบียนว่างงาน ประกันสังคม,,FU,Formal,Push,general,active_v25,0,T1,Y,ใช้ได้แล้วใน Interactive v25
+FU015,ลาออกจากงาน,,FU,Formal,Push,general,active_v25,0,T1,Y,ใช้ได้แล้วใน Interactive v25
+FU016,ลาออกล่วงหน้า 30 วัน,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU017,ว่างงาน ขอเงิน,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU018,ว่างงาน ประกันสังคม,,FU,Formal,Push,general,active_v25,0,T1,Y,ใช้ได้แล้วใน Interactive v25
+FU019,หมดสัญญา ไม่ต่อ,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU020,หักเงินมาสาย ผิดกฎหมายไหม,,FU,Formal,Push,general,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU021,เขียนใบลาออก,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU022,เครียดจากงาน,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU023,เงินทดแทนว่างงาน ได้กี่เดือน,,FU,Formal,Push,general,WEAK,55,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU024,เงินเดือนออกช้า,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU025,เงินเดือนไม่ขึ้น,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU026,เบื่องาน,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU027,เบื่อเจ้านาย,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU028,เลิกจ้างกะทันหัน เงินชดเชย,,FU,Formal,Push,general,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU029,เลิกจ้างตามมาตรา 118,,FU,Formal,Push,general,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU030,โดนคุกคามที่ทำงาน,,FU,Formal,Push,general,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU031,โดนบีบให้ออก กฎหมาย,,FU,Formal,Push,general,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU032,โดนลดเงินเดือน,,FU,Formal,Push,general,WEAK,53,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU033,โดนเลิกจ้าง,,FU,Formal,Push,general,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU034,ไม่มีความสุขกับงาน,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU035,ผู้ประกันตน ม.33 ว่างงาน,ผู้ประกันตน ม.33 ว่างงาน | ม33 ว่างงาน,FU,Formal,Push,general,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU036,มาตรา 33 ลาออกได้เงินไหม,ม33 ลาออกได้เงินไหม | มาตรา 33 ลาออกได้เงินไหม,FU,Formal,Push,general,WEAK,33,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU037,ถูกเลิกจ้าง มาตรา 33,ถูกเลิกจ้าง มาตรา 33 | โดนเลิกจ้าง ม33,FU,Formal,Push,general,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU038,พนักงานโรงงานโดนเลิกจ้าง,,FU,Formal,Push,Blue-collar,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU039,นายจ้างไม่ส่งประกันสังคม,,FU,Formal,Push,general,national_pass,12,Archive,N,Archive จาก region/tier review
+FU040,ลูกจ้างรายเดือน ลาออก,,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU041,ค่าชดเชยเลิกจ้าง,ค่าชดเชยเมื่อถูกเลิกจ้าง | เงินชดเชยเลิกจ้าง,FU,Formal,Push,general,national_pass,0,Archive,N,Archive จาก region/tier review
+FU042,คำนวณค่าชดเชยเลิกจ้าง,คำนวณเงินชดเชยเลิกจ้าง,FU,Formal,Push,general,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU043,เลิกจ้างไม่จ่ายค่าชดเชย,ไม่ได้เงินชดเชยเลิกจ้าง,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU044,นายจ้างไม่จ่ายค่าชดเชย,นายจ้างไม่จ่ายเงินชดเชย,FU,Formal,Push,general,national_pass,4,Archive,N,Archive จาก region/tier review
+FU045,นายจ้างไม่จ่ายค่าแรง,นายจ้างไม่จ่ายค่าจ้าง,FU,Formal,Push,general,WEAK,34,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU046,นายจ้างไม่จ่ายโอที,โอทีไม่จ่าย | ไม่จ่ายค่าล่วงเวลา,FU,Formal,Push,general,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU047,ร้องเรียนกรมแรงงาน,แจ้งกรมแรงงาน,FU,Formal,Push,general,national_pass,0,Archive,N,Archive จาก region/tier review
+FU048,แจ้งกรมแรงงาน นายจ้างไม่จ่ายเงินเดือน,ร้องเรียนนายจ้างไม่จ่ายเงินเดือน,FU,Formal,Push,general,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU049,เลิกจ้างไม่บอกล่วงหน้า,เลิกจ้างกะทันหัน,FU,Formal,Push,general,WEAK,56,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU050,บริษัทปิดกิจการ ค่าชดเชย,ปิดกิจการจ่ายค่าชดเชย,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU051,โดนพักงาน ไม่ได้เงินเดือน,พักงานไม่จ่ายเงินเดือน,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU052,ขอเงินว่างงานประกันสังคม,เงินว่างงานประกันสังคม,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU053,ยื่นว่างงานประกันสังคม,ยื่นสิทธิว่างงานประกันสังคม,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU054,เงินว่างงานประกันสังคมกี่วันได้,เงินว่างงานกี่วันได้,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU055,ลาออก ประกันสังคม มาตรา 33,ลาออก ม.33 ได้เงินไหม,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU056,เลิกจ้าง พนักงาน,พนักงานถูกเลิกจ้าง | พนักงานโดนเลิกจ้าง,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU057,ไม่ต่อสัญญาจ้าง,ไม่ต่อสัญญา | ไม่ต่อสัญญาลูกจ้าง,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU058,สัญญาจ้างหมด,สัญญางานหมด | หมดสัญญาจ้าง,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU059,บังคับลาออก,ถูกบังคับลาออก | ให้ลาออก,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU060,ลดเงินเดือน พนักงาน,บริษัทลดเงินเดือน | ลดเงินเดือน,FU,Formal,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+FU061,ขึ้นทะเบียนว่างงาน,ขึ้นทะเบียนคนว่างงาน | ขึ้นทะเบียนผู้ว่างงาน,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU062,ขึ้นทะเบียนว่างงานออนไลน์,ขึ้นทะเบียนคนว่างงานออนไลน์ | ขึ้นทะเบียนผู้ว่างงานออนไลน์,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU063,ลงทะเบียนว่างงานออนไลน์,ลงทะเบียนคนว่างงานออนไลน์ | ลงทะเบียนผู้ว่างงานออนไลน์,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU064,รายงานตัวว่างงาน,รายงานตัวคนว่างงาน | รายงานตัวผู้ว่างงาน,FU,Formal,Push,Unemployment/Social-security,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+FU065,รายงานตัวว่างงาน ประกันสังคม,รายงานตัวคนว่างงาน ประกันสังคม | รายงานตัวประกันสังคมว่างงาน,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU066,ยื่นขอว่างงาน ประกันสังคม,ยื่นขอเงินว่างงาน ประกันสังคม | ยื่นสิทธิว่างงาน ประกันสังคม,FU,Formal,Push,Unemployment/Social-security,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU067,แจ้งว่างงาน ประกันสังคม,แจ้งประกันสังคมว่างงาน | แจ้งเป็นผู้ว่างงาน,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU068,ว่างงาน มาตรา 33,ม.33 ว่างงาน | มาตรา 33 ว่างงาน,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU069,ม.33 ว่างงาน,ม33 ว่างงาน | มาตรา33 ว่างงาน,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU070,เงินว่างงาน ประกันสังคม,เงินประกันสังคมว่างงาน | เงินว่างงานประกันสังคม,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU071,เงินชดเชยว่างงาน,ชดเชยว่างงาน | เงินชดเชยคนว่างงาน,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU072,เงินทดแทนการว่างงาน,ประโยชน์ทดแทนการว่างงาน | เงินทดแทนว่างงาน,FU,Formal,Push,Unemployment/Social-security,WEAK,38,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU073,ว่างงานได้เงินกี่เดือน,ว่างงานประกันสังคมได้เงินกี่เดือน | เงินว่างงานได้กี่เดือน,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU074,ว่างงานได้เงินเท่าไหร่,ประกันสังคมว่างงานได้เงินเท่าไหร่ | เงินว่างงานได้เท่าไหร่,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU075,ตกงานได้เงินชดเชย,ตกงานได้ชดเชยไหม | ตกงานได้เงินไหม,FU,Formal,Push,Unemployment/Social-security,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU076,ตกงานประกันสังคมจ่ายไหม,ตกงานประกันสังคมได้เงินไหม | ประกันสังคมจ่ายไหมเมื่อตกงาน,FU,Formal,Push,Unemployment/Social-security,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU077,ตกงาน ประกันสังคม,ตกงานประกันสังคม | ประกันสังคมตกงาน,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU078,ว่างงาน รายงานตัว,รายงานตัวหลังว่างงาน | ว่างงานต้องรายงานตัว,FU,Formal,Push,Unemployment/Social-security,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+FU079,รายงานตัวว่างงานไม่ได้,รายงานตัวว่างงานมีปัญหา | รายงานตัวว่างงานไม่ผ่าน,FU,Formal,Push,Unemployment/Social-security,national_pass,2,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU080,ตรวจสอบสิทธิว่างงาน,ตรวจสอบสิทธิคนว่างงาน | ตรวจสิทธิว่างงาน,FU,Formal,Push,Unemployment/Social-security,WEAK,36,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU081,เช็คสิทธิว่างงาน,เช็คว่างงานประกันสังคม | เช็คสิทธิคนว่างงาน,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU082,สถานะว่างงาน ประกันสังคม,ตรวจสถานะว่างงาน | สถานะผู้ว่างงาน ประกันสังคม,FU,Formal,Push,Unemployment/Social-security,national_pass,8,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU083,เงินว่างงานเข้าวันไหน,เงินว่างงานประกันสังคมเข้าวันไหน | เงินว่างงานเข้าบัญชีวันไหน,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU084,ว่างงานรายงานตัวกี่ครั้ง,รายงานตัวว่างงานกี่ครั้ง | ว่างงานต้องรายงานตัวกี่ครั้ง,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU085,สิทธิว่างงาน ประกันสังคม,สิทธิคนว่างงาน ประกันสังคม | สิทธิผู้ว่างงาน,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU086,ว่างงาน ประกันสังคม มาตรา 33,ประกันสังคมมาตรา 33 ว่างงาน | ว่างงาน ม.33 ประกันสังคม,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU087,ลาออก ว่างงาน ประกันสังคม,ลาออกขอว่างงานประกันสังคม | ลาออกแล้วว่างงาน ประกันสังคม,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU088,ถูกเลิกจ้าง ว่างงาน ประกันสังคม,ถูกเลิกจ้างประกันสังคมว่างงาน | เลิกจ้างขอว่างงานประกันสังคม,FU,Formal,Push,Unemployment/Social-security,WEAK,55,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU089,โดนเลิกจ้าง ว่างงาน ประกันสังคม,โดนเลิกจ้างขอว่างงาน | โดนเลิกจ้างประกันสังคมว่างงาน,FU,Formal,Push,Unemployment/Social-security,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU090,ประกันสังคมว่างงานกี่วันได้เงิน,ว่างงานประกันสังคมกี่วันได้เงิน | เงินว่างงานกี่วันได้,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU091,ขอรับเงินว่างงาน,ขอรับเงินคนว่างงาน | ขอเงินว่างงาน,FU,Formal,Push,Unemployment/Social-security,national_pass,15,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU092,ขอรับเงินว่างงานออนไลน์,ขอรับเงินคนว่างงานออนไลน์ | ขอเงินว่างงานออนไลน์,FU,Formal,Push,Unemployment/Social-security,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU093,ขอรับประโยชน์ทดแทนว่างงาน,ขอประโยชน์ทดแทนว่างงาน | รับประโยชน์ทดแทนว่างงาน,FU,Formal,Push,Unemployment/Social-security,WEAK,32,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU094,ยื่นขอประโยชน์ทดแทนว่างงาน,ยื่นขอเงินทดแทนว่างงาน | ยื่นประโยชน์ทดแทนว่างงาน,FU,Formal,Push,Unemployment/Social-security,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU095,แบบฟอร์มว่างงาน ประกันสังคม,แบบฟอร์มขอเงินว่างงาน | แบบฟอร์มขึ้นทะเบียนว่างงาน,FU,Formal,Push,Unemployment/Social-security,WEAK,35,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU096,เอกสารว่างงาน ประกันสังคม,เอกสารขอเงินว่างงาน | เอกสารขึ้นทะเบียนว่างงาน,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU097,ว่างงานต้องทำยังไง,ตกงานต้องทำยังไง | ว่างงานทำไงดี,FU,Formal,Push,Unemployment/Social-security,WEAK,55,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU098,ตกงานต้องทำยังไง,ตกงานทำยังไง | ตกงานทำไงดี,FU,Formal,Push,Unemployment/Social-security,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU099,ตกงาน หางาน,ตกงานหางาน | ตกงานแล้วหางาน,FU,Formal,Push,Unemployment/Social-security,national_pass,8,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU100,ว่างงาน หางาน,ว่างงานหางาน | ว่างงานแล้วหางาน,FU,Formal,Push,Unemployment/Social-security,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU101,ตรวจสอบสถานะเงินว่างงาน,ตรวจสอบสถานะเงินว่างงาน รายได้ | ตรวจสอบสถานะเงินว่างงาน ใกล้ฉัน,FU,Formal,Push,Formal safety-net,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU102,เช็คสิทธิเงินว่างงาน,เช็คสิทธิเงินว่างงาน ประกันสังคม | เช็คสิทธิเงินว่างงาน ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,27,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU103,เงินว่างงานไม่เข้า,เงินว่างงานไม่เข้า ประกันสังคม | เงินว่างงานไม่เข้า ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU104,เงินว่างงานประกันสังคมไม่เข้า,เงินว่างงานประกันสังคมไม่เข้า ประกันสังคม | เงินว่างงานประกันสังคมไม่เข้า ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,3,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU105,เงินชดเชยเลิกจ้าง,เงินชดเชยเลิกจ้าง ประกันสังคม | เงินชดเชยเลิกจ้าง ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU106,คำนวณเงินชดเชยเลิกจ้าง,คำนวณเงินชดเชยเลิกจ้าง ประกันสังคม | คำนวณเงินชดเชยเลิกจ้าง ออนไลน์,FU,Formal,Push,Formal safety-net,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU107,แจ้งแรงงานออนไลน์,แจ้งแรงงานออนไลน์ ประกันสังคม | แจ้งแรงงานออนไลน์ ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,4,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU108,ถูกเลิกจ้าง ทำอย่างไร,ถูกเลิกจ้าง ทำอย่างไร ประกันสังคม | ถูกเลิกจ้าง ทำอย่างไร ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU109,โดนเลิกจ้าง ได้เงินอะไรบ้าง,โดนเลิกจ้าง ได้เงินอะไรบ้าง ประกันสังคม | โดนเลิกจ้าง ได้เงินอะไรบ้าง ออนไลน์,FU,Formal,Push,Formal safety-net,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU110,หมดสัญญาจ้าง ประกันสังคม,หมดสัญญาจ้าง ประกันสังคม ประกันสังคม | หมดสัญญาจ้าง ประกันสังคม ออนไลน์,FU,Formal,Push,Formal safety-net,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU111,เลิกจ้าง ประกันสังคม,เลิกจ้าง ประกันสังคม ประกันสังคม | เลิกจ้าง ประกันสังคม ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU112,ถูกให้ออกจากงาน,ถูกให้ออกจากงาน ประกันสังคม | ถูกให้ออกจากงาน ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU113,บอกเลิกจ้างกะทันหัน,บอกเลิกจ้างกะทันหัน ประกันสังคม | บอกเลิกจ้างกะทันหัน ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU114,บริษัทเลิกจ้าง,บริษัทเลิกจ้าง ประกันสังคม | บริษัทเลิกจ้าง ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU115,โรงงานเลิกจ้าง,โรงงานเลิกจ้าง ประกันสังคม | โรงงานเลิกจ้าง ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,45,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU116,ค่าชดเชยปิดกิจการ,ค่าชดเชยปิดกิจการ ประกันสังคม | ค่าชดเชยปิดกิจการ ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU117,นายจ้างค้างค่าแรง,นายจ้างค้างค่าแรง ประกันสังคม | นายจ้างค้างค่าแรง ออนไลน์,FU,Formal,Push,Formal safety-net,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU118,ค่าแรงไม่ออก,ค่าแรงไม่ออก ประกันสังคม | ค่าแรงไม่ออก ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,35,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU119,ค่าจ้างไม่ครบ,ค่าจ้างไม่ครบ ประกันสังคม | ค่าจ้างไม่ครบ ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,21,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU120,โอทีไม่ออก,โอทีไม่ออก ประกันสังคม | โอทีไม่ออก ออนไลน์,FU,Formal,Push,Formal safety-net,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU121,เงินเดือนถูกหัก,เงินเดือนถูกหัก ประกันสังคม | เงินเดือนถูกหัก ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,9,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU122,ต่อสัญญาจ้างไม่ได้,ต่อสัญญาจ้างไม่ได้ ประกันสังคม | ต่อสัญญาจ้างไม่ได้ ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,7,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU123,ไม่ผ่านทดลองงาน,ไม่ผ่านทดลองงาน ประกันสังคม | ไม่ผ่านทดลองงาน ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU124,ออกจากงานได้เงินอะไร,ออกจากงานได้เงินอะไร ประกันสังคม | ออกจากงานได้เงินอะไร ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,4,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU125,ลาออกได้เงินว่างงานไหม,ลาออกได้เงินว่างงานไหม ประกันสังคม | ลาออกได้เงินว่างงานไหม ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,45,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU126,เลิกจ้างได้เงินว่างงานไหม,เลิกจ้างได้เงินว่างงานไหม ประกันสังคม | เลิกจ้างได้เงินว่างงานไหม ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU127,รายงานตัวว่างงานไม่ทัน,รายงานตัวว่างงานไม่ทัน ประกันสังคม | รายงานตัวว่างงานไม่ทัน ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU128,ขึ้นทะเบียนว่างงานไม่ทัน,ขึ้นทะเบียนว่างงานไม่ทัน ประกันสังคม | ขึ้นทะเบียนว่างงานไม่ทัน ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU129,ยื่นขอเงินทดแทนว่างงาน,ยื่นขอเงินทดแทนว่างงาน รายได้ | ยื่นขอเงินทดแทนว่างงาน ใกล้ฉัน,FU,Formal,Push,Formal safety-net,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU130,ยื่นว่างงานออนไลน์,ยื่นว่างงานออนไลน์ ประกันสังคม | ยื่นว่างงานออนไลน์ ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU131,รับเงินว่างงานกี่วัน,รับเงินว่างงานกี่วัน ประกันสังคม | รับเงินว่างงานกี่วัน ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,12,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU132,เงินชดเชยว่างงานกี่เดือน,เงินชดเชยว่างงานกี่เดือน ประกันสังคม | เงินชดเชยว่างงานกี่เดือน ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,31,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU133,ประกันสังคมว่างงาน ม.33,ประกันสังคมว่างงาน ม.33 ประกันสังคม | ประกันสังคมว่างงาน ม.33 ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,10,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU134,ผู้ประกันตนว่างงาน,ผู้ประกันตนว่างงาน ประกันสังคม | ผู้ประกันตนว่างงาน ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU135,สิทธิประโยชน์ว่างงาน,สิทธิประโยชน์ว่างงาน ประกันสังคม | สิทธิประโยชน์ว่างงาน ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,26,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU136,จ้างออกค่าชดเชย,จ้างออกค่าชดเชย ประกันสังคม | จ้างออกค่าชดเชย ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,16,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU137,ถูกลดเงินเดือน,ถูกลดเงินเดือน ประกันสังคม | ถูกลดเงินเดือน ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,46,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU138,ถูกลดชั่วโมงทำงาน,ถูกลดชั่วโมงทำงาน ประกันสังคม | ถูกลดชั่วโมงทำงาน ออนไลน์,FU,Formal,Push,Formal safety-net,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU139,ถูกพักงานไม่จ่ายเงิน,ถูกพักงานไม่จ่ายเงิน ประกันสังคม | ถูกพักงานไม่จ่ายเงิน ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU140,ปิดโรงงานเลิกจ้าง,ปิดโรงงานเลิกจ้าง ประกันสังคม | ปิดโรงงานเลิกจ้าง ออนไลน์,FU,Formal,Push,Formal safety-net,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU141,ย้ายงานไม่ได้ค่าจ้าง,ย้ายงานไม่ได้ค่าจ้าง ประกันสังคม | ย้ายงานไม่ได้ค่าจ้าง ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU142,เช็คประกันสังคม ม.33,เช็คประกันสังคม ม.33 ประกันสังคม | เช็คประกันสังคม ม.33 ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,2,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU143,เงินสมทบประกันสังคมค้าง,เงินสมทบประกันสังคมค้าง ประกันสังคม | เงินสมทบประกันสังคมค้าง ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU144,ออกจากงานมาตรา 33,ออกจากงานมาตรา 33 ประกันสังคม | ออกจากงานมาตรา 33 ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,3,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU145,สิ้นสุดสัญญาจ้าง,สิ้นสุดสัญญาจ้าง ประกันสังคม | สิ้นสุดสัญญาจ้าง ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,8,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU146,เลิกจ้างไม่แจ้งล่วงหน้า,เลิกจ้างไม่แจ้งล่วงหน้า ประกันสังคม | เลิกจ้างไม่แจ้งล่วงหน้า ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU147,ค่าบอกกล่าวล่วงหน้า,ค่าบอกกล่าวล่วงหน้า ประกันสังคม | ค่าบอกกล่าวล่วงหน้า ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,8,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU148,ถูกเลิกจ้างช่วงทดลองงาน,ถูกเลิกจ้างช่วงทดลองงาน ประกันสังคม | ถูกเลิกจ้างช่วงทดลองงาน ออนไลน์,FU,Formal,Push,Formal safety-net,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU149,โดนบีบให้ออก,โดนบีบให้ออก ประกันสังคม | โดนบีบให้ออก ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU150,ร้องเรียนค่าแรงขั้นต่ำ,ร้องเรียนค่าแรงขั้นต่ำ ประกันสังคม | ร้องเรียนค่าแรงขั้นต่ำ ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU151,นายจ้างไม่ทำสัญญาจ้าง,นายจ้างไม่ทำสัญญาจ้าง ประกันสังคม | นายจ้างไม่ทำสัญญาจ้าง ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,34,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU152,เลิกจ้างไม่จ่ายเงินเดือน,เลิกจ้างไม่จ่ายเงินเดือน ประกันสังคม | เลิกจ้างไม่จ่ายเงินเดือน ออนไลน์,FU,Formal,Push,Formal safety-net,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU153,เลิกจ้างไม่จ่ายโอที,เลิกจ้างไม่จ่ายโอที ประกันสังคม | เลิกจ้างไม่จ่ายโอที ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU154,สลิปเงินเดือนไม่ถูกต้อง,สลิปเงินเดือนไม่ถูกต้อง ประกันสังคม | สลิปเงินเดือนไม่ถูกต้อง ออนไลน์,FU,Formal,Push,Formal safety-net,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU155,ค่าจ้างขั้นต่ำไม่ครบ,ค่าจ้างขั้นต่ำไม่ครบ ประกันสังคม | ค่าจ้างขั้นต่ำไม่ครบ ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU156,ถูกพักงานชั่วคราว,ถูกพักงานชั่วคราว ประกันสังคม | ถูกพักงานชั่วคราว ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+FU157,สถานะโอนเงินว่างงาน,สถานะโอนเงินว่างงาน รายได้ | สถานะโอนเงินว่างงาน ใกล้ฉัน,FU,Formal,Push,Formal safety-net,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU158,หางานหลังถูกเลิกจ้าง,หางานหลังถูกเลิกจ้าง ประกันสังคม | หางานหลังถูกเลิกจ้าง ออนไลน์,FU,Formal,Push,Formal safety-net,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+FU159,เงินชดเชยออกจากงาน,เงินชดเชยออกจากงาน ประกันสังคม | เงินชดเชยออกจากงาน ออนไลน์,FU,Formal,Push,Formal safety-net,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+FU160,สิทธิแรงงานเลิกจ้าง,สิทธิแรงงานเลิกจ้าง ประกันสังคม | สิทธิแรงงานเลิกจ้าง ออนไลน์,FU,Formal,Push,Formal safety-net,WEAK,40,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+BACKUP-NP01,หางาน ไม่มีวุฒิ,งาน ไม่มีวุฒิ | หางาน ไม่มีวุฒิ,NP,Informal-New,Pull,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+BACKUP-NP02,เปิดร้าน TikTok Shop,สมัคร TikTok Shop | เปิดร้าน TikTok Shop,NP,Informal-New,Pull,Informal-Vendor,Archive,,Archive,N,Archive จาก region/tier review
+BACKUP-NP03,เปิดร้าน Shopee,เปิดร้าน Shopee | เปิดร้าน ช้อปปี้,NP,Informal-New,Pull,Informal-Vendor,Archive,,Archive,N,Archive จาก region/tier review
+NP001,Affiliate Marketing ยังไง,Affiliate Marketing ยังไง | ทำ affiliate marketing,NP,Informal-New,Pull,Creative,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP002,Content Creator เริ่มต้น,Content Creator เริ่มต้น | คอนเทนต์ครีเอเตอร์ เริ่มต้น | เริ่มเป็น content creator,NP,Informal-New,Pull,Creative,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP003,Dropship ยังไง,Dropship ยังไง | dropshipping | ดรอปชิป,NP,Informal-New,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP004,Grab ชั่วโมงเร่งด่วน,Grab ชั่วโมงเร่งด่วน | แกร็บ ชั่วโมงเร่งด่วน,NP,Informal-New,Pull,Gig-Platform,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP005,Lazada ค่าใช้จ่าย,Lazada ค่าใช้จ่าย | ลาซาด้า ค่าใช้จ่าย,NP,Informal-New,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP006,Live ขายของ TikTok,Live ขายของ TikTok | ไลฟ์ขายของ TikTok | ไลฟ์ขายของติ๊กต๊อก,NP,Informal-New,Pull,Informal-Vendor,WEAK,54,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP007,Marketplace Facebook ขาย,Marketplace Facebook ขาย | facebook marketplace ขาย | มาร์เก็ตเพลส Facebook,NP,Informal-New,Pull,Informal-Vendor,WEAK,39,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP008,Review ได้เงิน,Review ได้เงิน | รีวิวสินค้า ได้เงิน | รีวิวได้เงิน,NP,Informal-New,Pull,Creative,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP009,Shopee ค่าธรรมเนียม,Shopee ค่าธรรมเนียม | ช้อปปี้ ค่าธรรมเนียม,NP,Informal-New,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP010,TikTok Shop เริ่มต้น,TikTok Shop เริ่มต้น | tiktok shop เริ่มต้น | ติ๊กต๊อก ช็อป เริ่มต้น,NP,Informal-New,Pull,Informal-Vendor,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP011,ขายของ Facebook ยังไง,ขายของ FB | ขายของ Facebook | ขายของเฟซบุ๊ก,NP,Informal-New,Pull,Informal-Vendor,WEAK,54,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP012,ขายของ Instagram,ขายของ IG | ขายของ Instagram | ขายของอินสตาแกรม,NP,Informal-New,Pull,Informal-Vendor,WEAK,48,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP013,ขายของออนไลน์ เริ่มต้น,,NP,Informal-New,Pull,Informal-Vendor,national_pass,16,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP014,ขายอะไรดี ทุนน้อย,,NP,Informal-New,Pull,Informal-Vendor,WEAK,47,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP015,งานพาร์ทไทม์ ออนไลน์,,NP,Informal-New,Pull,Gig-Platform,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP016,ทำ Content TikTok,ทำ Content TikTok | ทำคอนเทนต์ TikTok | ทำคอนเทนต์ติ๊กต๊อก,NP,Informal-New,Pull,Creative,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP017,รับงานฟรีแลนซ์,,NP,Informal-New,Pull,Gig-Platform,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP018,รายได้ LineMan,รายได้ LINE MAN | รายได้ LineMan | รายได้ไลน์แมน,NP,Informal-New,Pull,Gig-Platform,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP019,รายได้ขาย Shopee,รายได้ขาย Shopee | รายได้ขายช้อปปี้,NP,Informal-New,Pull,Informal-Vendor,WEAK,49,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP020,รายได้ไรเดอร์,รายได้ rider | รายได้ไรเดอร์,NP,Informal-New,Pull,Gig-Platform,national_pass,15,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP021,สมัคร Foodpanda,สมัคร Foodpanda | สมัครฟู้ดแพนด้า,NP,Informal-New,Pull,Gig-Platform,national_pass,12,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP022,สมัคร YouTuber,สมัคร YouTuber | สมัครยูทูบเบอร์ | เริ่มเป็น YouTuber,NP,Informal-New,Pull,Creative,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP023,สมัครแกร็บ,สมัคร Grab | สมัคร grab driver | สมัครแกร็บ,NP,Informal-New,Pull,Gig-Platform,active_v25,0,T1,Y,ใช้ได้แล้วใน Interactive v25
+NP024,สมัครไรเดอร์,,NP,Informal-New,Pull,Gig-Platform,active_v25,0,Archive,Y,ใช้ได้แล้วใน Interactive v25
+NP025,สมัครไลน์แมน,สมัคร LINE MAN | สมัคร LineMan | สมัครไลน์แมน,NP,Informal-New,Pull,Gig-Platform,active_v25,0,T3,Y,ใช้ได้แล้วใน Interactive v25
+NP026,สร้างรายได้ YouTube,สร้างรายได้ YouTube | สร้างรายได้ยูทูบ,NP,Informal-New,Pull,Creative,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP027,สอน Drive Grab,สอน Drive Grab | สอนขับ Grab | สอนขับแกร็บ,NP,Informal-New,Pull,Gig-Platform,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP028,หางานฟรีแลนซ์ เว็บไหนดี,,NP,Informal-New,Pull,Gig-Platform,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP029,หาเงินออนไลน์,,NP,Informal-New,Pull,Informal-Vendor,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP030,เปิดบัญชี Shopee ขาย,เปิดบัญชี Shopee | เปิดบัญชีช้อปปี้ | เปิดร้าน Shopee,NP,Informal-New,Pull,Informal-Vendor,national_pass,0,Archive,N,Archive จาก region/tier review
+NP031,เปิดร้าน Lazada,เปิดร้าน Lazada | เปิดร้านลาซาด้า,NP,Informal-New,Pull,Informal-Vendor,national_pass,8,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+NP032,เปิดร้าน TikTok Shop,เปิดร้าน TikTok Shop | เปิดร้านติ๊กต๊อก,NP,Informal-New,Pull,Informal-Vendor,Archive,45,Archive,N,Archive จาก region/tier review
+NP033,เริ่มต้น Influencer,เริ่ม influencer | เริ่มต้น Influencer | เริ่มเป็นอินฟลูเอนเซอร์,NP,Informal-New,Pull,Creative,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP034,สมัคร shopee food rider,สมัคร shopee food rider | สมัครช้อปปี้ฟู้ดไรเดอร์,NP,Informal-New,Pull,Gig-Platform,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP035,สมัคร tiktok affiliate,สมัคร TikTok affiliate | สมัคร tiktok affiliate,NP,Informal-New,Pull,Creative,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP036,นายหน้า tiktok shop,นายหน้า TikTok Shop | นายหน้า tiktok shop,NP,Informal-New,Pull,Creative,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP037,แอดมินเพจ ทำงานที่บ้าน,,NP,Informal-New,Pull,Gig-Platform,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP038,ตัดต่อคลิปมือถือ รับงาน,,NP,Informal-New,Pull,Creative,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP039,แม่ค้าออนไลน์มือใหม่,,NP,Informal-New,Pull,Informal-Vendor,WEAK,50,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP040,เปิดร้านออนไลน์,เปิดร้านออนไลน์ | เริ่มเปิดร้านออนไลน์,NP,Informal-New,Pull,Informal-Vendor,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+NP041,ขายของออนไลน์ ไม่สต๊อก,ขายของออนไลน์ไม่ต้องสต๊อก | ขายของไม่สต๊อก,NP,Informal-New,Pull,Informal-Vendor,WEAK,25,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP042,สมัคร Shopee Affiliate,สมัคร Shopee Affiliate | สมัคร shopee affiliate,NP,Informal-New,Pull,Creative,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP043,ขายอะไรออนไลน์ดี,ขายของออนไลน์อะไรดี | ขายอะไรออนไลน์ดี,NP,Informal-New,Pull,Informal-Vendor,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+NP044,สมัครส่งอาหาร,สมัครงานส่งอาหาร | สมัครส่งอาหาร,NP,Informal-New,Pull,Gig-Platform,active_v25,0,Archive,Y,ใช้ได้แล้วใน Interactive v25
+NP045,เปิดร้าน Shopee,งานออนไลน์ ทำที่บ้าน | ทำงานออนไลน์ที่บ้าน | เปิดร้าน Shopee | เปิดร้าน ช้อปปี้,NP,Informal-New,Pull,Informal-Vendor,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+NP046,ขายของใน TikTok,ขายของใน TikTok | ขายของในติ๊กต็อก,NP,Informal-New,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NP047,สมัครขับรถส่งของ,สมัครขับรถส่งของ รายได้ | สมัครขับรถส่งของ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP048,สมัครไลน์แมนไรเดอร์,สมัครไลน์แมนไรเดอร์ รายได้ | สมัครไลน์แมนไรเดอร์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,10,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP049,สมัคร grab rider,สมัคร grab rider รายได้ | สมัคร grab rider เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,38,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP050,สมัคร food delivery,สมัคร food delivery รายได้ | สมัคร food delivery เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,42,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP051,สมัครขับรถรับส่งผู้โดยสาร,สมัครขับรถรับส่งผู้โดยสาร รายได้ | สมัครขับรถรับส่งผู้โดยสาร เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP052,สมัครขับแท็กซี่ผ่านแอป,สมัครขับแท็กซี่ผ่านแอป รายได้ | สมัครขับแท็กซี่ผ่านแอป เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NP053,สมัครขับรถแอป,สมัครขับรถแอป รายได้ | สมัครขับรถแอป เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP054,รับงานส่งเอกสารผ่านแอป,รับงานส่งเอกสารผ่านแอป รายได้ | รับงานส่งเอกสารผ่านแอป ใกล้ฉัน,NP,Informal-New,Pull,Platform/digital entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NP055,งานไรเดอร์ส่งอาหาร,งานไรเดอร์ส่งอาหาร รายได้ | งานไรเดอร์ส่งอาหาร เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP056,งานส่งอาหารอิสระ,งานส่งอาหารอิสระ รายได้ | งานส่งอาหารอิสระ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP057,งานส่งของอิสระ,งานส่งของอิสระ รายได้ | งานส่งของอิสระ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,33,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP058,งานฟรีแลนซ์,งานฟรีแลนซ์ รายได้ | งานฟรีแลนซ์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP059,หางานฟรีแลนซ์,หางานฟรีแลนซ์ รายได้ | หางานฟรีแลนซ์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP060,สมัครงานฟรีแลนซ์,สมัครงานฟรีแลนซ์ รายได้ | สมัครงานฟรีแลนซ์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,3,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP061,งานออนไลน์,งานออนไลน์ รายได้ | งานออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+NP062,หางานออนไลน์,หางานออนไลน์ รายได้ | หางานออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP063,สมัครงานออนไลน์,สมัครงานออนไลน์ รายได้ | สมัครงานออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP064,ทำงานออนไลน์,ทำงานออนไลน์ รายได้ | ทำงานออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP065,รับงานแอดมินเพจ,รับงานแอดมินเพจ รายได้ | รับงานแอดมินเพจ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP066,งานแอดมินออนไลน์,งานแอดมินออนไลน์ รายได้ | งานแอดมินออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NP067,งานตอบแชท,งานตอบแชท รายได้ | งานตอบแชท เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP068,รับงานตอบแชท,รับงานตอบแชท รายได้ | รับงานตอบแชท เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,54,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP069,งานไลฟ์สดขายของ,งานไลฟ์สดขายของ รายได้ | งานไลฟ์สดขายของ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP070,สมัครไลฟ์สดขายของ,สมัครไลฟ์สดขายของ รายได้ | สมัครไลฟ์สดขายของ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NP071,รับงานไลฟ์สด,รับงานไลฟ์สด รายได้ | รับงานไลฟ์สด เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,16,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP072,งานตัดต่อวิดีโอออนไลน์,งานตัดต่อวิดีโอออนไลน์ รายได้ | งานตัดต่อวิดีโอออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NP073,รับงานกราฟิก,รับงานกราฟิก รายได้ | รับงานกราฟิก เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,10,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP074,รับงานออกแบบโลโก้,รับงานออกแบบโลโก้ รายได้ | รับงานออกแบบโลโก้ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP075,รับงานทำเพจ,รับงานทำเพจ รายได้ | รับงานทำเพจ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP076,รับงานยิงแอด,รับงานยิงแอด รายได้ | รับงานยิงแอด เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NP077,รับงานเขียนคอนเทนต์,รับงานเขียนคอนเทนต์ รายได้ | รับงานเขียนคอนเทนต์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NP078,รับงานแปลภาษา,รับงานแปลภาษา รายได้ | รับงานแปลภาษา เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP079,รับงานพิมพ์เอกสาร,รับงานพิมพ์เอกสาร รายได้ | รับงานพิมพ์เอกสาร เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,17,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP080,รับงานคีย์ข้อมูลออนไลน์,รับงานคีย์ข้อมูลออนไลน์ รายได้ | รับงานคีย์ข้อมูลออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP081,ขายของออนไลน์,ขายของออนไลน์ รายได้ | ขายของออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,active_v25,0,,Y,ใช้ได้แล้วใน Interactive v25
+NP082,เริ่มขายของออนไลน์,เริ่มขายของออนไลน์ รายได้ | เริ่มขายของออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,3,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP083,เปิด tiktok shop,เปิด tiktok shop รายได้ | เปิด tiktok shop เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,18,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP084,ขายของใน facebook,ขายของใน facebook รายได้ | ขายของใน facebook เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP085,ขายของใน line,ขายของใน line รายได้ | ขายของใน line เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,2,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP086,สมัครนายหน้า tiktok,สมัครนายหน้า tiktok รายได้ | สมัครนายหน้า tiktok เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,25,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP087,สมัคร affiliate,สมัคร affiliate รายได้ | สมัคร affiliate เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,3,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP088,งาน affiliate,งาน affiliate รายได้ | งาน affiliate เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,27,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP089,หารายได้ออนไลน์,หารายได้ออนไลน์ รายได้ | หารายได้ออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP090,หารายได้เสริมออนไลน์,หารายได้เสริมออนไลน์ รายได้ | หารายได้เสริมออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP091,งานเสริมออนไลน์,งานเสริมออนไลน์ รายได้ | งานเสริมออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP092,ทำเพจขายของ,ทำเพจขายของ รายได้ | ทำเพจขายของ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,32,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP093,ไลฟ์ขายของเริ่มต้น,ไลฟ์ขายของเริ่มต้น รายได้ | ไลฟ์ขายของเริ่มต้น เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP094,สมัครร้านค้าออนไลน์,สมัครร้านค้าออนไลน์ รายได้ | สมัครร้านค้าออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,27,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP095,เปิดร้านอาหารเดลิเวอรี,เปิดร้านอาหารเดลิเวอรี รายได้ | เปิดร้านอาหารเดลิเวอรี เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP096,ขายอาหารเดลิเวอรี,ขายอาหารเดลิเวอรี รายได้ | ขายอาหารเดลิเวอรี เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NP097,สมัครร้านไลน์แมน,สมัครร้านไลน์แมน รายได้ | สมัครร้านไลน์แมน เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP098,สมัครร้าน grabfood,สมัครร้าน grabfood รายได้ | สมัครร้าน grabfood เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP099,สมัครร้าน shopeefood,สมัครร้าน shopeefood รายได้ | สมัครร้าน shopeefood เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP100,ขายขนมออนไลน์,ขายขนมออนไลน์ รายได้ | ขายขนมออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,9,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP101,ขายเสื้อผ้าออนไลน์,ขายเสื้อผ้าออนไลน์ รายได้ | ขายเสื้อผ้าออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP102,ขายของมือสองออนไลน์,ขายของมือสองออนไลน์ รายได้ | ขายของมือสองออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,15,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP103,ขายสินค้าแฟชั่นออนไลน์,ขายสินค้าแฟชั่นออนไลน์ รายได้ | ขายสินค้าแฟชั่นออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP104,รับพรีออเดอร์,รับพรีออเดอร์ รายได้ | รับพรีออเดอร์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,17,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP105,ทำ dropship,ทำ dropship รายได้ | ทำ dropship เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP106,สมัคร dropship,สมัคร dropship รายได้ | สมัคร dropship เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,53,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP107,ขายของไม่ต้องสต๊อก,ขายของไม่ต้องสต๊อก รายได้ | ขายของไม่ต้องสต๊อก เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,20,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP108,รับงานแพ็คของที่บ้าน,รับงานแพ็คของที่บ้าน รายได้ | รับงานแพ็คของที่บ้าน เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,35,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP109,งานทำที่บ้านออนไลน์,งานทำที่บ้านออนไลน์ รายได้ | งานทำที่บ้านออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,13,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP110,สมัครงาน work from home,สมัครงาน work from home รายได้ | สมัครงาน work from home เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,7,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP111,งาน remote,งาน remote รายได้ | งาน remote เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,national_pass,3,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NP112,รับงานรีวิวสินค้า,รับงานรีวิวสินค้า รายได้ | รับงานรีวิวสินค้า เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP113,รับงานถ่ายรูปสินค้า,รับงานถ่ายรูปสินค้า รายได้ | รับงานถ่ายรูปสินค้า เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP114,รับงานลงสินค้าออนไลน์,รับงานลงสินค้าออนไลน์ รายได้ | รับงานลงสินค้าออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NP115,รับงานดูแลร้านออนไลน์,รับงานดูแลร้านออนไลน์ รายได้ | รับงานดูแลร้านออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NP116,รับงานแต่งรูปสินค้าออนไลน์,รับงานแต่งรูปสินค้าออนไลน์ รายได้ | รับงานแต่งรูปสินค้าออนไลน์ เริ่มต้น,NP,Informal-New,Pull,Platform/digital entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU001,Commission GP หัก สูง,,NU,Informal-New,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU002,Facebook ลด reach,,NU,Informal-New,Push,Creative,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU003,Grab ค่ารอบลด,Grab ค่ารอบลด | แกร็บค่ารอบลด,NU,Informal-New,Push,Gig-Platform,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NU004,Grab งานน้อย,Grab งานน้อย | แกร็บงานน้อย,NU,Informal-New,Push,Gig-Platform,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU005,Lazada ค่าคอมแพง,,NU,Informal-New,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU006,LineMan งานน้อย,LineMan งานน้อย | ไลน์แมนงานน้อย,NU,Informal-New,Push,Gig-Platform,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NU007,Shopee ขายไม่ออก,Shopee ขายไม่ออก | ช้อปปี้ขายไม่ออก,NU,Informal-New,Push,Informal-Vendor,WEAK,57,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU008,Shopee ค่า GP แพง,,NU,Informal-New,Push,Informal-Vendor,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU009,TikTok reach หาย,TikTok reach หาย | ติ๊กต๊อก reach หาย,NU,Informal-New,Push,Creative,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU010,TikTok shop ขายยาก,,NU,Informal-New,Push,Informal-Vendor,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NU011,ค่าน้ำมันแพง ไรเดอร์,,NU,Informal-New,Push,Gig-Platform,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU012,ค่ารอบไรเดอร์ลดลง,,NU,Informal-New,Push,Gig-Platform,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NU013,ค่าโฆษณาแพง reach ต่ำ,,NU,Informal-New,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU014,ปิดเพจ ออนไลน์,,NU,Informal-New,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU015,ยอดขายตก Lazada,ยอดขายตก Lazada | ยอดขายตกลาซาด้า,NU,Informal-New,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU016,ยอดขายตก Shopee,ยอดขายตก Shopee | ยอดขายตกช้อปปี้,NU,Informal-New,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU017,รายได้ไรเดอร์ ไม่พอ,,NU,Informal-New,Push,Gig-Platform,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NU018,ลบแอป ไรเดอร์,,NU,Informal-New,Push,Gig-Platform,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU019,ลาออก ไรเดอร์,,NU,Informal-New,Push,Gig-Platform,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU020,ลูกค้า COD ไม่รับของ,,NU,Informal-New,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU021,วิ่งงานไม่คุ้มน้ำมัน,,NU,Informal-New,Push,Gig-Platform,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NU022,ออนไลน์ขายไม่ดี,,NU,Informal-New,Push,Informal-Vendor,national_pass,10,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+NU023,ออเดอร์น้อย,,NU,Informal-New,Push,Gig-Platform,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU024,เปลี่ยนอาชีพ จากไรเดอร์,,NU,Informal-New,Push,Gig-Platform,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU025,เพจโดนปิดกั้นการมองเห็น,,NU,Informal-New,Push,Creative,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU026,เลิกขับแกร็บ,เลิกขับ Grab | เลิกขับแกร็บ,NU,Informal-New,Push,Gig-Platform,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU027,เลิกเป็นฟรีแลนซ์,,NU,Informal-New,Push,Gig-Platform,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU028,แบน Facebook page,เพจโดนแบน เฟซบุ๊ก | แบน Facebook page,NU,Informal-New,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU029,แอป Grab ล่มบ่อย,แอป Grab ล่มบ่อย | แอปแกร็บล่ม,NU,Informal-New,Push,Gig-Platform,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU030,โดน ban platform,,NU,Informal-New,Push,Gig-Platform,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU031,โดนยกเลิกออเดอร์,,NU,Informal-New,Push,Gig-Platform,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU032,โดนลูกค้าโกง,,NU,Informal-New,Push,Gig-Platform,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU033,โดนแบนแอป,,NU,Informal-New,Push,Gig-Platform,WEAK,55,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU034,ไลน์แมน ระงับ account,,NU,Informal-New,Push,Gig-Platform,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU035,ไรเดอร์โดนระงับบัญชี,,NU,Informal-New,Push,Gig-Platform,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU036,shopee food โดนแบน,shopee food โดนแบน | ช้อปปี้ฟู้ดโดนแบน,NU,Informal-New,Push,Gig-Platform,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU037,tiktok shop โดนปิดร้าน,TikTok Shop โดนปิดร้าน | tiktok shop โดนปิดร้าน,NU,Informal-New,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU038,shopee ระงับบัญชีผู้ขาย,Shopee ระงับบัญชีผู้ขาย | shopee ระงับบัญชีผู้ขาย,NU,Informal-New,Push,Informal-Vendor,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU039,tiktok affiliate ค่าคอมลด,TikTok affiliate ค่าคอมลด | tiktok affiliate ค่าคอมลด,NU,Informal-New,Push,Gig-Platform,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU040,ยิงแอดขายของขาดทุน,,NU,Informal-New,Push,Gig-Platform,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU041,ฟรีแลนซ์โดนโกง,,NU,Informal-New,Push,Gig-Platform,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU042,ลาออก แม่ค้าออนไลน์,,NU,Informal-New,Push,Informal-Vendor,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU043,หางานประจำ ไรเดอร์,,NU,Informal-New,Push,Gig-Platform,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU044,ปิดร้านค้าออนไลน์,,NU,Informal-New,Push,Informal-Vendor,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU045,เลิกทำ ขายของออนไลน์,,NU,Informal-New,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU046,เงินไม่พอใช้ คนทำงานอิสระ,คนทำงานอิสระ เงินไม่พอใช้ | เงินไม่พอใช้ คนทำงานอิสระ,NU,Informal-New,Push,Gig-Platform,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU047,ประกันสังคม ม.40 คนทำงานอิสระ,ประกันสังคม ม.40 คนทำงานอิสระ | มาตรา 40 คนทำงานอิสระ,NU,Informal-New,Push,Gig-Platform,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU048,ฟรีแลนซ์ ไม่มีงาน,งานฟรีแลนซ์น้อย | ฟรีแลนซ์ ไม่มีงาน,NU,Informal-New,Push,Gig-Platform,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU049,รายได้ไม่แน่นอน ฟรีแลนซ์,ฟรีแลนซ์ รายได้ไม่แน่นอน | รายได้ไม่แน่นอน ฟรีแลนซ์,NU,Informal-New,Push,Gig-Platform,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU050,ค่าขนส่งแพง ขายออนไลน์,ขายออนไลน์ ค่าส่งแพง | ค่าขนส่งแพง ขายออนไลน์,NU,Informal-New,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU051,ภาษีขายออนไลน์,ขายออนไลน์เสียภาษี | ภาษีขายออนไลน์,NU,Informal-New,Push,Informal-Vendor,national_pass,0,Archive,N,Archive จาก region/tier review
+NU052,สรรพากร ขายออนไลน์,ขายออนไลน์ สรรพากร | สรรพากร ขายออนไลน์,NU,Informal-New,Push,Informal-Vendor,WEAK,33,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU053,อุบัติเหตุ ไรเดอร์,อุบัติเหตุ ไรเดอร์ | ไรเดอร์อุบัติเหตุ,NU,Informal-New,Push,Gig-Platform,WEAK,57,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU054,ปวดหลัง ไรเดอร์,ปวดหลัง ไรเดอร์ | ไรเดอร์ ปวดหลัง,NU,Informal-New,Push,Gig-Platform,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU055,ประกันสังคม ไรเดอร์,ประกันสังคม ไรเดอร์ | ไรเดอร์ ประกันสังคม,NU,Informal-New,Push,Gig-Platform,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU056,มาตรา 40 ไรเดอร์,มาตรา 40 ไรเดอร์ | ไรเดอร์ มาตรา 40,NU,Informal-New,Push,Gig-Platform,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU057,ขายออนไลน์ ต้นทุนสูง,ขายออนไลน์ ต้นทุนสูง | ต้นทุนขายออนไลน์สูง,NU,Informal-New,Push,Informal-Vendor,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU058,งานออนไลน์ รายได้ไม่แน่นอน,งานออนไลน์ รายได้ไม่แน่นอน | รายได้งานออนไลน์ไม่แน่นอน,NU,Informal-New,Push,Gig-Platform,WEAK,55,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU059,คืนสินค้าเยอะ ขายออนไลน์,ขายออนไลน์ คืนสินค้าเยอะ | คืนสินค้าเยอะ ขายออนไลน์,NU,Informal-New,Push,Informal-Vendor,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU060,เงินไม่พอหมุน ขายออนไลน์,ขายออนไลน์ เงินไม่พอหมุน | เงินไม่พอหมุน ขายออนไลน์,NU,Informal-New,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU071,รายได้ไรเดอร์ ลด,รายได้ไรเดอร์ ลด | ไรเดอร์ รายได้ลด,NU,Informal-New,Push,Gig-Platform,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU072,ออเดอร์น้อย ไรเดอร์,ออเดอร์น้อย ไรเดอร์ | ไรเดอร์ ออเดอร์น้อย,NU,Informal-New,Push,Gig-Platform,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU073,ค่าน้ำมัน ไรเดอร์,ค่าน้ำมัน rider | ค่าน้ำมัน ไรเดอร์,NU,Informal-New,Push,Gig-Platform,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU074,ไรเดอร์ ขาดทุน,ขาดทุน ไรเดอร์ | ไรเดอร์ ขาดทุน,NU,Informal-New,Push,Gig-Platform,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU075,ขายออนไลน์ ขาดทุน,ขายของออนไลน์ ขาดทุน | ขายออนไลน์ ขาดทุน,NU,Informal-New,Push,Informal-Vendor,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU076,ลูกค้าน้อย ขายออนไลน์,ขายออนไลน์ ลูกค้าน้อย | ลูกค้าน้อย ขายออนไลน์,NU,Informal-New,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU077,เลิกขายของออนไลน์,เลิก ขายออนไลน์ | เลิกขายของออนไลน์,NU,Informal-New,Push,Informal-Vendor,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU078,ปิดร้าน Shopee,ปิดร้าน Shopee | ปิดร้าน ช้อปปี้,NU,Informal-New,Push,Informal-Vendor,national_pass,16,Archive,N,Archive จาก region/tier review
+NU079,ปิดร้าน Lazada,ปิดร้าน Lazada | ปิดร้าน ลาซาด้า,NU,Informal-New,Push,Informal-Vendor,WEAK,54,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU080,ค่าคอม Grab,ค่าคอม Grab | ค่าคอมมิชชั่น Grab,NU,Informal-New,Push,Gig-Platform,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU081,ไลฟ์สด ขายไม่ออก,live ขายไม่ออก | ไลฟ์สด ขายไม่ออก,NU,Informal-New,Push,Creative,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU082,affiliate ขายไม่ออก,affiliate ขายไม่ออก | ขายไม่ออก affiliate,NU,Informal-New,Push,Creative,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU083,ยอดขายออนไลน์ตก,ยอดขายตกออนไลน์ | ยอดขายออนไลน์ลด,NU,Informal-New,Push,Informal-Vendor,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU084,ขายของออนไลน์ไม่คุ้ม,ขายออนไลน์ไม่คุ้ม | ทำร้านออนไลน์ไม่คุ้ม,NU,Informal-New,Push,Informal-Vendor,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU085,ค่าโฆษณาออนไลน์แพง,ค่าแอดออนไลน์แพง | ค่าโฆษณาขายออนไลน์แพง,NU,Informal-New,Push,Informal-Vendor,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU086,ยิงแอดไม่คุ้ม,ยิงแอดขายของไม่คุ้ม | ยิงแอดแล้วไม่คุ้ม,NU,Informal-New,Push,Informal-Vendor,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU087,ค่าธรรมเนียมขายของออนไลน์,ค่าธรรมเนียมขายออนไลน์ | ค่าธรรมเนียมร้านค้าออนไลน์,NU,Informal-New,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU088,แม่ค้าออนไลน์เสียภาษี,ภาษีแม่ค้าออนไลน์ | แม่ค้าออนไลน์ต้องเสียภาษี,NU,Informal-New,Push,Informal-Vendor,WEAK,51,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU089,ยื่นภาษีแม่ค้าออนไลน์,ยื่นภาษีขายของออนไลน์ | วิธียื่นภาษีแม่ค้าออนไลน์,NU,Informal-New,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU090,ฟรีแลนซ์เสียภาษี,ฟรีแลนซ์ต้องเสียภาษีไหม | ภาษีฟรีแลนซ์,NU,Informal-New,Push,Gig-Platform,WEAK,44,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU091,หัก ณ ที่จ่าย ฟรีแลนซ์,ฟรีแลนซ์หัก ณ ที่จ่าย | ภาษีหัก ณ ที่จ่าย ฟรีแลนซ์,NU,Informal-New,Push,Gig-Platform,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU092,ลูกค้าไม่จ่ายเงิน ฟรีแลนซ์,ฟรีแลนซ์ลูกค้าไม่จ่ายเงิน | โดนจ้างงานไม่จ่ายเงิน ฟรีแลนซ์,NU,Informal-New,Push,Gig-Platform,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU093,สมัครประกันสังคม มาตรา 40,สมัคร มาตรา 40 | สมัครประกันสังคม ม.40,NU,Informal-New,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU094,ประกันสังคมมาตรา 40 ออนไลน์,ประกันสังคม ม.40 ออนไลน์ | มาตรา 40 ออนไลน์,NU,Informal-New,Push,general,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+NU095,จ่ายเงินสมทบ มาตรา 40,จ่ายประกันสังคม มาตรา 40 | เงินสมทบ มาตรา 40,NU,Informal-New,Push,general,WEAK,33,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU096,ปิดเพจขายของ,ปิดเพจขายของออนไลน์ | ปิดเพจร้านค้า,NU,Informal-New,Push,Informal-Vendor,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU097,รายได้ออนไลน์ลดลง,รายได้ออนไลน์ลดลง ทำอย่างไร | รายได้ออนไลน์ลดลง แก้ยังไง,NU,Informal-New,Push,Digital informal distress,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU098,ขายของออนไลน์ไม่ออก,ขายของออนไลน์ไม่ออก ทำอย่างไร | ขายของออนไลน์ไม่ออก แก้ยังไง,NU,Informal-New,Push,Digital informal distress,WEAK,52,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU099,ออเดอร์ออนไลน์น้อย,ออเดอร์ออนไลน์น้อย ทำอย่างไร | ออเดอร์ออนไลน์น้อย แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU100,ลูกค้าออนไลน์หาย,ลูกค้าออนไลน์หาย ทำอย่างไร | ลูกค้าออนไลน์หาย แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU101,ไลฟ์สดขายไม่ได้,ไลฟ์สดขายไม่ได้ ทำอย่างไร | ไลฟ์สดขายไม่ได้ แก้ยังไง,NU,Informal-New,Push,Digital informal distress,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU102,เพจขายของเงียบ,เพจขายของเงียบ ทำอย่างไร | เพจขายของเงียบ แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU103,ร้านออนไลน์ยอดตก,ร้านออนไลน์ยอดตก ทำอย่างไร | ร้านออนไลน์ยอดตก แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU104,ของค้างสต๊อกออนไลน์,ของค้างสต๊อกออนไลน์ ทำอย่างไร | ของค้างสต๊อกออนไลน์ แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU105,คืนสินค้าเยอะ,คืนสินค้าเยอะ ทำอย่างไร | คืนสินค้าเยอะ แก้ยังไง,NU,Informal-New,Push,Digital informal distress,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU106,ส่งของขาดทุน,ส่งของขาดทุน ทำอย่างไร | ส่งของขาดทุน แก้ยังไง,NU,Informal-New,Push,Digital informal distress,WEAK,35,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU107,งานฟรีแลนซ์หาย,งานฟรีแลนซ์หาย ทำอย่างไร | งานฟรีแลนซ์หาย แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU108,ลูกค้าฟรีแลนซ์หาย,ลูกค้าฟรีแลนซ์หาย ทำอย่างไร | ลูกค้าฟรีแลนซ์หาย แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU109,โดนเบี้ยวค่าจ้างฟรีแลนซ์,โดนเบี้ยวค่าจ้างฟรีแลนซ์ ทำอย่างไร | โดนเบี้ยวค่าจ้างฟรีแลนซ์ แก้ยังไง,NU,Informal-New,Push,Digital informal distress,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU110,รายได้ไรเดอร์ลดลง,รายได้ไรเดอร์ลดลง ทำอย่างไร | รายได้ไรเดอร์ลดลง แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU111,ออเดอร์ไรเดอร์น้อย,ออเดอร์ไรเดอร์น้อย ทำอย่างไร | ออเดอร์ไรเดอร์น้อย แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU112,ค่าน้ำมันไรเดอร์แพง,ค่าน้ำมันไรเดอร์แพง ทำอย่างไร | ค่าน้ำมันไรเดอร์แพง แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU113,ขับไรเดอร์ไม่คุ้ม,ขับไรเดอร์ไม่คุ้ม ทำอย่างไร | ขับไรเดอร์ไม่คุ้ม แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU114,รายได้ส่งอาหารลดลง,รายได้ส่งอาหารลดลง ทำอย่างไร | รายได้ส่งอาหารลดลง แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU115,งานส่งอาหารน้อย,งานส่งอาหารน้อย ทำอย่างไร | งานส่งอาหารน้อย แก้ยังไง,NU,Informal-New,Push,Digital informal distress,WEAK,50,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU116,ค่าคอมออนไลน์แพง,ค่าคอมออนไลน์แพง ทำอย่างไร | ค่าคอมออนไลน์แพง แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU117,ค่าธรรมเนียมร้านออนไลน์,ค่าธรรมเนียมร้านออนไลน์ ทำอย่างไร | ค่าธรรมเนียมร้านออนไลน์ แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU118,ยอดวิวขายของตก,ยอดวิวขายของตก ทำอย่างไร | ยอดวิวขายของตก แก้ยังไง,NU,Informal-New,Push,Digital informal distress,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU119,คนดูไลฟ์น้อย,คนดูไลฟ์น้อย ทำอย่างไร | คนดูไลฟ์น้อย แก้ยังไง,NU,Informal-New,Push,Digital informal distress,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU120,ของขายออนไลน์ค้าง,ของขายออนไลน์ค้าง ทำอย่างไร | ของขายออนไลน์ค้าง แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU121,ปิดร้านออนไลน์,ปิดร้านออนไลน์ ทำอย่างไร | ปิดร้านออนไลน์ แก้ยังไง,NU,Informal-New,Push,Digital informal distress,WEAK,45,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU122,ย้ายแพลตฟอร์มขายของ,ย้ายแพลตฟอร์มขายของ ทำอย่างไร | ย้ายแพลตฟอร์มขายของ แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU123,หาออเดอร์ออนไลน์,หาออเดอร์ออนไลน์ ทำอย่างไร | หาออเดอร์ออนไลน์ แก้ยังไง,NU,Informal-New,Push,Digital informal distress,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU124,เพิ่มยอดขายออนไลน์,เพิ่มยอดขายออนไลน์ ทำอย่างไร | เพิ่มยอดขายออนไลน์ แก้ยังไง,NU,Informal-New,Push,Digital informal distress,WEAK,48,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+NU125,แก้ยอดขายออนไลน์ตก,แก้ยอดขายออนไลน์ตก ทำอย่างไร | แก้ยอดขายออนไลน์ตก แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+NU126,ร้านค้าออนไลน์ขาดทุน,ร้านค้าออนไลน์ขาดทุน ทำอย่างไร | ร้านค้าออนไลน์ขาดทุน แก้ยังไง,NU,Informal-New,Push,Digital informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+BACKUP-TP01,กู้เงิน เปิดร้าน ธกส,กู้เงิน เปิดร้าน ธกส | สินเชื่อ ธกส เปิดร้าน,TP,Informal-Traditional,Pull,Informal-Vendor,Archive,60,Archive,N,Archive จาก region/tier review
+BACKUP-TP02,กู้เงิน เปิดร้าน ออมสิน,กู้เงิน เปิดร้าน ออมสิน | สินเชื่อ ออมสิน เปิดร้าน,TP,Informal-Traditional,Pull,Informal-Vendor,Archive,61,Archive,N,Archive จาก region/tier review
+TP001,ขายอะไรในตลาดดี,,TP,Informal-Traditional,Pull,Informal-Vendor,national_pass,9,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP002,ค่าเช่าร้าน ย่าน,,TP,Informal-Traditional,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP003,ค่าเช่าแผงตลาด,,TP,Informal-Traditional,Pull,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP004,ค่าเซ้งร้าน,,TP,Informal-Traditional,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP005,ช่างประปา รับงาน,,TP,Informal-Traditional,Pull,Blue-collar,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP006,ช่างแอร์ รับงาน,,TP,Informal-Traditional,Pull,Blue-collar,WEAK,56,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP007,ช่างไฟ รับงาน,,TP,Informal-Traditional,Pull,Blue-collar,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP008,ตลาดนัด เปิดใหม่,,TP,Informal-Traditional,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP009,นวดแผนไทย ลงทุน,,TP,Informal-Traditional,Pull,Service,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP010,รถเข็นขายของ,,TP,Informal-Traditional,Pull,Informal-Vendor,active_v25,0,T3,Y,ใช้ได้แล้วใน Interactive v25
+TP011,รับจ้าง ตัดหญ้า,,TP,Informal-Traditional,Pull,Blue-collar,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP012,รับจ้างรายวัน,,TP,Informal-Traditional,Pull,Blue-collar,national_pass,0,Archive,N,Archive จาก region/tier review
+TP013,รับทำขนมไทย ขาย,,TP,Informal-Traditional,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP014,รับสอนพิเศษ,,TP,Informal-Traditional,Pull,Education,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP015,รับเหมา สวน,,TP,Informal-Traditional,Pull,Blue-collar,WEAK,44,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP016,รับเหมาก่อสร้าง หางาน,,TP,Informal-Traditional,Pull,Blue-collar,WEAK,31,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP017,รับเหมาทาสี หางาน,,TP,Informal-Traditional,Pull,Blue-collar,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP018,รายได้ขายข้าวแกง,,TP,Informal-Traditional,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP019,รายได้ร้านกาแฟ,,TP,Informal-Traditional,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP020,ร้านเสริมสวย เปิดใหม่,,TP,Informal-Traditional,Pull,Service,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP021,วินมอเตอร์ไซค์ สมัคร,,TP,Informal-Traditional,Pull,Service,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP022,หาบเร่ แผงลอย ขึ้นทะเบียน,,TP,Informal-Traditional,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP023,เช่าล็อคตลาดโต้รุ่ง,,TP,Informal-Traditional,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP024,เซ้งร้านกาแฟ,,TP,Informal-Traditional,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP025,เปิดคาเฟ่ สาขาเดียว,,TP,Informal-Traditional,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP026,เปิดร้านก๋วยเตี๋ยว ต้นทุน,,TP,Informal-Traditional,Pull,Informal-Vendor,national_pass,0,Archive,N,Archive จาก region/tier review
+TP027,เปิดร้านของชำ,,TP,Informal-Traditional,Pull,Informal-Vendor,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+TP028,เปิดร้านขายอาหาร ลงทุน,,TP,Informal-Traditional,Pull,Informal-Vendor,Archive,49,Archive,N,Archive จาก region/tier review
+TP029,เปิดร้านข้าว ลงทุน,,TP,Informal-Traditional,Pull,Informal-Vendor,Archive,59,Archive,N,Archive จาก region/tier review
+TP030,เปิดร้านซักรีด,,TP,Informal-Traditional,Pull,Service,Archive,42,Archive,N,Archive จาก region/tier review
+TP031,เปิดร้านซ่อมมือถือ,,TP,Informal-Traditional,Pull,Blue-collar,Archive,,Archive,N,Archive จาก region/tier review
+TP032,เปิดร้านตัดผม,,TP,Informal-Traditional,Pull,Service,national_pass,0,Archive,N,Archive จาก region/tier review
+TP033,เสื้อวินมอเตอร์ไซค์,,TP,Informal-Traditional,Pull,Service,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP034,แม่ค้าตลาด เริ่มต้น,,TP,Informal-Traditional,Pull,Informal-Vendor,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP035,แม่ค้าตลาดมือใหม่,,TP,Informal-Traditional,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP036,เปิดแผงขายของ,,TP,Informal-Traditional,Pull,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP037,ขายกับข้าวตลาดนัด,,TP,Informal-Traditional,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP038,ช่างปูนรับงาน,,TP,Informal-Traditional,Pull,Blue-collar,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP039,แม่บ้านรับงานรายวัน,,TP,Informal-Traditional,Pull,Service,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP040,ร้านอาหารตามสั่งลงทุนเท่าไหร่,,TP,Informal-Traditional,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP041,ตลาดนัดขายของ,ขายของตลาดนัด | ตลาดนัดขายของ,TP,Informal-Traditional,Pull,Informal-Vendor,active_v25,0,T3,Y,ใช้ได้แล้วใน Interactive v25
+TP042,ขายอาหารตามสั่ง,ขายอาหารตามสั่ง | เริ่มขายอาหารตามสั่ง,TP,Informal-Traditional,Pull,Informal-Vendor,national_pass,0,Archive,N,Archive จาก region/tier review
+TP043,รับจ้างทั่วไป,งานรับจ้างทั่วไป | รับจ้างทั่วไป,TP,Informal-Traditional,Pull,Blue-collar,national_pass,0,Archive,N,Archive จาก region/tier review
+TP044,เปิดร้านกาแฟ,เปิดร้านกาแฟ | เริ่มเปิดร้านกาแฟ,TP,Informal-Traditional,Pull,Informal-Vendor,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+TP045,เปิดร้านขายน้ำ,เปิดร้านขายน้ำ | เริ่มร้านขายน้ำ,TP,Informal-Traditional,Pull,Informal-Vendor,national_pass,0,T3,N,เก็บเป็น context/T3 ไม่ควรใช้เป็น active regional signal ตอนนี้
+TP046,ขายของตลาดนัด,ขายของตลาดนัด | ขายของในตลาดนัด,TP,Informal-Traditional,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP047,ขายลูกชิ้น,ขายลูกชิ้น | เริ่มขายลูกชิ้น,TP,Informal-Traditional,Pull,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TP048,แม่บ้านรับจ้าง,รับจ้างแม่บ้าน | แม่บ้านรับจ้าง,TP,Informal-Traditional,Pull,Service,WEAK,30,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP049,เช่าแผงตลาดนัด,เช่าแผงตลาดนัด รายได้ | เช่าแผงตลาดนัด เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP050,ขายอาหารตลาดนัด,ขายอาหารตลาดนัด รายได้ | ขายอาหารตลาดนัด เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,5,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP051,ขายเสื้อผ้าตลาดนัด,ขายเสื้อผ้าตลาดนัด รายได้ | ขายเสื้อผ้าตลาดนัด เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,3,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP052,ขายของมือสองตลาดนัด,ขายของมือสองตลาดนัด รายได้ | ขายของมือสองตลาดนัด เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,42,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP053,ขายน้ำตลาดนัด,ขายน้ำตลาดนัด รายได้ | ขายน้ำตลาดนัด เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,37,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP054,ขายหมูปิ้ง,ขายหมูปิ้ง รายได้ | ขายหมูปิ้ง เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP055,ขายลูกชิ้นทอด,ขายลูกชิ้นทอด รายได้ | ขายลูกชิ้นทอด เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP056,ขายไก่ทอด,ขายไก่ทอด รายได้ | ขายไก่ทอด เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP057,ขายข้าวเหนียวหมูปิ้ง,ขายข้าวเหนียวหมูปิ้ง รายได้ | ขายข้าวเหนียวหมูปิ้ง เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,53,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP058,เปิดร้านอาหารตามสั่ง,เปิดร้านอาหารตามสั่ง รายได้ | เปิดร้านอาหารตามสั่ง เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP059,เปิดร้านก๋วยเตี๋ยว,เปิดร้านก๋วยเตี๋ยว รายได้ | เปิดร้านก๋วยเตี๋ยว เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP060,เปิดร้านกาแฟเล็กๆ,เปิดร้านกาแฟเล็กๆ รายได้ | เปิดร้านกาแฟเล็กๆ เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,20,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP061,เปิดร้านน้ำปั่น,เปิดร้านน้ำปั่น รายได้ | เปิดร้านน้ำปั่น เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,40,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP062,เปิดร้านชานม,เปิดร้านชานม รายได้ | เปิดร้านชานม เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,9,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP063,เปิดร้านข้าวแกง,เปิดร้านข้าวแกง รายได้ | เปิดร้านข้าวแกง เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,13,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP064,เปิดร้านส้มตำ,เปิดร้านส้มตำ รายได้ | เปิดร้านส้มตำ เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP065,เปิดร้านหมูกระทะ,เปิดร้านหมูกระทะ รายได้ | เปิดร้านหมูกระทะ เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP066,เปิดร้านซักผ้า,เปิดร้านซักผ้า รายได้ | เปิดร้านซักผ้า เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP067,เปิดร้านเสริมสวย,เปิดร้านเสริมสวย รายได้ | เปิดร้านเสริมสวย เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP068,เปิดร้านซ่อมรถ,เปิดร้านซ่อมรถ รายได้ | เปิดร้านซ่อมรถ เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP069,รับงานก่อสร้าง,รับงานก่อสร้าง รายได้ | รับงานก่อสร้าง เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP070,รับงานปูกระเบื้อง,รับงานปูกระเบื้อง รายได้ | รับงานปูกระเบื้อง เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP071,รับงานทาสี,รับงานทาสี รายได้ | รับงานทาสี เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,53,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP072,รับงานช่างไฟ,รับงานช่างไฟ รายได้ | รับงานช่างไฟ เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP073,รับงานช่างประปา,รับงานช่างประปา รายได้ | รับงานช่างประปา เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP074,รับงานช่างแอร์,รับงานช่างแอร์ รายได้ | รับงานช่างแอร์ เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP075,รับงานช่างไม้,รับงานช่างไม้ รายได้ | รับงานช่างไม้ เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TP076,รับงานช่างเชื่อม,รับงานช่างเชื่อม รายได้ | รับงานช่างเชื่อม เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,49,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP077,รับงานซ่อมบ้าน,รับงานซ่อมบ้าน รายได้ | รับงานซ่อมบ้าน เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,56,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP078,รับงานสวน,รับงานสวน รายได้ | รับงานสวน เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP079,รับตัดหญ้า,รับตัดหญ้า รายได้ | รับตัดหญ้า เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP080,รับงานแม่บ้าน,รับงานแม่บ้าน รายได้ | รับงานแม่บ้าน เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP081,รับซักรีด,รับซักรีด รายได้ | รับซักรีด เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP082,รับเลี้ยงเด็ก,รับเลี้ยงเด็ก รายได้ | รับเลี้ยงเด็ก เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP083,รับดูแลผู้สูงอายุ,รับดูแลผู้สูงอายุ รายได้ | รับดูแลผู้สูงอายุ เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP084,รับทำอาหารกล่อง,รับทำอาหารกล่อง รายได้ | รับทำอาหารกล่อง เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,25,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP085,รับทำขนม,รับทำขนม รายได้ | รับทำขนม เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP086,รับทำหมูปิ้ง,รับทำหมูปิ้ง รายได้ | รับทำหมูปิ้ง เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP087,รับทำโต๊ะจีน,รับทำโต๊ะจีน รายได้ | รับทำโต๊ะจีน เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP088,รับจ้างล้างจาน,รับจ้างล้างจาน รายได้ | รับจ้างล้างจาน เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP089,รับจ้างล้างรถ,รับจ้างล้างรถ รายได้ | รับจ้างล้างรถ เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP090,รับขนของ,รับขนของ รายได้ | รับขนของ เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP091,รับจ้างย้ายบ้าน,รับจ้างย้ายบ้าน รายได้ | รับจ้างย้ายบ้าน เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,9,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP092,ขับวินมอเตอร์ไซค์,ขับวินมอเตอร์ไซค์ รายได้ | ขับวินมอเตอร์ไซค์ เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,41,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP093,ขับแท็กซี่,ขับแท็กซี่ รายได้ | ขับแท็กซี่ เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP094,ขับรถรับจ้าง,ขับรถรับจ้าง รายได้ | ขับรถรับจ้าง เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP095,ขับรถสองแถว,ขับรถสองแถว รายได้ | ขับรถสองแถว เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,24,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP096,รับจ้างเกี่ยวข้าว,รับจ้างเกี่ยวข้าว รายได้ | รับจ้างเกี่ยวข้าว เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP097,รับจ้างดำนา,รับจ้างดำนา รายได้ | รับจ้างดำนา เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TP098,รับจ้างเก็บมัน,รับจ้างเก็บมัน รายได้ | รับจ้างเก็บมัน เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TP099,รับจ้างกรีดยาง,รับจ้างกรีดยาง รายได้ | รับจ้างกรีดยาง เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TP100,รับจ้างตัดอ้อย,รับจ้างตัดอ้อย รายได้ | รับจ้างตัดอ้อย เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP101,เลี้ยงไก่ขาย,เลี้ยงไก่ขาย รายได้ | เลี้ยงไก่ขาย เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP102,เลี้ยงหมูขาย,เลี้ยงหมูขาย รายได้ | เลี้ยงหมูขาย เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,19,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP103,เลี้ยงปลาขาย,เลี้ยงปลาขาย รายได้ | เลี้ยงปลาขาย เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP104,ปลูกผักขาย,ปลูกผักขาย รายได้ | ปลูกผักขาย เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP105,ขายผักตลาด,ขายผักตลาด รายได้ | ขายผักตลาด เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP106,ขายผลไม้ตลาด,ขายผลไม้ตลาด รายได้ | ขายผลไม้ตลาด เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP107,ขายอาหารหน้าโรงงาน,ขายอาหารหน้าโรงงาน รายได้ | ขายอาหารหน้าโรงงาน เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP108,ขายของหน้าโรงเรียน,ขายของหน้าโรงเรียน รายได้ | ขายของหน้าโรงเรียน เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,4,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP109,ขายของหน้าโรงพยาบาล,ขายของหน้าโรงพยาบาล รายได้ | ขายของหน้าโรงพยาบาล เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TP110,ขายของริมทาง,ขายของริมทาง รายได้ | ขายของริมทาง เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,36,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP111,หาบเร่ขายของ,หาบเร่ขายของ รายได้ | หาบเร่ขายของ เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TP112,แผงลอยขายอาหาร,แผงลอยขายอาหาร รายได้ | แผงลอยขายอาหาร เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TP113,ขายกาแฟรถเข็น,ขายกาแฟรถเข็น รายได้ | ขายกาแฟรถเข็น เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP114,ขายน้ำแข็งไส,ขายน้ำแข็งไส รายได้ | ขายน้ำแข็งไส เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TP115,ขายโรตี,ขายโรตี รายได้ | ขายโรตี เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP116,ขายเครป,ขายเครป รายได้ | ขายเครป เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP117,ขายขนมครก,ขายขนมครก รายได้ | ขายขนมครก เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,3,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP118,ขายข้าวเหนียวไก่ทอด,ขายข้าวเหนียวไก่ทอด รายได้ | ขายข้าวเหนียวไก่ทอด เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,54,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP119,ขายปลาเผา,ขายปลาเผา รายได้ | ขายปลาเผา เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,5,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP120,ขายกับข้าวถุง,ขายกับข้าวถุง รายได้ | ขายกับข้าวถุง เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP121,ทำข้าวกล่องขาย,ทำข้าวกล่องขาย รายได้ | ทำข้าวกล่องขาย เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,32,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP122,ทำขนมขาย,ทำขนมขาย รายได้ | ทำขนมขาย เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP123,ขายของวันเสาร์อาทิตย์,ขายของวันเสาร์อาทิตย์ รายได้ | ขายของวันเสาร์อาทิตย์ เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP124,ขายของหลังเลิกงาน,ขายของหลังเลิกงาน รายได้ | ขายของหลังเลิกงาน เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,48,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP125,งานรับเหมาเล็ก,งานรับเหมาเล็ก รายได้ | งานรับเหมาเล็ก เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TP126,รับเหมาต่อเติมบ้าน,รับเหมาต่อเติมบ้าน รายได้ | รับเหมาต่อเติมบ้าน เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,national_pass,1,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TP127,รับซ่อมแอร์บ้าน,รับซ่อมแอร์บ้าน รายได้ | รับซ่อมแอร์บ้าน เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TP128,รับซ่อมไฟบ้าน,รับซ่อมไฟบ้าน รายได้ | รับซ่อมไฟบ้าน เริ่มต้น,TP,Informal-Traditional,Pull,Traditional informal entry,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU001,ของแพง ค้าขายไม่ดี,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU002,ขาดทุนเรื้อรัง ร้าน,,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU003,ขายของขาดทุน ทำไง,,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU004,ขายของริมทาง โดนไล่,,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU005,ขายของไม่ดี,,TU,Informal-Traditional,Push,Informal-Vendor,active_v25,0,T3,Y,ใช้ได้แล้วใน Interactive v25
+TU006,ขายตลาดไม่คุ้ม,,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU007,คนซื้อของน้อยลง,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU008,ค่าเช่า ขึ้น,,TU,Informal-Traditional,Push,Informal-Vendor,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TU009,ตลาดซบเซา,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU010,ต้นทุนสูง กำไรน้อย,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU011,ทิ้งร้าน ไปทำงาน,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU012,ทุนหมด ร้านค้า,,TU,Informal-Traditional,Push,Informal-Vendor,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TU013,ปล่อยเซ้งร้าน,,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU014,ปิดกิจการ สรรพากร,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU015,ปิดร้าน ลดหนี้,,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU016,ปิดร้านชั่วคราว,,TU,Informal-Traditional,Push,Informal-Vendor,national_pass,8,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TU017,ยกเลิกแผงตลาด,,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU018,รับเหมาทิ้งงาน,,TU,Informal-Traditional,Push,Blue-collar,WEAK,57,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU019,รับเหมาเจ๊ง,,TU,Informal-Traditional,Push,Blue-collar,WEAK,57,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU020,ร้านเงียบ ขายไม่ได้,,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU021,ร้านเจ๊ง แก้ยังไง,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU022,ลูกค้าน้อย ทำไง,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU023,ลูกหนี้ไม่จ่ายค่าของ,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU024,วินมอเตอร์ไซค์ รายได้น้อย,,TU,Informal-Traditional,Push,Service,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU025,วินเงียบ ไม่มีผู้โดยสาร,,TU,Informal-Traditional,Push,Service,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU026,เงินขาดมือ ร้านค้า,,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU027,เงินหมุนไม่ทัน ร้าน,,TU,Informal-Traditional,Push,Informal-Vendor,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TU028,เซ้งกิจการ ขาดทุน,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU029,เซ้งร้าน ด่วน,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU030,เทศกิจไล่ที่,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU031,เปลี่ยนอาชีพ จากแม่ค้า,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU032,เลิกค้าขาย,,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,39,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU033,โอนร้าน,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU034,ไม่พอกิน ค้าขาย,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU035,แม่ค้าตลาดขายไม่ดี,,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU036,ร้านของชำขายไม่ดี,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU037,ช่างรับเหมาไม่มีงาน,,TU,Informal-Traditional,Push,Blue-collar,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TU038,ลูกจ้างรายวันไม่มีงาน,,TU,Informal-Traditional,Push,Blue-collar,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU039,จำนำโฉนดที่ดิน,,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU040,ลูกหนี้ ธกส ไม่มีเงินจ่าย,ลูกหนี้ ธกส จ่ายไม่ไหว | ลูกหนี้ ธกส ไม่มีเงินจ่าย,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU041,ขายต่อ ร้าน,,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU042,หางานใหม่ แม่ค้า,,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU043,เปลี่ยนอาชีพ แม่ค้า,,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU044,เลิกขาย ทำงานอะไรดี,,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU045,ค่าไฟแพง ร้านค้า,ค่าไฟแพง ร้านค้า | ร้านค้า ค่าไฟแพง,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU046,ค่าน้ำแพง ร้านค้า,ค่าน้ำแพง ร้านค้า | ร้านค้า ค่าน้ำแพง,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU047,ของสดแพง ขายอาหาร,ของสดแพง ขายอาหาร | ขายอาหาร ของสดแพง,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU048,ราคาของขึ้น ขายของ,ขายของ ราคาของขึ้น | ราคาของขึ้น ขายของ,TU,Informal-Traditional,Push,Informal-Vendor,active_v25,0,T3,Y,ใช้ได้แล้วใน Interactive v25
+TU049,ต้นทุนร้านค้าแพง,ต้นทุนร้านค้าแพง | ร้านค้า ต้นทุนแพง,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU050,กำไรน้อย ร้านค้า,กำไรน้อย ร้านค้า | ร้านค้า กำไรน้อย,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU051,สินค้าค้างสต๊อก,ของค้างสต๊อก | สินค้าค้างสต๊อก,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU052,ของเหลือขายไม่หมด,ของเหลือขายไม่หมด | ขายของเหลือเยอะ,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,59,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU053,ภาษีร้านค้า,ภาษีร้านค้า | ร้านค้าเสียภาษี,TU,Informal-Traditional,Push,Informal-Vendor,national_pass,0,Archive,N,Archive จาก region/tier review
+TU054,ร้านอาหาร ต้นทุนสูง,ต้นทุนร้านอาหารสูง | ร้านอาหาร ต้นทุนสูง,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU055,วัตถุดิบแพง ร้านอาหาร,ร้านอาหาร วัตถุดิบแพง | วัตถุดิบแพง ร้านอาหาร,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU056,ค่าแก๊สแพง ร้านอาหาร,ค่าแก๊สแพง ร้านอาหาร | ร้านอาหาร ค่าแก๊สแพง,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU057,ค่าเช่าร้านแพง,ค่าเช่าร้านแพง | ร้านค่าเช่าแพง,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,60,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU058,ค่าเช่าแผงแพง,ค่าเช่าแผงตลาดแพง | ค่าเช่าแผงแพง,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU059,ลูกค้าน้อย ร้านค้า,ร้านค้า ลูกค้าน้อย | ลูกค้าน้อย ร้านค้า,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU060,ยอดขายตก ร้านค้า,ยอดขายตก ร้านค้า | ร้านค้า ยอดขายตก,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU061,ของแพงขายยาก,ของแพง ขายยาก | ของแพงขายยาก,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU062,ขายของได้น้อย,ขายของได้น้อย | ขายได้น้อย,TU,Informal-Traditional,Push,Informal-Vendor,active_v25,0,Archive,Y,ใช้ได้แล้วใน Interactive v25
+TU063,หนี้นอกระบบ แม่ค้า,หนี้นอกระบบ แม่ค้า | แม่ค้า หนี้นอกระบบ,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU064,จ่ายค่าเช่าร้านไม่ไหว,ค่าเช่าร้านไม่ไหว | จ่ายค่าเช่าร้านไม่ไหว,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU065,เศรษฐกิจไม่ดี ค้าขาย,ค้าขาย เศรษฐกิจไม่ดี | เศรษฐกิจไม่ดี ค้าขาย,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,55,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU066,ค่าเช่าตลาดแพง,ค่าเช่าตลาดแพง | ตลาดค่าเช่าแพง,TU,Informal-Traditional,Push,Informal-Vendor,WEAK,61,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU067,เซ้งร้าน,เซ้งกิจการ | เซ้งร้าน,TU,Informal-Traditional,Push,Informal-Vendor,active_v25,0,T3,Y,ใช้ได้แล้วใน Interactive v25
+TU068,ปิดร้าน,ปิดร้าน | ปิดร้านถาวร,TU,Informal-Traditional,Push,Informal-Vendor,active_v25,0,T1,Y,ใช้ได้แล้วใน Interactive v25
+TU069,เลิกกิจการ,เลิก กิจการ | เลิกกิจการ,TU,Informal-Traditional,Push,Informal-Vendor,active_v25,0,T3,Y,ใช้ได้แล้วใน Interactive v25
+TU070,ขายกิจการ,ขาย กิจการ | ขายกิจการ,TU,Informal-Traditional,Push,Informal-Vendor,active_v25,0,T2,Y,ใช้ได้แล้วใน Interactive v25
+TU071,ขายร้านต่อ,ขายร้าน ต่อ | ขายร้านต่อ,TU,Informal-Traditional,Push,Informal-Vendor,active_v25,0,T3,Y,ใช้ได้แล้วใน Interactive v25
+TU072,ปิดร้านอาหาร,ร้านอาหารปิด | เลิกกิจการร้านอาหาร,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU073,ปิดร้านกาแฟ,ร้านกาแฟปิด | เลิกกิจการร้านกาแฟ,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU074,ค้าขายไม่ดี,ขายของไม่ดี | ยอดขายไม่ดี,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU075,ปิดร้านตลาด,ปิดแผงตลาด | ร้านในตลาดปิด,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU076,ร้านเจ๊ง,กิจการเจ๊ง | ร้านเจ๊งทำไง,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU077,เลิกขายของ,เลิกค้าขาย | ไม่ขายของแล้ว,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU078,ปิดร้านเหล้า,ร้านเหล้าปิด | เลิกกิจการร้านเหล้า,TU,Informal-Traditional,Push,Service,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU079,ปิดร้านตัดผม,ร้านตัดผมปิด | เลิกกิจการร้านตัดผม,TU,Informal-Traditional,Push,Service,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU080,ร้านขาดทุน,ค้าขายขาดทุน | ร้านค้าขาดทุน,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU081,ปิดร้านนวด,ร้านนวดปิด | เลิกกิจการร้านนวด,TU,Informal-Traditional,Push,Service,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU082,ปิดร้านขายของ,ร้านขายของปิด | เลิกขายของ,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU083,ปิดร้านหมูกระทะ,ร้านหมูกระทะปิด | เลิกกิจการหมูกระทะ,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU084,ปิดร้านก๋วยเตี๋ยว,ร้านก๋วยเตี๋ยวปิด | เลิกกิจการร้านก๋วยเตี๋ยว,TU,Informal-Traditional,Push,Informal-Vendor,proposed,,,N,มีใน candidate/source pool แต่ยังไม่พบผล scrape
+TU085,ร้านอาหารยอดขายตก,ร้านอาหารยอดขายตก ทำอย่างไร | ร้านอาหารยอดขายตก แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TU086,ร้านขายของยอดขายตก,ร้านขายของยอดขายตก ทำอย่างไร | ร้านขายของยอดขายตก แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TU087,ตลาดนัดคนเดินน้อย,ตลาดนัดคนเดินน้อย ทำอย่างไร | ตลาดนัดคนเดินน้อย แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TU088,ลูกค้าหาย,ลูกค้าหาย ทำอย่างไร | ลูกค้าหาย แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TU089,ค่าเช่าแผงขึ้น,ค่าเช่าแผงขึ้น ทำอย่างไร | ค่าเช่าแผงขึ้น แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU090,ค่าเช่าร้านขึ้น,ค่าเช่าร้านขึ้น ทำอย่างไร | ค่าเช่าร้านขึ้น แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TU091,ต้นทุนวัตถุดิบขึ้น,ต้นทุนวัตถุดิบขึ้น ทำอย่างไร | ต้นทุนวัตถุดิบขึ้น แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,41,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU092,ขายของขาดทุน,ขายของขาดทุน ทำอย่างไร | ขายของขาดทุน แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TU093,ขายอาหารขาดทุน,ขายอาหารขาดทุน ทำอย่างไร | ขายอาหารขาดทุน แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TU094,ยอดขายร้านตก,ยอดขายร้านตก ทำอย่างไร | ยอดขายร้านตก แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TU095,ร้านเงียบ,ร้านเงียบ ทำอย่างไร | ร้านเงียบ แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,national_pass,0,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TU096,ตลาดเงียบ,ตลาดเงียบ ทำอย่างไร | ตลาดเงียบ แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,54,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU097,ขายของไม่หมด,ขายของไม่หมด ทำอย่างไร | ขายของไม่หมด แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,national_pass,12,,N,ผ่าน National แล้ว ต้องทำ Regional Gate และ semantic family review
+TU098,ของเหลือเยอะ,ของเหลือเยอะ ทำอย่างไร | ของเหลือเยอะ แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,55,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU099,ขายอุปกรณ์ร้านค้า,ขายอุปกรณ์ร้านค้า รายได้ | ขายอุปกรณ์ร้านค้า ใกล้ฉัน,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,18,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU100,ปิดร้านถาวร,ปิดร้านถาวร ทำอย่างไร | ปิดร้านถาวร แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,33,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU101,เลิกขายของตลาดนัด,เลิกขายของตลาดนัด ทำอย่างไร | เลิกขายของตลาดนัด แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU102,เลิกขายอาหาร,เลิกขายอาหาร ทำอย่างไร | เลิกขายอาหาร แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,58,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU103,เลิกเปิดร้าน,เลิกเปิดร้าน ทำอย่างไร | เลิกเปิดร้าน แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,18,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU104,คืนแผงตลาด,คืนแผงตลาด ทำอย่างไร | คืนแผงตลาด แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TU105,ไม่มีเงินจ่ายค่าเช่าร้าน,ไม่มีเงินจ่ายค่าเช่าร้าน ทำอย่างไร | ไม่มีเงินจ่ายค่าเช่าร้าน แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TU106,ไม่มีเงินจ่ายค่าแผง,ไม่มีเงินจ่ายค่าแผง ทำอย่างไร | ไม่มีเงินจ่ายค่าแผง แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,62,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU107,ค่าไฟร้านอาหารแพง,ค่าไฟร้านอาหารแพง รายได้ | ค่าไฟร้านอาหารแพง ใกล้ฉัน,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TU108,ค่าน้ำมันแพงรับจ้าง,ค่าน้ำมันแพงรับจ้าง ทำอย่างไร | ค่าน้ำมันแพงรับจ้าง แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TU109,ค่าขนส่งแพง,ค่าขนส่งแพง ทำอย่างไร | ค่าขนส่งแพง แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,48,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU110,ราคาวัตถุดิบขึ้น,ราคาวัตถุดิบขึ้น ทำอย่างไร | ราคาวัตถุดิบขึ้น แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,37,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU111,หมูแพงร้านอาหาร,หมูแพงร้านอาหาร ทำอย่างไร | หมูแพงร้านอาหาร แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,57,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU112,ไข่แพงร้านอาหาร,ไข่แพงร้านอาหาร ทำอย่างไร | ไข่แพงร้านอาหาร แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TU113,ผักแพงร้านอาหาร,ผักแพงร้านอาหาร ทำอย่างไร | ผักแพงร้านอาหาร แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TU114,ลูกค้าต่อราคามาก,ลูกค้าต่อราคามาก ทำอย่างไร | ลูกค้าต่อราคามาก แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,48,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU115,โดนยกเลิกงานรับจ้าง,โดนยกเลิกงานรับจ้าง ทำอย่างไร | โดนยกเลิกงานรับจ้าง แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TU116,รับจ้างไม่มีงาน,รับจ้างไม่มีงาน ทำอย่างไร | รับจ้างไม่มีงาน แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,56,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU117,งานช่างน้อย,งานช่างน้อย ทำอย่างไร | งานช่างน้อย แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,25,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU118,ลูกค้าช่างหาย,ลูกค้าช่างหาย ทำอย่างไร | ลูกค้าช่างหาย แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU119,งานก่อสร้างน้อย,งานก่อสร้างน้อย ทำอย่างไร | งานก่อสร้างน้อย แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,17,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU120,งานแม่บ้านน้อย,งานแม่บ้านน้อย ทำอย่างไร | งานแม่บ้านน้อย แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,WEAK,63,,N,มี National data แต่สัญญาณอ่อน ใช้เป็น context หรือรอคำแทน
+TU121,รายได้วินลดลง,รายได้วินลดลง ทำอย่างไร | รายได้วินลดลง แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TU122,รายได้แท็กซี่ลดลง,รายได้แท็กซี่ลดลง ทำอย่างไร | รายได้แท็กซี่ลดลง แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TU123,ค่าเช่ารถแท็กซี่แพง,ค่าเช่ารถแท็กซี่แพง ทำอย่างไร | ค่าเช่ารถแท็กซี่แพง แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA
+TU124,ค่าน้ำมันแท็กซี่แพง,ค่าน้ำมันแท็กซี่แพง ทำอย่างไร | ค่าน้ำมันแท็กซี่แพง แก้ยังไง,TU,Informal-Traditional,Push,Traditional informal distress,NO_DATA,,,N,เคยลอง National แล้ว NO_DATA

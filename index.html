@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Google Trends Toolkit</title>
+<script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8"></script>
+<style>
+  :root {
+    --bg:#f6f7f9; --card:#fff; --ink:#1c2733; --sub:#5b6b7b; --accent:#1f5fa8;
+    --line:#e3e8ee; --chip:#eef2f7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#14181d; --card:#1d2329; --ink:#e8edf2; --sub:#9aa8b5; --accent:#6aa5e0; --line:#2b333c; --chip:#252d36; }
+  }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--ink); font-family:"Segoe UI",Tahoma,sans-serif; line-height:1.55; }
+  .wrap { max-width:1180px; margin:0 auto; padding:26px 18px 50px; }
+  h1 { font-size:1.45rem; }
+  .sub { color:var(--sub); font-size:.9rem; margin:2px 0 20px; }
+  .layout { display:grid; grid-template-columns:290px 1fr; gap:16px; }
+  @media (max-width:860px) { .layout { grid-template-columns:1fr; } }
+  .panel { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px; }
+  .panel h2 { font-size:.95rem; margin-bottom:8px; color:var(--sub); font-weight:600; }
+  .geo-row { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+  .geo-row button { border:1px solid var(--line); background:var(--chip); color:var(--ink); border-radius:16px; padding:4px 12px; font-size:.85rem; cursor:pointer; }
+  .geo-row button.on { background:var(--accent); border-color:var(--accent); color:#fff; }
+  select { width:100%; padding:6px 8px; border:1px solid var(--line); border-radius:6px; background:var(--card); color:var(--ink); margin-bottom:10px; font-size:.9rem; }
+  .kw-list { max-height:420px; overflow-y:auto; border:1px solid var(--line); border-radius:6px; padding:6px; }
+  .kw-list label { display:flex; gap:8px; align-items:baseline; padding:4px 6px; border-radius:5px; cursor:pointer; font-size:.9rem; }
+  .kw-list label:hover { background:var(--chip); }
+  .kw-list .id { color:var(--sub); font-size:.75rem; min-width:52px; }
+  .btn-row { display:flex; gap:8px; margin-top:10px; }
+  .btn-row button { flex:1; border:1px solid var(--line); background:var(--chip); color:var(--ink); border-radius:6px; padding:6px 0; font-size:.85rem; cursor:pointer; }
+  .toggle { display:flex; align-items:center; gap:8px; margin-top:12px; font-size:.9rem; }
+  #chart { width:100%; height:560px; }
+  .note { color:var(--sub); font-size:.85rem; margin-top:8px; }
+  a { color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Google Trends Toolkit</h1>
+  <div class="sub" id="stamp"></div>
+
+  <div class="layout">
+    <div class="panel">
+      <h2>พื้นที่</h2>
+      <div class="geo-row" id="geoRow"></div>
+
+      <h2>กลุ่มคำ</h2>
+      <select id="groupSel"></select>
+
+      <h2>คำค้น (ติ๊กเพื่อแสดง)</h2>
+      <div class="kw-list" id="kwList"></div>
+      <div class="btn-row">
+        <button id="btnAll">เลือกที่เห็นทั้งหมด</button>
+        <button id="btnNone">ล้าง</button>
+      </div>
+
+      <div class="toggle">
+        <input type="checkbox" id="ma3" checked>
+        <label for="ma3">เส้นค่าเฉลี่ยเคลื่อนที่ 3 เดือน (MA3)</label>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div id="chart"></div>
+      <div class="note" id="missingNote"></div>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:14px">
+    ค่าเป็น Google Trends index (0-100) เทียบภายในช่วงเวลาที่ดึงของแต่ละคำและพื้นที่
+    ห้ามอ่านเป็นจำนวนการค้นจริง | อัพเดทข้อมูล: ดูวิธีใน <a href="https://github.com/reload0981-ops/google-trends-toolkit#readme">README</a>
+  </div>
+</div>
+
+<script src="data.js" charset="utf-8"></script>
+<script>
+(function () {
+  const D = window.GT_DATA;
+  const state = { geo: "TH", group: "ALL", checked: new Set(), ma3: true };
+
+  const cellName = k => `${k.segment} / ${k.factor}`;
+  const groups = {};
+  D.keywords.forEach(k => { groups[k.id.slice(0, 2)] = cellName(k); });
+
+  // default: เลือก 3 คำแรกที่มีข้อมูล TH
+  D.keywords.filter(k => D.series[k.id] && D.series[k.id]["TH"]).slice(0, 3)
+    .forEach(k => state.checked.add(k.id));
+
+  const el = id => document.getElementById(id);
+
+  function renderStamp() {
+    el("stamp").textContent =
+      `คำค้นทั้งหมด ${D.keywords.length} คำ | ข้อมูลอัพเดทล่าสุด: ${D.updated_at || "-"}`;
+  }
+
+  function renderGeo() {
+    el("geoRow").innerHTML = "";
+    Object.entries(D.geos).forEach(([code, name]) => {
+      const b = document.createElement("button");
+      b.textContent = name;
+      b.className = code === state.geo ? "on" : "";
+      b.onclick = () => { state.geo = code; renderGeo(); renderChart(); };
+      el("geoRow").appendChild(b);
+    });
+  }
+
+  function renderGroups() {
+    const s = el("groupSel");
+    s.innerHTML = `<option value="ALL">ทุกกลุ่ม</option>` +
+      Object.entries(groups).map(([g, n]) => `<option value="${g}">${g} · ${n}</option>`).join("");
+    s.value = state.group;
+    s.onchange = () => { state.group = s.value; renderList(); };
+  }
+
+  function visibleKeywords() {
+    return D.keywords.filter(k => state.group === "ALL" || k.id.startsWith(state.group));
+  }
+
+  function renderList() {
+    const box = el("kwList");
+    box.innerHTML = "";
+    visibleKeywords().forEach(k => {
+      const lab = document.createElement("label");
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = state.checked.has(k.id);
+      cb.onchange = () => {
+        cb.checked ? state.checked.add(k.id) : state.checked.delete(k.id);
+        renderChart();
+      };
+      lab.appendChild(cb);
+      lab.insertAdjacentHTML("beforeend",
+        `<span class="id">${k.id}</span><span>${k.keyword}</span>`);
+      box.appendChild(lab);
+    });
+  }
+
+  function ma3(values) {
+    return values.map((_, i) => {
+      const w = values.slice(Math.max(0, i - 2), i + 1);
+      return w.reduce((a, b) => a + b, 0) / w.length;
+    });
+  }
+
+  function renderChart() {
+    const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+    const traces = [], missing = [];
+    [...state.checked].forEach(id => {
+      const k = D.keywords.find(x => x.id === id);
+      const s = D.series[id] && D.series[id][state.geo];
+      if (!s) { missing.push(`${id} ${k ? k.keyword : ""}`); return; }
+      const y = state.ma3 ? ma3(s.values) : s.values;
+      traces.push({
+        x: s.months, y: y.map(v => Math.round(v * 10) / 10),
+        mode: "lines", name: `${k.keyword} (${id})`,
+        hovertemplate: "%{y}<extra>" + k.keyword + "</extra>",
+      });
+    });
+    Plotly.react("chart", traces, {
+      title: { text: `${D.geos[state.geo]}${state.ma3 ? " · MA3" : " · ค่าดิบรายเดือน"}`, font: { size: 15 } },
+      paper_bgcolor: "rgba(0,0,0,0)", plot_bgcolor: "rgba(0,0,0,0)",
+      font: { color: dark ? "#e8edf2" : "#1c2733", family: "Segoe UI, Tahoma" },
+      xaxis: { gridcolor: dark ? "#2b333c" : "#e3e8ee" },
+      yaxis: { title: "Google Trends index", rangemode: "tozero", gridcolor: dark ? "#2b333c" : "#e3e8ee" },
+      hovermode: "x unified",
+      legend: { orientation: "h", y: -0.18 },
+      margin: { t: 46, r: 20, b: 10, l: 55 },
+    }, { responsive: true, displaylogo: false });
+    el("missingNote").textContent = missing.length
+      ? `ไม่มีข้อมูลพื้นที่นี้: ${missing.join(", ")}` : "";
+    if (!traces.length) el("missingNote").textContent = "ยังไม่ได้เลือกคำ หรือคำที่เลือกไม่มีข้อมูลในพื้นที่นี้";
+  }
+
+  el("btnAll").onclick = () => { visibleKeywords().forEach(k => state.checked.add(k.id)); renderList(); renderChart(); };
+  el("btnNone").onclick = () => { state.checked.clear(); renderList(); renderChart(); };
+  el("ma3").onchange = e => { state.ma3 = e.target.checked; renderChart(); };
+
+  renderStamp(); renderGeo(); renderGroups(); renderList(); renderChart();
+})();
+</script>
+</body>
+</html>

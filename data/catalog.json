@@ -1,0 +1,2695 @@
+{
+ "series": {
+  "FP014__TH": {
+   "keyword": "สมัครงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP014__TH-30": {
+   "keyword": "สมัครงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP014__TH-31": {
+   "keyword": "สมัครงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP014__TH-34": {
+   "keyword": "สมัครงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP014__TH-40": {
+   "keyword": "สมัครงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP014__TH-41": {
+   "keyword": "สมัครงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP019__TH": {
+   "keyword": "หางาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP019__TH-30": {
+   "keyword": "หางาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP019__TH-31": {
+   "keyword": "หางาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP019__TH-34": {
+   "keyword": "หางาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP019__TH-40": {
+   "keyword": "หางาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP019__TH-41": {
+   "keyword": "หางาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP023__TH": {
+   "keyword": "หางาน นิคมอุตสาหกรรม",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP023__TH-31": {
+   "keyword": "หางาน นิคมอุตสาหกรรม",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP026__TH": {
+   "keyword": "หางาน โรงงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP026__TH-30": {
+   "keyword": "หางาน โรงงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP026__TH-31": {
+   "keyword": "หางาน โรงงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP026__TH-34": {
+   "keyword": "หางาน โรงงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP026__TH-40": {
+   "keyword": "หางาน โรงงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP026__TH-41": {
+   "keyword": "หางาน โรงงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP038__TH": {
+   "keyword": "สอบครูผู้ช่วย",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP038__TH-30": {
+   "keyword": "สอบครูผู้ช่วย",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP038__TH-31": {
+   "keyword": "สอบครูผู้ช่วย",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP038__TH-34": {
+   "keyword": "สอบครูผู้ช่วย",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP038__TH-40": {
+   "keyword": "สอบครูผู้ช่วย",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP038__TH-41": {
+   "keyword": "สอบครูผู้ช่วย",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP108__TH": {
+   "keyword": "สมัครงาน โรงงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP108__TH-30": {
+   "keyword": "สมัครงาน โรงงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP108__TH-31": {
+   "keyword": "สมัครงาน โรงงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP108__TH-34": {
+   "keyword": "สมัครงาน โรงงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP108__TH-40": {
+   "keyword": "สมัครงาน โรงงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP108__TH-41": {
+   "keyword": "สมัครงาน โรงงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP109__TH": {
+   "keyword": "สมัครงาน โรงพยาบาล",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP109__TH-30": {
+   "keyword": "สมัครงาน โรงพยาบาล",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP109__TH-31": {
+   "keyword": "สมัครงาน โรงพยาบาล",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP109__TH-34": {
+   "keyword": "สมัครงาน โรงพยาบาล",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP109__TH-40": {
+   "keyword": "สมัครงาน โรงพยาบาล",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP109__TH-41": {
+   "keyword": "สมัครงาน โรงพยาบาล",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP111__TH": {
+   "keyword": "สมัครงาน โรงเรียน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP111__TH-30": {
+   "keyword": "สมัครงาน โรงเรียน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP111__TH-34": {
+   "keyword": "สมัครงาน โรงเรียน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP111__TH-40": {
+   "keyword": "สมัครงาน โรงเรียน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP111__TH-41": {
+   "keyword": "สมัครงาน โรงเรียน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP112__TH": {
+   "keyword": "สมัครงาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP112__TH-30": {
+   "keyword": "สมัครงาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP112__TH-31": {
+   "keyword": "สมัครงาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP112__TH-34": {
+   "keyword": "สมัครงาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP112__TH-40": {
+   "keyword": "สมัครงาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP112__TH-41": {
+   "keyword": "สมัครงาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP118__TH": {
+   "keyword": "สมัครงาน พยาบาล",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP118__TH-30": {
+   "keyword": "สมัครงาน พยาบาล",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP118__TH-31": {
+   "keyword": "สมัครงาน พยาบาล",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP118__TH-34": {
+   "keyword": "สมัครงาน พยาบาล",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP118__TH-40": {
+   "keyword": "สมัครงาน พยาบาล",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP118__TH-41": {
+   "keyword": "สมัครงาน พยาบาล",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP135__TH": {
+   "keyword": "สมัครงาน อาจารย์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP135__TH-30": {
+   "keyword": "สมัครงาน อาจารย์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP135__TH-31": {
+   "keyword": "สมัครงาน อาจารย์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP136__TH": {
+   "keyword": "สมัครงาน พาร์ทไทม์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP136__TH-30": {
+   "keyword": "สมัครงาน พาร์ทไทม์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP136__TH-34": {
+   "keyword": "สมัครงาน พาร์ทไทม์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP136__TH-40": {
+   "keyword": "สมัครงาน พาร์ทไทม์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP136__TH-41": {
+   "keyword": "สมัครงาน พาร์ทไทม์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP153__TH": {
+   "keyword": "หางาน โรงเรียน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP153__TH-30": {
+   "keyword": "หางาน โรงเรียน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP153__TH-31": {
+   "keyword": "หางาน โรงเรียน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP153__TH-34": {
+   "keyword": "หางาน โรงเรียน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP153__TH-40": {
+   "keyword": "หางาน โรงเรียน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP153__TH-41": {
+   "keyword": "หางาน โรงเรียน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP159__TH": {
+   "keyword": "หางาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP159__TH-30": {
+   "keyword": "หางาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP159__TH-31": {
+   "keyword": "หางาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP159__TH-34": {
+   "keyword": "หางาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP159__TH-40": {
+   "keyword": "หางาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP169__TH": {
+   "keyword": "หางาน พาร์ทไทม์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP169__TH-30": {
+   "keyword": "หางาน พาร์ทไทม์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP169__TH-34": {
+   "keyword": "หางาน พาร์ทไทม์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP169__TH-40": {
+   "keyword": "หางาน พาร์ทไทม์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP169__TH-41": {
+   "keyword": "หางาน พาร์ทไทม์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP176__TH": {
+   "keyword": "หางาน อาจารย์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP301__TH": {
+   "keyword": "สอบราชการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP301__TH-30": {
+   "keyword": "สอบราชการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP301__TH-31": {
+   "keyword": "สอบราชการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP301__TH-34": {
+   "keyword": "สอบราชการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP301__TH-40": {
+   "keyword": "สอบราชการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP301__TH-41": {
+   "keyword": "สอบราชการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP302__TH": {
+   "keyword": "สมัครสอบราชการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP302__TH-30": {
+   "keyword": "สมัครสอบราชการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP302__TH-31": {
+   "keyword": "สมัครสอบราชการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP302__TH-34": {
+   "keyword": "สมัครสอบราชการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP302__TH-40": {
+   "keyword": "สมัครสอบราชการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP302__TH-41": {
+   "keyword": "สมัครสอบราชการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP306__TH": {
+   "keyword": "สอบท้องถิ่น",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP306__TH-30": {
+   "keyword": "สอบท้องถิ่น",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP306__TH-31": {
+   "keyword": "สอบท้องถิ่น",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP306__TH-34": {
+   "keyword": "สอบท้องถิ่น",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP306__TH-40": {
+   "keyword": "สอบท้องถิ่น",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP306__TH-41": {
+   "keyword": "สอบท้องถิ่น",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP317__TH": {
+   "keyword": "สอบ ก.พ.",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP317__TH-30": {
+   "keyword": "สอบ ก.พ.",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP317__TH-31": {
+   "keyword": "สอบ ก.พ.",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP317__TH-34": {
+   "keyword": "สอบ ก.พ.",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP317__TH-40": {
+   "keyword": "สอบ ก.พ.",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP317__TH-41": {
+   "keyword": "สอบ ก.พ.",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP318__TH": {
+   "keyword": "สมัครสอบ ก.พ.",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP318__TH-30": {
+   "keyword": "สมัครสอบ ก.พ.",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP318__TH-31": {
+   "keyword": "สมัครสอบ ก.พ.",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP318__TH-34": {
+   "keyword": "สมัครสอบ ก.พ.",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP318__TH-40": {
+   "keyword": "สมัครสอบ ก.พ.",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP318__TH-41": {
+   "keyword": "สมัครสอบ ก.พ.",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP321__TH": {
+   "keyword": "สอบครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP321__TH-30": {
+   "keyword": "สอบครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP321__TH-31": {
+   "keyword": "สอบครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP321__TH-34": {
+   "keyword": "สอบครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP321__TH-40": {
+   "keyword": "สอบครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP321__TH-41": {
+   "keyword": "สอบครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP331__TH": {
+   "keyword": "สอบตำรวจ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP331__TH-30": {
+   "keyword": "สอบตำรวจ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP331__TH-31": {
+   "keyword": "สอบตำรวจ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP331__TH-34": {
+   "keyword": "สอบตำรวจ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP331__TH-40": {
+   "keyword": "สอบตำรวจ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP331__TH-41": {
+   "keyword": "สอบตำรวจ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP333__TH": {
+   "keyword": "สอบทหาร",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP333__TH-30": {
+   "keyword": "สอบทหาร",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP333__TH-31": {
+   "keyword": "สอบทหาร",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP333__TH-34": {
+   "keyword": "สอบทหาร",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP333__TH-40": {
+   "keyword": "สอบทหาร",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP333__TH-41": {
+   "keyword": "สอบทหาร",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP334__TH": {
+   "keyword": "สอบนายสิบ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP334__TH-30": {
+   "keyword": "สอบนายสิบ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP334__TH-31": {
+   "keyword": "สอบนายสิบ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP334__TH-34": {
+   "keyword": "สอบนายสิบ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP334__TH-40": {
+   "keyword": "สอบนายสิบ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP334__TH-41": {
+   "keyword": "สอบนายสิบ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP510__TH": {
+   "keyword": "งาน บัญชี",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP510__TH-30": {
+   "keyword": "งาน บัญชี",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP510__TH-31": {
+   "keyword": "งาน บัญชี",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP510__TH-34": {
+   "keyword": "งาน บัญชี",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP510__TH-40": {
+   "keyword": "งาน บัญชี",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP510__TH-41": {
+   "keyword": "งาน บัญชี",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP511__TH": {
+   "keyword": "งาน การเงิน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP511__TH-30": {
+   "keyword": "งาน การเงิน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP511__TH-31": {
+   "keyword": "งาน การเงิน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP511__TH-34": {
+   "keyword": "งาน การเงิน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP511__TH-40": {
+   "keyword": "งาน การเงิน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP511__TH-41": {
+   "keyword": "งาน การเงิน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP512__TH": {
+   "keyword": "งาน จัดซื้อ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP512__TH-30": {
+   "keyword": "งาน จัดซื้อ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP512__TH-31": {
+   "keyword": "งาน จัดซื้อ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP512__TH-34": {
+   "keyword": "งาน จัดซื้อ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP512__TH-40": {
+   "keyword": "งาน จัดซื้อ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP512__TH-41": {
+   "keyword": "งาน จัดซื้อ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP607__TH": {
+   "keyword": "งาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP607__TH-30": {
+   "keyword": "งาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP607__TH-31": {
+   "keyword": "งาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP607__TH-34": {
+   "keyword": "งาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP607__TH-40": {
+   "keyword": "งาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FP607__TH-41": {
+   "keyword": "งาน ครู",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU014__TH": {
+   "keyword": "ลงทะเบียนว่างงาน ประกันสังคม",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU014__TH-30": {
+   "keyword": "ลงทะเบียนว่างงาน ประกันสังคม",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU014__TH-31": {
+   "keyword": "ลงทะเบียนว่างงาน ประกันสังคม",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU014__TH-34": {
+   "keyword": "ลงทะเบียนว่างงาน ประกันสังคม",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU014__TH-40": {
+   "keyword": "ลงทะเบียนว่างงาน ประกันสังคม",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU014__TH-41": {
+   "keyword": "ลงทะเบียนว่างงาน ประกันสังคม",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU015__TH": {
+   "keyword": "ลาออกจากงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU015__TH-30": {
+   "keyword": "ลาออกจากงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU015__TH-31": {
+   "keyword": "ลาออกจากงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU015__TH-34": {
+   "keyword": "ลาออกจากงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU015__TH-40": {
+   "keyword": "ลาออกจากงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU015__TH-41": {
+   "keyword": "ลาออกจากงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU018__TH": {
+   "keyword": "ว่างงาน ประกันสังคม",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU018__TH-30": {
+   "keyword": "ว่างงาน ประกันสังคม",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU018__TH-31": {
+   "keyword": "ว่างงาน ประกันสังคม",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU018__TH-34": {
+   "keyword": "ว่างงาน ประกันสังคม",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU018__TH-40": {
+   "keyword": "ว่างงาน ประกันสังคม",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU018__TH-41": {
+   "keyword": "ว่างงาน ประกันสังคม",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU064__TH": {
+   "keyword": "รายงานตัวว่างงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU064__TH-30": {
+   "keyword": "รายงานตัวว่างงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU064__TH-31": {
+   "keyword": "รายงานตัวว่างงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU064__TH-34": {
+   "keyword": "รายงานตัวว่างงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU064__TH-40": {
+   "keyword": "รายงานตัวว่างงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU064__TH-41": {
+   "keyword": "รายงานตัวว่างงาน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU078__TH": {
+   "keyword": "ว่างงาน รายงานตัว",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU078__TH-30": {
+   "keyword": "ว่างงาน รายงานตัว",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU078__TH-31": {
+   "keyword": "ว่างงาน รายงานตัว",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU078__TH-34": {
+   "keyword": "ว่างงาน รายงานตัว",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU078__TH-40": {
+   "keyword": "ว่างงาน รายงานตัว",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "FU078__TH-41": {
+   "keyword": "ว่างงาน รายงานตัว",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP023__TH": {
+   "keyword": "สมัครแกร็บ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP023__TH-30": {
+   "keyword": "สมัครแกร็บ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP023__TH-34": {
+   "keyword": "สมัครแกร็บ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP023__TH-40": {
+   "keyword": "สมัครแกร็บ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP023__TH-41": {
+   "keyword": "สมัครแกร็บ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP024__TH": {
+   "keyword": "สมัครไรเดอร์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP024__TH-41": {
+   "keyword": "สมัครไรเดอร์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP025__TH": {
+   "keyword": "สมัครไลน์แมน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP025__TH-30": {
+   "keyword": "สมัครไลน์แมน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP025__TH-31": {
+   "keyword": "สมัครไลน์แมน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP025__TH-34": {
+   "keyword": "สมัครไลน์แมน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP025__TH-40": {
+   "keyword": "สมัครไลน์แมน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP025__TH-41": {
+   "keyword": "สมัครไลน์แมน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP044__TH": {
+   "keyword": "สมัครส่งอาหาร",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP044__TH-30": {
+   "keyword": "สมัครส่งอาหาร",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP044__TH-34": {
+   "keyword": "สมัครส่งอาหาร",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP044__TH-41": {
+   "keyword": "สมัครส่งอาหาร",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP061__TH": {
+   "keyword": "งานออนไลน์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP061__TH-30": {
+   "keyword": "งานออนไลน์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP061__TH-31": {
+   "keyword": "งานออนไลน์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP061__TH-34": {
+   "keyword": "งานออนไลน์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP061__TH-40": {
+   "keyword": "งานออนไลน์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP061__TH-41": {
+   "keyword": "งานออนไลน์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP081__TH": {
+   "keyword": "ขายของออนไลน์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP081__TH-30": {
+   "keyword": "ขายของออนไลน์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP081__TH-31": {
+   "keyword": "ขายของออนไลน์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP081__TH-34": {
+   "keyword": "ขายของออนไลน์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP081__TH-40": {
+   "keyword": "ขายของออนไลน์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "NP081__TH-41": {
+   "keyword": "ขายของออนไลน์",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TP010__TH": {
+   "keyword": "รถเข็นขายของ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TP010__TH-30": {
+   "keyword": "รถเข็นขายของ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TP010__TH-40": {
+   "keyword": "รถเข็นขายของ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TP010__TH-41": {
+   "keyword": "รถเข็นขายของ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TP041__TH": {
+   "keyword": "ตลาดนัดขายของ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TP041__TH-30": {
+   "keyword": "ตลาดนัดขายของ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TP041__TH-31": {
+   "keyword": "ตลาดนัดขายของ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TP041__TH-34": {
+   "keyword": "ตลาดนัดขายของ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TP041__TH-40": {
+   "keyword": "ตลาดนัดขายของ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TP041__TH-41": {
+   "keyword": "ตลาดนัดขายของ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU005__TH": {
+   "keyword": "ขายของไม่ดี",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU005__TH-30": {
+   "keyword": "ขายของไม่ดี",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU005__TH-31": {
+   "keyword": "ขายของไม่ดี",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU005__TH-34": {
+   "keyword": "ขายของไม่ดี",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU005__TH-40": {
+   "keyword": "ขายของไม่ดี",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU005__TH-41": {
+   "keyword": "ขายของไม่ดี",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU048__TH": {
+   "keyword": "ราคาของขึ้น ขายของ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU048__TH-30": {
+   "keyword": "ราคาของขึ้น ขายของ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU048__TH-31": {
+   "keyword": "ราคาของขึ้น ขายของ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU048__TH-34": {
+   "keyword": "ราคาของขึ้น ขายของ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU048__TH-40": {
+   "keyword": "ราคาของขึ้น ขายของ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU048__TH-41": {
+   "keyword": "ราคาของขึ้น ขายของ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU062__TH": {
+   "keyword": "ขายของได้น้อย",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU062__TH-30": {
+   "keyword": "ขายของได้น้อย",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU062__TH-31": {
+   "keyword": "ขายของได้น้อย",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU062__TH-34": {
+   "keyword": "ขายของได้น้อย",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU062__TH-40": {
+   "keyword": "ขายของได้น้อย",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU067__TH": {
+   "keyword": "เซ้งร้าน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU067__TH-30": {
+   "keyword": "เซ้งร้าน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU067__TH-40": {
+   "keyword": "เซ้งร้าน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU067__TH-41": {
+   "keyword": "เซ้งร้าน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU068__TH": {
+   "keyword": "ปิดร้าน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU068__TH-30": {
+   "keyword": "ปิดร้าน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU068__TH-31": {
+   "keyword": "ปิดร้าน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU068__TH-34": {
+   "keyword": "ปิดร้าน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU068__TH-40": {
+   "keyword": "ปิดร้าน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU068__TH-41": {
+   "keyword": "ปิดร้าน",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU069__TH": {
+   "keyword": "เลิกกิจการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU069__TH-30": {
+   "keyword": "เลิกกิจการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU069__TH-31": {
+   "keyword": "เลิกกิจการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU069__TH-40": {
+   "keyword": "เลิกกิจการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU070__TH": {
+   "keyword": "ขายกิจการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU070__TH-30": {
+   "keyword": "ขายกิจการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU070__TH-31": {
+   "keyword": "ขายกิจการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU070__TH-34": {
+   "keyword": "ขายกิจการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU070__TH-40": {
+   "keyword": "ขายกิจการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU070__TH-41": {
+   "keyword": "ขายกิจการ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU071__TH": {
+   "keyword": "ขายร้านต่อ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU071__TH-30": {
+   "keyword": "ขายร้านต่อ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU071__TH-34": {
+   "keyword": "ขายร้านต่อ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU071__TH-40": {
+   "keyword": "ขายร้านต่อ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  },
+  "TU071__TH-41": {
+   "keyword": "ขายร้านต่อ",
+   "timeframe": "2022-01-01 2026-04-30",
+   "months": 52,
+   "first": "2022-01",
+   "last": "2026-04",
+   "fetched_on": "2026-05-28",
+   "fetched_at": "2026-05-28T00:00:00",
+   "note": "seeded from project data"
+  }
+ },
+ "updated_at": "2026-05-28T00:00:00"
+}
