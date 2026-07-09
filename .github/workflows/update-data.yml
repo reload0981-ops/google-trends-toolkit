@@ -1,0 +1,51 @@
+name: update-data
+
+on:
+  schedule:
+    # ทุกวันที่ 3 ของเดือน 02:00 UTC (~09:00 เวลาไทย) เก็บข้อมูลเดือนที่เพิ่งจบ
+    - cron: "0 2 3 * *"
+  workflow_dispatch:
+    inputs:
+      args:
+        description: "argument ของ collector เช่น --all หรือ --ids FP014 --geo TH"
+        default: "--all"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # continue-on-error เพราะโดน rate limit กลางทาง (exit 2) ก็ยังต้อง commit
+      # ส่วนที่เก็บสำเร็จแล้ว รอบหน้า (หรือรันซ้ำ) จะเก็บต่อจากที่ค้างเอง
+      - name: Collect data
+        continue-on-error: true
+        run: python collector/collect.py ${{ inputs.args || '--all' }} --sleep 20
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "no data changes"
+          else
+            git commit -m "auto: update data $(date -u +%Y-%m-%d)"
+            git pull --rebase origin main
+            git push
+          fi
