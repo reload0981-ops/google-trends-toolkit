@@ -42,6 +42,9 @@
     --focus: rgba(0,82,255,.28);
     --danger: #cf202f;
     --success: #057a4a;
+    --warning: #8a4b00;
+    --warning-soft: #fff7e8;
+    --warning-border: #efd2a6;
     --shadow-soft: 0 4px 12px rgba(10,11,13,.04);
     --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
@@ -62,6 +65,9 @@
     --baseline: #454951;
     --focus: rgba(68,128,255,.38);
     --danger: #ff6b76;
+    --warning: #ffd08a;
+    --warning-soft: #2a2114;
+    --warning-border: #5b4529;
     --shadow-soft: none;
   }
   * { box-sizing: border-box; }
@@ -138,6 +144,19 @@
   .btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
   .btn.primary:hover { background: var(--primary-active); border-color: var(--primary-active); }
 
+  .health-strip { display: grid; grid-template-columns: 190px minmax(0,1fr); gap: 22px; align-items: stretch; margin-top: 20px; padding: 18px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; }
+  .health-intro { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+  .health-intro .section-kicker { margin-bottom: 3px; }
+  .health-intro h2 { margin: 0; color: var(--ink); font-size: 18px; font-weight: 500; line-height: 1.3; letter-spacing: -.015em; }
+  .health-source { margin: 4px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
+  .health-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); margin: 0; min-width: 0; }
+  .health-item { min-width: 0; padding: 4px 18px; border-left: 1px solid var(--border-soft); }
+  .health-item dt { margin: 0 0 6px; color: var(--muted); font-size: 11px; font-weight: 600; line-height: 1.35; letter-spacing: .035em; }
+  .health-item dd { margin: 0; }
+  .health-value { display: block; color: var(--ink); font-family: var(--font-mono); font-size: 14px; font-weight: 500; line-height: 1.45; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .health-detail { display: block; margin-top: 2px; color: var(--muted); font-size: 10px; line-height: 1.45; }
+  .health-item.quality .health-value { color: var(--warning); font-family: var(--font-sans); font-size: 12px; font-weight: 600; }
+
   .layout { display: grid; grid-template-columns: 300px minmax(0,1fr); gap: 20px; margin-top: 20px; align-items: start; }
   .panel { padding: 24px; min-width: 0; }
   .panel-head { margin-bottom: 18px; }
@@ -160,6 +179,12 @@
   .chart-status { color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
   #chart { width: 100%; height: 580px; }
   .note { min-height: 20px; color: var(--danger); font-size: 12px; line-height: 1.5; margin: 4px 6px 0; }
+  .quality-notes { display: grid; gap: 8px; margin: 12px 6px 0; }
+  .quality-notes[hidden] { display: none; }
+  .quality-note { position: relative; padding: 11px 14px 11px 17px; border: 1px solid var(--warning-border); border-radius: 12px; background: var(--warning-soft); color: var(--ink2); font-size: 12px; line-height: 1.55; }
+  .quality-note::before { content: ""; position: absolute; inset: 11px auto 11px 7px; width: 3px; border-radius: 999px; background: var(--warning); }
+  .quality-note strong { color: var(--warning); font-weight: 600; }
+  .quality-note p { display: inline; margin: 0; }
   #tableWrap { display: none; margin-top: 16px; max-height: 420px; overflow: auto; border: 1px solid var(--border); border-radius: 12px; }
   #tableWrap table { border-collapse: collapse; width: 100%; font-size: 12px; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
   #tableWrap th, #tableWrap td { padding: 10px 12px; border-bottom: 1px solid var(--grid); text-align: right; white-space: nowrap; }
@@ -182,6 +207,9 @@
     .preview-stack { max-width: 620px; width: 100%; }
     .controls { grid-template-columns: 1fr 1fr; }
     .ctl.geo-control { grid-column: 1 / -1; }
+    .health-strip { grid-template-columns: 1fr; gap: 14px; }
+    .health-grid { padding-top: 14px; border-top: 1px solid var(--border-soft); }
+    .health-item:first-child { border-left: 0; }
     .layout { grid-template-columns: 1fr; }
     .kw-list { max-height: 320px; }
     .method-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -209,6 +237,11 @@
     .control-tail { align-items: stretch; flex-direction: column; }
     .control-actions { justify-content: stretch; }
     .control-actions .btn { flex: 1 1 140px; }
+    .health-strip { padding: 18px; border-radius: 18px; }
+    .health-grid { grid-template-columns: repeat(2,minmax(0,1fr)); row-gap: 14px; }
+    .health-item { padding: 3px 12px; }
+    .health-item:nth-child(odd) { padding-left: 0; border-left: 0; }
+    .health-item:nth-child(n+3) { padding-top: 14px; border-top: 1px solid var(--border-soft); }
     .panel { padding: 20px 16px; }
     .chart-panel { padding: 16px 8px 18px; }
     .chart-toolbar { padding-inline: 10px; }
@@ -309,6 +342,44 @@
     </div>
   </section>
 
+  <section class="health-strip" aria-labelledby="healthTitle">
+    <div class="health-intro">
+      <p class="section-kicker">Data health</p>
+      <h2 id="healthTitle">สถานะชุดข้อมูล</h2>
+      <p class="health-source" id="healthSource">กำลังอ่านผลตรวจคุณภาพข้อมูล</p>
+    </div>
+    <dl class="health-grid">
+      <div class="health-item">
+        <dt>ข้อมูลถึง</dt>
+        <dd>
+          <strong class="health-value" id="healthDataThrough">—</strong>
+          <small class="health-detail" id="healthDataRange">ข้อมูลรายเดือน</small>
+        </dd>
+      </div>
+      <div class="health-item">
+        <dt>ความครอบคลุมข้อมูลดิบ</dt>
+        <dd>
+          <strong class="health-value" id="healthCoverage">—</strong>
+          <small class="health-detail" id="healthCoverageDetail">คู่คำค้น × พื้นที่</small>
+        </dd>
+      </div>
+      <div class="health-item quality">
+        <dt>คุณภาพสัญญาณ</dt>
+        <dd>
+          <strong class="health-value" id="healthSignal">—</strong>
+          <small class="health-detail">ค่า 0, no-data หรือสัญญาณอ่อน = ปริมาณค้นหาไม่พอวัดอย่างมั่นคง</small>
+        </dd>
+      </div>
+      <div class="health-item">
+        <dt>เก็บข้อมูลล่าสุด</dt>
+        <dd>
+          <strong class="health-value" id="healthCollected">—</strong>
+          <small class="health-detail">เวลาจากแค็ตตาล็อกข้อมูล</small>
+        </dd>
+      </div>
+    </dl>
+  </section>
+
   <div class="layout">
     <aside class="panel" aria-labelledby="keywordPanelTitle">
       <div class="panel-head">
@@ -330,7 +401,8 @@
         <p class="section-kicker" id="chartRegionTitle">แนวโน้มรายเดือน</p>
         <span class="chart-status" id="chartStatus">กำลังเตรียมข้อมูล</span>
       </div>
-      <div id="chart" role="region" aria-label="กราฟแนวโน้ม Google Trends"></div>
+      <div id="chart" role="region" aria-label="กราฟแนวโน้ม Google Trends" aria-describedby="qualityNotes missingNote"></div>
+      <div class="quality-notes" id="qualityNotes" role="status" aria-live="polite" aria-label="ข้อควรระวังด้านคุณภาพของเส้นที่แสดง" hidden></div>
       <div class="note" id="missingNote" role="status" aria-live="polite"></div>
       <div id="tableWrap" tabindex="0" aria-label="ตารางข้อมูลที่แสดงบนกราฟ"></div>
     </section>
@@ -349,8 +421,8 @@
         <p>ประเทศไทยเริ่มปี 2004 ส่วนข้อมูลจังหวัดเริ่มปี 2014 เพราะข้อมูลตำแหน่งระดับจังหวัดก่อนหน้านั้นใช้เปรียบเทียบไม่ได้</p>
       </article>
       <article class="method-item">
-        <strong>“อีสาน” เป็นซีรีส์คำนวณ</strong>
-        <p>สร้างจาก 5 จังหวัดแบบให้น้ำหนักเท่ากัน โดยปรับฐานรายจังหวัดก่อนเฉลี่ย และปรับผลรวมให้ค่าสูงสุดเท่ากับ 100</p>
+        <strong>“อีสาน” เป็นคอมโพสิตคำนวณ</strong>
+        <p>ปรับฐานจังหวัดที่มีสัญญาณในชุด 5 จังหวัด ให้น้ำหนักเท่ากันก่อนเฉลี่ย แล้วปรับค่าสูงสุดเป็น 100; หากใช้ไม่ครบ หน้าเว็บจะแจ้งจำนวนสนับสนุน N/5</p>
       </article>
     </div>
     <a class="method-link" href="https://github.com/reload0981-ops/google-trends-toolkit#readme">
@@ -371,6 +443,14 @@
     dark:  ["#4d7fff", "#3ecf8e", "#f4b000", "#a78bfa", "#ff6b78", "#22c1c3", "#f472b6", "#fb923c"],
   };
   const MAX_SERIES = 8;
+  const RAW_GEOS = GEO_ORDER.filter(g => g !== "ISAN");
+  const HEALTH = D.health && typeof D.health === "object" ? D.health : {};
+  const HEALTH_SUMMARY = HEALTH.summary && typeof HEALTH.summary === "object"
+    ? { ...HEALTH, ...HEALTH.summary }
+    : HEALTH;
+  const HEALTH_SERIES = HEALTH.per_series && typeof HEALTH.per_series === "object"
+    ? HEALTH.per_series
+    : {};
 
   // เลือกอิสระทั้งสองมิติ: เส้นที่แสดง = คำที่ติ๊ก x พื้นที่ที่ติ๊ก (รวมไม่เกิน MAX_SERIES)
   const state = {
@@ -420,6 +500,116 @@
   }
   const MONTHS = allMonths();
 
+  const firstValue = (...values) => values.find(v => v !== undefined && v !== null && v !== "");
+  const finiteNumber = value => {
+    const n = Number(value);
+    return Number.isFinite(n) ? n : null;
+  };
+
+  function formatThaiMonth(value) {
+    const match = String(value || "").match(/^(\d{4})-(\d{2})/);
+    if (!match) return value ? String(value) : "—";
+    const date = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, 1));
+    return new Intl.DateTimeFormat("th-TH", { month: "short", year: "numeric", timeZone: "UTC" }).format(date);
+  }
+
+  function formatThaiDate(value) {
+    if (!value) return "—";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return String(value);
+    return new Intl.DateTimeFormat("th-TH", {
+      day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Bangkok",
+    }).format(date);
+  }
+
+  function normalizedTier(meta) {
+    const tier = firstValue(meta && meta.signal_tier, meta && meta.signal_status, meta && meta.status, "");
+    return String(tier).trim().toUpperCase().replace(/[ -]+/g, "_");
+  }
+
+  function tierCounts() {
+    const declared = HEALTH_SUMMARY.signal_tiers;
+    const counts = {};
+    if (declared && typeof declared === "object") {
+      Object.entries(declared).forEach(([key, value]) => {
+        const n = finiteNumber(value);
+        if (n !== null) counts[String(key).toUpperCase().replace(/[ -]+/g, "_")] = n;
+      });
+    }
+    if (Object.keys(counts).length) return counts;
+    Object.entries(HEALTH_SERIES).forEach(([key, meta]) => {
+      if (key.endsWith("__ISAN")) return;
+      const tier = normalizedTier(meta);
+      if (tier) counts[tier] = (counts[tier] || 0) + 1;
+    });
+    return counts;
+  }
+
+  function renderHealth() {
+    const fallbackExpected = D.keywords.length * RAW_GEOS.length;
+    const fallbackAvailable = D.keywords.reduce((total, keyword) =>
+      total + RAW_GEOS.filter(geo => D.series[keyword.id] && D.series[keyword.id][geo]).length, 0);
+    const expected = finiteNumber(firstValue(
+      HEALTH_SUMMARY.expected_raw_series,
+      HEALTH_SUMMARY.raw_series_expected,
+      HEALTH_SUMMARY.coverage && HEALTH_SUMMARY.coverage.expected,
+      fallbackExpected,
+    ));
+    const available = finiteNumber(firstValue(
+      HEALTH_SUMMARY.available_raw_series,
+      HEALTH_SUMMARY.raw_series_available,
+      HEALTH_SUMMARY.coverage && HEALTH_SUMMARY.coverage.available,
+      fallbackAvailable,
+    ));
+    const confirmedNoData = finiteNumber(firstValue(
+      HEALTH_SUMMARY.confirmed_no_data_raw_series,
+      HEALTH_SUMMARY.coverage && HEALTH_SUMMARY.coverage.confirmed_no_data,
+      0,
+    ));
+    const missing = finiteNumber(firstValue(
+      HEALTH_SUMMARY.missing_raw_series,
+      expected !== null && available !== null ? expected - available - (confirmedNoData || 0) : null,
+    ));
+    const invalid = finiteNumber(firstValue(HEALTH_SUMMARY.invalid_raw_series, 0));
+    const invalidNoData = finiteNumber(firstValue(HEALTH_SUMMARY.invalid_no_data_raw_series, 0));
+    const dataStart = firstValue(HEALTH_SUMMARY.data_start, MONTHS[0]);
+    const dataEnd = firstValue(HEALTH_SUMMARY.data_end, HEALTH_SUMMARY.data_through, MONTHS[MONTHS.length - 1]);
+    const collected = firstValue(HEALTH_SUMMARY.catalog_updated_at, D.updated_at);
+    const resolved = available !== null ? available + (confirmedNoData || 0) : null;
+    const pct = expected && resolved !== null ? Math.round(resolved / expected * 1000) / 10 : null;
+
+    el("healthDataThrough").textContent = formatThaiMonth(dataEnd);
+    el("healthDataRange").textContent = dataStart && dataEnd
+      ? `${formatThaiMonth(dataStart)} – ${formatThaiMonth(dataEnd)} · รายเดือน`
+      : "ข้อมูลรายเดือน";
+    el("healthCoverage").textContent = expected !== null && resolved !== null
+      ? `${resolved.toLocaleString("th-TH")} / ${expected.toLocaleString("th-TH")} ชุดตรวจแล้ว`
+      : "—";
+    const coverageParts = pct !== null ? [`${pct.toLocaleString("th-TH")}%`] : [];
+    if (available !== null) coverageParts.push(`มีข้อมูล ${available.toLocaleString("th-TH")}`);
+    if (confirmedNoData > 0) coverageParts.push(`ยืนยัน no-data ${confirmedNoData.toLocaleString("th-TH")}`);
+    if (missing > 0) coverageParts.push(`รอยืนยัน ${missing.toLocaleString("th-TH")}`);
+    if ((invalid || 0) + (invalidNoData || 0) > 0) {
+      coverageParts.push(`ผิดรูป ${((invalid || 0) + (invalidNoData || 0)).toLocaleString("th-TH")}`);
+    }
+    el("healthCoverageDetail").textContent = coverageParts.length
+      ? coverageParts.join(" · ")
+      : "คู่คำค้น × พื้นที่";
+
+    const tiers = tierCounts();
+    const tierParts = [
+      ["VERY_GOOD", "ชัด"],
+      ["ACCEPTABLE", "พอใช้"],
+      ["WEAK", "อ่อน"],
+    ].filter(([key]) => tiers[key] !== undefined)
+      .map(([key, label]) => `${label} ${Number(tiers[key]).toLocaleString("th-TH")}`);
+    el("healthSignal").textContent = tierParts.length ? tierParts.join(" · ") : "รอผลตรวจสัญญาณ";
+    el("healthCollected").textContent = formatThaiDate(collected);
+    el("healthSource").textContent = Object.keys(HEALTH).length
+      ? "ผลตรวจอัตโนมัติ · แสดงข้อมูลโดยไม่ตัดเส้น"
+      : "สรุปจากข้อมูลหน้าเว็บ · รอ metadata คุณภาพรอบถัดไป";
+  }
+
   function ma3(values) {
     return values.map((_, i) => {
       const w = values.slice(Math.max(0, i - 2), i + 1);
@@ -459,7 +649,21 @@
     const out = { traces: [], excluded: [] };
     for (const { kid, geo } of list) {
       const raw = D.series[kid] && D.series[kid][geo];
-      if (!raw) { out.excluded.push(`${fullLabel(kid, geo)}: ไม่มีข้อมูล`); continue; }
+      const meta = HEALTH_SERIES[`${kid}__${geo}`] || {};
+      if (!raw) {
+        const reason = normalizedTier(meta) === "NO_DATA"
+          ? "ยืนยัน no-data จาก Google Trends (ไม่ได้หมายความว่าไม่มีความต้องการแรงงาน)"
+          : "ยังไม่มีข้อมูล";
+        out.excluded.push(`${fullLabel(kid, geo)}: ${reason}`);
+        continue;
+      }
+      const supportN = finiteNumber(firstValue(raw.support_n, meta.support_n));
+      const supportTotal = finiteNumber(firstValue(raw.support_total, meta.support_total, geo === "ISAN" && supportN !== null ? 5 : null));
+      const supportGeos = firstValue(raw.support_geos, meta.support_geos, []);
+      const recentZerosRaw = firstValue(meta.recent_zeros, raw.recent_zeros, 0);
+      const recentZeros = Array.isArray(recentZerosRaw)
+        ? recentZerosRaw.length
+        : (finiteNumber(recentZerosRaw) || 0);
       let months = raw.months, values = raw.values;
       if (state.rebase) {
         const i = raw.months.indexOf(state.rebase);
@@ -479,6 +683,9 @@
         kid, geo, label: lineLabel(kid, geo),
         months, values: values.map(v => Math.round(v * 10) / 10),
         slot: slots.get(`${kid}__${geo}`) || 0,
+        signalTier: normalizedTier(meta), recentZeros,
+        supportN, supportTotal,
+        supportGeos: Array.isArray(supportGeos) ? supportGeos : [],
       });
     }
     return out;
@@ -588,6 +795,48 @@
     return t + (state.ma3 ? " · MA3" : "");
   }
 
+  function appendQualityNote(box, title, message) {
+    const note = document.createElement("div");
+    note.className = "quality-note";
+    const strong = document.createElement("strong");
+    strong.textContent = `${title}: `;
+    const text = document.createElement("p");
+    text.textContent = message;
+    note.append(strong, text);
+    box.appendChild(note);
+  }
+
+  function renderQualityNotes(traces) {
+    const box = el("qualityNotes");
+    box.replaceChildren();
+    const weak = traces.filter(t => t.signalTier === "WEAK");
+    const partialIsan = traces.filter(t =>
+      t.geo === "ISAN" && t.supportN !== null && t.supportTotal !== null && t.supportN < t.supportTotal);
+
+    if (weak.length) {
+      const names = weak.map(t => `${t.label}${t.recentZeros ? ` (ค่า 0 ล่าสุด ${t.recentZeros} เดือน)` : ""}`).join(", ");
+      appendQualityNote(
+        box,
+        "สัญญาณอ่อน",
+        `${names} — ค่า 0 หรือสัญญาณอ่อนหมายถึงปริมาณการค้นหาไม่พอวัดอย่างมั่นคง ไม่ได้หมายความว่าไม่มีความต้องการแรงงาน`,
+      );
+    }
+
+    if (partialIsan.length) {
+      const names = partialIsan.map(t => {
+        const geos = t.supportGeos.map(code => D.geos[code] || code).join(", ");
+        return `${t.label} ${t.supportN}/${t.supportTotal} จังหวัด${geos ? ` (${geos})` : ""}`;
+      }).join("; ");
+      appendQualityNote(
+        box,
+        "คอมโพสิตอีสานครอบคลุมไม่ครบ",
+        `${names} — กราฟยังแสดงตามสูตรเดิม แต่ควรอ่านเป็นสัญญาณจากจังหวัดที่ใช้คำนวณ ไม่ใช่ตัวแทนครบทั้ง 5 จังหวัด`,
+      );
+    }
+
+    box.hidden = !box.childElementCount;
+  }
+
   function renderChart() {
     const { traces, excluded } = displayedSeries();
     const colors = pal();
@@ -629,6 +878,7 @@
       modeBarButtonsToRemove: ["lasso2d", "select2d"],
     });
 
+    renderQualityNotes(traces);
     let msg = excluded.join(" | ");
     if (!plotTraces.length) msg = "ยังไม่ได้เลือกคำ หรือคู่ที่เลือกไม่มีข้อมูล " + msg;
     el("missingNote").textContent = msg;
@@ -724,6 +974,7 @@
   el("stamp").innerHTML = `<span><strong>${D.keywords.length}</strong> คำค้น</span><span><strong>${GEO_ORDER.length}</strong> พื้นที่</span><span>อัปเดต <strong>${updatedLabel}</strong></span>`;
   el("keywordMetric").textContent = D.keywords.length;
   syncThemeToggle();
+  renderHealth();
   renderControls(); renderGroups(); renderList(); renderChart();
 })();
 </script>

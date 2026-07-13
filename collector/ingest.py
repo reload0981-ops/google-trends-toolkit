@@ -15,6 +15,7 @@
      "เดือน,<คำ>: (<พื้นที่>)" หรือ "Month,<keyword>: (<place>)" (รายสัปดาห์ก็ได้ จะถูกเฉลี่ยเป็นรายเดือน)
   2. ไฟล์ที่ตั้งชื่อเอง: <ID>__<GEO>.csv (เช่น FP014__TH-40.csv) เนื้อในเป็น Time/Month,Value
   3. ไฟล์จากวงจรเดิมของโปรเจค: manual_<ID>.csv = ระดับประเทศ (TH)
+  4. no_data_manifest__*.json จาก Chrome extension = หลักฐานว่า retry แล้วไม่มีข้อมูล
 
 กติกา:
   - ค่า "<1" ถูกแปลงเป็น 0
@@ -28,6 +29,7 @@
 import argparse
 import csv
 import json
+import math
 import re
 import shutil
 import sys
@@ -42,6 +44,9 @@ KEYWORDS_CSV = ROOT / "keywords.csv"
 
 TIME_WORDS = {"time", "month", "week", "day", "เดือน", "สัปดาห์", "วัน"}
 PROVINCE_MIN_MONTH = "2014-01"  # จังหวัด/ภาคใช้ได้หลัง geo break (ดู README)
+CANONICAL_START_MONTH = "2004-01"
+CANONICAL_START_DATE = "2004-01-01"
+NO_DATA_MANIFEST_SCHEMA = "google-trends-toolkit/no-data-manifest-v1"
 PLACE_TO_GEO = {
     "ประเทศไทย": "TH", "thailand": "TH", "th": "TH",
     "นครราชสีมา": "TH-30", "nakhon ratchasima": "TH-30", "th-30": "TH-30",
@@ -50,6 +55,7 @@ PLACE_TO_GEO = {
     "ขอนแก่น": "TH-40", "khon kaen": "TH-40", "th-40": "TH-40",
     "อุดรธานี": "TH-41", "udon thani": "TH-41", "th-41": "TH-41",
 }
+RAW_GEOS = frozenset(PLACE_TO_GEO.values())
 
 
 def norm(s):
@@ -84,7 +90,150 @@ def parse_month(s):
     return f"{m.group(1)}-{m.group(2)}" if m else None
 
 
-def parse_file(path, kw_to_id, ids):
+def latest_completed_month(today=None):
+    today = today or date.today()
+    if today.month == 1:
+        return f"{today.year - 1}-12"
+    return f"{today.year}-{today.month - 1:02d}"
+
+
+def validate_canonical_coverage(geo, points, today=None):
+    """Reject a short/stale export before it can replace a canonical series."""
+    if not points:
+        raise ValueError("ไม่มีข้อมูลรายเดือนสำหรับตรวจ canonical coverage")
+    expected_first = CANONICAL_START_MONTH if geo == "TH" else PROVINCE_MIN_MONTH
+    expected_last = latest_completed_month(today)
+    actual_first, actual_last = points[0][0], points[-1][0]
+    if actual_first != expected_first or actual_last != expected_last:
+        raise ValueError(
+            "ช่วงข้อมูลไม่ใช่ canonical long horizon: "
+            f"คาด {expected_first} ถึง {expected_last}, "
+            f"แต่ไฟล์มี {actual_first} ถึง {actual_last}; "
+            "ให้ export 2004-01-01 ถึงวันนี้ใหม่ทั้งช่วง"
+        )
+    month_numbers = []
+    for month, value in points:
+        match = re.fullmatch(r"(\d{4})-(\d{2})", month)
+        if not match or not 1 <= int(match.group(2)) <= 12:
+            raise ValueError(f"เดือนในไฟล์ไม่ถูกต้อง: {month!r}")
+        month_numbers.append(int(match.group(1)) * 12 + int(match.group(2)) - 1)
+        if not isinstance(value, (int, float)) or not math.isfinite(value) or not 0 <= value <= 100:
+            raise ValueError(f"ค่า {month} ต้องเป็นตัวเลข finite ในช่วง 0..100 (พบ {value!r})")
+    if len(set(month_numbers)) != len(month_numbers):
+        raise ValueError("ไฟล์มีเดือนซ้ำ")
+    if month_numbers != sorted(month_numbers):
+        raise ValueError("เดือนในไฟล์ไม่ได้เรียงจากเก่าไปใหม่")
+    gaps = [
+        (points[index - 1][0], points[index][0])
+        for index in range(1, len(month_numbers))
+        if month_numbers[index] != month_numbers[index - 1] + 1
+    ]
+    if gaps:
+        sample = ", ".join(f"{left}->{right}" for left, right in gaps[:3])
+        raise ValueError(f"ช่วงข้อมูลมีเดือนขาด ({sample})")
+
+
+def _parse_iso_datetime(value, field):
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"no-data manifest: {field} ต้องเป็น ISO datetime")
+    try:
+        return datetime.fromisoformat(value.strip().replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError(f"no-data manifest: {field} ไม่ใช่ ISO datetime") from exc
+
+
+def parse_no_data_manifest(path, ids, catalog, series_dir=SERIES_DIR, today=None):
+    """Validate one extension proof atomically and return catalog entries."""
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise ValueError(f"อ่าน no-data manifest ไม่ได้: {exc}") from exc
+    if not isinstance(payload, dict) or payload.get("schema") != NO_DATA_MANIFEST_SCHEMA:
+        raise ValueError(f"no-data manifest: schema ต้องเป็น {NO_DATA_MANIFEST_SCHEMA}")
+    _parse_iso_datetime(payload.get("generated_at"), "generated_at")
+    entries = payload.get("entries")
+    if not isinstance(entries, list) or not entries:
+        raise ValueError("no-data manifest: entries ต้องเป็นรายการที่ไม่ว่าง")
+
+    today = today or date.today()
+    result, seen = [], set()
+    for index, entry in enumerate(entries, 1):
+        label = f"entries[{index}]"
+        if not isinstance(entry, dict) or entry.get("status") != "NO_DATA":
+            raise ValueError(f"no-data manifest: {label}.status ต้องเป็น NO_DATA")
+        kid = str(entry.get("keyword_id") or "").strip().upper()
+        geo = str(entry.get("geo_code") or "").strip().upper()
+        if kid not in ids:
+            raise ValueError(f"no-data manifest: {label}.keyword_id {kid!r} ไม่อยู่ใน keywords.csv")
+        if norm(str(entry.get("keyword") or "")) != norm(ids[kid]):
+            raise ValueError(f"no-data manifest: {label}.keyword ไม่ตรงกับ keywords.csv")
+        if geo not in RAW_GEOS:
+            raise ValueError(f"no-data manifest: {label}.geo_code {geo!r} ไม่รองรับ")
+        key = f"{kid}__{geo}"
+        if key in seen:
+            raise ValueError(f"no-data manifest: key ซ้ำ {key}")
+        seen.add(key)
+
+        attempts = entry.get("attempts")
+        no_data_attempts = entry.get("no_data_attempts")
+        if (
+            not isinstance(no_data_attempts, int)
+            or isinstance(no_data_attempts, bool)
+            or no_data_attempts < 2
+        ):
+            raise ValueError(f"no-data manifest: {label}.no_data_attempts ต้องอย่างน้อย 2")
+        if (
+            not isinstance(attempts, int)
+            or isinstance(attempts, bool)
+            or attempts < no_data_attempts
+        ):
+            raise ValueError(f"no-data manifest: {label}.attempts ต้องไม่น้อยกว่า no_data_attempts")
+        reason = str(entry.get("reason") or "").strip()
+        if not re.fullmatch(r"NO_VOLUME|NO_DATA_EXPORT_\d+B", reason):
+            raise ValueError(f"no-data manifest: {label}.reason ไม่ใช่ no-data reason ที่รองรับ")
+        timeframe = str(entry.get("timeframe") or "").strip()
+        match = re.fullmatch(r"(\d{4}-\d{2}-\d{2}) (\d{4}-\d{2}-\d{2})", timeframe)
+        if not match or match.group(1) != CANONICAL_START_DATE:
+            raise ValueError(
+                f"no-data manifest: {label}.timeframe ต้องเริ่ม {CANONICAL_START_DATE}"
+            )
+        try:
+            end_date = date.fromisoformat(match.group(2))
+        except ValueError as exc:
+            raise ValueError(f"no-data manifest: {label}.timeframe end ไม่ใช่วันที่จริง") from exc
+        if end_date > today:
+            raise ValueError(f"no-data manifest: {label}.timeframe end อยู่ในอนาคต")
+        observed_at = _parse_iso_datetime(entry.get("observed_at"), f"{label}.observed_at")
+        if observed_at.date() != end_date:
+            raise ValueError(
+                f"no-data manifest: {label}.observed_at ต้องเป็นวันเดียวกับ timeframe end"
+            )
+        if (series_dir / f"{key}.csv").exists():
+            raise ValueError(f"no-data manifest: {key} มี CSV เดิมอยู่ ห้ามเปลี่ยนเป็น no_data")
+        previous = catalog.get("series", {}).get(key)
+        if previous is not None and not (
+            isinstance(previous, dict) and previous.get("status") == "no_data"
+        ):
+            raise ValueError(f"no-data manifest: {key} มี metadata เดิมที่ไม่ใช่ no_data")
+
+        result.append((key, {
+            "status": "no_data",
+            "keyword": ids[kid],
+            "timeframe": timeframe,
+            "months": 0,
+            "first": None,
+            "last": None,
+            "fetched_on": str(end_date),
+            "fetched_at": observed_at.isoformat(timespec="seconds"),
+            "note": (
+                f"extension confirmed no data after {no_data_attempts} consecutive observations: {reason}; "
+                f"manifest {path.name}"
+            ),
+        }))
+    return result
+
+
+def parse_file(path, kw_to_id, ids, today=None):
     """คืน (keyword_id, geo, [(YYYY-MM, value)]) หรือโยน ValueError พร้อมเหตุผล"""
     text = path.read_text(encoding="utf-8-sig", errors="replace")
     lines = [ln for ln in text.splitlines()]
@@ -142,7 +291,7 @@ def parse_file(path, kw_to_id, ids):
     if not bucket:
         raise ValueError("ไม่มีแถวข้อมูลที่อ่านได้")
 
-    this_month = date.today().strftime("%Y-%m")
+    this_month = (today or date.today()).strftime("%Y-%m")
     months = sorted(m for m in bucket if m < this_month)
     if geo != "TH":
         months = [m for m in months if m >= PROVINCE_MIN_MONTH]
@@ -156,28 +305,38 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--dir", default=str(INCOMING), help="โฟลเดอร์ไฟล์ขาเข้า (default: incoming/)")
     ap.add_argument("--dry-run", action="store_true", help="ตรวจอย่างเดียว ไม่เขียน/ไม่ย้ายไฟล์")
-    ap.add_argument("--since", help="ตัดข้อมูลก่อนเดือนนี้ทิ้ง เช่น 2022-01 (ใช้คู่กับ jobs ของ extension ที่ดึงตั้งแต่ 2021 เพื่อให้ได้รายเดือน)")
+    ap.add_argument(
+        "--since",
+        help="เลิกใช้งานแล้ว: ห้ามตัด long-horizon archive ก่อน ingest",
+    )
     args = ap.parse_args()
-    if args.since and not re.match(r"^\d{4}-\d{2}$", args.since):
-        sys.exit("--since ต้องเป็นรูปแบบ YYYY-MM เช่น 2022-01")
+    if args.since:
+        ap.error(
+            "--since ถูกปิดใช้งาน เพราะจะตัด canonical long-horizon archive แล้วทับซีรีส์เดิม "
+            "ให้ export ใหม่ทั้งช่วง 2004-01-01 ถึงวันนี้ แล้ว ingest โดยไม่ใส่ --since"
+        )
 
     indir = Path(args.dir)
     files = sorted(p for p in indir.glob("*.csv"))
-    if not files:
-        print(f"ไม่มีไฟล์ .csv ใน {indir}")
+    manifest_files = sorted(p for p in indir.glob("no_data_manifest__*.json"))
+    if not files and not manifest_files:
+        print(f"ไม่มีไฟล์ .csv หรือ no_data_manifest__*.json ใน {indir}")
         return
 
+    run_date = date.today()
     kw_to_id, ids = load_keyword_map()
-    catalog = json.loads(CATALOG_PATH.read_text(encoding="utf-8")) if CATALOG_PATH.exists() else {"series": {}}
-    ok, bad = [], []
+    try:
+        catalog = json.loads(CATALOG_PATH.read_text(encoding="utf-8")) if CATALOG_PATH.exists() else {"series": {}}
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        sys.exit(f"อ่าน data/catalog.json ไม่ได้ จึงหยุดก่อนเขียนข้อมูล: {exc}")
+    if not isinstance(catalog, dict) or not isinstance(catalog.get("series"), dict):
+        sys.exit("data/catalog.json ต้องเป็น object ที่มี series object; หยุดก่อนเขียนข้อมูล")
+    ok, no_data_ok, bad = [], [], []
 
     for path in files:
         try:
-            kid, geo, points = parse_file(path, kw_to_id, ids)
-            if args.since:
-                points = [p for p in points if p[0] >= args.since]
-                if not points:
-                    raise ValueError(f"ไม่มีข้อมูลตั้งแต่ {args.since}")
+            kid, geo, points = parse_file(path, kw_to_id, ids, today=run_date)
+            validate_canonical_coverage(geo, points, today=run_date)
         except ValueError as e:
             bad.append((path, str(e)))
             print(f"REVIEW  {path.name}: {e}")
@@ -191,23 +350,38 @@ def main():
             w.writerow(["Month", "Value"])
             w.writerows(points)
         catalog["series"][f"{kid}__{geo}"] = {
+            "status": "available",
             "keyword": ids[kid],
-            "timeframe": f"{points[0][0]} {points[-1][0]}",
+            "timeframe": f"{CANONICAL_START_DATE} {run_date}",
             "months": len(points),
             "first": points[0][0],
             "last": points[-1][0],
-            "fetched_on": str(date.today()),
+            "fetched_on": str(run_date),
             "fetched_at": datetime.now().isoformat(timespec="seconds"),
             "note": f"ingest จาก {path.name}",
         }
         ok.append((path, kid, geo))
 
+    for path in manifest_files:
+        try:
+            entries = parse_no_data_manifest(path, ids, catalog)
+        except ValueError as e:
+            bad.append((path, str(e)))
+            print(f"REVIEW  {path.name}: {e}")
+            continue
+        print(f"OK      {path.name} -> ยืนยัน no_data {len(entries)} เซลล์")
+        if not args.dry_run:
+            for key, metadata in entries:
+                catalog["series"][key] = metadata
+        no_data_ok.append((path, len(entries)))
+
     if args.dry_run:
-        print(f"\n(dry-run) อ่านได้ {len(files) - len(bad)}/{len(files)} ไฟล์")
+        total = len(files) + len(manifest_files)
+        print(f"\n(dry-run) อ่านได้ {total - len(bad)}/{total} ไฟล์")
         return
 
     # ย้ายไฟล์: สำเร็จ -> processed/, มีปัญหา -> review/
-    for path, kid, geo in ok:
+    for path, *_detail in [*ok, *no_data_ok]:
         dest_dir = indir / "processed"
         dest_dir.mkdir(exist_ok=True)
         dest = dest_dir / path.name
@@ -220,18 +394,27 @@ def main():
         dest_dir = indir / "review"
         dest_dir.mkdir(exist_ok=True)
         if path.exists():
-            shutil.move(str(path), str(dest_dir / path.name))
+            dest = dest_dir / path.name
+            i = 1
+            while dest.exists():
+                dest = dest_dir / f"{path.stem}_dup{i}{path.suffix}"
+                i += 1
+            shutil.move(str(path), str(dest))
 
-    if ok:
+    if ok or no_data_ok:
         catalog["updated_at"] = datetime.now().isoformat(timespec="seconds")
         CATALOG_PATH.write_text(json.dumps(catalog, ensure_ascii=False, indent=1), encoding="utf-8")
         sys.path.insert(0, str(Path(__file__).resolve().parent))
         import build_site_data
         build_site_data.build()
 
-    print(f"\nสรุป: เข้าคลัง {len(ok)} ไฟล์ | ต้อง review {len(bad)} ไฟล์ (ดูใน incoming/review/)")
-    if ok:
-        print("ถ้าจะเผยแพร่: git add -A && git commit -m \"update data\" && git push")
+    print(
+        f"\nสรุป: CSV เข้าคลัง {len(ok)} ไฟล์ | "
+        f"no_data manifest {len(no_data_ok)} ไฟล์ | "
+        f"ต้อง review {len(bad)} ไฟล์ (ดูใน incoming/review/)"
+    )
+    if ok or no_data_ok:
+        print("ก่อนเผยแพร่ต้องรัน audit --strict --require-latest และ stage เฉพาะไฟล์ข้อมูลที่ระบบสร้าง")
 
 
 if __name__ == "__main__":

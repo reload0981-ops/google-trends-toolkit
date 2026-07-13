@@ -11,6 +11,11 @@ const HIDE_FOREGROUND_WARNING_KEY = "hide_foreground_warning_v1";
 const MAX_TABLE_ROWS = 40;
 const MIN_VALID_DOWNLOAD_BYTES = 200;
 const NO_DATA_EXPORT_REASON = "NO_DATA_EXPORT";
+const NO_DATA_MANIFEST_SCHEMA = "google-trends-toolkit/no-data-manifest-v1";
+const MIN_NO_DATA_ATTEMPTS = 2;
+// chrome.notifications accepts data URLs. This real raster icon replaces the
+// missing icons/48.png resource that made CAPTCHA notifications fail.
+const NOTIFICATION_ICON_DATA_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAA5UlEQVR42u2Y0Q6DIAxFYeEL5Tv5RvZEZlxVsJe0bJcnAyaeQ1tojGGrNSw8XmHxQQEKUIACFFCN5Bmuls9zzPI70eNNvAf/As6sAbvdl9YZAQoMpM9PFnFaZffP7oG02rnvrgY08OYCWnhTAQQ8rAZ6mq4Z8NAItA/Xcg2IhIcINKAj2J0IAl7dTo8AzoBXRQAFb9ILSfCPUyArozeSQme7LkE8acymRmAEvs1La20OAd8dAUTK1IKDHooAKt9nwN8KIIvV5BQ6wnqD70ohdNGZ3ANe4flXggIUoAAFKEABCvy7wBulk0dExkEezwAAAABJRU5ErkJggg==";
 
 // ----- DOM helpers ---------------------------------------------------------
 const $ = id => document.getElementById(id);
@@ -98,6 +103,22 @@ function basename(path) {
   return String(path || "").split(/[\\/]/).pop().toLowerCase();
 }
 
+function localIsoTimestamp(value = new Date()) {
+  const pad = number => String(number).padStart(2, "0");
+  const offsetMinutes = -value.getTimezoneOffset();
+  const sign = offsetMinutes >= 0 ? "+" : "-";
+  const offset = Math.abs(offsetMinutes);
+  return (
+    `${value.getFullYear()}-${pad(value.getMonth() + 1)}-${pad(value.getDate())}` +
+    `T${pad(value.getHours())}:${pad(value.getMinutes())}:${pad(value.getSeconds())}` +
+    `${sign}${pad(Math.floor(offset / 60))}:${pad(offset % 60)}`
+  );
+}
+
+function localDateString(value = new Date()) {
+  return localIsoTimestamp(value).slice(0, 10);
+}
+
 function downloadSize(dl) {
   if (typeof dl.fileSize === "number") return dl.fileSize;
   if (typeof dl.totalBytes === "number") return dl.totalBytes;
@@ -175,7 +196,14 @@ async function resetState(jobsFilePath = null) {
   }
   const jobs = await resp.json();
   state = {
-    jobs: jobs.map(j => ({ ...j, status: "PENDING", attempts: 0, error: null })),
+    jobs: jobs.map(j => ({
+      ...j,
+      status: "PENDING",
+      attempts: 0,
+      no_data_attempts: 0,
+      no_data_observed_at: null,
+      error: null
+    })),
     status: "idle",
     cursor: 0,
     completed: 0,
@@ -185,6 +213,7 @@ async function resetState(jobsFilePath = null) {
     scraper_window_id: null,
     captcha_tab_id: null,
     fatal_error: null,
+    no_data_manifest_exported_at: null,
     jobs_source: file
   };
   if (jobsFilePath) {
@@ -583,8 +612,8 @@ async function validateRecentDownload(job, jobStartIso) {
   }
   const size = downloadSize(dl);
   if (size > 0 && size < MIN_VALID_DOWNLOAD_BYTES) {
-    // Chrome download metadata cannot expose CSV contents here; validate_downloads.py
-    // confirms that these tiny files are header-only exports, not corrupt files.
+    // A canonical monthly export cannot plausibly fit under 200 bytes. Treat this
+    // only as a retryable no-data heuristic; collector/ingest.py remains the final validator.
     return { result: "NO_DATA", reason: `${NO_DATA_EXPORT_REASON}_${size}B` };
   }
   return null;
@@ -696,14 +725,14 @@ async function handleCaptcha(job, resp) {
   try {
     await chrome.notifications.create(`captcha-${Date.now()}`, {
       type: "basic",
-      iconUrl: chrome.runtime.getURL("icons/48.png"),
+      iconUrl: NOTIFICATION_ICON_DATA_URL,
       title: "GT Toolkit Scraper - CAPTCHA",
       message: `CAPTCHA detected on ${job.job_id}. Solve it in the opened tab, then click Resume.`,
       priority: 2,
       requireInteraction: true
     });
-  } catch (_) {
-    // Notifications may fail silently if icon is missing.
+  } catch (e) {
+    log(`CAPTCHA notification failed: ${e.message || e}`, "warn");
   }
 
   els.currentJob.textContent =
@@ -739,6 +768,67 @@ async function handleBlocked(job, resp, settings, idx) {
   await waitOrPause(coolSec * 1000);
 }
 
+async function exportNoDataManifest() {
+  if (state.no_data_manifest_exported_at) return;
+  const noDataJobs = state.jobs.filter(job => job.status === "NO_DATA");
+  if (noDataJobs.length === 0) {
+    state.no_data_manifest_exported_at = localIsoTimestamp();
+    await saveState();
+    return;
+  }
+  const incomplete = noDataJobs.filter(job =>
+    !job.no_data_observed_at || (job.no_data_attempts || 0) < MIN_NO_DATA_ATTEMPTS
+  );
+  if (incomplete.length) {
+    throw new Error(
+      `Cannot export no-data proof: ${incomplete.length} jobs lack repeated observation metadata`
+    );
+  }
+
+  const generatedAt = localIsoTimestamp();
+  const manifest = {
+    schema: NO_DATA_MANIFEST_SCHEMA,
+    generated_at: generatedAt,
+    jobs_source: state.jobs_source || DEFAULT_JOBS_FILE,
+    entries: noDataJobs.map(job => ({
+      job_id: job.job_id,
+      keyword_id: job.keyword_id,
+      keyword: job.keyword,
+      geo_code: job.geo_code,
+      timeframe: job.timeframe,
+      status: "NO_DATA",
+      attempts: job.attempts,
+      no_data_attempts: job.no_data_attempts,
+      reason: job.error || "NO_DATA",
+      observed_at: job.no_data_observed_at
+    }))
+  };
+  const url = `data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(manifest, null, 2))}`;
+  const filename = `no_data_manifest__${localDateString()}.json`;
+  const downloadId = await chrome.downloads.download({
+    url,
+    filename,
+    conflictAction: "uniquify",
+    saveAs: false
+  });
+  const deadline = Date.now() + 15000;
+  while (Date.now() < deadline) {
+    const [download] = await chrome.downloads.search({ id: downloadId });
+    if (download && download.state === "complete") break;
+    if (download && download.state === "interrupted") {
+      throw new Error(`No-data manifest download interrupted: ${download.error || "unknown"}`);
+    }
+    await sleep(250);
+  }
+  const [completed] = await chrome.downloads.search({ id: downloadId });
+  if (!completed || completed.state !== "complete") {
+    throw new Error("No-data manifest download did not complete within 15 seconds");
+  }
+  state.no_data_manifest_exported_at = generatedAt;
+  await saveState();
+  log(`Exported ${filename} with ${noDataJobs.length} confirmed no-data cells`, "ok");
+}
+
 async function mainLoop() {
   state.status = "running";
   state.fatal_error = null;
@@ -761,6 +851,15 @@ async function mainLoop() {
     const idx = nextPendingIndex(state.cursor);
     if (idx === -1) {
       log("All jobs processed.", "ok");
+      try {
+        await exportNoDataManifest();
+      } catch (e) {
+        log(`No-data manifest export failed: ${e.message || e}`, "err");
+        state.status = "paused";
+        await saveState();
+        refreshUI();
+        return;
+      }
       state.status = "idle";
       await saveState();
       refreshUI();
@@ -779,24 +878,36 @@ async function mainLoop() {
     if (resp.result === "DONE") {
       job.status = "DONE";
       job.error = null;
+      job.no_data_attempts = 0;
+      job.no_data_observed_at = null;
       log(`${job.job_id} done (file: ${job.filename})`, "ok");
     } else if (resp.result === "NO_DATA") {
-      if (job.attempts < settings.maxRetries + 1) {
+      job.no_data_attempts = (job.no_data_attempts || 0) + 1;
+      const requiredNoDataAttempts = MIN_NO_DATA_ATTEMPTS;
+      if (job.no_data_attempts < requiredNoDataAttempts) {
         job.status = "RETRY";
         job.error = resp.reason;
-        log(`${job.job_id} possible NO DATA (${resp.reason}); will retry (${job.attempts}/${settings.maxRetries + 1})`, "warn");
+        job.no_data_observed_at = null;
+        log(`${job.job_id} possible NO DATA (${resp.reason}); will retry (${job.no_data_attempts}/${requiredNoDataAttempts} no-data observations)`, "warn");
       } else {
         job.status = "NO_DATA";
         job.error = resp.reason;
-        log(`${job.job_id} NO DATA (${resp.reason}) after ${job.attempts} attempts; recorded, moving on`, "warn");
+        job.no_data_observed_at = localIsoTimestamp();
+        log(`${job.job_id} NO DATA (${resp.reason}) after ${job.no_data_attempts} consecutive no-data observations; recorded, moving on`, "warn");
       }
     } else if (resp.result === "BLOCKED" && resp.reason === "CAPTCHA") {
+      job.no_data_attempts = 0;
+      job.no_data_observed_at = null;
       await handleCaptcha(job, resp);
       continue;
     } else if (resp.result === "BLOCKED") {
+      job.no_data_attempts = 0;
+      job.no_data_observed_at = null;
       await handleBlocked(job, resp, settings, idx);
       continue;
     } else {
+      job.no_data_attempts = 0;
+      job.no_data_observed_at = null;
       if (job.attempts < settings.maxRetries + 1) {
         job.status = "RETRY";
         job.error = resp.reason;
@@ -865,6 +976,9 @@ function requeueJob(job) {
   job.status = "PENDING";
   job.attempts = 0;
   job.error = null;
+  job.no_data_attempts = 0;
+  job.no_data_observed_at = null;
+  if (state) state.no_data_manifest_exported_at = null;
 }
 
 async function retryFailedJobs() {
@@ -921,24 +1035,31 @@ async function reconcileDownloads() {
   for (let i = 0; i < state.jobs.length; i++) {
     const job = state.jobs[i];
     const target = basename(job.filename);
+    // A later valid full export wins over an earlier tiny heuristic export.
+    if (existing.has(target)) {
+      if (job.status !== "DONE") {
+        job.status = "DONE";
+        job.error = null;
+        job.no_data_attempts = 0;
+        job.no_data_observed_at = null;
+        state.no_data_manifest_exported_at = null;
+        marked += 1;
+      }
+      continue;
+    }
     if (noDataExports.has(target)) {
       if (job.status !== "DONE" && job.status !== "NO_DATA") {
         job.status = "NO_DATA";
         job.error = `${NO_DATA_EXPORT_REASON}_${noDataExports.get(target)}B`;
+        job.no_data_attempts = 0;
+        job.no_data_observed_at = null;
+        state.no_data_manifest_exported_at = null;
         markedNoData += 1;
       }
       continue;
     }
-    if (!existing.has(target)) {
-      if ((job.status === "PENDING" || job.status === "RETRY") && firstPending == null) {
-        firstPending = i;
-      }
-      continue;
-    }
-    if (job.status !== "DONE") {
-      job.status = "DONE";
-      job.error = null;
-      marked += 1;
+    if ((job.status === "PENDING" || job.status === "RETRY") && firstPending == null) {
+      firstPending = i;
     }
   }
 

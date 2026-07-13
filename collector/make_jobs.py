@@ -36,6 +36,18 @@ GEOS = {
     "TH-40": "ขอนแก่น",
     "TH-41": "อุดรธานี",
 }
+CANONICAL_START = "2004-01-01"
+
+
+def validate_collection_window(start, end, canonical_end=None):
+    """Reject queues that would overwrite the archive with a short window."""
+    canonical_end = canonical_end or str(date.today())
+    if start != CANONICAL_START or end != canonical_end:
+        raise ValueError(
+            "นโยบายข้อมูลหลักกำหนดให้สร้าง jobs ทั้งช่วงเท่านั้น: "
+            f"--start {CANONICAL_START} --end {canonical_end} "
+            "(ห้ามใช้ช่วงสั้น เพราะ Google Trends จะ rescale แล้วทับ archive เดิม)"
+        )
 
 
 def main():
@@ -45,10 +57,15 @@ def main():
     scope.add_argument("--ids", help="รายคำ เช่น FP014,FU014")
     scope.add_argument("--group", help="รายกลุ่มตาม prefix ของ ID เช่น FP,FU")
     ap.add_argument("--geo", help=f"จำกัดพื้นที่ (คั่นด้วย ,) จาก {list(GEOS)}")
-    ap.add_argument("--start", default="2004-01-01", help="วันเริ่ม (default 2004-01-01 = โหลดยาวสุดตามนโยบายข้อมูลหลัก)")
+    ap.add_argument("--start", default=CANONICAL_START, help=f"วันเริ่ม (ต้องเป็น {CANONICAL_START} ตามนโยบายข้อมูลหลัก)")
     ap.add_argument("--end", default=str(date.today()), help="วันจบ (default วันนี้)")
     ap.add_argument("--out", default=str(OUT), help="ที่เขียน jobs.json")
     args = ap.parse_args()
+
+    try:
+        validate_collection_window(args.start, args.end)
+    except ValueError as e:
+        ap.error(str(e))
 
     with open(KEYWORDS_CSV, encoding="utf-8-sig") as f:
         keywords = list(csv.DictReader(f))

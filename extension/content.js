@@ -58,6 +58,13 @@ const EN_NO_VOLUME_PHRASES = [
   "no data available"
 ];
 
+// Escaped Thai detector literals survive editor/encoding conversions intact.
+const THAI_CAPTCHA_PHRASES = [
+  "\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19\u0e27\u0e48\u0e32\u0e04\u0e38\u0e13\u0e44\u0e21\u0e48\u0e43\u0e0a\u0e48\u0e2b\u0e38\u0e48\u0e19\u0e22\u0e19\u0e15\u0e4c",
+  "\u0e23\u0e30\u0e1a\u0e1a\u0e02\u0e2d\u0e07\u0e40\u0e23\u0e32\u0e15\u0e23\u0e27\u0e08\u0e1e\u0e1a\u0e01\u0e32\u0e23\u0e40\u0e02\u0e49\u0e32\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e17\u0e35\u0e48\u0e1c\u0e34\u0e14\u0e1b\u0e01\u0e15\u0e34"
+];
+const THAI_SOFT_ERROR = "\u0e40\u0e01\u0e34\u0e14\u0e02\u0e49\u0e2d\u0e1c\u0e34\u0e14\u0e1e\u0e25\u0e32\u0e14\u0e1a\u0e32\u0e07\u0e2d\u0e22\u0e48\u0e32\u0e07";
+
 function sleep(ms) {
   return new Promise(r => setTimeout(r, ms));
 }
@@ -95,15 +102,14 @@ function detectBlock() {
   if (location.href.includes("/sorry/") ||
       lower.includes("i'm not a robot") ||
       lower.includes("recaptcha") ||
-      lower.includes("เธขเธทเธเธขเธฑเธเธงเนเธฒเธเธธเธ“เนเธกเนเนเธเนเธซเธธเนเธเธขเธเธ•เน") ||
-      bodyText.includes("เธฃเธฐเธเธเธเธญเธเน€เธฃเธฒเธ•เธฃเธงเธเธเธเธเธฒเธฃเน€เธเนเธฒเนเธเนเธเธฒเธเธ—เธตเนเธเธดเธ”เธเธเธ•เธด")) return "CAPTCHA";
+      THAI_CAPTCHA_PHRASES.some(phrase => bodyText.includes(phrase))) return "CAPTCHA";
   if (title.includes("429") || title.includes("too many requests")) return "HTTP_429";
   if (lower.includes("unusual traffic")) return "UNUSUAL_TRAFFIC";
   if (lower.includes("we're sorry") && lower.includes("too many requests")) return "HTTP_429";
   // Google Trends in-app soft error (chart backend fail / soft throttle):
   //   EN: "Something went wrong. Please try again in a moment."
-  //   TH: "เธญเนเธฐ! เน€เธเธดเธ”เธเนเธญเธเธดเธ”เธเธฅเธฒเธ”เธเธฒเธเธญเธขเนเธฒเธ เนเธเธฃเธ”เธฅเธญเธเธญเธตเธเธเธฃเธฑเนเธเนเธเธญเธตเธเธชเธฑเธเธเธฃเธนเน"
-  if (bodyText.includes("เน€เธเธดเธ”เธเนเธญเธเธดเธ”เธเธฅเธฒเธ”เธเธฒเธเธญเธขเนเธฒเธ") ||
+  // Thai equivalent is matched by THAI_SOFT_ERROR above.
+  if (bodyText.includes(THAI_SOFT_ERROR) ||
       lower.includes("something went wrong") ||
       lower.includes("please try again in a moment")) return "SOFT_ERROR";
   return null;
@@ -341,14 +347,19 @@ async function runJob(job) {
     return { result: "ERROR", reason: "CSV_BUTTON_NOT_FOUND" };
   }
 
-  // Tell background what filename to expect for the next download
+  // Require an acknowledged filename mapping before clicking. Otherwise a
+  // stale mapping could overwrite the wrong job's CSV.
   try {
-    await chrome.runtime.sendMessage({
+    const prepared = await chrome.runtime.sendMessage({
       cmd: "PREPARE_DOWNLOAD",
       filename: job.filename
     });
+    if (!prepared || !prepared.ok) {
+      return { result: "ERROR", reason: prepared?.error || "PREPARE_DOWNLOAD_REJECTED" };
+    }
   } catch (e) {
     console.warn("[content] PREPARE_DOWNLOAD failed:", e);
+    return { result: "ERROR", reason: `PREPARE_DOWNLOAD_FAILED: ${e.message || e}` };
   }
 
   btn.scrollIntoView({ block: "center", behavior: "smooth" });
@@ -375,4 +386,3 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 });
 
 console.log("[content] script loaded on", location.href);
-

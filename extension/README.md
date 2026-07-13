@@ -4,6 +4,8 @@
 ผ่านง่ายกว่า pytrends มาก (เป็น browser จริง IP จริงของผู้ใช้) พิสูจน์มาแล้วจากโปรเจคเดิมกว่า 300 jobs
 
 ไฟล์ที่โหลดถูกตั้งชื่อ `<ID>__<GEO>.csv` อัตโนมัติ พร้อมให้ `collector/ingest.py` กินทันที
+เมื่อคิวจบ Controller จะส่งออก `no_data_manifest__YYYY-MM-DD.json` อัตโนมัติถ้ามีงาน
+`NO_DATA` ที่ตรวจซ้ำอย่างน้อย 2 ครั้ง เพื่อส่งสถานะนี้เข้า data catalog อย่างตรวจสอบย้อนหลังได้
 
 ## ติดตั้ง (ครั้งเดียว)
 
@@ -28,10 +30,18 @@
    ถ้าเจอ CAPTCHA: แก้ในแท็บที่เด้งขึ้น แล้วกด Resume
 6. เก็บครบแล้ว กลับมาที่ repo:
    ```
-   python collector/ingest.py --dry-run   # ตรวจก่อน
-   python collector/ingest.py             # เข้าคลังจริง
-   git add -A && git commit -m "update data" && git push
+   python -X utf8 collector/ingest.py --dry-run
+   python -X utf8 collector/ingest.py
+   python -X utf8 collector/audit.py --strict --require-latest
+   python -X utf8 collector/build_site_data.py --check
+   python -X utf8 -m unittest discover -s tests -v
+   git add -- data/series data/catalog.json data.js
+   git commit -m "update data YYYY-MM"
+   git push
    ```
+
+   ห้าม commit ถ้า audit/test/check ตัวใดตัวหนึ่งไม่ผ่าน และห้ามใช้ `git add -A`
+   ในรอบเผยแพร่ข้อมูล เพราะอาจพาไฟล์คิวหรือไฟล์อื่นที่ไม่เกี่ยวเข้า commit
 
 (jobs ดึงยาวสุด 2004-01-01 ถึงปัจจุบันตามนโยบายข้อมูลหลัก long horizon
 ระดับจังหวัดที่ก่อน 2014-01 ถูกตัดทิ้งอัตโนมัติตอน ingest เพราะ geo break ของ Google)
@@ -41,10 +51,12 @@
 - Start / Pause / Resume / Stop / Skip Current: คุมคิว
 - Retry Failed/No Data: ลองใหม่เฉพาะตัวที่พลาด
 - Reconcile Downloads: เทียบกับประวัติดาวน์โหลดของ Chrome แล้ว mark งานที่เสร็จแล้ว (ใช้ตอนเปิด controller ใหม่หลังเบราว์เซอร์ปิด)
+  รายการเล็กกว่า 200 bytes เป็นเพียง heuristic `NO_DATA` และยังไม่ใช่หลักฐานสำหรับ manifest;
+  กด Retry Failed/No Data ให้ Controller สังเกตซ้ำก่อน
 - Copy Debug: ก๊อปรายงานสถานะไว้ส่งให้คนช่วยดู
 
 ## หมายเหตุ
 
-- Extension นี้พอร์ตมาจากตัวที่ใช้จริงในโปรเจค Isan Labor (เวอร์ชัน 0.2.6 → 0.3.0)
-  เปลี่ยนเฉพาะ schema ชื่อไฟล์กับข้อความ ตัว logic คิว/retry/CAPTCHA คงเดิมทั้งหมด
+- Extension นี้พอร์ตมาจากตัวที่ใช้จริงในโปรเจค Isan Labor และเพิ่ม release-safety ใน v0.4.0:
+  no-data proof manifest, ชื่อไฟล์แบบ fail-closed, notification icon และตัวตรวจ block ภาษาไทย
 - `data/jobs.json` และ `data/jobs_index.json` เป็นไฟล์ generate จาก `make_jobs.py` ไม่ commit เข้า git

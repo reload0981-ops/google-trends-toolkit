@@ -10,13 +10,17 @@
 // so finished downloads are immediately ready for: python collector/ingest.py
 const SUBFOLDER = "";
 
-// In-memory queue of pending filenames (most recent first).
-// Backed by chrome.storage.session so it survives service-worker restarts.
+// The controller runs one download at a time. Keep exactly one expected filename:
+// replacing it on PREPARE_DOWNLOAD prevents a failed/late attempt from renaming the
+// next job with a stale filename. Backed by session storage for worker restarts.
 let pendingFilenames = [];
+const TOOLKIT_FILENAME = /^[A-Z]{2}\d{3}__TH(?:-\d{2})?\.csv$/;
 
 async function loadQueue() {
   const { pending_filenames = [] } = await chrome.storage.session.get("pending_filenames");
-  pendingFilenames = pending_filenames;
+  pendingFilenames = Array.isArray(pending_filenames)
+    ? pending_filenames.filter(name => typeof name === "string" && TOOLKIT_FILENAME.test(name))
+    : [];
 }
 
 async function saveQueue() {
@@ -39,10 +43,16 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg && msg.cmd === "PREPARE_DOWNLOAD") {
     (async () => {
       await loadQueue();
-      pendingFilenames.push(msg.filename);
+      if (typeof msg.filename !== "string" || !TOOLKIT_FILENAME.test(msg.filename)) {
+        console.error("[bg] rejected invalid toolkit filename:", msg.filename);
+        sendResponse({ ok: false, error: "INVALID_TOOLKIT_FILENAME" });
+        return;
+      }
+      const replaced = pendingFilenames.length;
+      pendingFilenames = [msg.filename];
       await saveQueue();
-      console.log("[bg] queued filename:", msg.filename);
-      sendResponse({ ok: true });
+      console.log("[bg] prepared filename:", msg.filename, `(replaced ${replaced} stale)`);
+      sendResponse({ ok: true, replaced });
     })();
     return true;
   }

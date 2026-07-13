@@ -31,21 +31,54 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # continue-on-error เพราะโดน rate limit กลางทาง (exit 2) ก็ยังต้อง commit
-      # ส่วนที่เก็บสำเร็จแล้ว รอบหน้า (หรือรันซ้ำ) จะเก็บต่อจากที่ค้างเอง
       - name: Collect data
-        continue-on-error: true
-        run: python collector/collect.py ${{ inputs.args || '--all' }} --sleep 20
+        env:
+          COLLECT_ARGS: ${{ inputs.args || '--all' }}
+        run: |
+          # Split into argv without evaluating shell metacharacters from workflow input.
+          read -r -a collect_args <<< "$COLLECT_ARGS"
+          python -X utf8 collector/collect.py --sleep 20 "${collect_args[@]}"
+
+      - name: Validate complete release
+        run: python -X utf8 collector/audit.py --strict --require-latest
+
+      - name: Verify generated site data
+        run: python -X utf8 collector/build_site_data.py --check
+
+      - name: Run regression tests
+        run: python -X utf8 -m unittest discover -s tests -v
 
       - name: Commit and push if changed
         run: |
+          allowed='^(data/series/[^/]+\.csv|data/catalog\.json|data\.js)$'
+          unexpected="$(git status --porcelain=v1 --untracked-files=all \
+            | awk '{print substr($0, 4)}' \
+            | grep -Ev "$allowed" || true)"
+          if [ -n "$unexpected" ]; then
+            echo "Refusing release: collector changed files outside the generated-data allowlist:"
+            echo "$unexpected"
+            exit 1
+          fi
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add -- data/series data/catalog.json data.js
           if git diff --cached --quiet; then
             echo "no data changes"
           else
+            invalid_staged="$(git diff --cached --name-only | grep -Ev "$allowed" || true)"
+            if [ -n "$invalid_staged" ]; then
+              echo "Refusing release: unexpected staged files:"
+              echo "$invalid_staged"
+              exit 1
+            fi
+
+            git fetch origin main
+            if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+              echo "Refusing release: origin/main advanced during collection; rerun on the latest commit"
+              exit 1
+            fi
+
             git commit -m "auto: update data $(date -u +%Y-%m-%d)"
-            git pull --rebase origin main
-            git push
+            git push origin HEAD:main
           fi
