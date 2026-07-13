@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Google Trends Toolkit Scraper",
+  "version": "0.3.0",
+  "description": "Bulk-downloads Google Trends CSVs for the Google Trends Toolkit (files named <ID>__<GEO>.csv, ready for collector/ingest.py).",
+  "permissions": [
+    "tabs",
+    "storage",
+    "downloads",
+    "alarms",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://trends.google.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://trends.google.com/trends/explore*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Isan Labor Trends Scraper"
+  }
+}

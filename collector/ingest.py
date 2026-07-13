@@ -151,7 +151,10 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--dir", default=str(INCOMING), help="โฟลเดอร์ไฟล์ขาเข้า (default: incoming/)")
     ap.add_argument("--dry-run", action="store_true", help="ตรวจอย่างเดียว ไม่เขียน/ไม่ย้ายไฟล์")
+    ap.add_argument("--since", help="ตัดข้อมูลก่อนเดือนนี้ทิ้ง เช่น 2022-01 (ใช้คู่กับ jobs ของ extension ที่ดึงตั้งแต่ 2021 เพื่อให้ได้รายเดือน)")
     args = ap.parse_args()
+    if args.since and not re.match(r"^\d{4}-\d{2}$", args.since):
+        sys.exit("--since ต้องเป็นรูปแบบ YYYY-MM เช่น 2022-01")
 
     indir = Path(args.dir)
     files = sorted(p for p in indir.glob("*.csv"))
@@ -166,6 +169,10 @@ def main():
     for path in files:
         try:
             kid, geo, points = parse_file(path, kw_to_id, ids)
+            if args.since:
+                points = [p for p in points if p[0] >= args.since]
+                if not points:
+                    raise ValueError(f"ไม่มีข้อมูลตั้งแต่ {args.since}")
         except ValueError as e:
             bad.append((path, str(e)))
             print(f"REVIEW  {path.name}: {e}")

@@ -1,0 +1,120 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""Google Trends Toolkit - สร้างคิวงานให้ Chrome extension (การเก็บชุดใหญ่)
+
+อ่าน keywords.csv แล้วเขียน extension/data/jobs.json ให้ extension ไล่โหลด CSV
+จากหน้า Google Trends ใน Chrome จริง (ผ่านง่ายกว่า pytrends มาก) ไฟล์ที่ได้ถูกตั้งชื่อ
+<ID>__<GEO>.csv พร้อมให้ collector/ingest.py กินทันที
+
+ตัวอย่าง:
+  python collector/make_jobs.py --all                    # 50 คำ x 6 พื้นที่ = 300 jobs
+  python collector/make_jobs.py --ids FP014,FU014
+  python collector/make_jobs.py --group FP --geo TH
+  python collector/make_jobs.py --all --start 2021-01-01 --end 2026-12-31
+
+หมายเหตุช่วงเวลา: Google ให้ข้อมูลรายเดือนเมื่อช่วง >= 5 ปี (สั้นกว่านั้นเป็นรายสัปดาห์
+ซึ่ง ingest เฉลี่ยเป็นรายเดือนให้ได้ แต่ native monthly ตรงกับข้อมูลเดิมมากกว่า)
+default จึงเริ่ม 2021-01-01 แล้วค่อยตัดหัวตอน ingest ด้วย --since 2022-01
+"""
+
+import argparse
+import csv
+import json
+import sys
+from datetime import date
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+KEYWORDS_CSV = ROOT / "keywords.csv"
+OUT = ROOT / "extension" / "data" / "jobs.json"
+
+GEOS = {
+    "TH": "ประเทศไทย",
+    "TH-30": "นครราชสีมา",
+    "TH-31": "บุรีรัมย์",
+    "TH-34": "อุบลราชธานี",
+    "TH-40": "ขอนแก่น",
+    "TH-41": "อุดรธานี",
+}
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    scope = ap.add_argument_group("scope")
+    scope.add_argument("--all", action="store_true", help="ทุกคำใน keywords.csv")
+    scope.add_argument("--ids", help="รายคำ เช่น FP014,FU014")
+    scope.add_argument("--group", help="รายกลุ่มตาม prefix ของ ID เช่น FP,FU")
+    ap.add_argument("--geo", help=f"จำกัดพื้นที่ (คั่นด้วย ,) จาก {list(GEOS)}")
+    ap.add_argument("--start", default="2021-01-01", help="วันเริ่ม (default 2021-01-01 เพื่อให้ได้รายเดือน)")
+    ap.add_argument("--end", default=str(date.today()), help="วันจบ (default วันนี้)")
+    ap.add_argument("--out", default=str(OUT), help="ที่เขียน jobs.json")
+    args = ap.parse_args()
+
+    with open(KEYWORDS_CSV, encoding="utf-8-sig") as f:
+        keywords = list(csv.DictReader(f))
+
+    if args.ids:
+        wanted = {x.strip().upper() for x in args.ids.split(",") if x.strip()}
+        rows = [r for r in keywords if r["Keyword_ID"].upper() in wanted]
+        missing = wanted - {r["Keyword_ID"].upper() for r in rows}
+        if missing:
+            sys.exit(f"ไม่พบ ID ใน keywords.csv: {sorted(missing)}")
+    elif args.group:
+        prefixes = tuple(x.strip().upper() for x in args.group.split(",") if x.strip())
+        rows = [r for r in keywords if r["Keyword_ID"].upper().startswith(prefixes)]
+        if not rows:
+            sys.exit(f"ไม่มีคำในกลุ่ม {prefixes}")
+    elif args.all:
+        rows = keywords
+    else:
+        sys.exit("ต้องระบุ scope: --all หรือ --ids หรือ --group (ดู --help)")
+
+    if args.geo:
+        geos = [g.strip().upper() for g in args.geo.split(",") if g.strip()]
+        unknown = [g for g in geos if g not in GEOS]
+        if unknown:
+            sys.exit(f"geo ไม่รู้จัก: {unknown} (ใช้ได้: {list(GEOS)})")
+    else:
+        geos = list(GEOS)
+
+    timeframe = f"{args.start} {args.end}"
+    jobs, seq = [], 1
+    for geo in geos:
+        for r in rows:
+            jobs.append({
+                "job_id": f"j{seq:04d}",
+                "keyword_id": r["Keyword_ID"],
+                "keyword": r["Keyword_TH"],
+                "segment": r.get("Segment", ""),
+                "factor": r.get("Factor", ""),
+                "geo_code": geo,
+                "geo_name": GEOS[geo],
+                "timeframe": timeframe,
+                "filename": f"{r['Keyword_ID']}__{geo}.csv",
+                "kind": "timeseries",
+            })
+            seq += 1
+
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(jobs, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    # index สำหรับ dropdown "Jobs source" ในหน้า controller
+    scope_label = args.ids or args.group or "all"
+    index = [{
+        "file": "data/jobs.json",
+        "label": f"{scope_label} ({len(jobs)} jobs)",
+        "mode": "timeseries",
+        "description": f"สร้างเมื่อ {date.today()} | {len(geos)} พื้นที่ x {len(rows)} คำ | {timeframe}",
+    }]
+    (out.parent / "jobs_index.json").write_text(
+        json.dumps(index, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    print(f"เขียน {out} : {len(jobs)} jobs ({len(geos)} พื้นที่ x {len(rows)} คำ) timeframe: {timeframe}")
+    print("ขั้นถัดไป: chrome://extensions > Reload ตัว extension > เปิด controller >")
+    print("  กด 'Load Jobs (reset queue)' > กด 'Start'")
+    print("(ตั้ง download folder ของ Chrome เป็นโฟลเดอร์ incoming/ ของ repo นี้ก่อน: chrome://settings/downloads)")
+
+
+if __name__ == "__main__":
+    main()

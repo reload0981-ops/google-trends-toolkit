@@ -17,7 +17,8 @@ description: Operate the Google Trends Toolkit - update keyword series data (ing
 | `data/catalog.json` | บันทึกการเก็บ (เมื่อไหร่ ช่วงไหน) ใช้เป็นกลไก resume |
 | `data.js` | ข้อมูลรวมของหน้าเว็บ สร้างอัตโนมัติ ห้ามแก้มือ |
 | `index.html` | หน้าแสดงผล (GitHub Pages: เปิดจาก URL ของ repo นี้) |
-| `collector/ingest.py` | ทางหลัก: กิน CSV ที่มนุษย์โหลดมาวางใน `incoming/` (Python มาตรฐาน ไม่ต้องติดตั้งอะไร) |
+| `collector/ingest.py` | ทางหลัก: กิน CSV ที่โหลดมาวางใน `incoming/` (Python มาตรฐาน ไม่ต้องติดตั้งอะไร) |
+| `extension/` + `collector/make_jobs.py` | เครื่องเก็บชุดใหญ่: Chrome extension ไล่โหลดตามคิวที่ make_jobs สร้าง ไฟล์หล่นใน `incoming/` พร้อม ingest |
 | `collector/collect.py` | ทางสะดวก: ดึงเองผ่าน pytrends (ต้อง `pip install -r requirements.txt`) เหมาะกับงานเบา |
 | `.github/workflows/update-data.yml` | อัพเดทอัตโนมัติรายเดือน (วันที่ 3) บน GitHub Actions |
 
@@ -35,12 +36,20 @@ description: Operate the Google Trends Toolkit - update keyword series data (ing
 ## Workflow หลัก
 
 ### A. อัพเดทด้วยไฟล์ที่โหลดมา (เส้นทางหลัก แม่นสุด)
-1. ให้ผู้ใช้โหลด CSV จากหน้าเว็บ Google Trends (หรือ Extension) มาวางใน `incoming/`
+
+**A1 เก็บชุดใหญ่ผ่าน Chrome extension (`extension/`):**
+1. `python collector/make_jobs.py --all` (หรือ `--ids/--group/--geo`) สร้างคิวงาน
+2. ให้ผู้ใช้: Reload extension ใน `chrome://extensions` > เปิด Controller > กด "Load Jobs (reset queue)" > "Start"
+   (ครั้งแรกต้องติดตั้งก่อน + ตั้ง download folder เป็น `incoming/` ดู `extension/README.md`)
+3. รอคิวจบ (CAPTCHA = ผู้ใช้แก้ในแท็บแล้วกด Resume) ไฟล์จะหล่นใน `incoming/` ชื่อ `<ID>__<GEO>.csv`
+4. `python collector/ingest.py --dry-run --since 2022-01` แล้วค่อยรันจริง (`--since 2022-01` เพราะ jobs ดึงตั้งแต่ 2021 เพื่อให้ได้รายเดือน)
+
+**A2 เก็บมือไม่กี่ไฟล์:**
+1. ให้ผู้ใช้โหลด CSV จากหน้าเว็บ Google Trends มาวางใน `incoming/`
    เงื่อนไขตอนโหลด: ระบุช่วงเวลาเต็มตั้งแต่ 2022-01-01 ถึงปัจจุบัน และเลือกพื้นที่ให้ตรง
-2. `python collector/ingest.py --dry-run` ดูก่อนว่าจับคู่ถูกครบไหม
-3. `python collector/ingest.py` ของจริง
-4. ไฟล์ที่เข้า `incoming/review/` = จับคู่ไม่ได้ ไปดูเหตุผลที่มันพิมพ์ไว้ แก้ (เช่น เพิ่มคำใน keywords.csv หรือ rename เป็น `<ID>__<GEO>.csv`) แล้ววางกลับ `incoming/` รันซ้ำ
-5. ตรวจ + เผยแพร่ (ดูส่วน "ตรวจก่อน push")
+2. `python collector/ingest.py --dry-run` ดูก่อนว่าจับคู่ถูกครบไหม แล้วรันจริง
+
+**ทั้งสองแบบ:** ไฟล์ที่เข้า `incoming/review/` = จับคู่ไม่ได้ ไปดูเหตุผลที่มันพิมพ์ไว้ แก้ (เช่น เพิ่มคำใน keywords.csv หรือ rename เป็น `<ID>__<GEO>.csv`) แล้ววางกลับ `incoming/` รันซ้ำ จบแล้วตรวจ + เผยแพร่ (ดูส่วน "ตรวจก่อน push")
 
 ### B. อัพเดทด้วย pytrends (งานเบา ไม่กี่คำ)
 ```

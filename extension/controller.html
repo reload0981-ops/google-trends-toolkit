@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Isan Labor Trends Scraper - Controller</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --line: #d9e0e7;
+      --text: #1d2733;
+      --muted: #657487;
+      --blue: #1d6fd8;
+      --green: #238636;
+      --yellow: #9a6700;
+      --red: #c9322f;
+      --ink: #111827;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px;
+      background: var(--bg);
+      color: var(--text);
+      letter-spacing: 0;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    h1 { font-size: 22px; margin: 0 0 4px; font-weight: 650; }
+    h2 { font-size: 15px; margin: 0 0 12px; font-weight: 650; }
+    .sub { color: var(--muted); font-size: 13px; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 14px;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    button, select, input {
+      font: inherit;
+      font-size: 13px;
+    }
+    button {
+      min-height: 34px;
+      padding: 7px 12px;
+      cursor: pointer;
+      border: 1px solid #b9c4d0;
+      background: #fff;
+      color: var(--ink);
+      border-radius: 6px;
+    }
+    button.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+    button.danger  { background: var(--red); color: #fff; border-color: var(--red); }
+    button:disabled { opacity: 0.45; cursor: not-allowed; }
+    input, select {
+      border: 1px solid #b9c4d0;
+      border-radius: 6px;
+      padding: 7px 9px;
+      background: #fff;
+      min-height: 34px;
+    }
+    .settings {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+    .settings label {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+    }
+    .settings input { width: 100%; }
+    .warning {
+      font-size: 13px;
+      margin-bottom: 12px;
+      color: #6f4a00;
+      background: #fff7df;
+      border: 1px solid #edcf79;
+      padding: 9px 10px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+    .bar { height: 14px; background: #e7ebf0; border-radius: 999px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--green); transition: width 0.3s; width: 0%; }
+    .progress-text { margin-top: 7px; font-size: 13px; color: var(--muted); }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(70px, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      background: #fbfcfd;
+    }
+    .stat span { display: block; color: var(--muted); font-size: 12px; }
+    .stat b { display: block; font-size: 18px; margin-top: 2px; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+    .pill.running { color: #075985; background: #e0f2fe; border-color: #9bd8f6; }
+    .pill.paused { color: #7c4a03; background: #fef3c7; border-color: #f2cf75; }
+    .pill.idle { color: #255432; background: #e7f6ea; border-color: #acd9b8; }
+    .pill.fatal { color: #842029; background: #f8d7da; border-color: #e7a1aa; }
+    .current {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      background: #f6f8fa;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      min-height: 68px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    .summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .summary span {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 8px;
+      background: #fbfcfd;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    th, td {
+      text-align: left;
+      padding: 7px 8px;
+      border-bottom: 1px solid #edf1f5;
+      vertical-align: top;
+    }
+    th { color: var(--muted); font-weight: 650; background: #fbfcfd; }
+    td.actions { white-space: nowrap; }
+    td.actions button {
+      min-height: 28px;
+      padding: 4px 8px;
+      font-size: 12px;
+    }
+    .status-done { color: var(--green); font-weight: 650; }
+    .status-failed { color: var(--red); font-weight: 650; }
+    .status-retry, .status-running { color: var(--yellow); font-weight: 650; }
+    .status-pending { color: var(--muted); font-weight: 650; }
+    .log {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      background: #17212f;
+      color: #d8dee9;
+      padding: 10px;
+      border-radius: 6px;
+      height: 340px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    .log .ok    { color: #8fda92; }
+    .log .err   { color: #ff9b8e; }
+    .log .info  { color: #9cd6ff; }
+    .log .warn  { color: #f2d98b; }
+    @media (max-width: 920px) {
+      .layout { grid-template-columns: 1fr; }
+      .settings { grid-template-columns: repeat(2, minmax(140px, 1fr)); }
+      .stats { grid-template-columns: repeat(3, minmax(80px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Isan Labor Trends Scraper</h1>
+      <div class="sub">Controller for Google Trends CSV collection. Queue target: TH + 5 provinces x 53 keywords.</div>
+    </div>
+    <div id="status-pill" class="pill idle">IDLE</div>
+  </header>
+
+  <div class="panel">
+    <div id="foreground-warning" class="warning">
+      <span>Keep the scraper Chrome window in front while jobs run. Background tabs may not render chart export controls.</span>
+      <div class="toolbar">
+        <button id="btn-refocus-window">Refocus</button>
+        <button id="btn-hide-warning">Hide</button>
+      </div>
+    </div>
+    <div class="toolbar" style="margin-bottom:10px; padding-bottom:10px; border-bottom:1px dashed #d9e0e7;">
+      <label style="color:#657487; font-size:12px;">Job source</label>
+      <select id="jobs-source-select" style="min-width:340px;"></select>
+      <button id="btn-load-jobs">Load Jobs (reset queue)</button>
+      <span id="jobs-source-current" style="color:#657487; font-size:12px; margin-left:auto;"></span>
+    </div>
+    <div class="toolbar">
+      <button id="btn-start" class="primary">Start</button>
+      <button id="btn-pause">Pause</button>
+      <button id="btn-resume">Resume</button>
+      <button id="btn-stop">Stop</button>
+      <button id="btn-skip">Skip Current</button>
+      <button id="btn-reset" class="danger">Reset Queue</button>
+    </div>
+    <div class="toolbar" style="margin-top:10px;">
+      <input type="text" id="reflag-input" style="min-width:320px;" placeholder="Re-flag IDs: j0002, FP026, TH_FP026">
+      <button id="btn-reflag">Re-flag Pending</button>
+      <button id="btn-retry-failed">Retry Failed/No Data</button>
+      <button id="btn-reconcile-downloads">Reconcile Downloads</button>
+      <button id="btn-copy-debug">Copy Debug</button>
+    </div>
+    <div class="settings">
+      <label>Throttle min (sec) <input type="number" id="throttle-min" value="20" min="10"></label>
+      <label>Throttle max (sec) <input type="number" id="throttle-max" value="40" min="10"></label>
+      <label>Long break every <input type="number" id="long-every" value="100" min="0"></label>
+      <label>Long break (sec) <input type="number" id="long-break" value="120" min="0"></label>
+      <label>Max retries <input type="number" id="max-retries" value="1" min="0"></label>
+      <label>Load timeout (sec) <input type="number" id="load-timeout" value="30" min="10"></label>
+      <label>Warm every <input type="number" id="warm-every" value="8" min="0"></label>
+      <label>Warm dwell (sec) <input type="number" id="warm-dwell" value="15" min="0"></label>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="bar"><div id="bar-fill" class="bar-fill"></div></div>
+    <div class="progress-text" id="progress-text">Not started</div>
+    <div class="stats">
+      <div class="stat"><span>Total</span><b id="stat-total">-</b></div>
+      <div class="stat"><span>Done</span><b id="stat-done">0</b></div>
+      <div class="stat"><span>Failed</span><b id="stat-failed">0</b></div>
+      <div class="stat"><span>No Data</span><b id="stat-nodata">0</b></div>
+      <div class="stat"><span>Retry</span><b id="stat-retry">0</b></div>
+      <div class="stat"><span>Pending</span><b id="stat-pending">-</b></div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <main>
+      <div class="panel">
+        <div class="toolbar" style="justify-content:space-between; margin-bottom:10px;">
+          <h2>Job Queue</h2>
+          <div class="toolbar">
+            <span id="job-count-label" class="sub">0 shown</span>
+            <select id="job-filter">
+              <option value="active">Active</option>
+              <option value="all">All</option>
+              <option value="pending">Pending</option>
+              <option value="retry">Retry</option>
+              <option value="failed">Failed</option>
+              <option value="done">Done</option>
+              <option value="nodata">No Data</option>
+              <option value="th">TH only</option>
+              <option value="province">Provinces</option>
+            </select>
+          </div>
+        </div>
+        <div id="geo-summary" class="summary" style="margin-bottom:10px;"></div>
+        <table>
+          <thead>
+            <tr>
+              <th>Job</th>
+              <th>Geo</th>
+              <th>Keyword</th>
+              <th>Status</th>
+              <th>Attempts</th>
+              <th>Error</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="job-table-body"></tbody>
+        </table>
+      </div>
+    </main>
+    <aside>
+      <div class="panel">
+        <h2>Current Job</h2>
+        <div class="current" id="current-job">idle</div>
+      </div>
+      <div class="panel">
+        <div class="toolbar" style="justify-content:space-between; margin-bottom:10px;">
+          <h2>Log</h2>
+          <button id="btn-clear-log">Clear</button>
+        </div>
+        <div class="log" id="log"></div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="controller.js"></script>
+</body>
+</html>

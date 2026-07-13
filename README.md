@@ -15,9 +15,17 @@
 
 ## เก็บ/อัพเดทข้อมูล (3 ทาง)
 
-### ทางที่ 1: ingest ไฟล์ที่โหลดมาเอง (เส้นทางหลัก แม่นสุด)
+### ทางที่ 1: ingest ไฟล์ที่โหลดมา (เส้นทางหลัก แม่นสุด)
 
-โหลด CSV จากหน้าเว็บ Google Trends (หรือ Extension) โดยระบุช่วงเวลาเต็ม 2022-01-01 ถึงปัจจุบัน แล้ววางไฟล์ใน `incoming/` จากนั้น:
+**เก็บชุดใหญ่: ใช้ Chrome extension ใน `extension/`** (พอร์ตจากตัวที่พิสูจน์แล้วในโปรเจคเดิม 300+ jobs) มันไล่โหลด CSV จากหน้า Google Trends ใน Chrome จริงตามคิวงาน พร้อมระบบ pause/retry/CAPTCHA และตั้งชื่อไฟล์ให้ ingest กินได้ทันที:
+
+```
+python collector/make_jobs.py --all      # สร้างคิว 300 jobs (หรือ --ids / --group / --geo)
+# โหลด extension แล้วกด Load Jobs > Start (วิธีติดตั้งดู extension/README.md)
+python collector/ingest.py --since 2022-01
+```
+
+**เก็บมือไม่กี่ไฟล์:** โหลด CSV จากหน้าเว็บ Google Trends เอง (ระบุช่วงเวลาเต็มตั้งแต่ 2022-01-01 ถึงปัจจุบัน) วางใน `incoming/` จากนั้น:
 
 ```
 python collector/ingest.py --dry-run   # ตรวจการจับคู่ก่อน ไม่เขียนอะไร
