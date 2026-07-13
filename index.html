@@ -61,6 +61,7 @@
     --grid: #2d3036;
     --baseline: #454951;
     --focus: rgba(68,128,255,.38);
+    --danger: #ff6b76;
     --shadow-soft: none;
   }
   * { box-sizing: border-box; }
@@ -329,7 +330,7 @@
         <p class="section-kicker" id="chartRegionTitle">แนวโน้มรายเดือน</p>
         <span class="chart-status" id="chartStatus">กำลังเตรียมข้อมูล</span>
       </div>
-      <div id="chart" role="img" aria-label="กราฟแนวโน้ม Google Trends"></div>
+      <div id="chart" role="region" aria-label="กราฟแนวโน้ม Google Trends"></div>
       <div class="note" id="missingNote" role="status" aria-live="polite"></div>
       <div id="tableWrap" tabindex="0" aria-label="ตารางข้อมูลที่แสดงบนกราฟ"></div>
     </section>
@@ -506,7 +507,10 @@
     GEO_ORDER.forEach(g => {
       chip(gr, D.geos[g], state.geos.has(g), () => {
         if (state.geos.has(g)) {
-          if (state.geos.size <= 1) return;   // ต้องเหลืออย่างน้อย 1 พื้นที่
+          if (state.geos.size <= 1) {
+            el("kwHint").textContent = "ต้องเลือกอย่างน้อย 1 พื้นที่";
+            return;
+          }
           state.geos.delete(g);
         } else {
           if (state.checked.size * (state.geos.size + 1) > MAX_SERIES) { hintQuota(0, 1); return; }
@@ -658,8 +662,8 @@
     const { header, rows } = matrix();
     const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
     el("tableWrap").innerHTML =
-      `<table><caption class="sr-only">ตารางข้อมูลชุดเดียวกับกราฟ</caption><thead><tr>${header.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>` +
-      rows.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("") +
+      `<table><caption class="sr-only">ตารางข้อมูลชุดเดียวกับกราฟ</caption><thead><tr>${header.map(h => `<th scope="col">${esc(h)}</th>`).join("")}</tr></thead><tbody>` +
+      rows.map(r => `<tr><th scope="row">${esc(r[0])}</th>${r.slice(1).map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("") +
       `</tbody></table>`;
   }
 
@@ -684,6 +688,7 @@
     if (state.showTable) renderTable();
   };
   el("btnFill").onclick = () => {
+    el("kwHint").textContent = "";
     for (const k of visibleKeywords()) {
       if ((state.checked.size + 1) * state.geos.size > MAX_SERIES) break;
       state.checked.add(k.id);
@@ -691,6 +696,7 @@
     renderList(); renderChart();
   };
   el("btnNone").onclick = () => {
+    el("kwHint").textContent = "";
     state.checked.clear(); slots.clear();
     renderList(); renderChart();
   };
