@@ -112,6 +112,7 @@
   <div class="foot">
     ค่าเป็น Google Trends index (0-100) เทียบภายในช่วงเวลาที่ดึงของแต่ละคำและพื้นที่ ห้ามอ่านเป็นจำนวนการค้นจริง
     และห้ามเทียบขนาดข้ามคำโดยตรง (ใช้ฐานดัชนีช่วยเทียบทิศทางได้) |
+    ระดับประเทศเริ่ม 2004 ระดับจังหวัดเริ่ม 2014 (ก่อนหน้านั้น Google ยังไม่ปรับระบบระบุตำแหน่ง ข้อมูลจังหวัดใช้ไม่ได้) |
     <a href="https://github.com/reload0981-ops/google-trends-toolkit#readme">วิธีอัพเดทข้อมูล</a>
   </div>
 </div>
@@ -182,7 +183,7 @@
   function rangeStart() {
     if (state.range === "all") return null;
     const last = MONTHS[MONTHS.length - 1];
-    const back = state.range === "1y" ? 11 : 35;
+    const back = { "1y": 11, "3y": 35, "5y": 59, "10y": 119 }[state.range];
     const [y, m] = last.split("-").map(Number);
     const total = y * 12 + (m - 1) - back;
     return `${Math.floor(total / 12)}-${String((total % 12) + 1).padStart(2, "0")}`;
@@ -252,7 +253,7 @@
     });
 
     const rr = el("rangeRow"); rr.innerHTML = "";
-    [["all", "ทั้งหมด"], ["3y", "3 ปี"], ["1y", "1 ปี"]].forEach(([v, lbl]) =>
+    [["all", "ทั้งหมด"], ["10y", "10 ปี"], ["5y", "5 ปี"], ["3y", "3 ปี"], ["1y", "1 ปี"]].forEach(([v, lbl]) =>
       chip(rr, lbl, state.range === v, () => { state.range = v; renderControls(); renderChart(); }));
 
     const rs = el("rebaseSel");

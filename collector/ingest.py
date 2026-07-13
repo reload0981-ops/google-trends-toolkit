@@ -19,6 +19,8 @@
 กติกา:
   - ค่า "<1" ถูกแปลงเป็น 0
   - เดือนปัจจุบันที่ยังไม่จบถูกตัดทิ้ง
+  - ระดับจังหวัด: เดือนก่อน 2014-01 ถูกตัดทิ้งอัตโนมัติ (Google ปรับระบบ geo
+    ช่วง 2011-2013 ข้อมูลจังหวัดก่อนหน้านั้นเป็นรู/break ใช้ไม่ได้ ระดับประเทศไม่ตัด)
   - เขียนแทนซีรีส์เดิมทั้งไฟล์ (ห้ามต่อท่อนข้อมูลคนละช่วง scale จะเพี้ยน)
   - จับคู่คำ/พื้นที่ไม่ได้ = ย้ายไฟล์ไป incoming/review/ ไม่เดาเด็ดขาด
 """
@@ -39,6 +41,7 @@ CATALOG_PATH = ROOT / "data" / "catalog.json"
 KEYWORDS_CSV = ROOT / "keywords.csv"
 
 TIME_WORDS = {"time", "month", "week", "day", "เดือน", "สัปดาห์", "วัน"}
+PROVINCE_MIN_MONTH = "2014-01"  # จังหวัด/ภาคใช้ได้หลัง geo break (ดู README)
 PLACE_TO_GEO = {
     "ประเทศไทย": "TH", "thailand": "TH", "th": "TH",
     "นครราชสีมา": "TH-30", "nakhon ratchasima": "TH-30", "th-30": "TH-30",
@@ -141,8 +144,10 @@ def parse_file(path, kw_to_id, ids):
 
     this_month = date.today().strftime("%Y-%m")
     months = sorted(m for m in bucket if m < this_month)
+    if geo != "TH":
+        months = [m for m in months if m >= PROVINCE_MIN_MONTH]
     if not months:
-        raise ValueError("มีแต่ข้อมูลเดือนปัจจุบันที่ยังไม่จบ")
+        raise ValueError("ไม่มีเดือนที่ใช้ได้ (เดือนยังไม่จบ หรือจังหวัดก่อน 2014 ทั้งหมด)")
     points = [(m, round(sum(bucket[m]) / len(bucket[m]), 1)) for m in months]
     return kid, geo, points
 

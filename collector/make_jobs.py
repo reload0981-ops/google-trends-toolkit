@@ -10,11 +10,11 @@
   python collector/make_jobs.py --all                    # 50 คำ x 6 พื้นที่ = 300 jobs
   python collector/make_jobs.py --ids FP014,FU014
   python collector/make_jobs.py --group FP --geo TH
-  python collector/make_jobs.py --all --start 2021-01-01 --end 2026-12-31
 
-หมายเหตุช่วงเวลา: Google ให้ข้อมูลรายเดือนเมื่อช่วง >= 5 ปี (สั้นกว่านั้นเป็นรายสัปดาห์
-ซึ่ง ingest เฉลี่ยเป็นรายเดือนให้ได้ แต่ native monthly ตรงกับข้อมูลเดิมมากกว่า)
-default จึงเริ่ม 2021-01-01 แล้วค่อยตัดหัวตอน ingest ด้วย --since 2022-01
+นโยบายช่วงเวลา (ข้อมูลหลักของโปรเจค = long horizon): **โหลดยาวสุดเสมอ**
+default เริ่ม 2004-01-01 (จุดเริ่มข้อมูล Google Trends) ถึงวันนี้ ได้รายเดือนแท้
+ระดับจังหวัดที่ก่อน 2014 เชื่อถือไม่ได้ (Google ปรับระบบ geo) จะถูกตัดทิ้ง
+อัตโนมัติตอน ingest ไม่ต้องทำอะไรเพิ่ม
 """
 
 import argparse
@@ -45,7 +45,7 @@ def main():
     scope.add_argument("--ids", help="รายคำ เช่น FP014,FU014")
     scope.add_argument("--group", help="รายกลุ่มตาม prefix ของ ID เช่น FP,FU")
     ap.add_argument("--geo", help=f"จำกัดพื้นที่ (คั่นด้วย ,) จาก {list(GEOS)}")
-    ap.add_argument("--start", default="2021-01-01", help="วันเริ่ม (default 2021-01-01 เพื่อให้ได้รายเดือน)")
+    ap.add_argument("--start", default="2004-01-01", help="วันเริ่ม (default 2004-01-01 = โหลดยาวสุดตามนโยบายข้อมูลหลัก)")
     ap.add_argument("--end", default=str(date.today()), help="วันจบ (default วันนี้)")
     ap.add_argument("--out", default=str(OUT), help="ที่เขียน jobs.json")
     args = ap.parse_args()

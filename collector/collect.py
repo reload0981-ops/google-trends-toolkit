@@ -46,6 +46,7 @@ GEOS = {
     "TH-41": "อุดรธานี",
 }
 
+PROVINCE_MIN_MONTH = "2014-01"  # จังหวัด/ภาคใช้ได้หลัง geo break ของ Google (ดู README)
 BASE_SLEEP = 15          # วินาที พักระหว่าง request ปกติ
 JITTER = 5               # สุ่มบวกเพิ่ม 0..JITTER วินาที
 BACKOFF_START = 60       # วินาที เมื่อโดน 429 ครั้งแรก
@@ -115,7 +116,10 @@ def fetch_series(pytrends, keyword, geo, timeframe):
         df = df.drop(columns=["isPartial"])
     # resample เป็นรายเดือนเสมอ (ช่วงสั้น Google ส่งรายสัปดาห์/รายวันมา)
     monthly = df[keyword].resample("MS").mean().round(1)
-    return [(idx.strftime("%Y-%m"), float(v)) for idx, v in monthly.items() if v == v]
+    points = [(idx.strftime("%Y-%m"), float(v)) for idx, v in monthly.items() if v == v]
+    if geo != "TH":
+        points = [p for p in points if p[0] >= PROVINCE_MIN_MONTH]
+    return points
 
 
 def write_series(keyword_id, geo, points):
@@ -135,7 +139,7 @@ def main():
     scope.add_argument("--ids", help="รายคำ เช่น FP014,FU014")
     scope.add_argument("--group", help="รายกลุ่มตาม prefix ของ ID เช่น FP หรือ FP,FU")
     ap.add_argument("--geo", help=f"จำกัดพื้นที่ (คั่นด้วย ,) จาก {list(GEOS)} ไม่ใส่ = ทุกพื้นที่")
-    ap.add_argument("--start", default="2022-01-01", help="วันเริ่ม (default 2022-01-01)")
+    ap.add_argument("--start", default="2004-01-01", help="วันเริ่ม (default 2004-01-01 = โหลดยาวสุดตามนโยบายข้อมูลหลัก)")
     ap.add_argument("--end", default=str(date.today()), help="วันจบ (default วันนี้)")
     ap.add_argument("--plan", action="store_true", help="แสดงงานที่จะทำแล้วจบ ไม่ยิง API")
     ap.add_argument("--force", action="store_true", help="เก็บซ้ำแม้ซีรีส์นั้นสำเร็จไปแล้ววันนี้")

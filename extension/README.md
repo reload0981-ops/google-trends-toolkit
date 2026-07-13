@@ -28,13 +28,13 @@
    ถ้าเจอ CAPTCHA: แก้ในแท็บที่เด้งขึ้น แล้วกด Resume
 6. เก็บครบแล้ว กลับมาที่ repo:
    ```
-   python collector/ingest.py --dry-run --since 2022-01   # ตรวจก่อน
-   python collector/ingest.py --since 2022-01             # เข้าคลังจริง
+   python collector/ingest.py --dry-run   # ตรวจก่อน
+   python collector/ingest.py             # เข้าคลังจริง
    git add -A && git commit -m "update data" && git push
    ```
 
-(`--since 2022-01` เพราะ jobs ดึงตั้งแต่ 2021-01-01 เพื่อให้ Google ส่งข้อมูลรายเดือน
-แล้วค่อยตัดหัวให้ตรงกรอบข้อมูลเดิมตอน ingest)
+(jobs ดึงยาวสุด 2004-01-01 ถึงปัจจุบันตามนโยบายข้อมูลหลัก long horizon
+ระดับจังหวัดที่ก่อน 2014-01 ถูกตัดทิ้งอัตโนมัติตอน ingest เพราะ geo break ของ Google)
 
 ## ปุ่มในหน้า Controller
 
