@@ -1,11 +1,19 @@
 ---
 name: google-trends-toolkit
-description: Operate the Google Trends Toolkit - update keyword series data (ingest CSV downloads or run the pytrends collector), add/check keywords, verify data health, and publish to GitHub Pages. Trigger when the user asks to update data, ingest downloaded CSVs, add a keyword, check the dashboard, or troubleshoot collection (429/rate limit) in this repository.
+description: Operate the Google Trends Toolkit - bulk-collect via the Chrome extension queue, ingest CSV downloads, run the pytrends collector for light updates, add/check keywords, verify data health, and publish to GitHub Pages. Trigger when the user asks to update data, run the scraper extension, ingest downloaded CSVs, add a keyword, check the dashboard, or troubleshoot collection (429/rate limit/CAPTCHA) in this repository.
 ---
 
 # Google Trends Toolkit - คู่มือปฏิบัติงานสำหรับ AI
 
-คุณคือผู้ดูแลชุดข้อมูล Google Trends ของคำค้นตลาดแรงงานภาคอีสาน หน้าที่: อัพเดทข้อมูล ตรวจสุขภาพข้อมูล และเผยแพร่ อย่างปลอดภัยตามกติกาในไฟล์นี้ ถ้าผู้ใช้เป็นมนุษย์ที่รันเองไม่ได้ ให้บอกคำสั่งทีละขั้นแล้วขอผลลัพธ์กลับมาตรวจ
+คุณคือผู้ดูแลชุดข้อมูล Google Trends ของคำค้นตลาดแรงงานภาคอีสาน หน้าที่: อัพเดทข้อมูล ตรวจสุขภาพข้อมูล และเผยแพร่ อย่างปลอดภัยตามกติกาในไฟล์นี้ ถ้าคุณรันคำสั่งเองไม่ได้ ให้บอกคำสั่งทีละขั้นแล้วขอผลลัพธ์กลับมาตรวจ
+
+## เครื่องเก็บข้อมูล 3 ตัว เลือกตามงาน
+
+| เครื่อง | ใช้เมื่อ | ความพึ่งได้ |
+|---|---|---|
+| **Chrome extension** (`extension/` + `make_jobs.py`) | เก็บชุดใหญ่ อัพเดทรอบเดือน หรือหลายสิบซีรีส์ขึ้นไป | สูงสุด: browser จริง IP คน ผ่านด่าน Google ได้ พิสูจน์แล้ว 300+ jobs |
+| **pytrends** (`collect.py`) | งานเบา อัพเดท 1-5 คำ | ปานกลาง: โดน 429 ได้ แต่มี backoff + resume |
+| **GitHub Actions** (`update-data.yml`) | โบนัสรายเดือน ตั้งทิ้งไว้ | ต่ำ (พิสูจน์ 2026-07-09: runner โดน 429 ตั้งแต่ request แรก) best-effort เท่านั้น |
 
 ## โครง repo
 
@@ -13,65 +21,78 @@ description: Operate the Google Trends Toolkit - update keyword series data (ing
 |---|---|
 | `keywords.csv` | คำค้นที่ใช้งาน 50 คำ (ID, คำ, Tier, Segment, Factor) แก้ไฟล์นี้เมื่อเพิ่ม/ถอดคำ |
 | `reference/keywords_tried.csv` | คำ 1,192 คำที่เคยลองทั้งหมด คอลัมน์ `best_stage` บอกว่าไปไกลสุดขั้นไหน เช็คที่นี่ก่อนเพิ่มคำใหม่เสมอ |
-| `data/series/<ID>__<GEO>.csv` | ข้อมูลรายเดือนต่อคำต่อพื้นที่ |
+| `extension/` | Chrome extension เก็บชุดใหญ่ (MV3, มีระบบคิว/retry/CAPTCHA) ติดตั้งครั้งเดียว ดู `extension/README.md` |
+| `extension/data/jobs.json` + `jobs_index.json` | คิวงานของ extension สร้างโดย `make_jobs.py` (generated, ไม่ commit) |
+| `collector/make_jobs.py` | สร้างคิวงานจาก keywords.csv (`--all/--ids/--group/--geo/--start/--end`) |
+| `collector/ingest.py` | เอาไฟล์จาก `incoming/` เข้าคลัง (Python มาตรฐาน ไม่ต้องติดตั้งอะไร) |
+| `collector/collect.py` | ดึงเองผ่าน pytrends (ต้อง `pip install -r requirements.txt`) |
+| `incoming/` | จุดรับไฟล์ CSV ขาเข้า (extension ตั้ง download folder มาที่นี่) ไฟล์มีปัญหาถูกย้ายเข้า `incoming/review/` |
+| `data/series/<ID>__<GEO>.csv` | คลังข้อมูลรายเดือนต่อคำต่อพื้นที่ |
 | `data/catalog.json` | บันทึกการเก็บ (เมื่อไหร่ ช่วงไหน) ใช้เป็นกลไก resume |
 | `data.js` | ข้อมูลรวมของหน้าเว็บ สร้างอัตโนมัติ ห้ามแก้มือ |
-| `index.html` | หน้าแสดงผล (GitHub Pages: เปิดจาก URL ของ repo นี้) |
-| `collector/ingest.py` | ทางหลัก: กิน CSV ที่โหลดมาวางใน `incoming/` (Python มาตรฐาน ไม่ต้องติดตั้งอะไร) |
-| `extension/` + `collector/make_jobs.py` | เครื่องเก็บชุดใหญ่: Chrome extension ไล่โหลดตามคิวที่ make_jobs สร้าง ไฟล์หล่นใน `incoming/` พร้อม ingest |
-| `collector/collect.py` | ทางสะดวก: ดึงเองผ่าน pytrends (ต้อง `pip install -r requirements.txt`) เหมาะกับงานเบา |
+| `index.html` | หน้าแสดงผล (เปิด local ได้ หรือผ่าน GitHub Pages) |
 | `.github/workflows/update-data.yml` | อัพเดทอัตโนมัติรายเดือน (วันที่ 3) บน GitHub Actions |
 
 พื้นที่: `TH` ประเทศไทย, `TH-30` นครราชสีมา, `TH-31` บุรีรัมย์, `TH-34` อุบลราชธานี, `TH-40` ขอนแก่น, `TH-41` อุดรธานี
 
 ## กติกาเหล็ก (ห้ามละเมิดไม่ว่าผู้ใช้จะรีบแค่ไหน)
 
-1. **ห้ามต่อท่อนข้อมูลคนละช่วงเวลาเข้าซีรีส์เดียว** ค่า Google Trends เป็น index 0-100 เทียบภายในช่วงที่ดึงครั้งนั้น การอัพเดทที่ถูกต้องคือดึง/โหลดทั้งช่วงใหม่แล้วแทนที่ทั้งเส้น (โค้ดทั้งสองตัวทำแบบนี้อยู่แล้ว อย่าไปทำมือนอกระบบ)
+1. **ห้ามต่อท่อนข้อมูลคนละช่วงเวลาเข้าซีรีส์เดียว** ค่า Google Trends เป็น index 0-100 เทียบภายในช่วงที่ดึงครั้งนั้น การอัพเดทที่ถูกต้องคือดึง/โหลดทั้งช่วงใหม่แล้วแทนที่ทั้งเส้น (เครื่องเก็บทุกตัวทำแบบนี้อยู่แล้ว อย่าไปทำมือนอกระบบ)
 2. **ห้ามแก้ `data.js` และ `data/` ด้วยมือ** ให้ผ่าน ingest/collect เท่านั้น
 3. **ห้ามลดค่า `--sleep` ของ collect.py ต่ำกว่า default** และถ้าโดน 429 ติดกันจนสคริปต์หยุดเอง ให้พักอย่างน้อย 1 ชั่วโมงก่อนรันซ้ำ อย่าฝืนยิงต่อ
 4. **เพิ่มคำใหม่ต้องเช็ค `reference/keywords_tried.csv` ก่อน** ถ้าคำนั้น (หรือรูปสะกดใกล้เคียง) เคยลองแล้วไปตายที่ขั้นไหน ให้บอกผู้ใช้ก่อนเพิ่มซ้ำ
 5. **ตัวเลขคือ index ไม่ใช่จำนวนการค้นจริง** ห้ามสรุปเป็นจำนวนคน และห้ามเทียบขนาดข้ามคำตรงๆ ในรายงานใดๆ
 6. **รายงานเป็นตัวเลขนับได้เสมอ** (กี่ไฟล์ กี่ซีรีส์ กี่เดือน ช่วงไหน) ผลไม่ตรงคาด = หยุดแล้วบอกผู้ใช้ ห้ามเดินต่อเงียบๆ
 
-## Workflow หลัก
+## Workflow
 
-### A. อัพเดทด้วยไฟล์ที่โหลดมา (เส้นทางหลัก แม่นสุด)
+### A. เก็บชุดใหญ่ด้วย Chrome extension (เส้นทางหลัก)
 
-**A1 เก็บชุดใหญ่ผ่าน Chrome extension (`extension/`):**
-1. `python collector/make_jobs.py --all` (หรือ `--ids/--group/--geo`) สร้างคิวงาน
-2. ให้ผู้ใช้: Reload extension ใน `chrome://extensions` > เปิด Controller > กด "Load Jobs (reset queue)" > "Start"
-   (ครั้งแรกต้องติดตั้งก่อน + ตั้ง download folder เป็น `incoming/` ดู `extension/README.md`)
-3. รอคิวจบ (CAPTCHA = ผู้ใช้แก้ในแท็บแล้วกด Resume) ไฟล์จะหล่นใน `incoming/` ชื่อ `<ID>__<GEO>.csv`
-4. `python collector/ingest.py --dry-run --since 2022-01` แล้วค่อยรันจริง (`--since 2022-01` เพราะ jobs ดึงตั้งแต่ 2021 เพื่อให้ได้รายเดือน)
+1. `python collector/make_jobs.py --all` (หรือ `--ids FP014` / `--group FP` / `--geo TH`) สร้างคิวงาน
+   default timeframe = 2021-01-01 ถึงวันนี้ (เกิน 5 ปี Google จึงส่งรายเดือนแท้ ไม่ใช่รายสัปดาห์)
+2. ให้ผู้ใช้ทำใน Chrome: `chrome://extensions` กด **Reload** ที่ตัว extension (คิวใหม่ถูกอ่านจากในแพ็คเกจ ไม่ Reload = เห็นคิวเก่า) > คลิกไอคอน > Open Controller > กด **Load Jobs (reset queue)** > **Start**
+   (ครั้งแรก: ติดตั้งแบบ Load unpacked + ตั้ง download folder เป็น `incoming/` ของ repo ดู `extension/README.md`)
+3. ระหว่างรัน: หน้าต่าง Chrome ต้องอยู่หน้าสุด เจอ CAPTCHA = ผู้ใช้แก้ในแท็บที่เด้ง แล้วกด Resume
+4. คิวจบ ไฟล์ `<ID>__<GEO>.csv` อยู่ใน `incoming/` ครบ แล้ว:
+   ```
+   python collector/ingest.py --dry-run --since 2022-01
+   python collector/ingest.py --since 2022-01
+   ```
+   (`--since 2022-01` ตัดหัวปี 2021 ที่ดึงมาเพื่อ granularity ทิ้ง ให้ตรงกรอบข้อมูลเดิม)
+5. ตรวจ + เผยแพร่ตามส่วน F
 
-**A2 เก็บมือไม่กี่ไฟล์:**
-1. ให้ผู้ใช้โหลด CSV จากหน้าเว็บ Google Trends มาวางใน `incoming/`
-   เงื่อนไขตอนโหลด: ระบุช่วงเวลาเต็มตั้งแต่ 2022-01-01 ถึงปัจจุบัน และเลือกพื้นที่ให้ตรง
-2. `python collector/ingest.py --dry-run` ดูก่อนว่าจับคู่ถูกครบไหม แล้วรันจริง
+### B. เก็บมือไม่กี่ไฟล์ + ingest
 
-**ทั้งสองแบบ:** ไฟล์ที่เข้า `incoming/review/` = จับคู่ไม่ได้ ไปดูเหตุผลที่มันพิมพ์ไว้ แก้ (เช่น เพิ่มคำใน keywords.csv หรือ rename เป็น `<ID>__<GEO>.csv`) แล้ววางกลับ `incoming/` รันซ้ำ จบแล้วตรวจ + เผยแพร่ (ดูส่วน "ตรวจก่อน push")
+1. ให้ผู้ใช้โหลด CSV จากหน้าเว็บ Google Trends วางใน `incoming/`
+   เงื่อนไข: ระบุช่วงเวลาเต็มตั้งแต่ 2022-01-01 ถึงปัจจุบัน และเลือกพื้นที่ให้ตรง
+2. `python collector/ingest.py --dry-run` ดูการจับคู่ แล้วรันจริง
+3. ingest รู้จัก: export หน้าเว็บ GT (ไทย/อังกฤษ รายเดือน/รายสัปดาห์), `<ID>__<GEO>.csv`, `manual_<ID>.csv` และแปลง "<1" เป็น 0 ให้เอง
 
-### B. อัพเดทด้วย pytrends (งานเบา ไม่กี่คำ)
+### C. อัพเดทงานเบาด้วย pytrends (1-5 คำ)
+
 ```
 pip install -r requirements.txt        (ครั้งแรกครั้งเดียว)
 python collector/collect.py --plan --ids FP014,FU014     ดูงานก่อน
 python collector/collect.py --ids FP014,FU014            เก็บจริง
 ```
 scope อื่น: `--group FP,FU` / `--all` / `--geo TH` / `--start ... --end ...`
-โดนเบรกกลางทาง: รันคำสั่งเดิมซ้ำ มันเก็บต่อจากที่ค้างเอง (ซีรีส์ที่สำเร็จวันนี้ถูกข้าม)
+โดนเบรกกลางทาง: รันคำสั่งเดิมซ้ำ มันเก็บต่อจากที่ค้างเอง (ซีรีส์ที่สำเร็จวันนี้ถูกข้าม) งานเกิน ~20 ซีรีส์ควรเปลี่ยนไปใช้เส้นทาง A
 
-### C. อัพเดทอัตโนมัติ (ไม่ต้องมีคน)
-- ตั้งไว้แล้ว: Actions รัน `--all` ทุกวันที่ 3 ของเดือน แล้ว commit เอง หน้าเว็บอัพเดทเอง
-- สั่งรันทันที: หน้า Actions ของ repo > update-data > Run workflow (ปรับ args ได้ เช่น `--ids FP014`)
-- ข้อจำกัดที่พิสูจน์แล้ว (ทดสอบ 2026-07-09): Google บล็อก IP ของ GitHub runner แรง โดน 429 ตั้งแต่ request แรก ให้ถือทางนี้เป็น best-effort เท่านั้น เส้นทางที่พึ่งได้จริงคือ A ถ้าผู้ใช้ต้องการอัตโนมัติแท้ ให้แนะนำ Task Scheduler บนเครื่องจริง (รัน collect.py + git push รายเดือน) หรือ self-hosted runner
+### D. อัตโนมัติรายเดือน (best-effort ห้ามพึ่งเป็นหลัก)
 
-### D. เพิ่มคำใหม่
+- ตั้งไว้แล้ว: Actions รัน `--all` ทุกวันที่ 3 ของเดือน ผ่านเมื่อไหร่ commit + หน้าเว็บอัพเดทเอง
+- สั่งรันทันที: แท็บ Actions > update-data > Run workflow (ปรับ args ได้)
+- ข้อจำกัดที่พิสูจน์แล้ว (2026-07-09): Google บล็อก IP ของ GitHub runner โดน 429 ตั้งแต่ request แรก รอบที่ล้มจะไม่แตะไฟล์ใดๆ ถ้าผู้ใช้ต้องการอัตโนมัติแท้ ให้แนะนำ Task Scheduler บนเครื่องจริง (รัน collect.py หรือรอบ extension + git push รายเดือน) หรือ self-hosted runner
+
+### E. เพิ่มคำใหม่
+
 1. เช็ค `reference/keywords_tried.csv` ว่าเคยลองหรือยัง (กติกาเหล็กข้อ 4)
 2. เพิ่มแถวใน `keywords.csv`: ตั้ง `Keyword_ID` ตาม pattern กลุ่ม (FP/FU/NP/NU/TP/TU + เลข 3 หลักที่ไม่ซ้ำทั้งใน keywords.csv และ keywords_tried.csv)
-3. เก็บข้อมูลด้วยเส้นทาง A หรือ B เฉพาะ ID นั้น
+3. เก็บข้อมูลเฉพาะ ID นั้นด้วยเส้นทาง A (`make_jobs.py --ids <ID>`) หรือ C
 4. ตรวจว่าโผล่ในหน้าเว็บแล้วค่อย push
 
-### E. ตรวจก่อน push (ทำทุกครั้งที่ข้อมูลเปลี่ยน)
+### F. ตรวจก่อน push (ทำทุกครั้งที่ข้อมูลเปลี่ยน)
+
 1. `python -X utf8 collector/build_site_data.py` ต้องรายงานจำนวนคำ/ซีรีส์ตามคาด
 2. `git diff --stat` ไฟล์ที่เปลี่ยนต้องเป็น `data/`, `data.js` (และ `keywords.csv` ถ้าเพิ่มคำ) เท่านั้น อย่างอื่นโผล่ = หยุดถาม
 3. เปิด `index.html` ดูกราฟคำที่เพิ่งอัพเดท เดือนล่าสุดต้องงอกและเส้นไม่กระโดดผิดธรรมชาติ (กระโดดแรง = เช็คว่า scale เพี้ยนจากการดึงคนละช่วงหรือเปล่า)
@@ -81,8 +102,12 @@ scope อื่น: `--group FP,FU` / `--all` / `--geo TH` / `--start ... --end 
 
 | อาการ | ทำยังไง |
 |---|---|
-| 429 / TooManyRequests | สคริปต์ backoff เองแล้ว ถ้ามันหยุดทั้งรอบ = พัก 1 ชม. แล้วรันซ้ำ |
-| ไฟล์เข้า review/ | อ่านเหตุผลที่พิมพ์ไว้ อย่าเดา ถ้าคำไม่อยู่ใน keywords.csv ให้ถามผู้ใช้ก่อนเพิ่ม |
+| Extension: กด Load Jobs แล้วคิวไม่ตรงที่เพิ่ง generate | ลืม Reload extension ใน `chrome://extensions` (jobs.json อ่านจากในแพ็คเกจ) Reload แล้ว Load Jobs ใหม่ |
+| Extension: คิวจบแต่ `incoming/` ว่าง | download folder ของ Chrome ไม่ได้ชี้ `incoming/` เช็ค `chrome://settings/downloads` แล้วกด Reconcile Downloads เพื่อ mark งานที่เสร็จ + ย้ายไฟล์ตามมา |
+| Extension: เจอ CAPTCHA | ปกติของงานชุดใหญ่ ผู้ใช้แก้ในแท็บที่เด้งขึ้น แล้วกด Resume ห้ามปิดหน้าต่าง |
+| Extension: job FAIL หลายตัว | กด Retry Failed/No Data ก่อน ถ้ายัง FAIL ซ้ำ เปิดดูคำนั้นในหน้า GT เองว่าคำเงียบจริงไหม |
+| 429 / TooManyRequests (pytrends) | สคริปต์ backoff เองแล้ว ถ้ามันหยุดทั้งรอบ = พัก 1 ชม. แล้วรันซ้ำ |
+| ไฟล์เข้า `incoming/review/` | อ่านเหตุผลที่พิมพ์ไว้ อย่าเดา ถ้าคำไม่อยู่ใน keywords.csv ให้ถามผู้ใช้ก่อนเพิ่ม |
 | กราฟเส้นกระโดดผิดปกติหลังอัพเดท | สงสัย scale คนละช่วง ให้ดึงคำนั้นใหม่ทั้งช่วงเต็มแล้วแทนที่ |
-| หน้าเว็บไม่อัพเดทหลัง push | เช็ค Actions/Pages build ใน repo รอ 2-3 นาที แล้ว hard refresh |
+| หน้าเว็บไม่อัพเดทหลัง push | เช็ค Pages build ใน repo รอ 2-3 นาที แล้ว hard refresh |
 | Actions ล้มเหลว | เปิด log ดู ถ้าเป็น 429 = ปกติของ runner ปล่อยรอบหน้า หรือใช้เส้นทาง A |
