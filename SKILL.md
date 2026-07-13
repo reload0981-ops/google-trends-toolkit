@@ -34,6 +34,7 @@ description: Operate the Google Trends Toolkit - bulk-collect via the Chrome ext
 | `.github/workflows/update-data.yml` | อัพเดทอัตโนมัติรายเดือน (วันที่ 3) บน GitHub Actions |
 
 พื้นที่: `TH` ประเทศไทย, `TH-30` นครราชสีมา, `TH-31` บุรีรัมย์, `TH-34` อุบลราชธานี, `TH-40` ขอนแก่น, `TH-41` อุดรธานี
+พื้นที่พิเศษ `ISAN` (อีสาน รวม 5 จังหวัด) = ซีรีส์ derived ใน `build_site_data.py` (rebase รายจังหวัด → เฉลี่ย → rebase max=100) **เก็บ/ingest ไม่ได้** มันคำนวณใหม่เองทุกครั้งที่ rebuild data.js
 
 ## กติกาเหล็ก (ห้ามละเมิดไม่ว่าผู้ใช้จะรีบแค่ไหน)
 

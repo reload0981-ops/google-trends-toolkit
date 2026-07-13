@@ -21,12 +21,40 @@ OUT_PATH = ROOT / "data.js"
 
 GEOS = {
     "TH": "ประเทศไทย",
+    "ISAN": "อีสาน (รวม 5 จังหวัด)",
     "TH-30": "นครราชสีมา",
     "TH-31": "บุรีรัมย์",
     "TH-34": "อุบลราชธานี",
     "TH-40": "ขอนแก่น",
     "TH-41": "อุดรธานี",
 }
+PROVINCES = ["TH-30", "TH-31", "TH-34", "TH-40", "TH-41"]
+
+
+def isan_aggregate(geo_map):
+    """ซีรีส์รวมภาคอีสาน (derived, ไม่ได้มาจาก Google โดยตรง)
+
+    สูตรเดียวกับ REG_ISAN5 ของโปรเจคเดิม (build_interactive_compare_v25_long_horizon):
+    rebase แต่ละจังหวัดให้ max ของตัวเอง = 100 -> เฉลี่ยข้ามจังหวัดที่มีข้อมูลรายเดือน
+    -> rebase ผลรวมให้ max = 100 เพื่อให้ทุกจังหวัดมีน้ำหนักเท่ากันแม้ scale ดิบต่างกัน
+    """
+    provs = []
+    for g in PROVINCES:
+        s = geo_map.get(g)
+        if not s or not s["values"]:
+            continue
+        mx = max(s["values"])
+        if mx <= 0:
+            continue
+        provs.append({m: v / mx * 100 for m, v in zip(s["months"], s["values"])})
+    if not provs:
+        return None
+    months = sorted(set().union(*[set(p) for p in provs]))
+    mean = [sum(p[m] for p in provs if m in p) / sum(1 for p in provs if m in p) for m in months]
+    mx = max(mean)
+    if mx <= 0:
+        return None
+    return {"months": months, "values": [round(v / mx * 100, 1) for v in mean]}
 
 
 def build():
@@ -44,6 +72,13 @@ def build():
             "months": [r["Month"] for r in rows],
             "values": [float(r["Value"]) for r in rows],
         }
+
+    n_isan = 0
+    for kid, geo_map in series.items():
+        agg = isan_aggregate(geo_map)
+        if agg:
+            geo_map["ISAN"] = agg
+            n_isan += 1
 
     catalog = {}
     if CATALOG_PATH.exists():
@@ -73,7 +108,7 @@ def build():
         encoding="utf-8",
     )
     n_series = sum(len(v) for v in series.values())
-    print(f"เขียน {OUT_PATH.name}: {len(payload['keywords'])} คำ, {n_series} ซีรีส์")
+    print(f"เขียน {OUT_PATH.name}: {len(payload['keywords'])} คำ, {n_series} ซีรีส์ (รวมอีสาน derived {n_isan} ตัว)")
 
 
 if __name__ == "__main__":
