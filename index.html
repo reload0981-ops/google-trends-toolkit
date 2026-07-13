@@ -4,116 +4,361 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Google Trends Toolkit</title>
+<meta name="description" content="สำรวจทิศทางความสนใจต่อคำค้นตลาดแรงงานอีสานจาก Google Trends">
+<meta name="theme-color" content="#0a0b0d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script>
+  (() => {
+    try {
+      document.documentElement.dataset.theme = localStorage.getItem("gt-theme") === "dark" ? "dark" : "light";
+    } catch (_) {
+      document.documentElement.dataset.theme = "light";
+    }
+  })();
+</script>
 <script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8"></script>
 <style>
   :root {
-    --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e;
-    --muted: #898781; --grid: #e1e0d9; --baseline: #c3c2b7;
-    --accent: #2a78d6; --border: rgba(11,11,11,0.10); --chip: #f0efec;
+    color-scheme: light;
+    --primary: #0052ff;
+    --primary-active: #003ecc;
+    --primary-disabled: #a8b8cc;
+    --page: #ffffff;
+    --surface: #ffffff;
+    --surface-soft: #f7f7f7;
+    --surface-strong: #eef0f3;
+    --surface-dark: #0a0b0d;
+    --surface-dark-elevated: #16181c;
+    --ink: #0a0b0d;
+    --ink2: #5b616e;
+    --muted: #6b7280;
+    --muted-soft: #a8acb3;
+    --border: #dee1e6;
+    --border-soft: #eef0f3;
+    --grid: #eef0f3;
+    --baseline: #dee1e6;
+    --focus: rgba(0,82,255,.28);
+    --danger: #cf202f;
+    --success: #057a4a;
+    --shadow-soft: 0 4px 12px rgba(10,11,13,.04);
+    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink2: #c3c2b7;
-      --muted: #898781; --grid: #2c2c2a; --baseline: #383835;
-      --accent: #3987e5; --border: rgba(255,255,255,0.10); --chip: #262624;
-    }
+  html[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #0a0b0d;
+    --surface: #16181c;
+    --surface-soft: #111317;
+    --surface-strong: #25282e;
+    --ink: #ffffff;
+    --ink2: #c4c8cf;
+    --muted: #a8acb3;
+    --muted-soft: #7c828a;
+    --border: #33363d;
+    --border-soft: #25282e;
+    --grid: #2d3036;
+    --baseline: #454951;
+    --focus: rgba(68,128,255,.38);
+    --shadow-soft: none;
   }
-  * { box-sizing: border-box; margin: 0; }
-  body { background: var(--page); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.55; }
-  .wrap { max-width: 1220px; margin: 0 auto; padding: 24px 18px 50px; }
-  h1 { font-size: 1.4rem; }
-  .sub { color: var(--ink2); font-size: .88rem; margin: 2px 0 16px; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--font-sans); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  button, select, input { font: inherit; }
+  button, a, label, select { -webkit-tap-highlight-color: transparent; }
+  button:focus-visible, select:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  button:disabled { cursor: not-allowed; opacity: .48; }
+  a { color: var(--primary); }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  .skip-link { position: fixed; left: 16px; top: -60px; z-index: 1000; background: var(--primary); color: #fff; padding: 12px 18px; border-radius: 999px; text-decoration: none; transition: top .2s ease; }
+  .skip-link:focus { top: 16px; }
 
-  .controls { background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-              padding: 12px 14px; display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; margin-bottom: 14px; }
-  .ctl { display: flex; align-items: center; gap: 8px; }
-  .ctl .lbl { color: var(--muted); font-size: .8rem; }
-  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-  .chips button { border: 1px solid var(--border); background: var(--chip); color: var(--ink);
-                  border-radius: 15px; padding: 3px 12px; font-size: .85rem; cursor: pointer; font-family: inherit; }
-  .chips button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
-  select { padding: 4px 8px; border: 1px solid var(--border); border-radius: 6px;
-           background: var(--surface); color: var(--ink); font-size: .85rem; font-family: inherit; }
-  .btn { border: 1px solid var(--border); background: var(--chip); color: var(--ink);
-         border-radius: 6px; padding: 5px 14px; font-size: .85rem; cursor: pointer; font-family: inherit; }
-  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .hero { position: relative; overflow: hidden; background: var(--surface-dark); color: #fff; min-height: 430px; padding: 0 24px 110px; }
+  .topbar { width: min(1200px, 100%); height: 72px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.12); }
+  .brand { display: inline-flex; align-items: center; gap: 12px; color: #fff; text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: .08em; }
+  .brand-mark { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--primary); }
+  .brand-mark svg { width: 18px; height: 18px; }
+  .top-actions { display: flex; align-items: center; gap: 8px; }
+  .nav-link { min-height: 44px; display: inline-flex; align-items: center; padding: 0 16px; border-radius: 999px; color: #fff; text-decoration: none; font-size: 14px; font-weight: 500; transition: background .2s ease; }
+  .nav-link:hover { background: rgba(255,255,255,.09); }
+  .icon-btn { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; background: transparent; color: #fff; cursor: pointer; transition: background .2s ease, border-color .2s ease; }
+  .icon-btn:hover { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.32); }
+  .icon-btn svg { width: 19px; height: 19px; }
 
-  .layout { display: grid; grid-template-columns: 280px 1fr; gap: 14px; }
-  @media (max-width: 880px) { .layout { grid-template-columns: 1fr; } }
-  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
-  .panel h2 { font-size: .82rem; margin-bottom: 8px; color: var(--muted); font-weight: 600; }
-  .kw-list { max-height: 470px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; padding: 4px; }
-  .kw-list label { display: flex; gap: 8px; align-items: baseline; padding: 3px 6px; border-radius: 5px; cursor: pointer; font-size: .88rem; }
-  .kw-list label:hover { background: var(--chip); }
-  .kw-list .id { color: var(--muted); font-size: .72rem; min-width: 50px; }
-  .btn-row { display: flex; gap: 8px; margin-top: 8px; }
-  .btn-row .btn { flex: 1; }
-  .hint { color: var(--muted); font-size: .78rem; margin-top: 8px; }
+  .hero-grid { width: min(1200px, 100%); margin: 0 auto; padding-top: 64px; display: grid; grid-template-columns: minmax(0,1.05fr) minmax(360px,.95fr); gap: 64px; align-items: center; }
+  .eyebrow, .section-kicker { display: flex; align-items: center; gap: 9px; margin: 0 0 16px; font-size: 12px; font-weight: 600; line-height: 1.5; letter-spacing: .12em; text-transform: uppercase; }
+  .eyebrow { color: #a8acb3; }
+  .eyebrow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 5px rgba(0,82,255,.18); }
+  h1 { max-width: 650px; margin: 0; font-size: clamp(48px, 5.8vw, 76px); font-weight: 400; line-height: .98; letter-spacing: -.045em; }
+  h1 span { color: #8cacff; }
+  .hero-copy { max-width: 600px; margin: 24px 0 0; color: #c4c8cf; font-size: 17px; line-height: 1.65; }
+  .hero-meta { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px 24px; color: #a8acb3; font-size: 13px; }
+  .hero-meta strong { color: #fff; font-family: var(--font-mono); font-size: 14px; font-weight: 500; }
 
-  #chart { width: 100%; height: 560px; }
-  .note { color: var(--ink2); font-size: .84rem; margin-top: 8px; }
-  #tableWrap { display: none; margin-top: 12px; max-height: 420px; overflow: auto; border: 1px solid var(--border); border-radius: 8px; }
-  #tableWrap table { border-collapse: collapse; width: 100%; font-size: .82rem; font-variant-numeric: tabular-nums; }
-  #tableWrap th, #tableWrap td { padding: 5px 10px; border-bottom: 1px solid var(--grid); text-align: right; white-space: nowrap; }
+  .preview-stack { position: relative; min-height: 250px; }
+  .preview-card { position: absolute; border: 1px solid rgba(255,255,255,.11); background: var(--surface-dark-elevated); border-radius: 24px; }
+  .preview-main { inset: 0 32px 18px 0; padding: 26px; }
+  .preview-float { right: 0; bottom: 0; width: 196px; min-height: 112px; padding: 20px; background: #fff; color: #0a0b0d; transform: translateY(22px); }
+  .preview-head { display: flex; justify-content: space-between; align-items: center; color: #a8acb3; font-size: 12px; }
+  .preview-head strong { color: #fff; font-weight: 500; }
+  .preview-value { margin-top: 20px; font-family: var(--font-mono); font-size: 28px; font-weight: 500; }
+  .preview-float .preview-value { margin-top: 8px; color: var(--primary); font-size: 24px; }
+  .preview-float span { color: #5b616e; font-size: 12px; }
+  .mini-chart { width: 100%; height: 92px; margin-top: 14px; overflow: visible; }
+  .mini-chart .grid { stroke: #2d3036; stroke-width: 1; }
+  .mini-chart .line { fill: none; stroke: var(--primary); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+  .page-shell { width: min(1248px, calc(100% - 36px)); margin: -62px auto 0; position: relative; z-index: 2; padding-bottom: 72px; }
+  .control-deck, .panel, .methodology { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; }
+  .control-deck { padding: 28px 30px; box-shadow: var(--shadow-soft); }
+  .deck-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding-bottom: 22px; border-bottom: 1px solid var(--border-soft); }
+  .section-kicker { margin-bottom: 5px; color: var(--primary); }
+  .deck-head h2, .methodology h2 { margin: 0; color: var(--ink); font-size: 26px; font-weight: 400; line-height: 1.2; letter-spacing: -.025em; }
+  .line-counter { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 999px; background: var(--surface-strong); color: var(--ink2); font-family: var(--font-mono); font-size: 12px; white-space: nowrap; }
+  .controls { padding-top: 22px; display: grid; grid-template-columns: minmax(0,1.55fr) minmax(0,1fr) minmax(190px,.75fr); gap: 22px 26px; align-items: end; }
+  .ctl { min-width: 0; }
+  .ctl .lbl { display: block; margin-bottom: 9px; color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: .04em; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips button { min-height: 44px; border: 1px solid var(--border); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 9px 15px; font-size: 14px; font-weight: 500; cursor: pointer; transition: color .2s ease, background .2s ease, border-color .2s ease; }
+  .chips button:hover { border-color: var(--primary); color: var(--primary); }
+  .chips button.on { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .chips button.on:hover { background: var(--primary-active); border-color: var(--primary-active); color: #fff; }
+  select { width: 100%; min-height: 48px; padding: 0 40px 0 15px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--ink); font-size: 14px; cursor: pointer; }
+  select:hover { border-color: var(--muted-soft); }
+  .control-tail { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 4px; }
+  .switch-wrap { min-height: 48px; display: inline-flex; align-items: center; gap: 12px; color: var(--ink); font-size: 14px; font-weight: 500; cursor: pointer; }
+  .switch-wrap input { width: 20px; height: 20px; accent-color: var(--primary); }
+  .control-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
+  .btn { min-height: 44px; border: 1px solid var(--border); background: var(--surface-strong); color: var(--ink); border-radius: 999px; padding: 10px 18px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .2s ease, color .2s ease, border-color .2s ease, transform .1s ease; }
+  .btn:hover { background: var(--border); }
+  .btn:active { transform: scale(.98); }
+  .btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .btn.primary:hover { background: var(--primary-active); border-color: var(--primary-active); }
+
+  .layout { display: grid; grid-template-columns: 300px minmax(0,1fr); gap: 20px; margin-top: 20px; align-items: start; }
+  .panel { padding: 24px; min-width: 0; }
+  .panel-head { margin-bottom: 18px; }
+  .panel-head h2 { margin: 0; font-size: 20px; font-weight: 400; line-height: 1.25; letter-spacing: -.02em; }
+  .panel-head p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
+  .panel-label { display: block; margin-bottom: 8px; color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: .04em; }
+  .kw-list { max-height: 520px; overflow-y: auto; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); margin-top: 18px; padding: 6px 0; scrollbar-color: var(--muted-soft) transparent; }
+  .kw-list label { display: grid; grid-template-columns: 20px 48px minmax(0,1fr); gap: 8px; align-items: center; min-height: 44px; padding: 6px 8px; border-radius: 8px; cursor: pointer; color: var(--ink2); font-size: 14px; transition: background .18s ease, color .18s ease; }
+  .kw-list label:hover { background: var(--surface-soft); color: var(--ink); }
+  .kw-list label.selected { background: rgba(0,82,255,.075); color: var(--ink); }
+  .kw-list input { width: 17px; height: 17px; accent-color: var(--primary); }
+  .kw-list .id { color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+  .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+  .btn-row .btn { width: 100%; padding-inline: 12px; }
+  .hint { min-height: 20px; color: var(--danger); font-size: 12px; line-height: 1.5; margin-top: 10px; }
+
+  .chart-panel { padding: 18px 22px 22px; }
+  .chart-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 5px 5px 0; }
+  .chart-toolbar .section-kicker { margin: 0; }
+  .chart-status { color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+  #chart { width: 100%; height: 580px; }
+  .note { min-height: 20px; color: var(--danger); font-size: 12px; line-height: 1.5; margin: 4px 6px 0; }
+  #tableWrap { display: none; margin-top: 16px; max-height: 420px; overflow: auto; border: 1px solid var(--border); border-radius: 12px; }
+  #tableWrap table { border-collapse: collapse; width: 100%; font-size: 12px; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  #tableWrap th, #tableWrap td { padding: 10px 12px; border-bottom: 1px solid var(--grid); text-align: right; white-space: nowrap; }
   #tableWrap th:first-child, #tableWrap td:first-child { text-align: left; position: sticky; left: 0; background: var(--surface); }
-  #tableWrap thead th { position: sticky; top: 0; background: var(--surface); color: var(--ink2); }
-  .foot { color: var(--muted); font-size: .82rem; margin-top: 16px; }
-  a { color: var(--accent); }
+  #tableWrap thead th { position: sticky; top: 0; z-index: 1; background: var(--surface); color: var(--ink2); }
+
+  .methodology { margin-top: 20px; padding: 38px 40px; }
+  .method-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 32px; margin-top: 28px; }
+  .method-item { padding-top: 18px; border-top: 1px solid var(--border); }
+  .method-item strong { display: block; margin-bottom: 8px; color: var(--ink); font-size: 15px; font-weight: 600; }
+  .method-item p { margin: 0; color: var(--ink2); font-size: 14px; line-height: 1.65; }
+  .method-link { margin-top: 28px; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 999px; background: var(--surface-strong); color: var(--ink); text-decoration: none; font-size: 14px; font-weight: 600; }
+  .method-link:hover { background: var(--border); }
+  .method-link svg { width: 16px; height: 16px; }
+  .legal { margin: 18px 2px 0; color: var(--muted); font-size: 12px; }
+
+  @media (max-width: 980px) {
+    .hero { min-height: auto; }
+    .hero-grid { grid-template-columns: 1fr; gap: 42px; padding-top: 52px; }
+    .preview-stack { max-width: 620px; width: 100%; }
+    .controls { grid-template-columns: 1fr 1fr; }
+    .ctl.geo-control { grid-column: 1 / -1; }
+    .layout { grid-template-columns: 1fr; }
+    .kw-list { max-height: 320px; }
+    .method-grid { grid-template-columns: 1fr; gap: 20px; }
+  }
+  @media (max-width: 640px) {
+    .hero { padding: 0 18px 92px; }
+    .topbar { height: 64px; }
+    .brand { font-size: 11px; }
+    .nav-link { display: none; }
+    .hero-grid { padding-top: 42px; }
+    h1 { font-size: clamp(42px, 14vw, 56px); }
+    .hero-copy { font-size: 16px; }
+    .preview-stack { min-height: 205px; }
+    .preview-main { inset: 0 12px 10px 0; padding: 20px; }
+    .preview-float { width: 164px; min-height: 96px; padding: 16px; }
+    .mini-chart { height: 68px; }
+    .page-shell { width: min(100% - 24px, 1248px); margin-top: -52px; padding-bottom: 48px; }
+    .control-deck, .panel, .methodology { border-radius: 18px; }
+    .control-deck { padding: 22px 18px; }
+    .deck-head { align-items: flex-start; }
+    .deck-head h2 { font-size: 22px; }
+    .line-counter { min-height: 32px; padding-inline: 10px; font-size: 10px; }
+    .controls { grid-template-columns: 1fr; gap: 20px; }
+    .ctl.geo-control { grid-column: auto; }
+    .control-tail { align-items: stretch; flex-direction: column; }
+    .control-actions { justify-content: stretch; }
+    .control-actions .btn { flex: 1 1 140px; }
+    .panel { padding: 20px 16px; }
+    .chart-panel { padding: 16px 8px 18px; }
+    .chart-toolbar { padding-inline: 10px; }
+    #chart { height: 460px; }
+    .methodology { padding: 30px 22px; }
+    .methodology h2 { font-size: 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>Google Trends Toolkit</h1>
-  <div class="sub" id="stamp"></div>
+<a class="skip-link" href="#workspace">ข้ามไปยังพื้นที่วิเคราะห์</a>
 
-  <div class="controls">
-    <div class="ctl"><span class="lbl">พื้นที่ (ติ๊กได้หลายอัน)</span>
-      <div class="chips" id="geoRow"></div>
+<header class="hero">
+  <nav class="topbar" aria-label="เมนูหลัก">
+    <a class="brand" href="#top" aria-label="Isan Labor Data หน้าแรก">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M5 16.5 9.2 12l3.1 2.8L19 7.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M17 7.5h2v2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span>ISAN LABOR DATA</span>
+    </a>
+    <div class="top-actions">
+      <a class="nav-link" href="#methodology">วิธีอ่านข้อมูล</a>
+      <a class="nav-link" href="https://github.com/reload0981-ops/google-trends-toolkit#readme">คู่มืออัปเดต</a>
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="เปลี่ยนเป็นโหมดมืด" title="สลับธีม">
+        <svg class="theme-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M20.4 15.1A8.5 8.5 0 0 1 8.9 3.6 8.5 8.5 0 1 0 20.4 15.1Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+      </button>
     </div>
-    <div class="ctl"><span class="lbl">ช่วงเวลา</span>
-      <div class="chips" id="rangeRow"></div>
+  </nav>
+
+  <div class="hero-grid" id="top">
+    <div>
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Labor search intelligence</p>
+      <h1>Google Trends<br><span>Toolkit</span></h1>
+      <p class="hero-copy">สำรวจทิศทางความสนใจต่อคำค้นตลาดแรงงานไทยและอีสาน เปรียบเทียบคำ พื้นที่ และช่วงเวลาได้ในมุมมองเดียว</p>
+      <div class="hero-meta" id="stamp" aria-live="polite"></div>
     </div>
-    <div class="ctl"><span class="lbl">ฐานดัชนี</span>
-      <select id="rebaseSel"></select>
-    </div>
-    <div class="ctl">
-      <input type="checkbox" id="ma3" checked>
-      <label for="ma3" style="font-size:.85rem">MA3</label>
-    </div>
-    <div class="ctl">
-      <button class="btn" id="btnTable">ตาราง</button>
-      <button class="btn primary" id="btnCsv">ดาวน์โหลด CSV</button>
+
+    <div class="preview-stack" aria-hidden="true">
+      <div class="preview-card preview-main">
+        <div class="preview-head"><span>SIGNAL OVERVIEW</span><strong>LONG HORIZON</strong></div>
+        <div class="preview-value">2004—2026</div>
+        <svg class="mini-chart" viewBox="0 0 420 100" preserveAspectRatio="none">
+          <path class="grid" d="M0 24H420M0 50H420M0 76H420"/>
+          <path class="line" d="M0 70 C28 64 42 22 66 39 S101 85 127 61 S165 34 191 48 S226 78 253 55 S292 21 319 39 S352 69 379 48 S402 42 420 28"/>
+        </svg>
+      </div>
+      <div class="preview-card preview-float">
+        <span>ACTIVE KEYWORDS</span>
+        <div class="preview-value" id="keywordMetric">—</div>
+        <span>พร้อมวิเคราะห์</span>
+      </div>
     </div>
   </div>
+</header>
+
+<main class="page-shell" id="workspace">
+  <section class="control-deck" aria-labelledby="controlsTitle">
+    <div class="deck-head">
+      <div>
+        <p class="section-kicker">ปรับมุมมอง</p>
+        <h2 id="controlsTitle">ตั้งค่าชุดวิเคราะห์</h2>
+      </div>
+      <span class="line-counter" id="lineCounter">0 / 8 เส้น</span>
+    </div>
+
+    <div class="controls">
+      <div class="ctl geo-control">
+        <span class="lbl" id="geoLabel">พื้นที่ · เลือกได้หลายพื้นที่</span>
+        <div class="chips" id="geoRow" role="group" aria-labelledby="geoLabel"></div>
+      </div>
+      <div class="ctl">
+        <span class="lbl" id="rangeLabel">ช่วงเวลา</span>
+        <div class="chips" id="rangeRow" role="group" aria-labelledby="rangeLabel"></div>
+      </div>
+      <div class="ctl">
+        <label class="lbl" for="rebaseSel">ฐานดัชนี</label>
+        <select id="rebaseSel"></select>
+      </div>
+      <div class="control-tail">
+        <label class="switch-wrap" for="ma3">
+          <input type="checkbox" id="ma3" checked>
+          <span>ปรับเส้นให้เรียบด้วยค่าเฉลี่ย 3 เดือน (MA3)</span>
+        </label>
+        <div class="control-actions">
+          <button class="btn" id="btnTable" type="button" aria-expanded="false" aria-controls="tableWrap">แสดงตาราง</button>
+          <button class="btn primary" id="btnCsv" type="button">ดาวน์โหลด CSV</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <div class="layout">
-    <div class="panel">
-      <h2>กลุ่มคำ</h2>
-      <select id="groupSel" style="width:100%; margin-bottom:10px"></select>
-      <h2 id="kwHeader">คำค้น</h2>
+    <aside class="panel" aria-labelledby="keywordPanelTitle">
+      <div class="panel-head">
+        <h2 id="keywordPanelTitle">เลือกคำค้น</h2>
+        <p id="kwHeader">เลือกคำที่ต้องการนำมาเปรียบเทียบ</p>
+      </div>
+      <label class="panel-label" for="groupSel">กลุ่มคำ</label>
+      <select id="groupSel"></select>
       <div class="kw-list" id="kwList"></div>
       <div class="btn-row">
-        <button class="btn" id="btnFill">เลือกให้ครบโควตา</button>
-        <button class="btn" id="btnNone">ล้าง</button>
+        <button class="btn" id="btnFill" type="button">เลือกให้ครบ</button>
+        <button class="btn" id="btnNone" type="button">ล้างทั้งหมด</button>
       </div>
-      <div class="hint" id="kwHint"></div>
-    </div>
+      <div class="hint" id="kwHint" role="status" aria-live="polite"></div>
+    </aside>
 
-    <div class="panel">
-      <div id="chart"></div>
-      <div class="note" id="missingNote"></div>
-      <div id="tableWrap"></div>
-    </div>
+    <section class="panel chart-panel" aria-labelledby="chartRegionTitle">
+      <div class="chart-toolbar">
+        <p class="section-kicker" id="chartRegionTitle">แนวโน้มรายเดือน</p>
+        <span class="chart-status" id="chartStatus">กำลังเตรียมข้อมูล</span>
+      </div>
+      <div id="chart" role="img" aria-label="กราฟแนวโน้ม Google Trends"></div>
+      <div class="note" id="missingNote" role="status" aria-live="polite"></div>
+      <div id="tableWrap" tabindex="0" aria-label="ตารางข้อมูลที่แสดงบนกราฟ"></div>
+    </section>
   </div>
 
-  <div class="foot">
-    ค่าเป็น Google Trends index (0-100) เทียบภายในช่วงเวลาที่ดึงของแต่ละคำและพื้นที่ ห้ามอ่านเป็นจำนวนการค้นจริง
-    และห้ามเทียบขนาดข้ามคำโดยตรง (ใช้ฐานดัชนีช่วยเทียบทิศทางได้) |
-    ระดับประเทศเริ่ม 2004 ระดับจังหวัดเริ่ม 2014 (ก่อนหน้านั้น Google ยังไม่ปรับระบบระบุตำแหน่ง ข้อมูลจังหวัดใช้ไม่ได้) |
-    "อีสาน" เป็นซีรีส์คำนวณ: เฉลี่ย 5 จังหวัดแบบถ่วงน้ำหนักเท่ากัน (rebase รายจังหวัดก่อนเฉลี่ย แล้ว rebase ผลรวม max = 100) |
-    <a href="https://github.com/reload0981-ops/google-trends-toolkit#readme">วิธีอัพเดทข้อมูล</a>
-  </div>
-</div>
+  <section class="methodology" id="methodology" aria-labelledby="methodologyTitle">
+    <p class="section-kicker">Read this first</p>
+    <h2 id="methodologyTitle">อ่านดัชนีให้ถูกความหมาย</h2>
+    <div class="method-grid">
+      <article class="method-item">
+        <strong>ดัชนี ไม่ใช่จำนวนการค้น</strong>
+        <p>ค่า 0–100 สะท้อนความนิยมสัมพัทธ์ภายในช่วงเวลาของแต่ละคำและพื้นที่ ห้ามอ่านเป็นจำนวนการค้นจริงหรือจำนวนคน</p>
+      </article>
+      <article class="method-item">
+        <strong>ช่วงข้อมูลต่างกันตามระดับพื้นที่</strong>
+        <p>ประเทศไทยเริ่มปี 2004 ส่วนข้อมูลจังหวัดเริ่มปี 2014 เพราะข้อมูลตำแหน่งระดับจังหวัดก่อนหน้านั้นใช้เปรียบเทียบไม่ได้</p>
+      </article>
+      <article class="method-item">
+        <strong>“อีสาน” เป็นซีรีส์คำนวณ</strong>
+        <p>สร้างจาก 5 จังหวัดแบบให้น้ำหนักเท่ากัน โดยปรับฐานรายจังหวัดก่อนเฉลี่ย และปรับผลรวมให้ค่าสูงสุดเท่ากับ 100</p>
+      </article>
+    </div>
+    <a class="method-link" href="https://github.com/reload0981-ops/google-trends-toolkit#readme">
+      อ่านวิธีอัปเดตข้อมูล
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <p class="legal">เปรียบเทียบทิศทางข้ามคำได้เมื่อเลือกเดือนฐานที่เหมาะสม แต่ไม่ควรนำระดับดัชนีดิบของคนละคำมาเทียบขนาดโดยตรง</p>
+  </section>
+</main>
 
 <script src="data.js" charset="utf-8"></script>
 <script>
@@ -121,8 +366,8 @@
   const D = window.GT_DATA;
   const GEO_ORDER = ["TH", "ISAN", "TH-30", "TH-31", "TH-34", "TH-40", "TH-41"];
   const PAL = {
-    light: ["#2a78d6", "#1baf7a", "#eda100", "#008300", "#4a3aa7", "#e34948", "#e87ba4", "#eb6834"],
-    dark:  ["#3987e5", "#199e70", "#c98500", "#008300", "#9085e9", "#e66767", "#d55181", "#d95926"],
+    light: ["#0052ff", "#057a4a", "#9a6700", "#5d2e9b", "#cf202f", "#006e75", "#a13c76", "#b54708"],
+    dark:  ["#4d7fff", "#3ecf8e", "#f4b000", "#a78bfa", "#ff6b78", "#22c1c3", "#f472b6", "#fb923c"],
   };
   const MAX_SERIES = 8;
 
@@ -146,9 +391,13 @@
     .forEach(k => state.checked.add(k.id));
 
   const el = id => document.getElementById(id);
-  const isDark = () => matchMedia("(prefers-color-scheme: dark)").matches;
+  const isDark = () => document.documentElement.dataset.theme === "dark";
   const pal = () => (isDark() ? PAL.dark : PAL.light);
   const nLines = () => state.checked.size * state.geos.size;
+
+  function updateSummary() {
+    el("lineCounter").textContent = `${nLines()} / ${MAX_SERIES} เส้น`;
+  }
 
   // สีตามตัวตนของ (คำ, พื้นที่): จอง slot ตอนคู่นั้นโผล่ คืนตอนหาย
   // คู่ที่ยังแสดงอยู่ไม่โดนสลับสีเมื่อคู่อื่นเพิ่ม/ลบ
@@ -237,7 +486,9 @@
   // ---- render ---------------------------------------------------------
   function chip(row, label, on, fn) {
     const b = document.createElement("button");
+    b.type = "button";
     b.textContent = label;
+    b.setAttribute("aria-pressed", String(on));
     if (on) b.className = "on";
     b.onclick = fn;
     row.appendChild(b);
@@ -250,6 +501,7 @@
   }
 
   function renderControls() {
+    updateSummary();
     const gr = el("geoRow"); gr.innerHTML = "";
     GEO_ORDER.forEach(g => {
       chip(gr, D.geos[g], state.geos.has(g), () => {
@@ -290,12 +542,15 @@
 
   function renderList() {
     const box = el("kwList"); box.innerHTML = "";
-    el("kwHeader").textContent = `คำค้น · เส้นรวม ${nLines()}/${MAX_SERIES}`;
+    updateSummary();
+    el("kwHeader").textContent = `เลือกอยู่ ${state.checked.size} คำ · แสดงรวม ${nLines()} เส้น`;
     visibleKeywords().forEach(k => {
       const lab = document.createElement("label");
       const cb = document.createElement("input");
       cb.type = "checkbox";
       cb.checked = state.checked.has(k.id);
+      lab.className = cb.checked ? "selected" : "";
+      cb.setAttribute("aria-label", `${k.keyword} รหัส ${k.id}`);
       cb.onchange = () => {
         if (cb.checked) {
           if ((state.checked.size + 1) * state.geos.size > MAX_SERIES) {
@@ -307,7 +562,12 @@
         renderList(); renderChart();
       };
       lab.appendChild(cb);
-      lab.insertAdjacentHTML("beforeend", `<span class="id">${k.id}</span><span>${k.keyword}</span>`);
+      const idText = document.createElement("span");
+      idText.className = "id";
+      idText.textContent = k.id;
+      const keywordText = document.createElement("span");
+      keywordText.textContent = k.keyword;
+      lab.append(idText, keywordText);
       box.appendChild(lab);
     });
   }
@@ -325,31 +585,55 @@
   }
 
   function renderChart() {
-    const dark = isDark();
     const { traces, excluded } = displayedSeries();
     const colors = pal();
+    const css = getComputedStyle(document.documentElement);
+    const ink = css.getPropertyValue("--ink").trim();
+    const ink2 = css.getPropertyValue("--ink2").trim();
+    const grid = css.getPropertyValue("--grid").trim();
+    const baseline = css.getPropertyValue("--baseline").trim();
+    const surface = css.getPropertyValue("--surface").trim();
+    const compact = window.innerWidth < 640;
     const plotTraces = traces.map(t => ({
       x: t.months.map(m => m + "-01"), y: t.values,
       mode: "lines", name: t.label,
-      line: { color: colors[t.slot % colors.length], width: 2 },
-      hovertemplate: "%{y}<extra>" + t.label + "</extra>",
+      line: { color: colors[t.slot % colors.length], width: 2.4 },
+      hovertemplate: "%{x|%b %Y}<br><b>%{y:.1f}</b><extra>" + t.label + "</extra>",
     }));
     const yTitle = state.rebase ? `ดัชนี (${state.rebase} = 100)` : "Google Trends index";
     Plotly.react("chart", plotTraces, {
-      title: { text: chartTitle(), font: { size: 15 } },
+      title: { text: chartTitle(), x: 0.01, xanchor: "left", font: { size: compact ? 15 : 18, color: ink } },
       paper_bgcolor: "rgba(0,0,0,0)", plot_bgcolor: "rgba(0,0,0,0)",
-      font: { color: dark ? "#ffffff" : "#0b0b0b", family: 'system-ui, -apple-system, "Segoe UI", sans-serif' },
-      xaxis: { gridcolor: dark ? "#2c2c2a" : "#e1e0d9", linecolor: dark ? "#383835" : "#c3c2b7" },
-      yaxis: { title: yTitle, rangemode: "tozero", gridcolor: dark ? "#2c2c2a" : "#e1e0d9", zerolinecolor: dark ? "#383835" : "#c3c2b7" },
+      font: { color: ink, family: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', size: 12 },
+      xaxis: {
+        gridcolor: grid, linecolor: baseline, zerolinecolor: baseline,
+        showline: true, ticks: "outside", tickcolor: baseline, tickfont: { color: ink2, size: 11 }, automargin: true,
+      },
+      yaxis: {
+        title: { text: yTitle, font: { color: ink2, size: 12 }, standoff: 12 },
+        rangemode: "tozero", gridcolor: grid, linecolor: baseline, zerolinecolor: baseline,
+        tickfont: { color: ink2, size: 11 }, automargin: true,
+      },
       hovermode: "x unified",
+      hoverlabel: { bgcolor: surface, bordercolor: baseline, font: { color: ink, family: "Inter, sans-serif", size: 12 } },
       showlegend: plotTraces.length >= 2,
-      legend: { orientation: "h", y: -0.16 },
-      margin: { t: 44, r: 16, b: 8, l: 58 },
-    }, { responsive: true, displaylogo: false });
+      legend: { orientation: "h", x: 0, y: -0.18, xanchor: "left", font: { color: ink2, size: 11 } },
+      margin: { t: compact ? 58 : 66, r: compact ? 10 : 24, b: plotTraces.length >= 2 ? 104 : 58, l: compact ? 50 : 68 },
+    }, {
+      responsive: true,
+      displaylogo: false,
+      modeBarButtonsToRemove: ["lasso2d", "select2d"],
+    });
 
     let msg = excluded.join(" | ");
     if (!plotTraces.length) msg = "ยังไม่ได้เลือกคำ หรือคู่ที่เลือกไม่มีข้อมูล " + msg;
     el("missingNote").textContent = msg;
+    const monthCount = traces.reduce((max, t) => Math.max(max, t.months.length), 0);
+    el("chartStatus").textContent = plotTraces.length ? `${plotTraces.length} เส้น · ${monthCount} เดือน` : "ยังไม่มีชุดข้อมูล";
+    el("chart").setAttribute("aria-label", `${chartTitle()} จำนวน ${plotTraces.length} เส้น`);
+    el("btnCsv").disabled = !plotTraces.length;
+    el("btnTable").disabled = !plotTraces.length;
+    updateSummary();
     if (state.showTable) renderTable();
   }
 
@@ -374,7 +658,7 @@
     const { header, rows } = matrix();
     const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
     el("tableWrap").innerHTML =
-      `<table><thead><tr>${header.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>` +
+      `<table><caption class="sr-only">ตารางข้อมูลชุดเดียวกับกราฟ</caption><thead><tr>${header.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>` +
       rows.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("") +
       `</tbody></table>`;
   }
@@ -395,7 +679,8 @@
   el("btnTable").onclick = () => {
     state.showTable = !state.showTable;
     el("tableWrap").style.display = state.showTable ? "block" : "none";
-    el("btnTable").textContent = state.showTable ? "ซ่อนตาราง" : "ตาราง";
+    el("btnTable").textContent = state.showTable ? "ซ่อนตาราง" : "แสดงตาราง";
+    el("btnTable").setAttribute("aria-expanded", String(state.showTable));
     if (state.showTable) renderTable();
   };
   el("btnFill").onclick = () => {
@@ -409,9 +694,30 @@
     state.checked.clear(); slots.clear();
     renderList(); renderChart();
   };
-  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", renderChart);
 
-  el("stamp").textContent = `คำค้นทั้งหมด ${D.keywords.length} คำ | ข้อมูลอัพเดทล่าสุด: ${D.updated_at || "-"}`;
+  function syncThemeToggle() {
+    const dark = isDark();
+    const button = el("themeToggle");
+    button.setAttribute("aria-label", dark ? "เปลี่ยนเป็นโหมดสว่าง" : "เปลี่ยนเป็นโหมดมืด");
+    button.innerHTML = dark
+      ? `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`
+      : `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.4 15.1A8.5 8.5 0 0 1 8.9 3.6 8.5 8.5 0 1 0 20.4 15.1Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>`;
+  }
+
+  el("themeToggle").onclick = () => {
+    document.documentElement.dataset.theme = isDark() ? "light" : "dark";
+    try { localStorage.setItem("gt-theme", document.documentElement.dataset.theme); } catch (_) {}
+    syncThemeToggle();
+    renderChart();
+  };
+
+  const updatedDate = D.updated_at ? new Date(D.updated_at) : null;
+  const updatedLabel = updatedDate && !Number.isNaN(updatedDate.getTime())
+    ? new Intl.DateTimeFormat("th-TH", { day: "numeric", month: "short", year: "numeric" }).format(updatedDate)
+    : (D.updated_at || "-");
+  el("stamp").innerHTML = `<span><strong>${D.keywords.length}</strong> คำค้น</span><span><strong>${GEO_ORDER.length}</strong> พื้นที่</span><span>อัปเดต <strong>${updatedLabel}</strong></span>`;
+  el("keywordMetric").textContent = D.keywords.length;
+  syncThemeToggle();
   renderControls(); renderGroups(); renderList(); renderChart();
 })();
 </script>
