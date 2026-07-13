@@ -67,10 +67,7 @@
   <div class="sub" id="stamp"></div>
 
   <div class="controls">
-    <div class="ctl"><span class="lbl">โหมด</span>
-      <div class="chips" id="modeRow"></div>
-    </div>
-    <div class="ctl"><span class="lbl">พื้นที่</span>
+    <div class="ctl"><span class="lbl">พื้นที่ (ติ๊กได้หลายอัน)</span>
       <div class="chips" id="geoRow"></div>
     </div>
     <div class="ctl"><span class="lbl">ช่วงเวลา</span>
@@ -129,42 +126,42 @@
   };
   const MAX_SERIES = 8;
 
+  // เลือกอิสระทั้งสองมิติ: เส้นที่แสดง = คำที่ติ๊ก x พื้นที่ที่ติ๊ก (รวมไม่เกิน MAX_SERIES)
   const state = {
-    mode: "kw",              // "kw" = หลายคำ 1 พื้นที่ | "geo" = 1 คำ หลายพื้นที่
-    geoSingle: "TH",
-    geoMulti: new Set(GEO_ORDER),
-    checked: new Set(),      // keyword ids (mode kw)
-    kwSingle: null,          // keyword id (mode geo)
+    geos: new Set(["TH"]),
+    checked: new Set(),
     group: "ALL",
-    range: "all",            // all | 3y | 1y
+    range: "all",            // all | 10y | 5y | 3y | 1y
     rebase: "",              // "" = ค่าดิบ | "YYYY-MM"
     ma3: true,
     showTable: false,
   };
-
-  // สีตามตัวตน: mode geo ใช้ slot คงที่ตามลำดับพื้นที่; mode kw จอง slot ให้คำ
-  // ตอนถูกเลือกและคืน slot ตอนเอาออก คำที่ยังอยู่ไม่โดนสลับสี
-  const kwSlots = new Map();
-  function slotFor(kid) {
-    if (kwSlots.has(kid)) return kwSlots.get(kid);
-    const used = new Set(kwSlots.values());
-    for (let i = 0; i < MAX_SERIES; i++) if (!used.has(i)) { kwSlots.set(kid, i); return i; }
-    return 0;
-  }
-  function releaseSlot(kid) { kwSlots.delete(kid); }
 
   const kwById = {};
   D.keywords.forEach(k => { kwById[k.id] = k; });
   const groups = {};
   D.keywords.forEach(k => { groups[k.id.slice(0, 2)] = `${k.segment} / ${k.factor}`; });
 
-  const defaults = D.keywords.filter(k => D.series[k.id] && D.series[k.id]["TH"]).slice(0, 3);
-  defaults.forEach(k => { state.checked.add(k.id); slotFor(k.id); });
-  state.kwSingle = defaults.length ? defaults[0].id : (D.keywords[0] || {}).id;
+  D.keywords.filter(k => D.series[k.id] && D.series[k.id]["TH"]).slice(0, 3)
+    .forEach(k => state.checked.add(k.id));
 
   const el = id => document.getElementById(id);
   const isDark = () => matchMedia("(prefers-color-scheme: dark)").matches;
   const pal = () => (isDark() ? PAL.dark : PAL.light);
+  const nLines = () => state.checked.size * state.geos.size;
+
+  // สีตามตัวตนของ (คำ, พื้นที่): จอง slot ตอนคู่นั้นโผล่ คืนตอนหาย
+  // คู่ที่ยังแสดงอยู่ไม่โดนสลับสีเมื่อคู่อื่นเพิ่ม/ลบ
+  const slots = new Map();
+  function syncSlots(keys) {
+    for (const k of [...slots.keys()]) if (!keys.includes(k)) slots.delete(k);
+    for (const k of keys) {
+      if (!slots.has(k)) {
+        const used = new Set(slots.values());
+        for (let i = 0; i < MAX_SERIES; i++) if (!used.has(i)) { slots.set(k, i); break; }
+      }
+    }
+  }
 
   function allMonths() {
     const s = new Set();
@@ -173,7 +170,6 @@
   }
   const MONTHS = allMonths();
 
-  // ---- series ที่จะแสดง (หลัง rebase/MA3/ตัดช่วงเวลา) --------------------
   function ma3(values) {
     return values.map((_, i) => {
       const w = values.slice(Math.max(0, i - 2), i + 1);
@@ -190,27 +186,35 @@
     return `${Math.floor(total / 12)}-${String((total % 12) + 1).padStart(2, "0")}`;
   }
 
+  function combos() {
+    const kws = D.keywords.filter(k => state.checked.has(k.id));
+    const geos = GEO_ORDER.filter(g => state.geos.has(g));
+    const out = [];
+    for (const k of kws) for (const g of geos) out.push({ kid: k.id, geo: g });
+    return out;
+  }
+
+  function lineLabel(kid, geo) {
+    const k = kwById[kid];
+    if (state.geos.size === 1) return `${k.keyword} (${kid})`;
+    if (state.checked.size === 1) return D.geos[geo];
+    return `${k.keyword} · ${D.geos[geo]}`;
+  }
+  const fullLabel = (kid, geo) => `${kwById[kid].keyword} (${kid}) @ ${D.geos[geo]}`;
+
   function displayedSeries() {
-    const jobs = [];
-    if (state.mode === "kw") {
-      [...state.checked].forEach(kid => jobs.push({ kid, geo: state.geoSingle, slot: slotFor(kid) }));
-    } else {
-      GEO_ORDER.filter(g => state.geoMulti.has(g)).forEach(geo =>
-        jobs.push({ kid: state.kwSingle, geo, slot: GEO_ORDER.indexOf(geo) }));
-    }
+    const list = combos();
+    syncSlots(list.map(c => `${c.kid}__${c.geo}`));
     const start = rangeStart();
     const out = { traces: [], excluded: [] };
-    for (const j of jobs) {
-      const k = kwById[j.kid];
-      if (!k) continue;
-      const raw = D.series[j.kid] && D.series[j.kid][j.geo];
-      const label = state.mode === "kw" ? `${k.keyword} (${j.kid})` : D.geos[j.geo];
-      if (!raw) { out.excluded.push(`${label}: ไม่มีข้อมูลพื้นที่นี้`); continue; }
+    for (const { kid, geo } of list) {
+      const raw = D.series[kid] && D.series[kid][geo];
+      if (!raw) { out.excluded.push(`${fullLabel(kid, geo)}: ไม่มีข้อมูล`); continue; }
       let months = raw.months, values = raw.values;
       if (state.rebase) {
         const i = raw.months.indexOf(state.rebase);
         if (i < 0 || raw.values[i] === 0) {
-          out.excluded.push(`${label}: เดือนฐาน ${state.rebase} ${i < 0 ? "ไม่มีข้อมูล" : "ค่าเป็นศูนย์"} ปรับฐานไม่ได้`);
+          out.excluded.push(`${fullLabel(kid, geo)}: เดือนฐาน ${state.rebase} ${i < 0 ? "ไม่มีข้อมูล" : "ค่าเป็นศูนย์"} ปรับฐานไม่ได้`);
           continue;
         }
         const ref = raw.values[i];
@@ -221,7 +225,11 @@
         const keep = months.map((m, idx) => [m, values[idx]]).filter(p => p[0] >= start);
         months = keep.map(p => p[0]); values = keep.map(p => p[1]);
       }
-      out.traces.push({ label, months, values: values.map(v => Math.round(v * 10) / 10), slot: j.slot });
+      out.traces.push({
+        kid, geo, label: lineLabel(kid, geo),
+        months, values: values.map(v => Math.round(v * 10) / 10),
+        slot: slots.get(`${kid}__${geo}`) || 0,
+      });
     }
     return out;
   }
@@ -235,21 +243,25 @@
     row.appendChild(b);
   }
 
-  function renderControls() {
-    const mr = el("modeRow"); mr.innerHTML = "";
-    chip(mr, "หลายคำ · 1 พื้นที่", state.mode === "kw", () => { state.mode = "kw"; renderAll(); });
-    chip(mr, "1 คำ · หลายพื้นที่", state.mode === "geo", () => { state.mode = "geo"; renderAll(); });
+  function hintQuota(addKw, addGeo) {
+    const kw = state.checked.size + addKw, geo = state.geos.size + addGeo;
+    el("kwHint").textContent =
+      `เกินโควตา: ${kw} คำ x ${geo} พื้นที่ = ${kw * geo} เส้น (สูงสุด ${MAX_SERIES} เพื่อให้สีแยกกันอ่านออก) เอาบางอันออกก่อน`;
+  }
 
+  function renderControls() {
     const gr = el("geoRow"); gr.innerHTML = "";
     GEO_ORDER.forEach(g => {
-      const on = state.mode === "kw" ? state.geoSingle === g : state.geoMulti.has(g);
-      chip(gr, D.geos[g], on, () => {
-        if (state.mode === "kw") state.geoSingle = g;
-        else {
-          if (state.geoMulti.has(g) && state.geoMulti.size > 1) state.geoMulti.delete(g);
-          else state.geoMulti.add(g);
+      chip(gr, D.geos[g], state.geos.has(g), () => {
+        if (state.geos.has(g)) {
+          if (state.geos.size <= 1) return;   // ต้องเหลืออย่างน้อย 1 พื้นที่
+          state.geos.delete(g);
+        } else {
+          if (state.checked.size * (state.geos.size + 1) > MAX_SERIES) { hintQuota(0, 1); return; }
+          state.geos.add(g);
         }
-        renderControls(); renderChart();
+        el("kwHint").textContent = "";
+        renderControls(); renderList(); renderChart();
       });
     });
 
@@ -278,24 +290,19 @@
 
   function renderList() {
     const box = el("kwList"); box.innerHTML = "";
-    el("kwHeader").textContent = state.mode === "kw" ? `คำค้น (สูงสุด ${MAX_SERIES} เส้น)` : "คำค้น (เลือก 1 คำ)";
+    el("kwHeader").textContent = `คำค้น · เส้นรวม ${nLines()}/${MAX_SERIES}`;
     visibleKeywords().forEach(k => {
       const lab = document.createElement("label");
       const cb = document.createElement("input");
-      cb.type = state.mode === "kw" ? "checkbox" : "radio";
-      cb.name = "kwpick";
-      cb.checked = state.mode === "kw" ? state.checked.has(k.id) : state.kwSingle === k.id;
+      cb.type = "checkbox";
+      cb.checked = state.checked.has(k.id);
       cb.onchange = () => {
-        if (state.mode === "kw") {
-          if (cb.checked) {
-            if (state.checked.size >= MAX_SERIES) {
-              cb.checked = false;
-              el("kwHint").textContent = `ครบ ${MAX_SERIES} เส้นแล้ว เอาคำอื่นออกก่อน (จำกัดเพื่อให้สีแยกกันอ่านออก)`;
-              return;
-            }
-            state.checked.add(k.id); slotFor(k.id);
-          } else { state.checked.delete(k.id); releaseSlot(k.id); }
-        } else { state.kwSingle = k.id; }
+        if (cb.checked) {
+          if ((state.checked.size + 1) * state.geos.size > MAX_SERIES) {
+            cb.checked = false; hintQuota(1, 0); return;
+          }
+          state.checked.add(k.id);
+        } else state.checked.delete(k.id);
         el("kwHint").textContent = "";
         renderList(); renderChart();
       };
@@ -303,6 +310,18 @@
       lab.insertAdjacentHTML("beforeend", `<span class="id">${k.id}</span><span>${k.keyword}</span>`);
       box.appendChild(lab);
     });
+  }
+
+  function chartTitle() {
+    const nKw = state.checked.size, nGeo = state.geos.size;
+    let t;
+    if (nKw === 1 && nGeo === 1) {
+      const kid = [...state.checked][0];
+      t = `${kwById[kid].keyword} (${kid}) · ${D.geos[[...state.geos][0]]}`;
+    } else if (nGeo === 1) t = D.geos[GEO_ORDER.find(g => state.geos.has(g))];
+    else if (nKw === 1) { const kid = [...state.checked][0]; t = `${kwById[kid].keyword} (${kid})`; }
+    else t = "เทียบหลายคำ · หลายพื้นที่";
+    return t + (state.ma3 ? " · MA3" : "");
   }
 
   function renderChart() {
@@ -316,11 +335,8 @@
       hovertemplate: "%{y}<extra>" + t.label + "</extra>",
     }));
     const yTitle = state.rebase ? `ดัชนี (${state.rebase} = 100)` : "Google Trends index";
-    const scopeTitle = state.mode === "kw"
-      ? D.geos[state.geoSingle]
-      : (kwById[state.kwSingle] ? `${kwById[state.kwSingle].keyword} (${state.kwSingle})` : "");
     Plotly.react("chart", plotTraces, {
-      title: { text: `${scopeTitle}${state.ma3 ? " · MA3" : ""}`, font: { size: 15 } },
+      title: { text: chartTitle(), font: { size: 15 } },
       paper_bgcolor: "rgba(0,0,0,0)", plot_bgcolor: "rgba(0,0,0,0)",
       font: { color: dark ? "#ffffff" : "#0b0b0b", family: 'system-ui, -apple-system, "Segoe UI", sans-serif' },
       xaxis: { gridcolor: dark ? "#2c2c2a" : "#e1e0d9", linecolor: dark ? "#383835" : "#c3c2b7" },
@@ -332,19 +348,17 @@
     }, { responsive: true, displaylogo: false });
 
     let msg = excluded.join(" | ");
-    if (!plotTraces.length) msg = "ไม่มีเส้นให้แสดง " + msg;
+    if (!plotTraces.length) msg = "ยังไม่ได้เลือกคำ หรือคู่ที่เลือกไม่มีข้อมูล " + msg;
     el("missingNote").textContent = msg;
-    if (state.showTable) renderTable(traces);
+    if (state.showTable) renderTable();
   }
 
-  // ---- ตาราง + CSV (ใช้ข้อมูลชุดเดียวกับที่แสดงบนกราฟ) -----------------
+  // ---- ตาราง + CSV (ชุดเดียวกับที่แสดงบนกราฟ header ระบุครบทั้งคำและพื้นที่) --
   function matrix() {
     const { traces } = displayedSeries();
     const months = [...new Set(traces.flatMap(t => t.months))].sort();
     const header = ["Month", ...traces.map(t => {
-      let h = t.label;
-      if (state.mode === "kw") h += ` @ ${D.geos[state.geoSingle]}`;
-      else h = `${kwById[state.kwSingle].keyword} (${state.kwSingle}) @ ${h}`;
+      let h = fullLabel(t.kid, t.geo);
       if (state.rebase) h += ` [ฐาน ${state.rebase}=100]`;
       if (state.ma3) h += " [MA3]";
       return h;
@@ -369,15 +383,12 @@
     const { header, rows } = matrix();
     const q = v => { v = String(v); return /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v; };
     const csv = "\uFEFF" + [header, ...rows].map(r => r.map(q).join(",")).join("\r\n");
-    const scope = state.mode === "kw" ? state.geoSingle : state.kwSingle;
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
-    a.download = `gt-toolkit_${scope}_${state.range}${state.rebase ? "_base" + state.rebase : ""}.csv`;
+    a.download = `gt-toolkit_${state.checked.size}kw_${state.geos.size}geo_${state.range}${state.rebase ? "_base" + state.rebase : ""}.csv`;
     a.click();
     URL.revokeObjectURL(a.href);
   }
-
-  function renderAll() { renderControls(); renderGroups(); renderList(); renderChart(); }
 
   el("ma3").onchange = e => { state.ma3 = e.target.checked; renderChart(); };
   el("btnCsv").onclick = downloadCsv;
@@ -388,21 +399,20 @@
     if (state.showTable) renderTable();
   };
   el("btnFill").onclick = () => {
-    if (state.mode !== "kw") return;
     for (const k of visibleKeywords()) {
-      if (state.checked.size >= MAX_SERIES) break;
-      state.checked.add(k.id); slotFor(k.id);
+      if ((state.checked.size + 1) * state.geos.size > MAX_SERIES) break;
+      state.checked.add(k.id);
     }
     renderList(); renderChart();
   };
   el("btnNone").onclick = () => {
-    state.checked.clear(); kwSlots.clear();
+    state.checked.clear(); slots.clear();
     renderList(); renderChart();
   };
   matchMedia("(prefers-color-scheme: dark)").addEventListener("change", renderChart);
 
   el("stamp").textContent = `คำค้นทั้งหมด ${D.keywords.length} คำ | ข้อมูลอัพเดทล่าสุด: ${D.updated_at || "-"}`;
-  renderAll();
+  renderControls(); renderGroups(); renderList(); renderChart();
 })();
 </script>
 </body>
