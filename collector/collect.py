@@ -235,15 +235,18 @@ def main():
 
 
 def _finish(catalog, ok, failed):
-    save_catalog(catalog)
-    # rebuild ไฟล์ข้อมูลของหน้าแสดงผลทุกครั้งที่มีการเก็บ
-    sys.path.insert(0, str(Path(__file__).resolve().parent))
-    import build_site_data
-    build_site_data.build()
     print(f"\nสรุป: สำเร็จ {ok} ซีรีส์ | ล้มเหลว {len(failed)}")
     if failed:
         for kid, geo, why in failed:
             print(f"  FAIL {kid} @ {geo}: {why}")
+    if not ok:
+        # ไม่มีข้อมูลใหม่ = ไม่แตะไฟล์ใดๆ กัน commit ที่มีแต่ timestamp เปลี่ยน
+        print("ไม่มีข้อมูลใหม่ ไม่แตะ catalog/data.js")
+        return
+    save_catalog(catalog)
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import build_site_data
+    build_site_data.build()
     print("อัพเดท data.js แล้ว ถ้าจะเผยแพร่: git add -A && git commit && git push")
 
 

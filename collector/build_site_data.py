@@ -11,7 +11,6 @@
 
 import csv
 import json
-from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -50,8 +49,9 @@ def build():
     if CATALOG_PATH.exists():
         catalog = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
 
+    # ห้ามใส่ timestamp ปัจจุบันในไฟล์นี้: data.js ต้อง deterministic ต่อข้อมูล
+    # ไม่งั้นทุกการ rebuild จะสร้าง diff ปลอมให้ git ทั้งที่ข้อมูลไม่เปลี่ยน
     payload = {
-        "generated_at": datetime.now().isoformat(timespec="seconds"),
         "updated_at": catalog.get("updated_at"),
         "geos": GEOS,
         "keywords": [
