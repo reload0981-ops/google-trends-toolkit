@@ -12,6 +12,8 @@ from collector import collect
 from collector.collect import BASE_SLEEP, CANONICAL_START, validate_collection_policy
 from collector.ingest import (
     NO_DATA_MANIFEST_SCHEMA,
+    load_keyword_map,
+    parse_file,
     parse_no_data_manifest,
     validate_canonical_coverage,
 )
@@ -171,6 +173,27 @@ class CanonicalWindowPolicyTests(unittest.TestCase):
             points = month_range("2004-01", "2026-06")
             points[-1] = (points[-1][0], float("nan"))
             validate_canonical_coverage("TH", points, today)
+
+    def test_ingest_recognizes_new_trends_time_series_export(self):
+        with tempfile.TemporaryDirectory() as tempdir:
+            path = Path(tempdir) / "time_series_TH_20040101-0700_20260715-1525.csv"
+            rows = month_range("2004-01", "2026-07")
+            text = '\n'.join(
+                ['"Time","สมัครงาน"'] +
+                [f'"{month}-01",{value:g}' for month, value in rows]
+            ) + '\n'
+            path.write_text(text, encoding="utf-8")
+
+            keyword_map, keyword_ids = load_keyword_map()
+            keyword_id, geo, points = parse_file(
+                path, keyword_map, keyword_ids, today=date(2026, 7, 15)
+            )
+
+            self.assertEqual(keyword_id, "FP014")
+            self.assertEqual(geo, "TH")
+            self.assertEqual(points[0][0], "2004-01")
+            self.assertEqual(points[-1][0], "2026-06")
+            self.assertEqual(len(points), 270)
 
     def test_no_data_manifest_is_strict_and_preserves_existing_csv(self):
         with tempfile.TemporaryDirectory() as tempdir:

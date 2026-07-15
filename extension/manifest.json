@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Google Trends Toolkit Scraper",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Bulk-downloads Google Trends CSVs for the Google Trends Toolkit (files named <ID>__<GEO>.csv, ready for collector/ingest.py).",
   "permissions": [
     "tabs",
@@ -11,14 +11,18 @@
     "notifications"
   ],
   "host_permissions": [
-    "https://trends.google.com/*"
+    "https://trends.google.com/*",
+    "https://trends.google.co.th/*"
   ],
   "background": {
     "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": ["https://trends.google.com/trends/explore*"],
+      "matches": [
+        "https://trends.google.com/trends/explore*",
+        "https://trends.google.co.th/explore*"
+      ],
       "js": ["content.js"],
       "run_at": "document_idle"
     }

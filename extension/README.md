@@ -15,6 +15,8 @@
 4. กด Load unpacked แล้วเลือกโฟลเดอร์ `extension/` นี้
 5. Pin extension ไว้ที่ toolbar
 
+ถ้าอัพเดทจากรุ่นก่อนเป็น v0.6.0 ให้กด Reload และอนุญาต host `trends.google.co.th` ถ้า Chrome แสดงคำขอสิทธิ์ รุ่นนี้ใช้หน้า Explore ใหม่เพราะหน้า classic ลด full-history export เหลือรายปี
+
 ## รอบการเก็บ
 
 1. สร้างคิวงาน:
@@ -60,5 +62,6 @@
 - Extension นี้พอร์ตมาจากตัวที่ใช้จริงในโปรเจค Isan Labor และเพิ่ม release-safety ใน v0.4.0:
   no-data proof manifest, ชื่อไฟล์แบบ fail-closed, notification icon และตัวตรวจ block ภาษาไทย
 - v0.5.0 เพิ่ม fail-closed acknowledgment bridge สำหรับ `collector/browser_runner.py`: extension จะยอมรับ download ชื่อ GUID ของ Playwright เฉพาะเมื่อ Python จับคู่กับ RUNNING job ได้หนึ่งตัวและไฟล์ผ่าน parser + canonical coverage guard ของ `ingest.py` แล้ว
-- ข้อจำกัดที่พบ 2026-07-15: Google ส่ง full-window export เป็น `Year` ใน Playwright/pytrends; Python runner ปฏิเสธโดยตั้งใจและยังใช้ publish monthly release ไม่ได้
+- v0.6.0 เปลี่ยนไปใช้ `trends.google.co.th/explore?date=all`, รองรับ chart/download selector และชื่อไฟล์ `time_series_<GEO>_*.csv` ของหน้าใหม่ หน้าใหม่นี้ส่ง full-history รายเดือนใน Chrome ปกติ; หน้า classic/pytrends ยังส่ง `Year`
+- ข้อจำกัดที่พบ 2026-07-15: profile แยกของ Python runner ยังโหลด chart รุ่นใหม่ไม่สำเร็จ (`CHART_TIMEOUT`) จึงยังใช้ publish ไม่ได้ ให้รัน extension ใน Chrome ปกติเป็นเส้นทางหลัก
 - `data/jobs.json` และ `data/jobs_index.json` เป็นไฟล์ generate จาก `make_jobs.py` ไม่ commit เข้า git

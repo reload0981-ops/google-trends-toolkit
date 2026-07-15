@@ -8,6 +8,7 @@
 //   5. report DONE or ERROR back to the controller
 
 const CHART_SELECTORS_TIMESERIES = [
+  'svg[role~="graphics-document"]',
   'widget[type="fe_line_chart"]',
   '[widget-name="TIMESERIES"]',
   'line-chart-directive',
@@ -15,6 +16,7 @@ const CHART_SELECTORS_TIMESERIES = [
 ];
 
 const CSV_SELECTORS_TIMESERIES = [
+  'button[aria-label*="ดาวน์โหลด CSV"]',
   'widget[type="fe_line_chart"] button.widget-actions-item.export',
   'widget[type="fe_line_chart"] [aria-label*="CSV"]',
   '[widget-name="TIMESERIES"] [aria-label*="CSV"]',

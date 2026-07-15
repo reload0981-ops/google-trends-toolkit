@@ -46,8 +46,19 @@ class ExtensionReleaseSafetyTests(unittest.TestCase):
 
     def test_manifest_version_matches_release_behavior(self):
         manifest = json.loads((EXTENSION / "manifest.json").read_text(encoding="utf-8"))
-        self.assertEqual(manifest["version"], "0.5.0")
+        self.assertEqual(manifest["version"], "0.6.0")
         self.assertIn("downloads", manifest["permissions"])
+
+    def test_new_trends_ui_is_the_primary_monthly_export_path(self):
+        manifest = json.loads((EXTENSION / "manifest.json").read_text(encoding="utf-8"))
+        self.assertIn("https://trends.google.co.th/*", manifest["host_permissions"])
+        matches = manifest["content_scripts"][0]["matches"]
+        self.assertIn("https://trends.google.co.th/explore*", matches)
+        self.assertIn("https://trends.google.co.th/explore?", self.controller)
+        self.assertIn('"date=all"', self.controller)
+        self.assertIn('button[aria-label*="ดาวน์โหลด CSV"]', self.content)
+        self.assertIn('svg[role~="graphics-document"]', self.content)
+        self.assertIn('fn.includes("time_series_")', self.background)
 
     def test_python_download_bridge_is_fail_closed(self):
         self.assertIn("BROWSER_RUNNER_MODE_KEY", self.controller)

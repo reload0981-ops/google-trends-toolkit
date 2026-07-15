@@ -260,6 +260,14 @@ def parse_file(path, kw_to_id, ids, today=None):
         m = re.match(r"^manual_([A-Za-z]{2}\d{3})$", name)
         if m:
             kid, geo = m.group(1).upper(), "TH"
+        else:
+            m = re.match(
+                r"^time_series_(TH(?:-\d{2})?)_\d{8}-\d{4}_\d{8}-\d{4}(?: \(\d+\))?$",
+                name,
+                re.IGNORECASE,
+            )
+            if m:
+                geo = m.group(1).upper()
 
     # จาก header cell: "<คำ>: (<พื้นที่>)"
     hcell = header[1]
@@ -274,6 +282,10 @@ def parse_file(path, kw_to_id, ids, today=None):
             kid = kw_to_id.get(norm(kw_txt))
             if kid is None:
                 raise ValueError(f"คำ '{kw_txt.strip()}' ไม่อยู่ใน keywords.csv (เพิ่มคำก่อน หรือเช็คตัวสะกด)")
+    elif kid is None:
+        kid = kw_to_id.get(norm(hcell))
+        if kid is None:
+            raise ValueError(f"คำ '{hcell.strip()}' ไม่อยู่ใน keywords.csv (เพิ่มคำก่อน หรือเช็คตัวสะกด)")
     if kid is None or geo is None:
         raise ValueError("ระบุคำ/พื้นที่ไม่ได้จากทั้งชื่อไฟล์และหัวตาราง")
     if kid not in ids:

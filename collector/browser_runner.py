@@ -43,6 +43,11 @@ CANONICAL_START = "2004-01-01"
 SAFE_DOWNLOAD_RE = re.compile(
     r"^(?:[A-Z]{2}\d{3}__(?:TH|TH-\d{2})\.csv|no_data_manifest__\d{4}-\d{2}-\d{2}\.json)$"
 )
+TIMESERIES_DOWNLOAD_RE = re.compile(
+    r"^(?:multiTimeline(?: \(\d+\))?|"
+    r"time_series_(?:TH|TH-\d{2})_\d{8}-\d{4}_\d{8}-\d{4}(?: \(\d+\))?)\.csv$",
+    re.IGNORECASE,
+)
 REQUIRED_JOB_FIELDS = {
     "job_id", "keyword_id", "keyword", "geo_code", "timeframe", "filename"
 }
@@ -58,6 +63,13 @@ def now_iso():
 
 def eprint(message):
     print(message, file=sys.stderr, flush=True)
+
+
+def is_timeseries_download_filename(filename):
+    return (
+        isinstance(filename, str)
+        and TIMESERIES_DOWNLOAD_RE.fullmatch(filename) is not None
+    )
 
 
 def load_jobs(path=JOBS_FILE):
@@ -281,7 +293,7 @@ class DownloadBridge:
                 download.save_as(INCOMING_DIR / filename)
                 eprint(f"[download] saved {filename}")
                 return
-            if filename != "multiTimeline.csv":
+            if not is_timeseries_download_filename(filename):
                 eprint(f"[download] ปฏิเสธชื่อไฟล์นอก schema: {filename}")
                 return
 
