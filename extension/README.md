@@ -59,4 +59,6 @@
 
 - Extension นี้พอร์ตมาจากตัวที่ใช้จริงในโปรเจค Isan Labor และเพิ่ม release-safety ใน v0.4.0:
   no-data proof manifest, ชื่อไฟล์แบบ fail-closed, notification icon และตัวตรวจ block ภาษาไทย
+- v0.5.0 เพิ่ม fail-closed acknowledgment bridge สำหรับ `collector/browser_runner.py`: extension จะยอมรับ download ชื่อ GUID ของ Playwright เฉพาะเมื่อ Python จับคู่กับ RUNNING job ได้หนึ่งตัวและไฟล์ผ่าน parser + canonical coverage guard ของ `ingest.py` แล้ว
+- ข้อจำกัดที่พบ 2026-07-15: Google ส่ง full-window export เป็น `Year` ใน Playwright/pytrends; Python runner ปฏิเสธโดยตั้งใจและยังใช้ publish monthly release ไม่ได้
 - `data/jobs.json` และ `data/jobs_index.json` เป็นไฟล์ generate จาก `make_jobs.py` ไม่ commit เข้า git

@@ -5,3 +5,4 @@ incoming/*
 !incoming/.gitkeep
 extension/data/*
 !extension/data/.gitkeep
+.browser-runner/

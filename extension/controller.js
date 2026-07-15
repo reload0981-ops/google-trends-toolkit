@@ -6,6 +6,8 @@
 
 const STATE_KEY = "scraper_state_v1";
 const JOBS_SOURCE_KEY = "scraper_jobs_source_v1";
+const BROWSER_RUNNER_MODE_KEY = "browser_runner_mode_v1";
+const BROWSER_RUNNER_DOWNLOAD_ACK_KEY = "browser_runner_download_ack_v1";
 const DEFAULT_JOBS_FILE = "data/jobs.json";
 const HIDE_FOREGROUND_WARNING_KEY = "hide_foreground_warning_v1";
 const MAX_TABLE_ROWS = 40;
@@ -603,6 +605,30 @@ async function validateRecentDownload(job, jobStartIso) {
     limit: 5
   });
   if (downloads.length === 0) {
+    // Playwright's persistent Chromium stores browser downloads under GUID
+    // paths, so chrome.downloads cannot match the extension-suggested filename.
+    // The Python runner may bridge that gap, but only after ingest.py's parser
+    // and canonical coverage guard validate the captured file.
+    const bridge = await chrome.storage.local.get([
+      BROWSER_RUNNER_MODE_KEY,
+      BROWSER_RUNNER_DOWNLOAD_ACK_KEY
+    ]);
+    const runnerMode = bridge[BROWSER_RUNNER_MODE_KEY] === true;
+    const ack = bridge[BROWSER_RUNNER_DOWNLOAD_ACK_KEY];
+    const ackIsCurrent = ack && ack.filename === job.filename &&
+      Date.parse(ack.observed_at || "") >= Date.parse(jobStartIso);
+    if (runnerMode && ackIsCurrent) {
+      if (ack.status === "valid") return null;
+      if (ack.status === "no_data_candidate") {
+        return { result: "NO_DATA", reason: ack.reason || NO_DATA_EXPORT_REASON };
+      }
+      if (ack.status === "invalid") {
+        return {
+          result: "ERROR",
+          reason: `BROWSER_RUNNER_INVALID_DOWNLOAD: ${ack.reason || "unknown"}`
+        };
+      }
+    }
     return { result: "ERROR", reason: "NO_DOWNLOAD_FOUND" };
   }
 
