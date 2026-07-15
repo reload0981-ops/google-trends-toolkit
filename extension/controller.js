@@ -129,12 +129,12 @@ function downloadSize(dl) {
 
 function buildExploreUrl(job) {
   const params = [
-    `date=${urlEncode(job.timeframe)}`,
-    `geo=${urlEncode(job.geo_code)}`,
     `q=${urlEncode(job.keyword)}`,
+    "date=all",
+    `geo=${urlEncode(job.geo_code)}`,
     "hl=th"
   ].join("&");
-  return `https://trends.google.com/trends/explore?${params}`;
+  return `https://trends.google.co.th/explore?${params}`;
 }
 
 // ----- State management ---------------------------------------------------
@@ -414,13 +414,13 @@ function readSettings() {
 // Warming visit: open Google Trends homepage, dwell, close.
 async function warmingVisit(dwellSec) {
   if (dwellSec <= 0) return;
-  log(`Warming visit: trends.google.com homepage (${dwellSec}s)`, "info");
+  log(`Warming visit: trends.google.co.th homepage (${dwellSec}s)`, "info");
   let tab = null;
   try {
     const winId = await ensureScraperWindow();
     await focusScraperWindow(winId, "warming");
     tab = await chrome.tabs.create({
-      url: "https://trends.google.com/trends/?geo=TH&hl=th",
+      url: "https://trends.google.co.th/home?geo=TH&hl=th",
       active: true,
       windowId: winId
     });

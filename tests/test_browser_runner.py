@@ -3,7 +3,8 @@ import unittest
 from pathlib import Path
 
 from collector.browser_runner import (
-    RunnerError, summarize_state, validate_captured_download, validate_jobs,
+    RunnerError, is_timeseries_download_filename, summarize_state,
+    validate_captured_download, validate_jobs,
 )
 
 
@@ -73,6 +74,17 @@ class BrowserRunnerSafetyTests(unittest.TestCase):
             )
             with self.assertRaisesRegex(ValueError, "หัวตาราง"):
                 validate_captured_download(path)
+
+    def test_new_and_classic_timeseries_download_names_are_recognized(self):
+        self.assertTrue(is_timeseries_download_filename("multiTimeline.csv"))
+        self.assertTrue(is_timeseries_download_filename(
+            "time_series_TH_20040101-0700_20260715-1525.csv"
+        ))
+        self.assertTrue(is_timeseries_download_filename(
+            "time_series_TH-40_20040101-0700_20260715-1525.csv"
+        ))
+        self.assertFalse(is_timeseries_download_filename("geoMap.csv"))
+        self.assertFalse(is_timeseries_download_filename("time_series.csv.exe"))
 
 
 if __name__ == "__main__":

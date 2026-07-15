@@ -34,7 +34,10 @@ function looksLikeTrendsDownload(item) {
   return (
     url.includes("trends.google.com") ||
     referrer.includes("trends.google.com") ||
+    url.includes("trends.google.co.th") ||
+    referrer.includes("trends.google.co.th") ||
     fn.includes("multitimeline") ||
+    fn.includes("time_series_") ||
     fn.includes("geomap")
   );
 }

@@ -11,8 +11,8 @@ description: Operate the Google Trends Toolkit - bulk-collect via the Chrome ext
 
 | เครื่อง | ใช้เมื่อ | ความพึ่งได้ |
 |---|---|---|
-| **Chrome extension** (`extension/` + `make_jobs.py`) | เก็บชุดใหญ่ อัพเดทรอบเดือน หรือหลายสิบซีรีส์ขึ้นไป | สูงสุด: browser จริง IP คน ผ่านด่าน Google ได้ พิสูจน์แล้ว 300+ jobs |
-| **Python browser runner** (`browser_runner.py`) | ให้ AI คุม extension จาก terminal / ทดลอง automation บนเครื่องจริง | Experimental: orchestration ผ่านแล้ว แต่ 2026-07-15 Google ส่ง full-window เป็นรายปี จึงถูก guard ปฏิเสธและยัง publish ไม่ได้ |
+| **Chrome extension** (`extension/` + `make_jobs.py`) | เก็บชุดใหญ่ อัพเดทรอบเดือน หรือหลายสิบซีรีส์ขึ้นไป | สูงสุด: v0.6.0 ใช้ Explore รุ่นใหม่ใน Chrome ปกติ ซึ่งยืนยัน full-history รายเดือนแล้ว |
+| **Python browser runner** (`browser_runner.py`) | ให้ AI คุม extension จาก terminal / ทดลอง automation บนเครื่องจริง | Experimental: profile แยกยังเข้า chart รุ่นใหม่ไม่ได้ (`CHART_TIMEOUT`) จึงยัง publish ไม่ได้ |
 | **pytrends** (`collect.py`) | งานเบา อัพเดท 1-5 คำ | ปานกลาง: โดน 429 ได้ แต่มี backoff + resume |
 | **GitHub Actions** (`update-data.yml`) | โบนัสรายเดือน ตั้งทิ้งไว้ | ต่ำ (พิสูจน์ 2026-07-09: runner โดน 429 ตั้งแต่ request แรก) best-effort เท่านั้น |
 
@@ -56,9 +56,9 @@ description: Operate the Google Trends Toolkit - bulk-collect via the Chrome ext
 ### A. เก็บชุดใหญ่ด้วย Chrome extension (เส้นทางหลัก)
 
 1. `python collector/make_jobs.py --all` (หรือ `--ids FP014` / `--group FP` / `--geo TH`) สร้างคิวงาน
-   default timeframe = 2004-01-01 ถึงวันนี้ (นโยบายโหลดยาวสุด ได้รายเดือนแท้; จังหวัดก่อน 2014 ถูกตัดตอน ingest)
+   default timeframe = 2004-01-01 ถึงวันนี้; extension เปิด `trends.google.co.th/explore?date=all` เพื่อรับรายเดือนแท้ (จังหวัดก่อน 2014 ถูกตัดตอน ingest)
 2. ให้ผู้ใช้ทำใน Chrome: `chrome://extensions` กด **Reload** ที่ตัว extension (คิวใหม่ถูกอ่านจากในแพ็คเกจ ไม่ Reload = เห็นคิวเก่า) > คลิกไอคอน > Open Controller > กด **Load Jobs (reset queue)** > **Start**
-   (ครั้งแรก: ติดตั้งแบบ Load unpacked + ตั้ง download folder เป็น `incoming/` ของ repo ดู `extension/README.md`)
+   (ครั้งแรก: ติดตั้งแบบ Load unpacked + ตั้ง download folder เป็น `incoming/` ของ repo ดู `extension/README.md`; เมื่ออัพเดท v0.6.0 ให้ Reload และอนุญาต `trends.google.co.th` ถ้า Chrome ถาม)
 3. ระหว่างรัน: หน้าต่าง Chrome ต้องอยู่หน้าสุด เจอ CAPTCHA = ผู้ใช้แก้ในแท็บที่เด้ง แล้วกด Resume
 4. คิวจบ ไฟล์ `<ID>__<GEO>.csv` จะอยู่ใน `incoming/`; คู่ NO_DATA ที่พบติดต่อกันอย่างน้อย 2 ครั้งจะมี `no_data_manifest__YYYY-MM-DD.json` อัตโนมัติ แล้วรัน:
    ```
@@ -72,7 +72,7 @@ description: Operate the Google Trends Toolkit - bulk-collect via the Chrome ext
 1. ให้ผู้ใช้โหลด CSV จากหน้าเว็บ Google Trends วางใน `incoming/`
    เงื่อนไข: ช่วงเวลา = ยาวสุด 2004-01-01 ถึงปัจจุบัน (นโยบายข้อมูลหลัก) และเลือกพื้นที่ให้ตรง
 2. `python collector/ingest.py --dry-run` ดูการจับคู่ แล้วรันจริง
-3. ingest รู้จัก: export หน้าเว็บ GT (ไทย/อังกฤษ รายเดือน/รายสัปดาห์), `<ID>__<GEO>.csv`, `manual_<ID>.csv` และแปลง "<1" เป็น 0 ให้เอง
+3. ingest รู้จัก: export หน้า classic, export หน้าใหม่ `time_series_<GEO>_*.csv` (`Time,<keyword>`), `<ID>__<GEO>.csv`, `manual_<ID>.csv` และแปลง "<1" เป็น 0 ให้เอง
 
 ### B2. ทดลอง Python browser runner (ยังไม่ใช่ release path)
 
@@ -86,7 +86,7 @@ python -X utf8 collector/browser_runner.py --status --json
 python -X utf8 collector/browser_runner.py --resume
 ```
 
-runner ใช้ persistent profile ใน `.browser-runner/`, เรียก extension v0.5.0 ตัวเดิม, หยุดรอคนเมื่อเจอ CAPTCHA และบันทึกไฟล์เข้า `incoming/` เฉพาะเมื่อ parser + canonical coverage guard ของ `ingest.py` ผ่าน ข้อจำกัดที่พิสูจน์ 2026-07-15: Playwright และ pytrends ได้ full-window export เป็น `Year` 23 จุดแทนรายเดือน จึงจบด้วย `BROWSER_RUNNER_INVALID_DOWNLOAD` โดยไม่แตะ archive; ห้ามหลบ guard/แปลงรายปีเป็นรายเดือน/ใช้ publish จน upstream หรือ methodology เปลี่ยนอย่างมีหลักฐาน
+runner ใช้ persistent profile ใน `.browser-runner/`, เรียก extension v0.6.0, หยุดรอคนเมื่อเจอ CAPTCHA และบันทึกไฟล์เข้า `incoming/` เฉพาะเมื่อ parser + canonical coverage guard ของ `ingest.py` ผ่าน หลักฐาน 2026-07-15: หน้า classic/pytrends ได้ `Year` 23 จุด; หน้าใหม่ใน Chrome ปกติได้ `Time` รายเดือน 271 จุดและผ่าน guard หลังตัดเดือน partial แต่ profile แยกของ runner ยังจบด้วย `CHART_TIMEOUT`. ห้ามใช้ runner publish จน smoke ผ่าน; ใช้ extension ใน Chrome ปกติเป็น release path
 
 ### C. อัพเดทงานเบาด้วย pytrends (1-5 คำ)
 
@@ -148,6 +148,7 @@ scope อื่น: `--group FP,FU` / `--all` / `--geo TH` ส่วน `--start
 | Extension: เจอ CAPTCHA | ปกติของงานชุดใหญ่ ผู้ใช้แก้ในแท็บที่เด้งขึ้น แล้วกด Resume ห้ามปิดหน้าต่าง |
 | Extension: job FAIL หลายตัว | กด Retry Failed/No Data ก่อน ถ้ายัง FAIL ซ้ำ เปิดดูคำนั้นในหน้า GT เองว่าคำเงียบจริงไหม |
 | Python runner: `BROWSER_RUNNER_INVALID_DOWNLOAD` | เปิด `.browser-runner/captured/` ตรวจชนิด export; ถ้า header เป็น `Year` ให้หยุด ห้ามแปลงหรือ ingest เพราะไม่ใช่ canonical monthly series |
+| Python runner: `CHART_TIMEOUT` บนหน้าใหม่ | profile แยกยังไม่ได้รับ/โหลด UI รุ่นใหม่ ใช้ extension v0.6.0 ใน Chrome ปกติ; ห้าม fallback กลับหน้า classic เพื่อ publish |
 | 429 / TooManyRequests (pytrends) | สคริปต์ backoff เองแล้ว ถ้ามันหยุดทั้งรอบ = พัก 1 ชม. แล้วรันซ้ำ |
 | ไฟล์เข้า `incoming/review/` | อ่านเหตุผลที่พิมพ์ไว้ อย่าเดา ถ้าคำไม่อยู่ใน keywords.csv ให้ถามผู้ใช้ก่อนเพิ่ม |
 | กราฟเส้นกระโดดผิดปกติหลังอัพเดท | สงสัย scale คนละช่วง ให้ดึงคำนั้นใหม่ทั้งช่วงเต็มแล้วแทนที่ |
