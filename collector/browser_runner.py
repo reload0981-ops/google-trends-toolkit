@@ -175,6 +175,7 @@ def summarize_state(state):
         "human_action_required": bool(
             isinstance(state, dict) and (state.get("captcha_tab_id") or status == "paused")
         ),
+        "human_action_reason": state.get("human_action_reason") if isinstance(state, dict) else None,
         "fatal_error": state.get("fatal_error") if isinstance(state, dict) else None,
         "jobs_source": state.get("jobs_source") if isinstance(state, dict) else None,
     }
@@ -463,7 +464,13 @@ def monitor_queue(page, mode, poll_seconds=2.0):
             return 1, write_status(summary, mode, "extension fatal; ตรวจ fatal_error")
         if summary["human_action_required"]:
             if not captcha_announced:
-                eprint("[action required] แก้ CAPTCHA ในแท็บที่เปิด แล้วกด Resume ใน Controller")
+                reason = summary.get("human_action_reason")
+                if reason == "AUTH_REQUIRED":
+                    eprint("[action required] ลงชื่อเข้าใช้ Google ในหน้าต่าง runner หนึ่งครั้ง แล้วกด Resume")
+                elif reason == "CAPTCHA":
+                    eprint("[action required] แก้ CAPTCHA ในแท็บที่เปิด แล้วกด Resume ใน Controller")
+                else:
+                    eprint("[action required] Controller หยุดรอการตรวจจากผู้ใช้; เปิด Controller แล้วดูข้อความล่าสุด")
                 captcha_announced = True
             time.sleep(poll_seconds)
             continue

@@ -10,7 +10,7 @@
   python collector/collect.py --all                        # อัพเดททุกคำ ทุกพื้นที่
   python collector/collect.py --ids FP014,FU014            # เฉพาะบางคำ
   python collector/collect.py --group FP,FU                # เฉพาะบางกลุ่ม (prefix ของ ID)
-  python collector/collect.py --geo TH                     # เฉพาะระดับประเทศ
+  python collector/collect.py --all --geo TH               # เฉพาะระดับประเทศ
   python collector/collect.py --all --sleep 20             # ช้ากว่า default ได้ แต่ห้ามเร็วกว่า
 
 พฤติกรรมสำคัญ:

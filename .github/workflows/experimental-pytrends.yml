@@ -1,0 +1,51 @@
+name: experimental-pytrends-diagnostic
+
+on:
+  workflow_dispatch:
+    inputs:
+      args:
+        description: "argument ของ collector เช่น --all หรือ --ids FP014 --geo TH"
+        default: "--all"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: experimental-pytrends-diagnostic
+  cancel-in-progress: false
+
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Collect data
+        env:
+          COLLECT_ARGS: ${{ inputs.args || '--all' }}
+        run: |
+          # Split into argv without evaluating shell metacharacters from workflow input.
+          read -r -a collect_args <<< "$COLLECT_ARGS"
+          python -X utf8 collector/collect.py --sleep 20 "${collect_args[@]}"
+
+      - name: Validate structure (diagnostic only)
+        run: python -X utf8 collector/audit.py --strict
+
+      - name: Verify generated site data
+        run: python -X utf8 collector/build_site_data.py --check
+
+      - name: Run regression tests
+        run: python -X utf8 -m unittest discover -s tests -v
+
+      - name: Report discarded local changes
+        run: |
+          echo "Diagnostic workflow: no commit or push is allowed."
+          git status --short

@@ -27,6 +27,9 @@ class ExtensionReleaseSafetyTests(unittest.TestCase):
         self.assertNotIn("เน€เธเธดเธ”", self.content)
         self.assertIn("THAI_CAPTCHA_PHRASES", self.content)
         self.assertIn("THAI_SOFT_ERROR", self.content)
+        self.assertIn("THAI_NEW_EXPLORE_AUTH", self.content)
+        self.assertIn('return "AUTH_REQUIRED"', self.content)
+        self.assertIn('["CAPTCHA", "AUTH_REQUIRED"]', self.controller)
 
     def test_notification_has_valid_embedded_48px_png(self):
         self.assertNotIn('chrome.runtime.getURL("icons/48.png")', self.controller)
@@ -46,7 +49,7 @@ class ExtensionReleaseSafetyTests(unittest.TestCase):
 
     def test_manifest_version_matches_release_behavior(self):
         manifest = json.loads((EXTENSION / "manifest.json").read_text(encoding="utf-8"))
-        self.assertEqual(manifest["version"], "0.6.0")
+        self.assertEqual(manifest["version"], "0.7.0")
         self.assertIn("downloads", manifest["permissions"])
 
     def test_new_trends_ui_is_the_primary_monthly_export_path(self):
@@ -66,6 +69,18 @@ class ExtensionReleaseSafetyTests(unittest.TestCase):
         self.assertIn("ack.filename === job.filename", self.controller)
         self.assertIn('ack.status === "valid"', self.controller)
         self.assertIn('ack.status === "invalid"', self.controller)
+
+    def test_controller_can_import_a_fresh_queue_without_extension_reload(self):
+        html = (EXTENSION / "controller.html").read_text(encoding="utf-8")
+        self.assertIn('id="btn-import-jobs"', html)
+        self.assertIn('id="jobs-file-input"', html)
+        self.assertIn("function validateJobs(jobs)", self.controller)
+        self.assertIn("await importJobsFile(file)", self.controller)
+        self.assertIn("timeframe must be", self.controller)
+        self.assertIn("await resetStateFromJobs(state.jobs", self.controller)
+        self.assertIn("const canReplaceQueue = isIdle && !loopRunning", self.controller)
+        self.assertIn("Queue state changed while choosing the file", self.controller)
+        self.assertIn('loopRunning || (state && state.status !== "idle")', self.controller)
 
 
 if __name__ == "__main__":

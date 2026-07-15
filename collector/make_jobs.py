@@ -128,9 +128,9 @@ def main():
         json.dumps(index, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(f"เขียน {out} : {len(jobs)} jobs ({len(geos)} พื้นที่ x {len(rows)} คำ) timeframe: {timeframe}")
-    print("ขั้นถัดไป: chrome://extensions > Reload ตัว extension > เปิด controller >")
-    print("  กด 'Load Jobs (reset queue)' > กด 'Start'")
-    print("(ตั้ง download folder ของ Chrome เป็นโฟลเดอร์ incoming/ ของ repo นี้ก่อน: chrome://settings/downloads)")
+    print("ขั้นถัดไป: เปิด extension Controller > กด 'Import jobs.json' >")
+    print(f"  เลือก {out.resolve()} > กด 'Start'")
+    print("(ตั้ง download folder ของ Chrome เป็น incoming/ และปิด Ask where to save ก่อน)")
 
 
 if __name__ == "__main__":

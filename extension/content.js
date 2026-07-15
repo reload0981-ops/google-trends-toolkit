@@ -66,6 +66,7 @@ const THAI_CAPTCHA_PHRASES = [
   "\u0e23\u0e30\u0e1a\u0e1a\u0e02\u0e2d\u0e07\u0e40\u0e23\u0e32\u0e15\u0e23\u0e27\u0e08\u0e1e\u0e1a\u0e01\u0e32\u0e23\u0e40\u0e02\u0e49\u0e32\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e17\u0e35\u0e48\u0e1c\u0e34\u0e14\u0e1b\u0e01\u0e15\u0e34"
 ];
 const THAI_SOFT_ERROR = "\u0e40\u0e01\u0e34\u0e14\u0e02\u0e49\u0e2d\u0e1c\u0e34\u0e14\u0e1e\u0e25\u0e32\u0e14\u0e1a\u0e32\u0e07\u0e2d\u0e22\u0e48\u0e32\u0e07";
+const THAI_NEW_EXPLORE_AUTH = "\u0e25\u0e07\u0e0a\u0e37\u0e48\u0e2d\u0e40\u0e02\u0e49\u0e32\u0e43\u0e0a\u0e49\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01";
 
 function sleep(ms) {
   return new Promise(r => setTimeout(r, ms));
@@ -100,6 +101,12 @@ function detectBlock() {
   const title = document.title.toLowerCase();
   const bodyText = (document.body && document.body.innerText || "").slice(0, 4000);
   const lower = bodyText.toLowerCase();
+  const classicFallback = document.querySelector('a[href*="/trends/explore"]');
+  if ((bodyText.includes(THAI_NEW_EXPLORE_AUTH) ||
+       lower.includes("sign in to unlock") ||
+       lower.includes("sign in to try the new explore")) && classicFallback) {
+    return "AUTH_REQUIRED";
+  }
   // CAPTCHA / "/sorry/" challenge page โ€” check BEFORE 429 so we don't misclassify
   if (location.href.includes("/sorry/") ||
       lower.includes("i'm not a robot") ||

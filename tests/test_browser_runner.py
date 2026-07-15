@@ -47,10 +47,13 @@ class BrowserRunnerSafetyTests(unittest.TestCase):
         paused = {
             "status": "paused",
             "captcha_tab_id": 123,
+            "human_action_reason": "AUTH_REQUIRED",
             "cursor": 0,
             "jobs": [{**job(), "status": "RUNNING"}],
         }
-        self.assertTrue(summarize_state(paused)["human_action_required"])
+        paused_summary = summarize_state(paused)
+        self.assertTrue(paused_summary["human_action_required"])
+        self.assertEqual(paused_summary["human_action_reason"], "AUTH_REQUIRED")
 
         complete = {
             "status": "idle",

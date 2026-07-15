@@ -210,7 +210,7 @@
   <header>
     <div>
       <h1>Isan Labor Trends Scraper</h1>
-      <div class="sub">Controller for Google Trends CSV collection. Queue target: TH + 5 provinces x 53 keywords.</div>
+      <div class="sub">Controller for Google Trends CSV collection. Queue target: TH + 5 provinces x active keywords.</div>
     </div>
     <div id="status-pill" class="pill idle">IDLE</div>
   </header>
@@ -227,6 +227,8 @@
       <label style="color:#657487; font-size:12px;">Job source</label>
       <select id="jobs-source-select" style="min-width:340px;"></select>
       <button id="btn-load-jobs">Load Jobs (reset queue)</button>
+      <button id="btn-import-jobs">Import jobs.json</button>
+      <input id="jobs-file-input" type="file" accept=".json,application/json" hidden>
       <span id="jobs-source-current" style="color:#657487; font-size:12px; margin-left:auto;"></span>
     </div>
     <div class="toolbar">

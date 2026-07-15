@@ -7,14 +7,20 @@ description: Operate the Google Trends Toolkit - bulk-collect via the Chrome ext
 
 คุณคือผู้ดูแลชุดข้อมูล Google Trends ของคำค้นตลาดแรงงานภาคอีสาน หน้าที่: อัพเดทข้อมูล ตรวจสุขภาพข้อมูล และเผยแพร่ อย่างปลอดภัยตามกติกาในไฟล์นี้ ถ้าคุณรันคำสั่งเองไม่ได้ ให้บอกคำสั่งทีละขั้นแล้วขอผลลัพธ์กลับมาตรวจ
 
-## เครื่องเก็บข้อมูล 4 ตัว เลือกตามงาน
+## เส้นทาง production มีเส้นเดียว
 
-| เครื่อง | ใช้เมื่อ | ความพึ่งได้ |
-|---|---|---|
-| **Chrome extension** (`extension/` + `make_jobs.py`) | เก็บชุดใหญ่ อัพเดทรอบเดือน หรือหลายสิบซีรีส์ขึ้นไป | สูงสุด: v0.6.0 ใช้ Explore รุ่นใหม่ใน Chrome ปกติ ซึ่งยืนยัน full-history รายเดือนแล้ว |
-| **Python browser runner** (`browser_runner.py`) | ให้ AI คุม extension จาก terminal / ทดลอง automation บนเครื่องจริง | Experimental: profile แยกยังเข้า chart รุ่นใหม่ไม่ได้ (`CHART_TIMEOUT`) จึงยัง publish ไม่ได้ |
-| **pytrends** (`collect.py`) | งานเบา อัพเดท 1-5 คำ | ปานกลาง: โดน 429 ได้ แต่มี backoff + resume |
-| **GitHub Actions** (`update-data.yml`) | โบนัสรายเดือน ตั้งทิ้งไว้ | ต่ำ (พิสูจน์ 2026-07-09: runner โดน 429 ตั้งแต่ request แรก) best-effort เท่านั้น |
+`Google Trends Explore ใหม่ → Chrome extension ปกติ → incoming/ → ingest/audit → GitHub Pages`
+
+| ขั้น | เจ้าของงาน |
+|---|---|
+| สร้างคิว | Agent รัน `collector/make_jobs.py` |
+| ดาวน์โหลด CSV รายเดือน | extension v0.7.0 ใน Chrome profile ที่ลงชื่อเข้าใช้ Google แล้ว |
+| ขั้นที่ผู้ใช้ต้องทำ | ครั้งแรกติดตั้ง extension/ตั้ง Downloads; แต่ละรอบ Import `jobs.json` + Start; แก้ CAPTCHA เมื่อพบ |
+| ตรวจ/เข้าคลัง/publish | Agent รัน ingest dry-run/จริง, gates, stage allowlist และ push |
+
+เมื่อผู้ใช้สั่ง “อัพเดทข้อมูล” ให้ใช้เส้นทางนี้ทันที ห้ามแจกแจงหลายเครื่องมือให้ผู้ใช้เลือก Python browser runner, pytrends และ GitHub Actions เป็นทางทดลอง/สำรองสำหรับนักพัฒนาเท่านั้น และ **ห้ามใช้ publish** จนมีหลักฐาน monthly canonical smoke ของทางนั้น
+
+บนเครื่องใหม่ ให้ Agent รัน `powershell -ExecutionPolicy Bypass -File .\bootstrap-windows.ps1` ก่อน ข้อมูลถาวรอยู่ใน GitHub แต่ extension, download path, GitHub auth, `incoming/`, jobs และ queue state เป็นของเฉพาะเครื่อง
 
 ## โครง repo
 
@@ -22,7 +28,7 @@ description: Operate the Google Trends Toolkit - bulk-collect via the Chrome ext
 |---|---|
 | `keywords.csv` | คำค้นที่ใช้งาน 50 คำ (ID, คำ, Tier, Segment, Factor) แก้ไฟล์นี้เมื่อเพิ่ม/ถอดคำ |
 | `reference/keywords_tried.csv` | คำ 1,192 คำที่เคยลองทั้งหมด คอลัมน์ `best_stage` บอกว่าไปไกลสุดขั้นไหน เช็คที่นี่ก่อนเพิ่มคำใหม่เสมอ |
-| `extension/` | Chrome extension เก็บชุดใหญ่ (MV3, มีระบบคิว/retry/CAPTCHA) ติดตั้งครั้งเดียว ดู `extension/README.md` |
+| `extension/` | ตัวเก็บ production (MV3, มีระบบคิว/retry/CAPTCHA/Import jobs) ติดตั้งครั้งเดียว ดู `extension/README.md` |
 | `extension/data/jobs.json` + `jobs_index.json` | คิวงานของ extension สร้างโดย `make_jobs.py` (generated, ไม่ commit) |
 | `collector/make_jobs.py` | สร้างคิวงานจาก keywords.csv (`--all/--ids/--group/--geo/--start/--end`) |
 | `collector/browser_runner.py` | เปิด Playwright Chromium + extension, start/resume/status สำหรับ AI; ตรวจ download ด้วย ingest guard ก่อนเข้า incoming |
@@ -34,7 +40,7 @@ description: Operate the Google Trends Toolkit - bulk-collect via the Chrome ext
 | `data/catalog.json` | บันทึกการเก็บ (เมื่อไหร่ ช่วงไหน) ใช้เป็นกลไก resume |
 | `data.js` | ข้อมูลรวมของหน้าเว็บ สร้างอัตโนมัติ ห้ามแก้มือ |
 | `index.html` | หน้าแสดงผล (เปิด local ได้ หรือผ่าน GitHub Pages) |
-| `.github/workflows/update-data.yml` | อัพเดทอัตโนมัติรายเดือน (วันที่ 3) บน GitHub Actions |
+| `.github/workflows/experimental-pytrends.yml` | manual diagnostic สำหรับ pytrends; read-only และไม่ publish |
 | `.github/workflows/validate.yml` | ตรวจ tests + audit + deterministic build บน push/PR โดยไม่แก้ข้อมูล |
 
 พื้นที่: `TH` ประเทศไทย, `TH-30` นครราชสีมา, `TH-31` บุรีรัมย์, `TH-34` อุบลราชธานี, `TH-40` ขอนแก่น, `TH-41` อุดรธานี
@@ -53,12 +59,12 @@ description: Operate the Google Trends Toolkit - bulk-collect via the Chrome ext
 
 ## Workflow
 
-### A. เก็บชุดใหญ่ด้วย Chrome extension (เส้นทางหลัก)
+### A. Monthly update production
 
 1. `python collector/make_jobs.py --all` (หรือ `--ids FP014` / `--group FP` / `--geo TH`) สร้างคิวงาน
    default timeframe = 2004-01-01 ถึงวันนี้; extension เปิด `trends.google.co.th/explore?date=all` เพื่อรับรายเดือนแท้ (จังหวัดก่อน 2014 ถูกตัดตอน ingest)
-2. ให้ผู้ใช้ทำใน Chrome: `chrome://extensions` กด **Reload** ที่ตัว extension (คิวใหม่ถูกอ่านจากในแพ็คเกจ ไม่ Reload = เห็นคิวเก่า) > คลิกไอคอน > Open Controller > กด **Load Jobs (reset queue)** > **Start**
-   (ครั้งแรก: ติดตั้งแบบ Load unpacked + ตั้ง download folder เป็น `incoming/` ของ repo ดู `extension/README.md`; เมื่ออัพเดท v0.6.0 ให้ Reload และอนุญาต `trends.google.co.th` ถ้า Chrome ถาม)
+2. ให้ผู้ใช้ทำใน Chrome: คลิกไอคอน > Open Controller > **Import jobs.json** > เลือก `extension/data/jobs.json` > **Start**
+   (ครั้งแรก: ติดตั้งแบบ Load unpacked + ตั้ง Downloads เป็น `incoming/` + ปิด Ask where to save ดู `extension/README.md`; การอัพเกรดเป็น v0.7.0 ต้อง Reload ครั้งสุดท้ายหนึ่งครั้ง หลังจากนั้นไม่ต้อง Reload เมื่อคิวเปลี่ยน)
 3. ระหว่างรัน: หน้าต่าง Chrome ต้องอยู่หน้าสุด เจอ CAPTCHA = ผู้ใช้แก้ในแท็บที่เด้ง แล้วกด Resume
 4. คิวจบ ไฟล์ `<ID>__<GEO>.csv` จะอยู่ใน `incoming/`; คู่ NO_DATA ที่พบติดต่อกันอย่างน้อย 2 ครั้งจะมี `no_data_manifest__YYYY-MM-DD.json` อัตโนมัติ แล้วรัน:
    ```
@@ -74,7 +80,7 @@ description: Operate the Google Trends Toolkit - bulk-collect via the Chrome ext
 2. `python collector/ingest.py --dry-run` ดูการจับคู่ แล้วรันจริง
 3. ingest รู้จัก: export หน้า classic, export หน้าใหม่ `time_series_<GEO>_*.csv` (`Time,<keyword>`), `<ID>__<GEO>.csv`, `manual_<ID>.csv` และแปลง "<1" เป็น 0 ให้เอง
 
-### B2. ทดลอง Python browser runner (ยังไม่ใช่ release path)
+### B2. ทดลอง Python browser runner (ห้าม publish)
 
 ```
 pip install -r requirements.txt
@@ -86,25 +92,23 @@ python -X utf8 collector/browser_runner.py --status --json
 python -X utf8 collector/browser_runner.py --resume
 ```
 
-runner ใช้ persistent profile ใน `.browser-runner/`, เรียก extension v0.6.0, หยุดรอคนเมื่อเจอ CAPTCHA และบันทึกไฟล์เข้า `incoming/` เฉพาะเมื่อ parser + canonical coverage guard ของ `ingest.py` ผ่าน หลักฐาน 2026-07-15: หน้า classic/pytrends ได้ `Year` 23 จุด; หน้าใหม่ใน Chrome ปกติได้ `Time` รายเดือน 271 จุดและผ่าน guard หลังตัดเดือน partial แต่ profile แยกของ runner ยังจบด้วย `CHART_TIMEOUT`. ห้ามใช้ runner publish จน smoke ผ่าน; ใช้ extension ใน Chrome ปกติเป็น release path
+runner ใช้ persistent profile ใน `.browser-runner/` และบันทึกไฟล์เข้า `incoming/` เฉพาะเมื่อ parser + canonical guard ผ่าน หลักฐาน 2026-07-15: profile แยกที่ยังไม่ลงชื่อเข้าใช้ Google ถูก Explore ใหม่หยุดที่ auth gate; Chromium และ Chrome ให้ผลเหมือนกัน ส่วน classic/pytrends ได้ `Year` 23 จุด ห้าม fallback และห้ามใช้ runner publish จน authenticated-profile monthly smoke ผ่าน
 
-### C. อัพเดทงานเบาด้วย pytrends (1-5 คำ)
+### C. ทดลอง pytrends (diagnostic เท่านั้น ห้าม publish)
 
 ```
 pip install -r requirements.txt        (ครั้งแรกครั้งเดียว)
 python collector/collect.py --plan --ids FP014,FU014     ดูงานก่อน
 python collector/collect.py --ids FP014,FU014            เก็บจริง
 ```
-scope อื่น: `--group FP,FU` / `--all` / `--geo TH` ส่วน `--start` และ `--end` มีไว้แสดง canonical window เท่านั้น ค่าอื่นจะถูก guard ปฏิเสธ
-โดนเบรกกลางทาง: รันคำสั่งเดิมซ้ำ มันเก็บต่อจากที่ค้างเอง (ซีรีส์ที่สำเร็จวันนี้ถูกข้าม) งานเกิน ~20 ซีรีส์ควรเปลี่ยนไปใช้เส้นทาง A
+scope อื่น: `--group FP,FU` / `--all` / `--geo TH` ส่วน `--start` และ `--end` มีไว้แสดง canonical window เท่านั้น ค่าอื่นจะถูก guard ปฏิเสธ ผล full-window ที่ตรวจ 2026-07-15 เป็นรายปี จึงใช้เพื่อวินิจฉัยเท่านั้นและห้าม ingest/publish
 
-### D. อัตโนมัติรายเดือน (best-effort ห้ามพึ่งเป็นหลัก)
+### D. GitHub Actions diagnostic (ห้าม publish)
 
-- ตั้งไว้แล้ว: Actions รัน `--all` ทุกวันที่ 3 ของเดือน ผ่าน collector + `audit.py --strict --require-latest` แล้วจึง commit + อัพเดทหน้าเว็บ
-- สั่งรันทันที: แท็บ Actions > update-data > Run workflow (ช่อง args รับ scope เช่น `--ids`/`--geo` แต่รอบ publish รายเดือนควรใช้ `--all` เพราะ freshness gate ตรวจทุกซีรีส์; canonical window และ sleep floor ยังถูกบังคับ)
-- workflow เป็น fail-closed: collector ล้ม/complete-release audit/build check/tests ไม่ผ่าน/origin ขยับระหว่างรัน = ไม่ publish และ stage ได้เฉพาะ `data/series/*.csv`, `data/catalog.json`, `data.js`
+- ไม่มี schedule และไม่มี write permission; สั่งมือจาก Actions > experimental-pytrends-diagnostic เพื่อวินิจฉัยเท่านั้น
+- workflow รัน collector, structural audit, build check และ tests แต่ไม่ commit/push ไม่ว่าผลเป็นอย่างไร
 - `validate.yml` รัน tests + `audit.py --strict` + build `--check` ทุก push/PR แบบ read-only และไม่ใช้ freshness gate เพราะการตรวจโค้ดต้องแยกจากรอบ refresh
-- ข้อจำกัดที่พิสูจน์แล้ว (2026-07-09): Google บล็อก IP ของ GitHub runner โดน 429 ตั้งแต่ request แรก รอบที่ล้มจะไม่แตะไฟล์ใดๆ ถ้าผู้ใช้ต้องการอัตโนมัติแท้ ให้แนะนำ Task Scheduler บนเครื่องจริง (รัน collect.py หรือรอบ extension + git push รายเดือน) หรือ self-hosted runner
+- ข้อจำกัดที่พิสูจน์แล้ว (2026-07-09): Google บล็อก IP ของ GitHub runner โดน 429 ตั้งแต่ request แรก จึงห้ามนับ workflow นี้เป็น release path
 
 ### E. เพิ่มคำใหม่
 
@@ -143,12 +147,12 @@ scope อื่น: `--group FP,FU` / `--all` / `--geo TH` ส่วน `--start
 
 | อาการ | ทำยังไง |
 |---|---|
-| Extension: กด Load Jobs แล้วคิวไม่ตรงที่เพิ่ง generate | ลืม Reload extension ใน `chrome://extensions` (jobs.json อ่านจากในแพ็คเกจ) Reload แล้ว Load Jobs ใหม่ |
+| Extension: คิวไม่ตรงที่เพิ่ง generate | กด Import jobs.json แล้วเลือก `extension/data/jobs.json` ที่เพิ่งสร้างใหม่; Controller จะ validate วันที่/schema ก่อน reset queue |
 | Extension: คิวจบแต่ `incoming/` ว่าง | download folder ของ Chrome ไม่ได้ชี้ `incoming/` เช็ค `chrome://settings/downloads` แล้วกด Reconcile Downloads เพื่อ mark งานที่เสร็จ + ย้ายไฟล์ตามมา |
 | Extension: เจอ CAPTCHA | ปกติของงานชุดใหญ่ ผู้ใช้แก้ในแท็บที่เด้งขึ้น แล้วกด Resume ห้ามปิดหน้าต่าง |
 | Extension: job FAIL หลายตัว | กด Retry Failed/No Data ก่อน ถ้ายัง FAIL ซ้ำ เปิดดูคำนั้นในหน้า GT เองว่าคำเงียบจริงไหม |
 | Python runner: `BROWSER_RUNNER_INVALID_DOWNLOAD` | เปิด `.browser-runner/captured/` ตรวจชนิด export; ถ้า header เป็น `Year` ให้หยุด ห้ามแปลงหรือ ingest เพราะไม่ใช่ canonical monthly series |
-| Python runner: `CHART_TIMEOUT` บนหน้าใหม่ | profile แยกยังไม่ได้รับ/โหลด UI รุ่นใหม่ ใช้ extension v0.6.0 ใน Chrome ปกติ; ห้าม fallback กลับหน้า classic เพื่อ publish |
+| Python runner: `CHART_TIMEOUT`/หน้าให้ลงชื่อเข้าใช้ | Explore ใหม่ต้องใช้ authenticated profile; ใช้ extension v0.7.0 ใน Chrome ปกติ ห้าม fallback กลับหน้า classic เพื่อ publish |
 | 429 / TooManyRequests (pytrends) | สคริปต์ backoff เองแล้ว ถ้ามันหยุดทั้งรอบ = พัก 1 ชม. แล้วรันซ้ำ |
 | ไฟล์เข้า `incoming/review/` | อ่านเหตุผลที่พิมพ์ไว้ อย่าเดา ถ้าคำไม่อยู่ใน keywords.csv ให้ถามผู้ใช้ก่อนเพิ่ม |
 | กราฟเส้นกระโดดผิดปกติหลังอัพเดท | สงสัย scale คนละช่วง ให้ดึงคำนั้นใหม่ทั้งช่วงเต็มแล้วแทนที่ |
