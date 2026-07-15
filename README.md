@@ -40,6 +40,24 @@ python collector/ingest.py             # เข้าคลังจริง + 
 
 `ingest.py --since` ถูกปิดใช้งานโดยตั้งใจ เพราะการตัดข้อมูลเก่าแล้วนำช่วงสั้นไปทับซีรีส์เดิมจะทำลาย canonical long-horizon archive ต้อง export ใหม่ทั้งช่วง `2004-01-01` ถึงวันนี้แล้ว ingest โดยไม่ใส่ `--since` เท่านั้น
 
+#### Python browser runner สำหรับ AI (experimental)
+
+`collector/browser_runner.py` เปิด persistent Playwright Chromium พร้อม extension ตัวเดิม ทำให้ AI คุม queue จาก terminal ได้โดยไม่ต้องพอร์ต retry/CAPTCHA/no-data logic ซ้ำ:
+
+```
+pip install -r requirements.txt
+python -m playwright install chromium               # ครั้งแรกครั้งเดียว
+python collector/make_jobs.py --all
+python -X utf8 collector/browser_runner.py --plan --json
+python -X utf8 collector/browser_runner.py --start
+python -X utf8 collector/browser_runner.py --status --json   # เรียกจากอีก terminal ได้
+python -X utf8 collector/browser_runner.py --resume
+```
+
+runner เก็บ browser profile/status/download ชั่วคราวใน `.browser-runner/` (gitignored), หยุดรอคนเมื่อเจอ CAPTCHA และใช้ parser + canonical coverage guard ชุดเดียวกับ `ingest.py` ตรวจไฟล์ก่อนวางใน `incoming/` เสมอ Playwright เก็บชื่อ download ภายในเป็น GUID จึงมี acknowledgment bridge ที่ extension ยอมรับเฉพาะ filename/job/time ที่ตรงกันและไฟล์ที่ผ่าน guard แล้วเท่านั้น
+
+**ข้อจำกัดที่ยืนยัน 2026-07-15:** smoke test ของ Playwright และ pytrends สำหรับช่วง `2004-01-01` ถึงปัจจุบันได้รับ export หัวตาราง `Year` (23 จุด) ไม่ใช่รายเดือน runner จึง fail-closed ด้วย `BROWSER_RUNNER_INVALID_DOWNLOAD` และไม่เขียนเข้า `incoming/` ห้ามใช้ runner นี้ publish รอบข้อมูลจน Google กลับมาส่ง canonical monthly export หรือมีการเปลี่ยน methodology ที่อนุมัติแยกต่างหาก
+
 ### ทางที่ 2: ดึงเองผ่าน pytrends (งานเบา ไม่กี่คำ)
 
 ติดตั้งครั้งแรก: `pip install -r requirements.txt` (Python 3.9+)

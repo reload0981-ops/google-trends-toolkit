@@ -46,8 +46,15 @@ class ExtensionReleaseSafetyTests(unittest.TestCase):
 
     def test_manifest_version_matches_release_behavior(self):
         manifest = json.loads((EXTENSION / "manifest.json").read_text(encoding="utf-8"))
-        self.assertEqual(manifest["version"], "0.4.0")
+        self.assertEqual(manifest["version"], "0.5.0")
         self.assertIn("downloads", manifest["permissions"])
+
+    def test_python_download_bridge_is_fail_closed(self):
+        self.assertIn("BROWSER_RUNNER_MODE_KEY", self.controller)
+        self.assertIn("BROWSER_RUNNER_DOWNLOAD_ACK_KEY", self.controller)
+        self.assertIn("ack.filename === job.filename", self.controller)
+        self.assertIn('ack.status === "valid"', self.controller)
+        self.assertIn('ack.status === "invalid"', self.controller)
 
 
 if __name__ == "__main__":

@@ -7,11 +7,12 @@ description: Operate the Google Trends Toolkit - bulk-collect via the Chrome ext
 
 คุณคือผู้ดูแลชุดข้อมูล Google Trends ของคำค้นตลาดแรงงานภาคอีสาน หน้าที่: อัพเดทข้อมูล ตรวจสุขภาพข้อมูล และเผยแพร่ อย่างปลอดภัยตามกติกาในไฟล์นี้ ถ้าคุณรันคำสั่งเองไม่ได้ ให้บอกคำสั่งทีละขั้นแล้วขอผลลัพธ์กลับมาตรวจ
 
-## เครื่องเก็บข้อมูล 3 ตัว เลือกตามงาน
+## เครื่องเก็บข้อมูล 4 ตัว เลือกตามงาน
 
 | เครื่อง | ใช้เมื่อ | ความพึ่งได้ |
 |---|---|---|
 | **Chrome extension** (`extension/` + `make_jobs.py`) | เก็บชุดใหญ่ อัพเดทรอบเดือน หรือหลายสิบซีรีส์ขึ้นไป | สูงสุด: browser จริง IP คน ผ่านด่าน Google ได้ พิสูจน์แล้ว 300+ jobs |
+| **Python browser runner** (`browser_runner.py`) | ให้ AI คุม extension จาก terminal / ทดลอง automation บนเครื่องจริง | Experimental: orchestration ผ่านแล้ว แต่ 2026-07-15 Google ส่ง full-window เป็นรายปี จึงถูก guard ปฏิเสธและยัง publish ไม่ได้ |
 | **pytrends** (`collect.py`) | งานเบา อัพเดท 1-5 คำ | ปานกลาง: โดน 429 ได้ แต่มี backoff + resume |
 | **GitHub Actions** (`update-data.yml`) | โบนัสรายเดือน ตั้งทิ้งไว้ | ต่ำ (พิสูจน์ 2026-07-09: runner โดน 429 ตั้งแต่ request แรก) best-effort เท่านั้น |
 
@@ -24,6 +25,7 @@ description: Operate the Google Trends Toolkit - bulk-collect via the Chrome ext
 | `extension/` | Chrome extension เก็บชุดใหญ่ (MV3, มีระบบคิว/retry/CAPTCHA) ติดตั้งครั้งเดียว ดู `extension/README.md` |
 | `extension/data/jobs.json` + `jobs_index.json` | คิวงานของ extension สร้างโดย `make_jobs.py` (generated, ไม่ commit) |
 | `collector/make_jobs.py` | สร้างคิวงานจาก keywords.csv (`--all/--ids/--group/--geo/--start/--end`) |
+| `collector/browser_runner.py` | เปิด Playwright Chromium + extension, start/resume/status สำหรับ AI; ตรวจ download ด้วย ingest guard ก่อนเข้า incoming |
 | `collector/ingest.py` | ตรวจ CSV/no-data manifest จาก `incoming/` แล้วเข้าคลัง (Python มาตรฐาน) |
 | `collector/collect.py` | ดึงเองผ่าน pytrends (ต้อง `pip install -r requirements.txt`) |
 | `collector/audit.py` | ตรวจ coverage, โครงสร้าง, signal quality และ freshness; ไม่แก้ข้อมูล |
@@ -71,6 +73,20 @@ description: Operate the Google Trends Toolkit - bulk-collect via the Chrome ext
    เงื่อนไข: ช่วงเวลา = ยาวสุด 2004-01-01 ถึงปัจจุบัน (นโยบายข้อมูลหลัก) และเลือกพื้นที่ให้ตรง
 2. `python collector/ingest.py --dry-run` ดูการจับคู่ แล้วรันจริง
 3. ingest รู้จัก: export หน้าเว็บ GT (ไทย/อังกฤษ รายเดือน/รายสัปดาห์), `<ID>__<GEO>.csv`, `manual_<ID>.csv` และแปลง "<1" เป็น 0 ให้เอง
+
+### B2. ทดลอง Python browser runner (ยังไม่ใช่ release path)
+
+```
+pip install -r requirements.txt
+python -m playwright install chromium
+python collector/make_jobs.py --ids FP014 --geo TH
+python -X utf8 collector/browser_runner.py --plan --json
+python -X utf8 collector/browser_runner.py --start
+python -X utf8 collector/browser_runner.py --status --json
+python -X utf8 collector/browser_runner.py --resume
+```
+
+runner ใช้ persistent profile ใน `.browser-runner/`, เรียก extension v0.5.0 ตัวเดิม, หยุดรอคนเมื่อเจอ CAPTCHA และบันทึกไฟล์เข้า `incoming/` เฉพาะเมื่อ parser + canonical coverage guard ของ `ingest.py` ผ่าน ข้อจำกัดที่พิสูจน์ 2026-07-15: Playwright และ pytrends ได้ full-window export เป็น `Year` 23 จุดแทนรายเดือน จึงจบด้วย `BROWSER_RUNNER_INVALID_DOWNLOAD` โดยไม่แตะ archive; ห้ามหลบ guard/แปลงรายปีเป็นรายเดือน/ใช้ publish จน upstream หรือ methodology เปลี่ยนอย่างมีหลักฐาน
 
 ### C. อัพเดทงานเบาด้วย pytrends (1-5 คำ)
 
@@ -131,6 +147,7 @@ scope อื่น: `--group FP,FU` / `--all` / `--geo TH` ส่วน `--start
 | Extension: คิวจบแต่ `incoming/` ว่าง | download folder ของ Chrome ไม่ได้ชี้ `incoming/` เช็ค `chrome://settings/downloads` แล้วกด Reconcile Downloads เพื่อ mark งานที่เสร็จ + ย้ายไฟล์ตามมา |
 | Extension: เจอ CAPTCHA | ปกติของงานชุดใหญ่ ผู้ใช้แก้ในแท็บที่เด้งขึ้น แล้วกด Resume ห้ามปิดหน้าต่าง |
 | Extension: job FAIL หลายตัว | กด Retry Failed/No Data ก่อน ถ้ายัง FAIL ซ้ำ เปิดดูคำนั้นในหน้า GT เองว่าคำเงียบจริงไหม |
+| Python runner: `BROWSER_RUNNER_INVALID_DOWNLOAD` | เปิด `.browser-runner/captured/` ตรวจชนิด export; ถ้า header เป็น `Year` ให้หยุด ห้ามแปลงหรือ ingest เพราะไม่ใช่ canonical monthly series |
 | 429 / TooManyRequests (pytrends) | สคริปต์ backoff เองแล้ว ถ้ามันหยุดทั้งรอบ = พัก 1 ชม. แล้วรันซ้ำ |
 | ไฟล์เข้า `incoming/review/` | อ่านเหตุผลที่พิมพ์ไว้ อย่าเดา ถ้าคำไม่อยู่ใน keywords.csv ให้ถามผู้ใช้ก่อนเพิ่ม |
 | กราฟเส้นกระโดดผิดปกติหลังอัพเดท | สงสัย scale คนละช่วง ให้ดึงคำนั้นใหม่ทั้งช่วงเต็มแล้วแทนที่ |
