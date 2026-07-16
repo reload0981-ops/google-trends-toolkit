@@ -116,16 +116,19 @@ def main():
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(jobs, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    # index สำหรับ dropdown "Jobs source" ในหน้า controller
-    scope_label = args.ids or args.group or "all"
-    index = [{
-        "file": "data/jobs.json",
-        "label": f"{scope_label} ({len(jobs)} jobs)",
-        "mode": "timeseries",
-        "description": f"สร้างเมื่อ {date.today()} | {len(geos)} พื้นที่ x {len(rows)} คำ | {timeframe}",
-    }]
-    (out.parent / "jobs_index.json").write_text(
-        json.dumps(index, ensure_ascii=False, indent=2), encoding="utf-8")
+    # Only the canonical jobs.json belongs in Controller's bundled dropdown.
+    # Custom outputs (for example jobs_smoke.json) are import-only and must not
+    # relabel or replace the canonical jobs_index.json next to them.
+    if out.resolve() == OUT.resolve():
+        scope_label = args.ids or args.group or "all"
+        index = [{
+            "file": "data/jobs.json",
+            "label": f"{scope_label} ({len(jobs)} jobs)",
+            "mode": "timeseries",
+            "description": f"สร้างเมื่อ {date.today()} | {len(geos)} พื้นที่ x {len(rows)} คำ | {timeframe}",
+        }]
+        (out.parent / "jobs_index.json").write_text(
+            json.dumps(index, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(f"เขียน {out} : {len(jobs)} jobs ({len(geos)} พื้นที่ x {len(rows)} คำ) timeframe: {timeframe}")
     print("ขั้นถัดไป: เปิด extension Controller > กด 'Import jobs.json' >")

@@ -73,6 +73,33 @@ class CanonicalWindowPolicyTests(unittest.TestCase):
                 canonical_end="2026-07-13",
             )
 
+    def test_custom_jobs_output_does_not_create_a_misleading_index(self):
+        with tempfile.TemporaryDirectory() as tempdir:
+            output = Path(tempdir) / "jobs_smoke.json"
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "-X",
+                    "utf8",
+                    "collector/make_jobs.py",
+                    "--ids",
+                    "FP014",
+                    "--geo",
+                    "TH",
+                    "--out",
+                    str(output),
+                ],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                check=False,
+            )
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(len(json.loads(output.read_text(encoding="utf-8"))), 1)
+            self.assertFalse((output.parent / "jobs_index.json").exists())
+
     def test_ingest_since_is_a_hard_error_before_file_processing(self):
         result = subprocess.run(
             [
