@@ -16,6 +16,7 @@ const CHART_SELECTORS_TIMESERIES = [
 ];
 
 const CSV_SELECTORS_TIMESERIES = [
+  'button[aria-label="ดาวน์โหลด CSV ความสนใจในช่วงเวลาที่ผ่านมา"]',
   'button[aria-label*="ดาวน์โหลด CSV"]',
   'widget[type="fe_line_chart"] button.widget-actions-item.export',
   'widget[type="fe_line_chart"] [aria-label*="CSV"]',
@@ -214,22 +215,40 @@ function isClickableCandidate(el) {
   return r.width > 0 && r.height > 0;
 }
 
-function findCSVButton() {
-  for (const sel of CSV_SELECTORS) {
-    const el = document.querySelector(sel);
-    if (el && isClickableCandidate(el)) return el;
-  }
-  const candidates = Array.from(document.querySelectorAll('button,[role="button"],a'));
-  for (const el of candidates) {
-    const label = [
-      el.getAttribute("aria-label") || "",
-      el.getAttribute("title") || "",
-      el.textContent || "",
-      el.className || ""
-    ].join(" ").toLowerCase();
-    if (isClickableCandidate(el) && (label.includes("csv") || label.includes("download") || label.includes("export"))) {
-      return el;
+function findCSVButton(chartEl) {
+  // Google Trends' responsive UI can hide the time-series export while leaving
+  // unrelated download buttons visible. Search only inside the smallest chart
+  // ancestor that contains one unambiguous download control; never fall back to
+  // the first download button on the whole page.
+  let scope = chartEl;
+  while (scope && scope !== document.body) {
+    const seen = new Set();
+    const candidates = [];
+    const addCandidate = el => {
+      if (!seen.has(el) && isClickableCandidate(el)) {
+        seen.add(el);
+        candidates.push(el);
+      }
+    };
+
+    for (const sel of CSV_SELECTORS) {
+      for (const el of scope.querySelectorAll(sel)) addCandidate(el);
     }
+    for (const el of scope.querySelectorAll('button,[role="button"],a')) {
+      const label = [
+        el.getAttribute("aria-label") || "",
+        el.getAttribute("title") || "",
+        el.textContent || "",
+        el.className || ""
+      ].join(" ").toLowerCase();
+      if (label.includes("csv") || label.includes("download") || label.includes("export")) {
+        addCandidate(el);
+      }
+    }
+
+    if (candidates.length === 1) return candidates[0];
+    if (candidates.length > 1) return null;
+    scope = scope.parentElement;
   }
   return null;
 }
@@ -343,12 +362,12 @@ async function runJob(job) {
   const midBlock = detectBlock();
   if (midBlock) return { result: "BLOCKED", reason: midBlock };
 
-  let btn = findCSVButton();
+  let btn = findCSVButton(chart);
   if (!btn) {
     // Try once more after a small wait โ€” action bar may render late
     await revealWidgetActions(chart);
     await sleep(2500);
-    btn = findCSVButton();
+    btn = findCSVButton(chart);
   }
   if (!btn) {
     const novol = detectNoVolume();

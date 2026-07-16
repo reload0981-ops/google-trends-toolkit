@@ -49,7 +49,7 @@ class ExtensionReleaseSafetyTests(unittest.TestCase):
 
     def test_manifest_version_matches_release_behavior(self):
         manifest = json.loads((EXTENSION / "manifest.json").read_text(encoding="utf-8"))
-        self.assertEqual(manifest["version"], "0.7.0")
+        self.assertEqual(manifest["version"], "0.7.1")
         self.assertIn("downloads", manifest["permissions"])
 
     def test_new_trends_ui_is_the_primary_monthly_export_path(self):
@@ -59,9 +59,39 @@ class ExtensionReleaseSafetyTests(unittest.TestCase):
         self.assertIn("https://trends.google.co.th/explore*", matches)
         self.assertIn("https://trends.google.co.th/explore?", self.controller)
         self.assertIn('"date=all"', self.controller)
-        self.assertIn('button[aria-label*="ดาวน์โหลด CSV"]', self.content)
+        self.assertIn('button[aria-label="ดาวน์โหลด CSV ความสนใจในช่วงเวลาที่ผ่านมา"]', self.content)
         self.assertIn('svg[role~="graphics-document"]', self.content)
-        self.assertIn('fn.includes("time_series_")', self.background)
+        self.assertIn("looksLikeExpectedTimeseriesDownload", self.background)
+
+    def test_timeseries_button_lookup_is_chart_scoped_and_fail_closed(self):
+        self.assertIn("function findCSVButton(chartEl)", self.content)
+        self.assertIn("scope.querySelectorAll(sel)", self.content)
+        self.assertIn("const seen = new Set()", self.content)
+        self.assertIn("if (candidates.length === 1)", self.content)
+        self.assertIn("if (candidates.length > 1) return null", self.content)
+        self.assertEqual(self.content.count("findCSVButton(chart)"), 2)
+        self.assertNotIn(
+            "Array.from(document.querySelectorAll('button,[role=\"button\"],a'))",
+            self.content,
+        )
+        self.assertIn('state: "maximized"', self.controller)
+
+    def test_background_renames_only_expected_timeseries_geo(self):
+        self.assertIn(
+            "const TOOLKIT_FILENAME = /^[A-Z]{2}\\d{3}__(TH(?:-\\d{2})?)\\.csv$/",
+            self.background,
+        )
+        self.assertIn("function looksLikeExpectedTimeseriesDownload", self.background)
+        self.assertIn("const next = pendingFilenames[0]", self.background)
+        self.assertLess(
+            self.background.index("looksLikeExpectedTimeseriesDownload(item, next)"),
+            self.background.index("pendingFilenames.shift()"),
+        )
+        self.assertNotIn('url.includes("trends.google.com")', self.background)
+        self.assertNotIn('fn.includes("multitimeline")', self.background)
+        self.assertNotIn('fn.includes("geomap")', self.background)
+        self.assertIn("startedAfter: jobStartIso", self.controller)
+        self.assertIn('reason: "NO_DOWNLOAD_FOUND"', self.controller)
 
     def test_python_download_bridge_is_fail_closed(self):
         self.assertIn("BROWSER_RUNNER_MODE_KEY", self.controller)

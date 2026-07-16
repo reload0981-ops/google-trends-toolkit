@@ -16,7 +16,7 @@
 4. กด Load unpacked แล้วเลือกโฟลเดอร์ `extension/` นี้
 5. Pin extension ไว้ที่ toolbar
 
-ถ้าอัพเดทจากรุ่นก่อนเป็น v0.7.0 ให้กด Reload และอนุญาต host `trends.google.co.th` ถ้า Chrome แสดงคำขอสิทธิ์ ตั้งแต่รุ่นนี้ Controller import `jobs.json` ได้ จึงไม่ต้อง Reload extension เมื่อสร้างคิวใหม่ในรอบถัดไป
+ถ้าอัพเดทจากรุ่นก่อนเป็น v0.7.1 ให้กด Reload หนึ่งครั้ง และอนุญาต host `trends.google.co.th` ถ้า Chrome แสดงคำขอสิทธิ์ ตั้งแต่ v0.7.0 Controller import `jobs.json` ได้ จึงไม่ต้อง Reload extension เมื่อสร้างคิวใหม่ในรอบถัดไป
 
 ## รอบการเก็บ
 
@@ -65,5 +65,6 @@
 - v0.5.0 เพิ่ม fail-closed acknowledgment bridge สำหรับ `collector/browser_runner.py`: extension จะยอมรับ download ชื่อ GUID ของ Playwright เฉพาะเมื่อ Python จับคู่กับ RUNNING job ได้หนึ่งตัวและไฟล์ผ่าน parser + canonical coverage guard ของ `ingest.py` แล้ว
 - v0.6.0 เปลี่ยนไปใช้ `trends.google.co.th/explore?date=all`, รองรับ chart/download selector และชื่อไฟล์ `time_series_<GEO>_*.csv` ของหน้าใหม่ หน้าใหม่นี้ส่ง full-history รายเดือนใน Chrome ปกติ; หน้า classic/pytrends ยังส่ง `Year`
 - v0.7.0 เพิ่ม Import `jobs.json` พร้อม validate canonical timeframe/schema ใน Controller เพื่อตัดขั้นตอน Reload extension ออกจากรอบปกติ
+- v0.7.1 เปิดหน้าต่าง scraper แบบ maximized, เลือกปุ่มดาวน์โหลดเฉพาะใน time-series widget และ rename เฉพาะไฟล์ `time_series_<GEO>_*.csv` ที่ตรงกับ job เพื่อไม่ให้ CSV ของ Top searches ถูกนับเป็นงานสำเร็จ
 - ข้อจำกัดที่พบ 2026-07-15: profile แยกของ Python runner ติด auth gate ของ Explore ใหม่หากยังไม่ลงชื่อเข้าใช้ Google จึงยังใช้ publish ไม่ได้ ให้รัน extension ใน Chrome profile ปกติที่ลงชื่อเข้าใช้แล้วเป็นเส้นทางหลัก
 - `data/jobs.json` และ `data/jobs_index.json` เป็นไฟล์ generate จาก `make_jobs.py` ไม่ commit เข้า git

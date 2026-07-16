@@ -14,7 +14,7 @@ const SUBFOLDER = "";
 // replacing it on PREPARE_DOWNLOAD prevents a failed/late attempt from renaming the
 // next job with a stale filename. Backed by session storage for worker restarts.
 let pendingFilenames = [];
-const TOOLKIT_FILENAME = /^[A-Z]{2}\d{3}__TH(?:-\d{2})?\.csv$/;
+const TOOLKIT_FILENAME = /^[A-Z]{2}\d{3}__(TH(?:-\d{2})?)\.csv$/;
 
 async function loadQueue() {
   const { pending_filenames = [] } = await chrome.storage.session.get("pending_filenames");
@@ -27,19 +27,18 @@ async function saveQueue() {
   await chrome.storage.session.set({ pending_filenames: pendingFilenames });
 }
 
-function looksLikeTrendsDownload(item) {
-  const url = (item.url || "").toLowerCase();
-  const referrer = (item.referrer || "").toLowerCase();
-  const fn = (item.filename || "").toLowerCase();
-  return (
-    url.includes("trends.google.com") ||
-    referrer.includes("trends.google.com") ||
-    url.includes("trends.google.co.th") ||
-    referrer.includes("trends.google.co.th") ||
-    fn.includes("multitimeline") ||
-    fn.includes("time_series_") ||
-    fn.includes("geomap")
-  );
+function basename(path) {
+  return String(path || "").split(/[\\/]/).pop().toLowerCase();
+}
+
+function looksLikeExpectedTimeseriesDownload(item, expectedFilename) {
+  const expected = TOOLKIT_FILENAME.exec(expectedFilename || "");
+  if (!expected) return false;
+  const geo = expected[1].toLowerCase();
+  const raw = basename(item && item.filename);
+  const prefix = `time_series_${geo}_`;
+  return raw.startsWith(prefix) &&
+    /^\d{8}-\d{4}_\d{8}-\d{4}(?: \(\d+\))?\.csv$/.test(raw.slice(prefix.length));
 }
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
@@ -71,17 +70,18 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 chrome.downloads.onDeterminingFilename.addListener((item, suggest) => {
   (async () => {
     await loadQueue();
-    if (!looksLikeTrendsDownload(item)) {
-      console.log("[bg] download not from trends, leaving filename:", item.filename);
-      suggest();
-      return;
-    }
     if (pendingFilenames.length === 0) {
       console.warn("[bg] trends download but queue empty — leaving filename:", item.filename);
       suggest();
       return;
     }
-    const next = pendingFilenames.shift();
+    const next = pendingFilenames[0];
+    if (!looksLikeExpectedTimeseriesDownload(item, next)) {
+      console.warn("[bg] download does not match expected time-series geo — leaving filename:", item.filename);
+      suggest();
+      return;
+    }
+    pendingFilenames.shift();
     await saveQueue();
     const final = SUBFOLDER ? `${SUBFOLDER}/${next}` : next;
     console.log("[bg] renaming download →", final);

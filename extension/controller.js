@@ -382,12 +382,8 @@ async function ensureScraperWindow() {
   const win = await chrome.windows.create({
     url: "about:blank",
     focused: true,
-    state: "normal",
-    type: "normal",
-    width: 980,
-    height: 760,
-    left: 60,
-    top: 60
+    state: "maximized",
+    type: "normal"
   });
   state.scraper_window_id = win.id;
   await saveState();
@@ -397,7 +393,7 @@ async function ensureScraperWindow() {
 
 async function focusScraperWindow(winId, reason = "") {
   try {
-    await chrome.windows.update(winId, { focused: true, state: "normal" });
+    await chrome.windows.update(winId, { focused: true, state: "maximized" });
     await sleep(500);
   } catch (e) {
     log(`Could not focus scraper window${reason ? " (" + reason + ")" : ""}: ${e.message || e}`, "warn");

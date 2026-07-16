@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Google Trends Toolkit Scraper",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Bulk-downloads Google Trends CSVs for the Google Trends Toolkit (files named <ID>__<GEO>.csv, ready for collector/ingest.py).",
   "permissions": [
     "tabs",

@@ -42,7 +42,7 @@ python collector/ingest.py --dry-run
 python collector/ingest.py
 ```
 
-ตั้งแต่ v0.6.0 extension ใช้หน้า Explore รุ่นใหม่ที่ `trends.google.co.th/explore?date=all` ซึ่งยืนยันแล้วว่า full history ส่งข้อมูลรายเดือน (`Time,<keyword>`) ใน Chrome ปกติของผู้ใช้ ตั้งแต่ v0.7.0 Controller import queue จากไฟล์ได้ จึงไม่ต้อง Reload extension ทุกครั้งที่สร้างคิวใหม่; การอัพเกรด extension เป็น v0.7.0 ยังต้อง Reload ครั้งสุดท้ายหนึ่งครั้ง
+ตั้งแต่ v0.6.0 extension ใช้หน้า Explore รุ่นใหม่ที่ `trends.google.co.th/explore?date=all` ซึ่งยืนยันแล้วว่า full history ส่งข้อมูลรายเดือน (`Time,<keyword>`) ใน Chrome ปกติของผู้ใช้ ตั้งแต่ v0.7.0 Controller import queue จากไฟล์ได้ จึงไม่ต้อง Reload extension ทุกครั้งที่สร้างคิวใหม่ ส่วน v0.7.1 บังคับหน้าต่าง scraper ให้กว้างพอสำหรับปุ่ม time series และปฏิเสธ CSV จาก widget อื่นแบบ fail closed; การอัพเกรดเป็น v0.7.1 ต้อง Reload ครั้งเดียว
 
 ถ้าคู่คำค้น × พื้นที่ใดไม่มีข้อมูล Controller จะลองยืนยัน **no-data ติดต่อกันอย่างน้อย 2 ครั้ง** แล้วดาวน์โหลด `no_data_manifest__YYYY-MM-DD.json` เข้า `incoming/` อัตโนมัติ; `ingest.py` จะตรวจ manifest ก่อนบันทึกสถานะ โดยไม่ยอมเปลี่ยนคู่ที่มี CSV เดิมให้เป็น no-data
 
