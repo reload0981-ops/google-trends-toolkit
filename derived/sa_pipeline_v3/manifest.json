@@ -27,14 +27,15 @@
     }
   },
   "implementation": {
-    "digest_sha256": "9b693cd486eec1a8f992df7db14f298c05a37277f5eedbd37be3adb30eb77e40",
+    "digest_sha256": "a8883da32e53f1eb3ea9af6844fe77297c4c4201b5b6a9fd957e562fb8e0fe94",
     "files": [
       "analysis/core.py",
       "analysis/pipeline.py",
       "analysis/x13.py",
       "analysis/build.py",
       "requirements-analysis.txt"
-    ]
+    ],
+    "hash_normalization": "CRLF->LF"
   },
   "method": {
     "all_zero": "preserve as zero and mark NO_SIGNAL",
@@ -54,9 +55,10 @@
   },
   "schema_version": "sa-pipeline-v3-portable-1",
   "source": {
-    "digest_sha256": "ef75036e6715770b825b8c272e8a00da8a2c30bae872947971d24a96fc302958",
+    "digest_sha256": "9a18ca82c271666aca11d30c55ffbe2fc926d977d68ae2b02724d616ddce444f",
     "files": 301,
-    "keywords_sha256": "d28ebf01e64aaf527900b354a1b29426df48b2230af060128d701789e3670bb9"
+    "hash_normalization": "CRLF->LF",
+    "keywords_sha256": "be2a5074b864534c5f29369f80eb995b1019f63fba058f1f83f02c08d83e04fd"
   },
   "windows": {
     "REG_ISAN5": {

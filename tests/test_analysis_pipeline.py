@@ -9,7 +9,7 @@ from unittest.mock import patch
 ANALYSIS_IMPORT_ERROR = None
 try:
     import pandas as pd
-    from analysis.build import audit_outputs, build, main
+    from analysis.build import audit_outputs, build, canonical_text_sha256, main
     from analysis.core import PipelineError
     from analysis.pipeline import (
         build_pre_sa_for_case,
@@ -246,6 +246,15 @@ class SeasonalAdjustmentTests(unittest.TestCase):
 
 @unittest.skipIf(ANALYSIS_IMPORT_ERROR, "optional analytical dependencies are not installed")
 class DerivedOutputAuditTests(unittest.TestCase):
+    def test_source_hash_is_cross_platform_for_crlf_and_lf(self):
+        with tempfile.TemporaryDirectory() as temp_name:
+            lf = Path(temp_name) / "lf.csv"
+            crlf = Path(temp_name) / "crlf.csv"
+            lf.write_bytes(b"Month,Value\n2024-01,1\n")
+            crlf.write_bytes(b"Month,Value\r\n2024-01,1\r\n")
+
+            self.assertEqual(canonical_text_sha256(lf), canonical_text_sha256(crlf))
+
     def test_tracked_derived_outputs_pass_full_audit(self):
         result = audit_outputs(ROOT)
 

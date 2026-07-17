@@ -53,6 +53,14 @@ METHOD_CONTRACT = {
     "missing_support": "fail; never pad missing months or geographies",
     "fallback": "stl",
 }
+HASH_NORMALIZATION = "CRLF->LF"
+
+
+def canonical_text_sha256(path: Path) -> str:
+    """Hash text as Git stores it so Windows and Linux produce one digest."""
+
+    content = path.read_bytes().replace(b"\r\n", b"\n")
+    return hashlib.sha256(content).hexdigest()
 
 
 def source_digest(root: Path, cases: Sequence[Case]) -> tuple[str, list[Path]]:
@@ -69,7 +77,7 @@ def source_digest(root: Path, cases: Sequence[Case]) -> tuple[str, list[Path]]:
     for path in files:
         digest.update(path.relative_to(root).as_posix().encode("utf-8"))
         digest.update(b"\0")
-        digest.update(sha256(path).encode("ascii"))
+        digest.update(canonical_text_sha256(path).encode("ascii"))
         digest.update(b"\n")
     return digest.hexdigest(), files
 
@@ -82,7 +90,7 @@ def implementation_digest(root: Path) -> str:
             raise PipelineError(f"missing analytical implementation file: {relative}")
         digest.update(relative.encode("utf-8"))
         digest.update(b"\0")
-        digest.update(sha256(path).encode("ascii"))
+        digest.update(canonical_text_sha256(path).encode("ascii"))
         digest.update(b"\n")
     return digest.hexdigest()
 
@@ -130,11 +138,13 @@ def prepare_output(
         "counts": metadata["counts"],
         "source": {
             "digest_sha256": digest,
-            "keywords_sha256": sha256(root / "keywords.csv"),
+            "hash_normalization": HASH_NORMALIZATION,
+            "keywords_sha256": canonical_text_sha256(root / "keywords.csv"),
             "files": len(source_files),
         },
         "implementation": {
             "digest_sha256": implementation_digest(root),
+            "hash_normalization": HASH_NORMALIZATION,
             "files": list(IMPLEMENTATION_FILES),
         },
         "runtime": {
@@ -250,13 +260,17 @@ def audit_outputs(root: Path = ROOT, output_dir: Path | None = None) -> dict[str
     digest, source_files = source_digest(root, cases)
     if manifest.get("source", {}).get("digest_sha256") != digest:
         errors.append("source digest is stale")
-    if manifest.get("source", {}).get("keywords_sha256") != sha256(root / "keywords.csv"):
+    if manifest.get("source", {}).get("hash_normalization") != HASH_NORMALIZATION:
+        errors.append("manifest source hash normalization is incorrect")
+    if manifest.get("source", {}).get("keywords_sha256") != canonical_text_sha256(root / "keywords.csv"):
         errors.append("manifest keywords hash is stale")
     if manifest.get("source", {}).get("files") != len(source_files):
         errors.append("manifest source file count is incorrect")
     code_digest = implementation_digest(root)
     if manifest.get("implementation", {}).get("digest_sha256") != code_digest:
         errors.append("analytical implementation digest is stale")
+    if manifest.get("implementation", {}).get("hash_normalization") != HASH_NORMALIZATION:
+        errors.append("manifest implementation hash normalization is incorrect")
     if manifest.get("implementation", {}).get("files") != list(IMPLEMENTATION_FILES):
         errors.append("manifest implementation file list is incorrect")
     if set(manifest.get("files", {})) != set(OUTPUT_FILES[:-1]):
