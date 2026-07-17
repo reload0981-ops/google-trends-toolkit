@@ -7,3 +7,4 @@ extension/data/*
 !extension/data/.gitkeep
 .browser-runner/
 .venv/
+.tools/

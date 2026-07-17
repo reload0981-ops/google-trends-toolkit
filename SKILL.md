@@ -1,6 +1,6 @@
 ---
 name: google-trends-toolkit
-description: Operate the Google Trends Toolkit - bulk-collect via the Chrome extension queue, ingest CSV downloads, run the pytrends collector for light updates, add/check keywords, verify data health, and publish to GitHub Pages. Trigger when the user asks to update data, run the scraper extension, ingest downloaded CSVs, add a keyword, check the dashboard, or troubleshoot collection (429/rate limit/CAPTCHA) in this repository.
+description: Operate the Google Trends Toolkit - collect canonical monthly CSVs through the Chrome extension, ingest and audit raw data, build the portable T1/T2 X-13/STL rebase and centered-MA3 analytical dataset, add/check keywords, and publish verified outputs. Trigger when the user asks to update data, run the extension, ingest CSVs, rebuild SA/T2/Rebase/MA3, add a keyword, check data health, move to another machine, or troubleshoot this repository.
 ---
 
 # Google Trends Toolkit - คู่มือปฏิบัติงานสำหรับ AI
@@ -20,7 +20,7 @@ description: Operate the Google Trends Toolkit - bulk-collect via the Chrome ext
 
 เมื่อผู้ใช้สั่ง “อัพเดทข้อมูล” ให้ใช้เส้นทางนี้ทันที ห้ามแจกแจงหลายเครื่องมือให้ผู้ใช้เลือก Python browser runner, pytrends และ GitHub Actions เป็นทางทดลอง/สำรองสำหรับนักพัฒนาเท่านั้น และ **ห้ามใช้ publish** จนมีหลักฐาน monthly canonical smoke ของทางนั้น
 
-บนเครื่องใหม่ ให้ Agent รัน `powershell -ExecutionPolicy Bypass -File .\bootstrap-windows.ps1` ก่อน ข้อมูลถาวรอยู่ใน GitHub แต่ extension, download path, GitHub auth, `incoming/`, jobs และ queue state เป็นของเฉพาะเครื่อง
+บนเครื่องใหม่ ให้ Agent รัน `powershell -ExecutionPolicy Bypass -File .\bootstrap-windows.ps1` แล้วรัน `powershell -ExecutionPolicy Bypass -File .\scripts\bootstrap-analysis-windows.ps1` เพื่อเตรียม .venv + X-13 สำหรับ analytical outputs ที่ต้องอัปเดตคู่กับ raw release ข้อมูลถาวรอยู่ใน GitHub แต่ extension, download path, GitHub auth, `incoming/`, jobs, queue state, `.venv/` และ `.tools/` เป็นของเฉพาะเครื่อง
 
 ## โครง repo
 
@@ -39,6 +39,9 @@ description: Operate the Google Trends Toolkit - bulk-collect via the Chrome ext
 | `data/series/<ID>__<GEO>.csv` | คลังข้อมูลรายเดือนต่อคำต่อพื้นที่ |
 | `data/catalog.json` | บันทึกการเก็บ (เมื่อไหร่ ช่วงไหน) ใช้เป็นกลไก resume |
 | `data.js` | ข้อมูลรวมของหน้าเว็บ สร้างอัตโนมัติ ห้ามแก้มือ |
+| `analysis/` | Python pipeline แยกสำหรับ T1/T2 → X-13/STL → floor0 → rebase → centered MA3 |
+| `derived/sa_pipeline_v3/` | ผลวิเคราะห์ canonical พร้อม method/rebase/diagnostics/manifest |
+| `scripts/bootstrap-analysis-windows.ps1` | เตรียม pinned analysis dependencies และ X-13 Build 62 บนเครื่องใหม่ |
 | `index.html` | หน้าแสดงผล (เปิด local ได้ หรือผ่าน GitHub Pages) |
 | `.github/workflows/experimental-pytrends.yml` | manual diagnostic สำหรับ pytrends; read-only และไม่ publish |
 | `.github/workflows/validate.yml` | ตรวจ tests + audit + deterministic build บน push/PR โดยไม่แก้ข้อมูล |
@@ -121,13 +124,15 @@ scope อื่น: `--group FP,FU` / `--all` / `--geo TH` ส่วน `--start
 
 1. รัน structural gate: `python -X utf8 collector/audit.py --strict`
 2. รัน freshness gate: `python -X utf8 collector/audit.py --strict --require-latest` (ค่าอัตโนมัติ = เดือนที่จบแล้วล่าสุด; ล็อกเดือนได้ เช่น `--require-latest 2026-06`)
-3. ตรวจ generated output โดยไม่เขียน: `python -X utf8 collector/build_site_data.py --check`
-4. รัน tests: `python -X utf8 -m unittest discover -s tests -v`
-5. `git status --short` ต้องมีเฉพาะ `data/series/*.csv`, `data/catalog.json`, `data.js` (และ `keywords.csv` หากตั้งใจแก้คำ) อย่างอื่นโผล่ = หยุดตรวจ
-6. เปิด `index.html` ดู health strip และกราฟคำที่เพิ่งอัพเดท เดือนล่าสุดต้องงอกและเส้นไม่กระโดดผิดธรรมชาติ; ตรวจคำเตือน signal tier และ support `N/5` ของ ISAN ด้วย
-7. stage เฉพาะ allowlist แล้วตรวจรายชื่อก่อน commit:
+3. ตรวจ raw generated output โดยไม่เขียน: `python -X utf8 collector/build_site_data.py --check`
+4. สร้างผลวิเคราะห์เป็นขั้นแยก: `.\.venv\Scripts\python.exe -X utf8 -m analysis.build`
+5. ตรวจผลวิเคราะห์: รัน `.\.venv\Scripts\python.exe -X utf8 -m analysis.build --check` แล้ว `.\.venv\Scripts\python.exe -X utf8 -m analysis.build --audit`; รายงานจำนวน X13/STL_FALLBACK/NO_SIGNAL ทุกครั้ง
+6. รัน tests: `.\.venv\Scripts\python.exe -X utf8 -m unittest discover -s tests -v`
+7. `git status --short` ต้องมีเฉพาะ raw files ที่คาดไว้และ `derived/sa_pipeline_v3/` (รวม `keywords.csv` เฉพาะเมื่อแก้คำ) อย่างอื่นโผล่ = หยุดตรวจ
+8. เปิด `index.html` ดู health strip และกราฟ raw ที่เพิ่งอัพเดท เดือนล่าสุดต้องงอกและเส้นไม่กระโดดผิดธรรมชาติ; analytical output ยังไม่เสียบ UI เพราะ UI มี rebase/trailing MA3 ของตัวเอง
+9. stage เฉพาะ allowlist แล้วตรวจรายชื่อก่อน commit:
    ```
-   git add -- data/series data/catalog.json data.js
+   git add -- data/series data/catalog.json data.js derived/sa_pipeline_v3
    git diff --cached --name-only
    git commit -m "update data <รายละเอียดสั้น>"
    git push

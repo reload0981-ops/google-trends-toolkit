@@ -1,0 +1,85 @@
+{
+  "counts": {
+    "case_scope_series": 60,
+    "cases": 30,
+    "no_signal": 0,
+    "stl_fallback": 1,
+    "t1_cases": 22,
+    "t2_cases": 8,
+    "x13": 59
+  },
+  "files": {
+    "method_log.csv": {
+      "rows": 60,
+      "sha256": "fc1d85639448ac3b857c53bcde25016b1ed71c3fd1c7fe66fa58c1b5bd3b70b5"
+    },
+    "rebase_audit.csv": {
+      "rows": 468,
+      "sha256": "9ca861b3b52cb1cc1bd3420c0873fb30e11f17a0578666c7ce81dff1608354b8"
+    },
+    "series.csv": {
+      "rows": 10080,
+      "sha256": "6f947bf3401e0284836678dd8de774f2447acfa33c45c97c299041653e1e60f8"
+    },
+    "x13_diagnostics.csv": {
+      "rows": 60,
+      "sha256": "400b44ac3fb7a65637e0a2650c41f546d1a1a87b8ddaaae6216ad3f1f73b1188"
+    }
+  },
+  "implementation": {
+    "digest_sha256": "9b693cd486eec1a8f992df7db14f298c05a37277f5eedbd37be3adb30eb77e40",
+    "files": [
+      "analysis/core.py",
+      "analysis/pipeline.py",
+      "analysis/x13.py",
+      "analysis/build.py",
+      "requirements-analysis.txt"
+    ]
+  },
+  "method": {
+    "all_zero": "preserve as zero and mark NO_SIGNAL",
+    "fallback": "stl",
+    "missing_support": "fail; never pad missing months or geographies",
+    "post_sa": "floor at zero -> rebase max100 -> centered MA3 (3,min_periods=1)",
+    "pre_sa": "T1 A(member-geo)->mean-geos->C; T2 A(member-geo)->mean-members->B->mean-geos->C",
+    "seasonal_adjustment": "X-13ARIMA-SEATS additive, log=false, outlier=false; zeros become 0.001 only at the SA call"
+  },
+  "runtime": {
+    "numpy": "2.4.4",
+    "pandas": "3.0.2",
+    "scipy": "1.17.1",
+    "statsmodels": "0.14.6",
+    "x13_sha256": "2e43194361ee096797f0431765193c316196ea6776f11535e76281a413d49669",
+    "x13_version": "1.1 Build 62"
+  },
+  "schema_version": "sa-pipeline-v3-portable-1",
+  "source": {
+    "digest_sha256": "ef75036e6715770b825b8c272e8a00da8a2c30bae872947971d24a96fc302958",
+    "files": 301,
+    "keywords_sha256": "d28ebf01e64aaf527900b354a1b29426df48b2230af060128d701789e3670bb9"
+  },
+  "windows": {
+    "REG_ISAN5": {
+      "end": "2026-06",
+      "geographies": [
+        "TH-30",
+        "TH-31",
+        "TH-34",
+        "TH-40",
+        "TH-41"
+      ],
+      "months": 150,
+      "required_geographies_n": 5,
+      "start": "2014-01"
+    },
+    "TH": {
+      "end": "2026-06",
+      "geographies": [
+        "TH"
+      ],
+      "months": 186,
+      "required_geographies_n": 1,
+      "start": "2011-01"
+    }
+  }
+}

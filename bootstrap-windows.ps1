@@ -130,3 +130,4 @@ Write-Host "2. Allow trends.google.co.th and set Chrome Downloads to: $incomingP
 Write-Host "3. Turn off 'Ask where to save each file'"
 Write-Host ""
 Write-Host "Monthly use: the Agent creates $jobsPath; in Controller import that file and press Start."
+Write-Host "Analysis setup: powershell -ExecutionPolicy Bypass -File .\scripts\bootstrap-analysis-windows.ps1"
