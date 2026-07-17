@@ -1,4 +1,4 @@
-name: validate
+name: validate-and-deploy
 
 on:
   push:
@@ -13,7 +13,48 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate:
+  changes:
+    name: Detect release-data changes
+    runs-on: ubuntu-latest
+    outputs:
+      release_data: ${{ steps.paths.outputs.release_data }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - id: paths
+        name: Check paths that require freshness
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE_SHA: ${{ github.event.before }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if [[ "$EVENT_NAME" == "pull_request" ]]; then
+            base="$PR_BASE_SHA"
+            head="$PR_HEAD_SHA"
+          else
+            base="$BEFORE_SHA"
+            head="$GITHUB_SHA"
+          fi
+
+          if [[ -z "$base" || "$base" =~ ^0+$ ]] || ! git cat-file -e "${base}^{commit}" 2>/dev/null; then
+            changed="$(git ls-files)"
+          else
+            changed="$(git diff --name-only "$base" "$head")"
+          fi
+
+          printf '%s\n' "$changed"
+          if printf '%s\n' "$changed" | grep -Eq '^(data/|derived/|data\.js$|keywords\.csv$)'; then
+            echo "release_data=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "release_data=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  fast-validation:
+    name: Fast validation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,11 +62,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-analysis.txt
 
       - name: Install analytical dependencies
         run: python -m pip install --disable-pip-version-check -r requirements-analysis.txt
 
-      - name: Run unit tests
+      - name: Run full unit tests
         run: python -X utf8 -m unittest discover -s tests -v
 
       - name: Audit dataset structure
@@ -36,3 +79,74 @@ jobs:
 
       - name: Audit derived analytical data
         run: python -X utf8 -m analysis.build --audit
+
+  freshness:
+    name: Release freshness
+    needs: changes
+    if: needs.changes.outputs.release_data == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Require latest completed month
+        run: python -X utf8 collector/audit.py --strict --require-latest
+
+  windows-x13-byte-check:
+    name: Windows X-13 exact byte-check
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-analysis.txt
+
+      - name: Bootstrap pinned X-13 environment
+        shell: powershell
+        run: .\scripts\bootstrap-analysis-windows.ps1 -Python (Get-Command python).Source -NoReadyBanner
+
+      - name: Rebuild and byte-compare analytical outputs
+        shell: powershell
+        run: |
+          $env:X13PATH = Join-Path $PWD ".tools\x13\1.1-b62"
+          & .\.venv\Scripts\python.exe -X utf8 -m analysis.build --check
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+  deploy-pages:
+    name: Deploy verified Pages
+    needs: [changes, fast-validation, freshness, windows-x13-byte-check]
+    if: >-
+      always() &&
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' &&
+      needs.changes.result == 'success' &&
+      needs.fast-validation.result == 'success' &&
+      needs.windows-x13-byte-check.result == 'success' &&
+      (needs.freshness.result == 'success' || needs.freshness.result == 'skipped')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

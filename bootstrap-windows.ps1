@@ -1,8 +1,12 @@
 [CmdletBinding()]
-param()
+param(
+    [string]$Python = ""
+)
 
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
+$analysisBootstrap = Join-Path $root "scripts\bootstrap-analysis-windows.ps1"
+$venvPython = Join-Path $root ".venv\Scripts\python.exe"
 Set-Location -LiteralPath $root
 
 $errors = [System.Collections.Generic.List[string]]::new()
@@ -11,22 +15,29 @@ function Find-Command([string]$name) {
     return Get-Command $name -ErrorAction SilentlyContinue
 }
 
-Write-Host "Google Trends Toolkit - new machine check"
+function Run-Check([string]$executable, [string[]]$arguments) {
+    $savedErrorAction = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    try {
+        $output = @(& $executable @arguments 2>&1)
+        $exitCode = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $savedErrorAction
+    }
+    return [pscustomobject]@{ Output = $output; ExitCode = $exitCode }
+}
+
+Write-Host "Google Trends Toolkit - new machine setup"
 Write-Host "Repo: $root"
 
-$python = Find-Command "python"
-if (-not $python) {
-    $python = Find-Command "py"
-}
-if (-not $python) {
-    $errors.Add("Python 3.9+ not found")
-} else {
-    $pythonVersion = & $python.Source -c "import sys; print('.'.join(map(str, sys.version_info[:3])))"
-    if ($LASTEXITCODE -ne 0 -or [version]$pythonVersion -lt [version]"3.9") {
-        $errors.Add("Python 3.9+ required; found $pythonVersion")
+try {
+    if ($Python) {
+        & $analysisBootstrap -Python $Python -NoReadyBanner
     } else {
-        Write-Host "PASS Python $pythonVersion"
+        & $analysisBootstrap -NoReadyBanner
     }
+} catch {
+    $errors.Add("Analysis environment bootstrap failed: $($_.Exception.Message)")
 }
 
 $git = Find-Command "git"
@@ -80,34 +91,41 @@ if (-not $gh) {
     }
 }
 
-if ($python -and $errors.Count -eq 0) {
-    $savedErrorAction = $ErrorActionPreference
-    $ErrorActionPreference = "Continue"
-    try {
-        $auditOutput = & $python.Source -X utf8 collector/audit.py --strict 2>&1
-        $auditExit = $LASTEXITCODE
-    } finally {
-        $ErrorActionPreference = $savedErrorAction
-    }
-    if ($auditExit -ne 0) {
-        $auditOutput | ForEach-Object { Write-Host $_ }
+if ($errors.Count -eq 0) {
+    $audit = Run-Check $venvPython @("-X", "utf8", "collector/audit.py", "--strict")
+    if ($audit.ExitCode -ne 0) {
+        $audit.Output | ForEach-Object { Write-Host $_ }
         $errors.Add("Dataset structural audit failed")
     } else {
         Write-Host "PASS Dataset structural audit"
     }
 
-    $ErrorActionPreference = "Continue"
-    try {
-        $testOutput = & $python.Source -X utf8 -m unittest discover -s tests -q 2>&1
-        $testExit = $LASTEXITCODE
-    } finally {
-        $ErrorActionPreference = $savedErrorAction
-    }
-    if ($testExit -ne 0) {
-        $testOutput | ForEach-Object { Write-Host $_ }
-        $errors.Add("Unit tests failed")
+    $siteCheck = Run-Check $venvPython @("-X", "utf8", "collector/build_site_data.py", "--check")
+    if ($siteCheck.ExitCode -ne 0) {
+        $siteCheck.Output | ForEach-Object { Write-Host $_ }
+        $errors.Add("Generated site data check failed")
     } else {
-        Write-Host "PASS Unit tests"
+        Write-Host "PASS Generated site data check"
+    }
+
+    $analysisAudit = Run-Check $venvPython @("-X", "utf8", "-m", "analysis.build", "--audit")
+    if ($analysisAudit.ExitCode -ne 0) {
+        $analysisAudit.Output | ForEach-Object { Write-Host $_ }
+        $errors.Add("Analytical output audit failed")
+    } else {
+        Write-Host "PASS Analytical output audit"
+    }
+
+    $tests = Run-Check $venvPython @("-X", "utf8", "-m", "unittest", "discover", "-s", "tests", "-v")
+    $analysisSkips = @($tests.Output | Where-Object { ([string]$_) -match "test_analysis_pipeline.*skipped" })
+    if ($tests.ExitCode -ne 0) {
+        $tests.Output | ForEach-Object { Write-Host $_ }
+        $errors.Add("Unit tests failed")
+    } elseif ($analysisSkips.Count -ne 0) {
+        $analysisSkips | ForEach-Object { Write-Host $_ }
+        $errors.Add("Analytical tests were skipped after setup")
+    } else {
+        Write-Host "PASS Full unit tests (no analytical skips)"
     }
 }
 
@@ -124,10 +142,12 @@ $jobsPath = Join-Path $root "extension\data\jobs.json"
 
 Write-Host ""
 Write-Host "MACHINE READY" -ForegroundColor Green
+Write-Host "Python environment: $venvPython"
 Write-Host "One-time Chrome setup still requires the user:"
 Write-Host "1. Load unpacked extension from: $extensionPath"
 Write-Host "2. Allow trends.google.co.th and set Chrome Downloads to: $incomingPath"
 Write-Host "3. Turn off 'Ask where to save each file'"
 Write-Host ""
-Write-Host "Monthly use: the Agent creates $jobsPath; in Controller import that file and press Start."
-Write-Host "Analysis setup: powershell -ExecutionPolicy Bypass -File .\scripts\bootstrap-analysis-windows.ps1"
+Write-Host "Monthly prepare: .\scripts\toolkit.ps1 monthly-prepare"
+Write-Host "Monthly finish:  .\scripts\toolkit.ps1 monthly-finish"
+Write-Host "Queue file: $jobsPath"

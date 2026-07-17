@@ -1,6 +1,7 @@
 [CmdletBinding()]
 param(
-    [string]$Python = ""
+    [string]$Python = "",
+    [switch]$NoReadyBanner
 )
 
 Set-StrictMode -Version Latest
@@ -38,7 +39,7 @@ function Find-Python([string]$Requested) {
         }
         return $command.Source
     }
-    foreach ($name in @("python", "py")) {
+    foreach ($name in @("python", "python3.13", "python3.12", "python3.11")) {
         $command = Get-Command $name -ErrorAction SilentlyContinue
         if (-not $command) {
             continue
@@ -51,6 +52,23 @@ function Find-Python([string]$Requested) {
         } catch {
             # Windows Store aliases can exist in PATH without launching Python.
             continue
+        }
+    }
+    $launcher = Get-Command "py" -ErrorAction SilentlyContinue
+    if ($launcher) {
+        foreach ($tag in @("-3.13", "-3.12", "-3.11")) {
+            try {
+                $candidate = & $launcher.Source $tag -c "import sys; print(sys.executable)"
+                if ($LASTEXITCODE -ne 0 -or -not $candidate) {
+                    continue
+                }
+                $candidateVersion = Get-PythonVersion $candidate
+                if ($candidateVersion -ge [version]"3.11" -and $candidateVersion -lt [version]"3.14") {
+                    return $candidate
+                }
+            } catch {
+                continue
+            }
         }
     }
     throw "Python 3.11-3.13 not found. Install Python, then rerun with -Python <path>."
@@ -188,7 +206,9 @@ if ($LASTEXITCODE -ne 0) {
     throw "statsmodels could not discover X-13"
 }
 
-Write-Host ""
-Write-Host "ANALYSIS MACHINE READY" -ForegroundColor Green
-Write-Host "Python: $venvPython"
-Write-Host "X13PATH for this process: $x13Dir"
+if (-not $NoReadyBanner) {
+    Write-Host ""
+    Write-Host "ANALYSIS MACHINE READY" -ForegroundColor Green
+    Write-Host "Python: $venvPython"
+    Write-Host "X13PATH for this process: $x13Dir"
+}
