@@ -205,11 +205,27 @@ def _x13_adjust(series: pd.Series, executable: Path, timeout: int) -> tuple[pd.S
                 line.strip() for line in err_text.splitlines()
                 if line.strip().upper().startswith("ERROR:")
             ]
-            reason = " ".join(error_lines or err_text.split())[:300]
-            if not reason:
-                reason = " ".join(result.stdout.split())[:300]
-            raise X13SeriesError(
-                f"X-13 failed (exit {result.returncode}): {reason or 'no output'}"
+            if error_lines:
+                raise X13SeriesError(
+                    f"X-13 failed (exit {result.returncode}): "
+                    f"{' '.join(error_lines)[:300]}"
+                )
+            details = " ".join(
+                part
+                for part in (
+                    " ".join(err_text.split()),
+                    " ".join(result.stderr.split()),
+                    " ".join(result.stdout.split()),
+                )
+                if part
+            )[:300]
+            missing = ", ".join(
+                path.suffix for path in (d11, out) if not path.is_file()
+            )
+            output_state = f"missing {missing}" if missing else "required outputs present"
+            raise PipelineError(
+                f"X-13 infrastructure failure (exit {result.returncode}; "
+                f"{output_state}): {details or 'no explicit ERROR'}"
             )
         adjusted = _parse_saved_series(
             d11.read_text(encoding="utf-8", errors="replace"), pd.DatetimeIndex(series.index),

@@ -123,6 +123,15 @@ function localDateString(value = new Date()) {
   return localIsoTimestamp(value).slice(0, 10);
 }
 
+function isIsoDate(value) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value || "");
+  if (!match) return false;
+  const parsed = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+  return parsed.getFullYear() === Number(match[1]) &&
+    parsed.getMonth() === Number(match[2]) - 1 &&
+    parsed.getDate() === Number(match[3]);
+}
+
 function downloadSize(dl) {
   if (typeof dl.fileSize === "number") return dl.fileSize;
   if (typeof dl.totalBytes === "number") return dl.totalBytes;
@@ -215,9 +224,13 @@ function validateJobs(jobs) {
     if (!validGeos.has(job.geo_code)) {
       throw new Error(`${label} has unsupported geo_code ${job.geo_code || "(empty)"}`);
     }
-    if (job.timeframe !== expectedTimeframe) {
-      throw new Error(`${label} timeframe must be ${expectedTimeframe}`);
+    const timeframeMatch = /^2004-01-01 (\d{4}-\d{2}-\d{2})$/.exec(job.timeframe || "");
+    if (!timeframeMatch || !isIsoDate(timeframeMatch[1]) || timeframeMatch[1] > localDateString()) {
+      throw new Error(`${label} timeframe must be 2004-01-01 YYYY-MM-DD with a non-future end date`);
     }
+    // Explore is always opened with date=all. Normalize an older generated queue
+    // so any no-data proof records the date this machine actually observes it.
+    job.timeframe = expectedTimeframe;
     const expectedFilename = `${job.keyword_id}__${job.geo_code}.csv`;
     if (job.filename !== expectedFilename || filenames.has(job.filename)) {
       throw new Error(`${label} has an invalid or duplicate filename`);
@@ -790,7 +803,11 @@ async function processOne(job, settings) {
       const validation = await validateRecentDownload(job, jobStartIso);
       if (validation) response = validation;
     } catch (e) {
-      log(`Download validation skipped: ${e.message || e}`, "warn");
+      response = {
+        result: "ERROR",
+        reason: `DOWNLOAD_VALIDATION_FAILED: ${e.message || e}`
+      };
+      log(response.reason, "err");
     }
   }
 
@@ -982,6 +999,7 @@ async function mainLoop() {
         job.status = "NO_DATA";
         job.error = resp.reason;
         job.no_data_observed_at = localIsoTimestamp();
+        job.timeframe = `2004-01-01 ${job.no_data_observed_at.slice(0, 10)}`;
         log(`${job.job_id} NO DATA (${resp.reason}) after ${job.no_data_attempts} consecutive no-data observations; recorded, moving on`, "warn");
       }
     } else if (resp.result === "BLOCKED" &&

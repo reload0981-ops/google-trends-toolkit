@@ -34,6 +34,8 @@ SIGNAL_WINDOW_MONTHS = 64
 SIGNAL_TIERS = ("VERY_GOOD", "ACCEPTABLE", "WEAK")
 MONTH_RE = re.compile(r"^(\d{4})-(\d{2})$")
 CANONICAL_START = "2004-01-01"
+CANONICAL_START_MONTH = "2004-01"
+PROVINCE_START_MONTH = "2014-01"
 
 
 def _month_number(month: str) -> int | None:
@@ -63,7 +65,9 @@ def _iso_date(value: Any) -> date | None:
     return parsed if parsed.isoformat() == value else None
 
 
-def _validate_no_data_meta(key: str, meta: dict[str, Any]) -> tuple[list[str], dict[str, Any]]:
+def _validate_no_data_meta(
+    key: str, meta: dict[str, Any], expected_keyword: str
+) -> tuple[list[str], dict[str, Any]]:
     """Validate proof that a canonical collection returned no observations."""
 
     prefix = f"data/catalog.json: {key}"
@@ -78,8 +82,10 @@ def _validate_no_data_meta(key: str, meta: dict[str, Any]) -> tuple[list[str], d
 
     if meta.get("status") != "no_data":
         errors.append(f"{prefix}.status must be 'no_data'")
-    if not isinstance(meta.get("keyword"), str) or not meta["keyword"].strip():
-        errors.append(f"{prefix}.keyword must be non-empty")
+    if meta.get("keyword") != expected_keyword:
+        errors.append(
+            f"{prefix}.keyword is {meta.get('keyword')!r}; expected {expected_keyword!r}"
+        )
     if timeframe_start != CANONICAL_START or timeframe_end_date is None:
         errors.append(
             f"{prefix}.timeframe must be '{CANONICAL_START} YYYY-MM-DD'"
@@ -144,33 +150,39 @@ def classify_signal(values: Iterable[float], window_months: int = SIGNAL_WINDOW_
     return tier, zeros, len(recent)
 
 
-def _read_keywords(path: Path, errors: list[str]) -> list[str]:
+def _read_keywords(path: Path, errors: list[str]) -> dict[str, str]:
     if not path.exists():
         errors.append("keywords.csv: file not found")
-        return []
+        return {}
     try:
         with path.open(encoding="utf-8-sig", newline="") as handle:
             reader = csv.DictReader(handle)
-            if not reader.fieldnames or "Keyword_ID" not in reader.fieldnames:
-                errors.append("keywords.csv: required column Keyword_ID is missing")
-                return []
-            raw_ids = [(row.get("Keyword_ID") or "").strip().upper() for row in reader]
+            required = {"Keyword_ID", "Keyword_TH"}
+            if not required.issubset(reader.fieldnames or []):
+                errors.append("keywords.csv: required columns Keyword_ID and Keyword_TH are missing")
+                return {}
+            rows = list(reader)
     except (OSError, UnicodeError, csv.Error) as exc:
         errors.append(f"keywords.csv: cannot read ({exc})")
-        return []
+        return {}
 
-    ids: list[str] = []
+    keywords: dict[str, str] = {}
     seen: set[str] = set()
-    for row_number, keyword_id in enumerate(raw_ids, start=2):
+    for row_number, row in enumerate(rows, start=2):
+        keyword_id = (row.get("Keyword_ID") or "").strip().upper()
+        keyword = (row.get("Keyword_TH") or "").strip()
         if not keyword_id:
             errors.append(f"keywords.csv:{row_number}: empty Keyword_ID")
             continue
         if keyword_id in seen:
             errors.append(f"keywords.csv:{row_number}: duplicate Keyword_ID {keyword_id}")
             continue
+        if not keyword:
+            errors.append(f"keywords.csv:{row_number}: empty Keyword_TH for {keyword_id}")
+            continue
         seen.add(keyword_id)
-        ids.append(keyword_id)
-    return ids
+        keywords[keyword_id] = keyword
+    return keywords
 
 
 def _read_catalog(path: Path, errors: list[str]) -> tuple[dict[str, Any], Any]:
@@ -251,6 +263,20 @@ def _read_series(path: Path, key: str, errors: list[str]) -> dict[str, Any] | No
         sample = ", ".join(f"{left}->{right}" for left, right in gaps[:3])
         errors.append(f"{rel}: non-contiguous monthly series ({sample})")
         valid = False
+    geo = key.split("__", 1)[1]
+    expected_start = CANONICAL_START_MONTH if geo == "TH" else PROVINCE_START_MONTH
+    if months[0] != expected_start:
+        errors.append(
+            f"{rel}: series must start at canonical month {expected_start} (found {months[0]})"
+        )
+        valid = False
+    expected_count = month_numbers[-1] - _month_number(expected_start) + 1
+    if len(months) != expected_count:
+        errors.append(
+            f"{rel}: expected {expected_count} contiguous months from {expected_start} "
+            f"through {months[-1]} (found {len(months)})"
+        )
+        valid = False
     if not valid:
         return None
 
@@ -278,13 +304,13 @@ def audit_dataset(root: str | Path = ROOT) -> dict[str, Any]:
 
     root = Path(root)
     errors: list[str] = []
-    keyword_ids = _read_keywords(root / "keywords.csv", errors)
+    keywords = _read_keywords(root / "keywords.csv", errors)
     catalog, catalog_updated_at = _read_catalog(root / "data" / "catalog.json", errors)
     series_dir = root / "data" / "series"
     if not series_dir.is_dir():
         errors.append("data/series: directory not found")
 
-    expected_keys = [f"{keyword_id}__{geo}" for keyword_id in sorted(keyword_ids) for geo in RAW_GEOS]
+    expected_keys = [f"{keyword_id}__{geo}" for keyword_id in sorted(keywords) for geo in RAW_GEOS]
     expected_set = set(expected_keys)
     paths = {path.stem: path for path in sorted(series_dir.glob("*.csv"))} if series_dir.is_dir() else {}
 
@@ -311,7 +337,10 @@ def audit_dataset(root: str | Path = ROOT) -> dict[str, Any]:
         meta = catalog.get(key)
         if path is None:
             if isinstance(meta, dict) and meta.get("status") == "no_data":
-                no_data_errors, no_data_fields = _validate_no_data_meta(key, meta)
+                keyword_id = key.split("__", 1)[0]
+                no_data_errors, no_data_fields = _validate_no_data_meta(
+                    key, meta, keywords[keyword_id]
+                )
                 if no_data_errors:
                     errors.extend(no_data_errors)
                     invalid_no_data_keys.append(key)
@@ -383,11 +412,10 @@ def audit_dataset(root: str | Path = ROOT) -> dict[str, Any]:
             errors.append(f"data/catalog.json: metadata missing for {key}")
             meta = {}
         else:
-            if meta.get("status") not in (None, "available"):
-                errors.append(
-                    f"data/catalog.json: {key}.status is {meta.get('status')!r}; expected 'available'"
-                )
+            keyword_id = key.split("__", 1)[0]
             expected_meta = {
+                "status": "available",
+                "keyword": keywords[keyword_id],
                 "months": parsed["months"],
                 "first": parsed["data_start"],
                 "last": parsed["data_end"],
@@ -397,6 +425,39 @@ def audit_dataset(root: str | Path = ROOT) -> dict[str, Any]:
                     errors.append(
                         f"data/catalog.json: {key}.{field} is {meta.get(field)!r}; expected {expected_value!r}"
                     )
+
+            prefix = f"data/catalog.json: {key}"
+            timeframe = meta.get("timeframe")
+            timeframe_parts = timeframe.split() if isinstance(timeframe, str) else []
+            timeframe_start = timeframe_parts[0] if len(timeframe_parts) == 2 else None
+            timeframe_end = timeframe_parts[1] if len(timeframe_parts) == 2 else None
+            timeframe_end_date = _iso_date(timeframe_end)
+            fetched_on_date = _iso_date(meta.get("fetched_on"))
+            if timeframe_start != CANONICAL_START or timeframe_end_date is None:
+                errors.append(
+                    f"{prefix}.timeframe must be '{CANONICAL_START} YYYY-MM-DD'"
+                )
+            if fetched_on_date is None:
+                errors.append(f"{prefix}.fetched_on must be YYYY-MM-DD")
+            if (
+                timeframe_end_date is not None
+                and fetched_on_date is not None
+                and timeframe_end_date != fetched_on_date
+            ):
+                errors.append(f"{prefix}: timeframe end must equal fetched_on")
+            fetched_at = meta.get("fetched_at")
+            fetched_at_date = None
+            if isinstance(fetched_at, str):
+                try:
+                    fetched_at_date = datetime.fromisoformat(fetched_at).date()
+                except ValueError:
+                    pass
+            if fetched_at_date is None:
+                errors.append(f"{prefix}.fetched_at must be an ISO datetime")
+            elif fetched_on_date is not None and fetched_at_date != fetched_on_date:
+                errors.append(f"{prefix}: fetched_at date must equal fetched_on")
+            if not isinstance(meta.get("note"), str) or not meta["note"].strip():
+                errors.append(f"{prefix}.note must be non-empty")
 
         timeframe = meta.get("timeframe")
         timeframe_parts = timeframe.split() if isinstance(timeframe, str) else []

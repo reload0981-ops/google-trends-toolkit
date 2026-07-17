@@ -19,6 +19,13 @@ def month_sequence(count, start_year=2020, start_month=1):
     return result
 
 
+def month_range(start, end):
+    start_year, start_month = map(int, start.split("-"))
+    end_year, end_month = map(int, end.split("-"))
+    count = (end_year - start_year) * 12 + end_month - start_month + 1
+    return month_sequence(count, start_year, start_month)
+
+
 class AuditDatasetTests(unittest.TestCase):
     def setUp(self):
         self.tempdir = tempfile.TemporaryDirectory()
@@ -34,7 +41,9 @@ class AuditDatasetTests(unittest.TestCase):
         self.tempdir.cleanup()
 
     def write_series(self, geo, values, months=None):
-        months = months or month_sequence(len(values))
+        if months is None:
+            start = (2004, 1) if geo == "TH" else (2014, 1)
+            months = month_sequence(len(values), *start)
         key = f"FP001__{geo}"
         path = self.root / "data" / "series" / f"{key}.csv"
         with path.open("w", encoding="utf-8", newline="") as handle:
@@ -42,10 +51,14 @@ class AuditDatasetTests(unittest.TestCase):
             writer.writerow(["Month", "Value"])
             writer.writerows(zip(months, values))
         self.catalog["series"][key] = {
+            "status": "available",
+            "keyword": "ทดสอบ",
+            "timeframe": "2004-01-01 2026-07-01",
             "months": len(months),
             "first": months[0],
             "last": months[-1],
             "fetched_on": "2026-07-01",
+            "fetched_at": "2026-07-01T12:00:00",
             "note": "unit test source",
         }
 
@@ -115,7 +128,8 @@ class AuditDatasetTests(unittest.TestCase):
         self.assertFalse(gate["pass"])
 
     def test_valid_confirmed_no_data_completes_release_gate(self):
-        self.write_series("TH", [1], months=["2026-06"])
+        months = month_range("2004-01", "2026-06")
+        self.write_series("TH", [1] * len(months), months=months)
         for geo in ("TH-30", "TH-31", "TH-34", "TH-40", "TH-41"):
             self.write_no_data(geo)
         self.save_catalog()
@@ -131,7 +145,8 @@ class AuditDatasetTests(unittest.TestCase):
         self.assertTrue(gate["pass"])
 
     def test_stale_no_data_fails_release_gate_distinctly(self):
-        self.write_series("TH", [1], months=["2026-06"])
+        months = month_range("2004-01", "2026-06")
+        self.write_series("TH", [1] * len(months), months=months)
         for geo in ("TH-30", "TH-31", "TH-34", "TH-40"):
             self.write_no_data(geo)
         self.write_no_data("TH-41", fetched_on="2026-06-30")
@@ -160,7 +175,8 @@ class AuditDatasetTests(unittest.TestCase):
         self.assertFalse(gate["pass"])
 
     def test_truly_missing_cells_fail_complete_release_gate(self):
-        self.write_series("TH", [1], months=["2026-06"])
+        months = month_range("2004-01", "2026-06")
+        self.write_series("TH", [1] * len(months), months=months)
         self.save_catalog()
         report = audit_dataset(self.root)
 
@@ -170,6 +186,37 @@ class AuditDatasetTests(unittest.TestCase):
         self.assertEqual(gate["stale_available_raw_series"], 0)
         self.assertEqual(gate["missing_raw_series"], 5)
         self.assertEqual(gate["invalid_no_data_raw_series"], 0)
+
+    def test_truncated_canonical_start_is_a_structural_error(self):
+        self.write_series("TH", [1, 1], months=["2026-05", "2026-06"])
+        self.write_series("TH-40", [1, 1], months=["2026-05", "2026-06"])
+        self.save_catalog()
+
+        report = audit_dataset(self.root)
+
+        self.assertFalse(report["structural_ok"])
+        errors = "\n".join(report["structural_errors"])
+        self.assertIn("canonical month 2004-01", errors)
+        self.assertIn("canonical month 2014-01", errors)
+        self.assertIn("expected 270 contiguous months", errors)
+        self.assertIn("expected 150 contiguous months", errors)
+
+    def test_catalog_keyword_and_collection_metadata_must_match(self):
+        self.write_series("TH", [1])
+        self.catalog["series"]["FP001__TH"].update({
+            "keyword": "ผิดคำ",
+            "timeframe": "2020-01-01 2026-07-01",
+            "fetched_at": "2026-06-30T23:00:00",
+        })
+        self.save_catalog()
+
+        report = audit_dataset(self.root)
+        errors = "\n".join(report["structural_errors"])
+
+        self.assertFalse(report["structural_ok"])
+        self.assertIn(".keyword", errors)
+        self.assertIn(".timeframe", errors)
+        self.assertIn("fetched_at date must equal fetched_on", errors)
 
 
 if __name__ == "__main__":

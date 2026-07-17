@@ -49,7 +49,7 @@ class ExtensionReleaseSafetyTests(unittest.TestCase):
 
     def test_manifest_version_matches_release_behavior(self):
         manifest = json.loads((EXTENSION / "manifest.json").read_text(encoding="utf-8"))
-        self.assertEqual(manifest["version"], "0.7.1")
+        self.assertEqual(manifest["version"], "0.7.2")
         self.assertIn("downloads", manifest["permissions"])
 
     def test_new_trends_ui_is_the_primary_monthly_export_path(self):
@@ -111,6 +111,25 @@ class ExtensionReleaseSafetyTests(unittest.TestCase):
         self.assertIn("const canReplaceQueue = isIdle && !loopRunning", self.controller)
         self.assertIn("Queue state changed while choosing the file", self.controller)
         self.assertIn('loopRunning || (state && state.status !== "idle")', self.controller)
+
+    def test_controller_accepts_past_date_all_queue_and_normalizes_observation_date(self):
+        self.assertIn('"date=all"', self.controller)
+        self.assertIn(
+            'const timeframeMatch = /^2004-01-01 (\\d{4}-\\d{2}-\\d{2})$/.exec',
+            self.controller,
+        )
+        self.assertIn("timeframeMatch[1] > localDateString()", self.controller)
+        self.assertIn("job.timeframe = expectedTimeframe", self.controller)
+        self.assertNotIn("job.timeframe !== expectedTimeframe", self.controller)
+        self.assertIn(
+            'job.timeframe = `2004-01-01 ${job.no_data_observed_at.slice(0, 10)}`',
+            self.controller,
+        )
+
+    def test_download_validation_exception_is_an_error_not_done(self):
+        self.assertIn('result: "ERROR"', self.controller)
+        self.assertIn("DOWNLOAD_VALIDATION_FAILED:", self.controller)
+        self.assertNotIn("Download validation skipped:", self.controller)
 
 
 if __name__ == "__main__":

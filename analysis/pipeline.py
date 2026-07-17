@@ -22,16 +22,57 @@ from .x13 import DIAGNOSTIC_FIELDS, seasonally_adjust
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SCHEMA_VERSION = "sa-pipeline-v3-portable-1"
+SCHEMA_VERSION = "sa-pipeline-v3-portable-2"
 OUTPUT_FILES = (
     "series.csv", "method_log.csv", "rebase_audit.csv",
-    "x13_diagnostics.csv", "manifest.json",
+    "x13_diagnostics.csv", "quality_flags.csv", "manifest.json",
 )
 SERIES_COLUMNS = (
     "Month", "Scope", "Case_ID", "Tier", "Case_Type", "Segment", "Factor",
     "Case_Name_TH", "Input_Rebased", "SA", "SA_Floored", "SA_Rebased",
     "MA3_Centered",
 )
+QUALITY_COLUMNS = (
+    "Case_ID", "Scope", "Execution_Status", "Diagnostic_Status",
+    "Quality_Status", "Geo_Support_N", "Geo_Support_Total",
+    "Coverage_Status", "MA3_Endpoint_Provisional",
+)
+
+
+def quality_flags(
+    method: str,
+    accept_status: str,
+    geo_support_n: int,
+    geo_support_total: int,
+) -> dict[str, Any]:
+    """Summarize execution, diagnostics, and geographic support without changing series."""
+
+    if method == "X13":
+        execution_status = "SUCCESS"
+        diagnostic_status = (accept_status or "").strip().upper() or "NOT_AVAILABLE"
+        quality_status = (
+            "PASS"
+            if diagnostic_status == "ACCEPTED"
+            else "REVIEW"
+        )
+    elif method == "STL_FALLBACK":
+        execution_status = "FALLBACK"
+        diagnostic_status = "NOT_AVAILABLE"
+        quality_status = "REVIEW"
+    elif method == "NO_SIGNAL":
+        execution_status = quality_status = "NO_SIGNAL"
+        diagnostic_status = "NOT_APPLICABLE"
+    else:
+        raise ValueError(f"unsupported analytical method {method!r}")
+    return {
+        "Execution_Status": execution_status,
+        "Diagnostic_Status": diagnostic_status,
+        "Quality_Status": quality_status,
+        "Geo_Support_N": int(geo_support_n),
+        "Geo_Support_Total": int(geo_support_total),
+        "Coverage_Status": "FULL" if geo_support_n == geo_support_total else "PARTIAL",
+        "MA3_Endpoint_Provisional": "TRUE",
+    }
 
 
 def _number(value: Any) -> str:
@@ -60,11 +101,15 @@ def _build_rows(
     timeout: int,
     fallback: str,
     quiet: bool,
-) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]:
+) -> tuple[
+    list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]],
+    list[dict[str, Any]], list[dict[str, Any]], dict[str, Any],
+]:
     series_rows: list[dict[str, Any]] = []
     method_rows: list[dict[str, Any]] = []
     audit_rows: list[dict[str, Any]] = []
     diagnostic_rows: list[dict[str, Any]] = []
+    quality_rows: list[dict[str, Any]] = []
     scope_metadata: dict[str, Any] = {}
 
     for scope_name, config in SCOPES.items():
@@ -123,6 +168,17 @@ def _build_rows(
                 **{field: _number(adjustment.diagnostics.get(field)) for field in DIAGNOSTIC_FIELDS},
                 "Accept_Status": adjustment.diagnostics.get("Accept_Status", ""),
             })
+            scope_audit = next(audit for audit in pre["audits"] if audit["stage"] == "C_SCOPE")
+            quality_rows.append({
+                "Case_ID": case.case_id,
+                "Scope": scope_name,
+                **quality_flags(
+                    adjustment.method,
+                    str(adjustment.diagnostics.get("Accept_Status", "")),
+                    int(scope_audit["contributors_n"]),
+                    int(scope_audit["required_n"]),
+                ),
+            })
             if not quiet:
                 print(f"{scope_name:10s} {case.case_id:8s} {adjustment.method}")
 
@@ -134,6 +190,6 @@ def _build_rows(
         "stl_fallback": sum(row["Method"] == "STL_FALLBACK" for row in method_rows),
         "no_signal": sum(row["Method"] == "NO_SIGNAL" for row in method_rows),
     }
-    return series_rows, method_rows, audit_rows, diagnostic_rows, {
+    return series_rows, method_rows, audit_rows, diagnostic_rows, quality_rows, {
         "scopes": scope_metadata, "counts": counts,
     }

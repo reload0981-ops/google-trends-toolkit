@@ -13,6 +13,10 @@
       "rows": 60,
       "sha256": "fc1d85639448ac3b857c53bcde25016b1ed71c3fd1c7fe66fa58c1b5bd3b70b5"
     },
+    "quality_flags.csv": {
+      "rows": 60,
+      "sha256": "51b27b94cfa0388cb1a461366c9c71394c43260840a0cf1f3e42db1514607e27"
+    },
     "rebase_audit.csv": {
       "rows": 468,
       "sha256": "9ca861b3b52cb1cc1bd3420c0873fb30e11f17a0578666c7ce81dff1608354b8"
@@ -27,7 +31,7 @@
     }
   },
   "implementation": {
-    "digest_sha256": "a8883da32e53f1eb3ea9af6844fe77297c4c4201b5b6a9fd957e562fb8e0fe94",
+    "digest_sha256": "a772798feff07cbddbccac0d2077c084b78432dce9c96c7c6bbe0745bc7dc47b",
     "files": [
       "analysis/core.py",
       "analysis/pipeline.py",
@@ -45,6 +49,14 @@
     "pre_sa": "T1 A(member-geo)->mean-geos->C; T2 A(member-geo)->mean-members->B->mean-geos->C",
     "seasonal_adjustment": "X-13ARIMA-SEATS additive, log=false, outlier=false; zeros become 0.001 only at the SA call"
   },
+  "quality_flags": {
+    "coverage_status": "FULL when Geo_Support_N equals Geo_Support_Total; otherwise PARTIAL",
+    "diagnostic_status": "X-13 Accept_Status; NOT_AVAILABLE for fallback; NOT_APPLICABLE for no signal",
+    "execution_status": "SUCCESS|FALLBACK|NO_SIGNAL",
+    "geo_support": "required geographies with positive pre-SA signal",
+    "ma3_endpoint_provisional": "TRUE because the latest centered MA3 uses two months",
+    "quality_status": "PASS only for ACCEPTED X-13; REVIEW for conditional/rejected/fallback; NO_SIGNAL explicit"
+  },
   "runtime": {
     "numpy": "2.4.4",
     "pandas": "3.0.2",
@@ -53,7 +65,7 @@
     "x13_sha256": "2e43194361ee096797f0431765193c316196ea6776f11535e76281a413d49669",
     "x13_version": "1.1 Build 62"
   },
-  "schema_version": "sa-pipeline-v3-portable-1",
+  "schema_version": "sa-pipeline-v3-portable-2",
   "source": {
     "digest_sha256": "9a18ca82c271666aca11d30c55ffbe2fc926d977d68ae2b02724d616ddce444f",
     "files": 301,

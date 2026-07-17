@@ -1,5 +1,7 @@
 import io
 import json
+import shutil
+import subprocess
 import tempfile
 import unittest
 from contextlib import redirect_stdout
@@ -15,6 +17,7 @@ try:
         build_pre_sa_for_case,
         centered_ma3,
         load_cases,
+        quality_flags,
         rebase_max100,
     )
     from analysis.x13 import (
@@ -22,6 +25,7 @@ try:
         _parse_saved_series,
         parse_diagnostics,
         seasonally_adjust,
+        sha256,
     )
 except ModuleNotFoundError as exc:
     if exc.name not in {"numpy", "pandas", "scipy", "statsmodels"}:
@@ -202,6 +206,37 @@ class SeasonalAdjustmentTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "parser regression"):
                 seasonally_adjust(values, Path("unused-x13"), fallback="stl")
 
+    def test_x13_access_violation_does_not_fallback(self):
+        values = series([10 + (month % 12) for month in range(36)])
+        spec = "series{ period=12 }\nx11{ save=(d11 d12 d13) }\n"
+        crash = subprocess.CompletedProcess(
+            args=["x13as"], returncode=3221225477,
+            stdout="", stderr="Access violation",
+        )
+
+        with patch("analysis.x13.x13_arima_analysis", return_value=spec):
+            with patch("analysis.x13.subprocess.run", return_value=crash):
+                with self.assertRaisesRegex(PipelineError, "infrastructure failure"):
+                    seasonally_adjust(values, Path("x13as"), fallback="stl")
+
+    def test_explicit_x13_model_error_remains_fallback_eligible(self):
+        values = series([10 + (month % 12) for month in range(36)])
+        spec = "series{ period=12 }\nx11{ save=(d11 d12 d13) }\n"
+
+        def model_error(args, **_kwargs):
+            Path(args[2]).with_suffix(".err").write_text(
+                "ERROR: The covariance matrix of the ARMA parameters is singular;\n",
+                encoding="utf-8",
+            )
+            return subprocess.CompletedProcess(args=args, returncode=0, stdout="", stderr="")
+
+        with patch("analysis.x13.x13_arima_analysis", return_value=spec):
+            with patch("analysis.x13.subprocess.run", side_effect=model_error):
+                result = seasonally_adjust(values, Path("x13as"), fallback="stl")
+
+        self.assertEqual(result.method, "STL_FALLBACK")
+        self.assertIn("covariance matrix", result.reason)
+
     def test_all_zero_skips_x13_and_stays_zero(self):
         values = series([0] * 36)
 
@@ -259,6 +294,108 @@ class DerivedOutputAuditTests(unittest.TestCase):
         result = audit_outputs(ROOT)
 
         self.assertEqual(result["status"], "PASS", result.get("errors"))
+
+    def test_quality_flags_distinguish_diagnostics_and_partial_geo_support(self):
+        result = quality_flags("X13", "REJECTED", 4, 5)
+
+        self.assertEqual(result["Execution_Status"], "SUCCESS")
+        self.assertEqual(result["Diagnostic_Status"], "REJECTED")
+        self.assertEqual(result["Quality_Status"], "REVIEW")
+        self.assertEqual(result["Coverage_Status"], "PARTIAL")
+        self.assertEqual(result["MA3_Endpoint_Provisional"], "TRUE")
+
+        conditional = quality_flags("X13", "CONDITIONALLY ACCEPTED", 5, 5)
+        self.assertEqual(conditional["Execution_Status"], "SUCCESS")
+        self.assertEqual(conditional["Quality_Status"], "REVIEW")
+
+        fallback = quality_flags("STL_FALLBACK", "", 5, 5)
+        self.assertEqual(fallback["Execution_Status"], "FALLBACK")
+        self.assertEqual(fallback["Quality_Status"], "REVIEW")
+
+    def test_audit_recomputes_input_rebased_even_if_manifest_hash_is_updated(self):
+        with tempfile.TemporaryDirectory() as temp_name:
+            output = Path(temp_name) / "sa_pipeline_v3"
+            shutil.copytree(ROOT / "derived" / "sa_pipeline_v3", output)
+            path = output / "series.csv"
+            frame = pd.read_csv(path, encoding="utf-8")
+            original = float(frame.loc[0, "Input_Rebased"])
+            frame.loc[0, "Input_Rebased"] = original - 1 if original >= 99 else original + 1
+            frame.to_csv(path, index=False, float_format="%.10f", lineterminator="\n")
+            manifest_path = output / "manifest.json"
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            manifest["files"]["series.csv"]["sha256"] = sha256(path)
+            manifest_path.write_text(
+                json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8", newline="\n",
+            )
+
+            result = audit_outputs(ROOT, output)
+
+        self.assertEqual(result["status"], "FAIL")
+        self.assertTrue(
+            any("Input_Rebased differs" in error for error in result["errors"]),
+            result["errors"],
+        )
+
+    def test_audit_recomputes_rebase_support_even_if_manifest_hash_is_updated(self):
+        with tempfile.TemporaryDirectory() as temp_name:
+            output = Path(temp_name) / "sa_pipeline_v3"
+            shutil.copytree(ROOT / "derived" / "sa_pipeline_v3", output)
+            path = output / "rebase_audit.csv"
+            frame = pd.read_csv(path, encoding="utf-8")
+            target = frame.index[frame["Stage"] == "C_SCOPE"][0]
+            frame.loc[target, "Contributors_N"] = 999
+            frame.to_csv(path, index=False, float_format="%.10f", lineterminator="\n")
+            manifest_path = output / "manifest.json"
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            manifest["files"]["rebase_audit.csv"]["sha256"] = sha256(path)
+            manifest_path.write_text(
+                json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8", newline="\n",
+            )
+
+            result = audit_outputs(ROOT, output)
+
+        self.assertEqual(result["status"], "FAIL")
+        self.assertTrue(
+            any("rebase_audit.csv" in error and "recomputation" in error for error in result["errors"]),
+            result["errors"],
+        )
+
+    def test_audit_recomputes_post_sa_rebase_even_if_hash_and_ma3_are_updated(self):
+        with tempfile.TemporaryDirectory() as temp_name:
+            output = Path(temp_name) / "sa_pipeline_v3"
+            shutil.copytree(ROOT / "derived" / "sa_pipeline_v3", output)
+            path = output / "series.csv"
+            frame = pd.read_csv(path, encoding="utf-8")
+            group_mask = (frame["Scope"] == "TH") & (frame["Case_ID"] == "FP014")
+            candidates = frame.index[
+                group_mask & frame["SA_Rebased"].between(1, 98, inclusive="both")
+            ]
+            target = candidates[0]
+            frame.loc[target, "SA_Rebased"] += 0.5
+            frame.loc[group_mask, "MA3_Centered"] = (
+                frame.loc[group_mask, "SA_Rebased"]
+                .rolling(3, center=True, min_periods=1)
+                .mean()
+                .to_numpy()
+            )
+            frame.to_csv(path, index=False, float_format="%.10f", lineterminator="\n")
+            manifest_path = output / "manifest.json"
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            manifest["files"]["series.csv"]["sha256"] = sha256(path)
+            manifest_path.write_text(
+                json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8", newline="\n",
+            )
+
+            result = audit_outputs(ROOT, output)
+
+        self.assertEqual(result["status"], "FAIL")
+        self.assertTrue(
+            any("SA_Rebased does not match" in error for error in result["errors"]),
+            result["errors"],
+        )
 
 
 @unittest.skipIf(ANALYSIS_IMPORT_ERROR, "optional analytical dependencies are not installed")
