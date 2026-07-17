@@ -30,9 +30,11 @@ import argparse
 import csv
 import json
 import math
+import os
 import re
 import shutil
 import sys
+import tempfile
 from datetime import date, datetime
 from pathlib import Path
 
@@ -250,7 +252,7 @@ def parse_file(path, kw_to_id, ids, today=None):
     if len(header) < 2:
         raise ValueError("หัวตารางมีคอลัมน์เดียว")
 
-    # ระบุ keyword + geo
+    # ระบุ keyword + geo จากชื่อไฟล์ก่อน แล้ว cross-check กับ header ที่ระบุตัวตน
     kid = geo = None
     name = path.stem
     m = re.match(r"^([A-Za-z]{2}\d{3})__(TH(?:-\d{2})?)$", name)
@@ -269,27 +271,44 @@ def parse_file(path, kw_to_id, ids, today=None):
             if m:
                 geo = m.group(1).upper()
 
-    # จาก header cell: "<คำ>: (<พื้นที่>)"
+    # Header "Month,Value" เป็น canonical/manual format ที่ไม่ระบุตัวตน
+    # จึงใช้ได้เฉพาะเมื่อชื่อไฟล์ระบุ ID/GEO ครบแล้ว
     hcell = header[1]
-    hm = re.match(r"^(.*?):\s*\((.*?)\)\s*$", hcell)
-    if hm:
-        kw_txt, place = hm.group(1), hm.group(2)
-        if geo is None:
-            geo = PLACE_TO_GEO.get(norm(place))
-            if geo is None:
-                raise ValueError(f"ไม่รู้จักพื้นที่ '{place}' (รองรับ: ประเทศไทย + 5 จังหวัดอีสาน)")
-        if kid is None:
-            kid = kw_to_id.get(norm(kw_txt))
-            if kid is None:
-                raise ValueError(f"คำ '{kw_txt.strip()}' ไม่อยู่ใน keywords.csv (เพิ่มคำก่อน หรือเช็คตัวสะกด)")
-    elif kid is None:
-        kid = kw_to_id.get(norm(hcell))
-        if kid is None:
-            raise ValueError(f"คำ '{hcell.strip()}' ไม่อยู่ใน keywords.csv (เพิ่มคำก่อน หรือเช็คตัวสะกด)")
+    if norm(hcell) != "value":
+        hm = re.match(r"^(.*?):\s*\((.*?)\)\s*$", hcell)
+        kw_txt = hm.group(1) if hm else hcell
+        header_kid = kw_to_id.get(norm(kw_txt))
+        if header_kid is None:
+            raise ValueError(
+                f"คำ '{kw_txt.strip()}' ในหัวตารางไม่อยู่ใน keywords.csv "
+                "(เพิ่มคำก่อน หรือเช็คตัวสะกด)"
+            )
+        if kid is not None and kid != header_kid:
+            raise ValueError(
+                f"คำในหัวตาราง '{kw_txt.strip()}' ({header_kid}) "
+                f"ไม่ตรงกับ ID จากชื่อไฟล์ ({kid})"
+            )
+        kid = header_kid
+
+        if hm:
+            place = hm.group(2)
+            header_geo = PLACE_TO_GEO.get(norm(place))
+            if header_geo is None:
+                raise ValueError(
+                    f"ไม่รู้จักพื้นที่ '{place}' (รองรับ: ประเทศไทย + 5 จังหวัดอีสาน)"
+                )
+            if geo is not None and geo != header_geo:
+                raise ValueError(
+                    f"พื้นที่ในหัวตาราง '{place}' ({header_geo}) "
+                    f"ไม่ตรงกับ GEO จากชื่อไฟล์ ({geo})"
+                )
+            geo = header_geo
     if kid is None or geo is None:
         raise ValueError("ระบุคำ/พื้นที่ไม่ได้จากทั้งชื่อไฟล์และหัวตาราง")
     if kid not in ids:
         raise ValueError(f"ID {kid} ไม่อยู่ใน keywords.csv")
+    if geo not in RAW_GEOS:
+        raise ValueError(f"GEO {geo} ไม่รองรับ (ใช้ได้: {sorted(RAW_GEOS)})")
 
     # อ่านข้อมูล รวมเป็นรายเดือน (เฉลี่ยถ้าเป็นรายสัปดาห์/รายวัน)
     bucket = {}
@@ -313,7 +332,24 @@ def parse_file(path, kw_to_id, ids, today=None):
     return kid, geo, points
 
 
-def main():
+def _move_to(path, dest_dir):
+    dest_dir.mkdir(exist_ok=True)
+    dest = dest_dir / path.name
+    i = 1
+    while dest.exists():
+        dest = dest_dir / f"{path.stem}_dup{i}{path.suffix}"
+        i += 1
+    shutil.move(str(path), str(dest))
+
+
+def _write_series_file(path, points):
+    with path.open("w", encoding="utf-8-sig", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["Month", "Value"])
+        writer.writerows(points)
+
+
+def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--dir", default=str(INCOMING), help="โฟลเดอร์ไฟล์ขาเข้า (default: incoming/)")
     ap.add_argument("--dry-run", action="store_true", help="ตรวจอย่างเดียว ไม่เขียน/ไม่ย้ายไฟล์")
@@ -321,7 +357,7 @@ def main():
         "--since",
         help="เลิกใช้งานแล้ว: ห้ามตัด long-horizon archive ก่อน ingest",
     )
-    args = ap.parse_args()
+    args = ap.parse_args(argv)
     if args.since:
         ap.error(
             "--since ถูกปิดใช้งาน เพราะจะตัด canonical long-horizon archive แล้วทับซีรีส์เดิม "
@@ -333,7 +369,7 @@ def main():
     manifest_files = sorted(p for p in indir.glob("no_data_manifest__*.json"))
     if not files and not manifest_files:
         print(f"ไม่มีไฟล์ .csv หรือ no_data_manifest__*.json ใน {indir}")
-        return
+        return 0
 
     run_date = date.today()
     kw_to_id, ids = load_keyword_map()
@@ -343,7 +379,7 @@ def main():
         sys.exit(f"อ่าน data/catalog.json ไม่ได้ จึงหยุดก่อนเขียนข้อมูล: {exc}")
     if not isinstance(catalog, dict) or not isinstance(catalog.get("series"), dict):
         sys.exit("data/catalog.json ต้องเป็น object ที่มี series object; หยุดก่อนเขียนข้อมูล")
-    ok, no_data_ok, bad = [], [], []
+    csv_plans, manifest_plans, bad = [], [], []
 
     for path in files:
         try:
@@ -354,14 +390,7 @@ def main():
             print(f"REVIEW  {path.name}: {e}")
             continue
         print(f"OK      {path.name} -> {kid} @ {geo}: {len(points)} เดือน ({points[0][0]} ถึง {points[-1][0]})")
-        if args.dry_run:
-            continue
-        SERIES_DIR.mkdir(parents=True, exist_ok=True)
-        with open(SERIES_DIR / f"{kid}__{geo}.csv", "w", encoding="utf-8-sig", newline="") as f:
-            w = csv.writer(f)
-            w.writerow(["Month", "Value"])
-            w.writerows(points)
-        catalog["series"][f"{kid}__{geo}"] = {
+        metadata = {
             "status": "available",
             "keyword": ids[kid],
             "timeframe": f"{CANONICAL_START_DATE} {run_date}",
@@ -372,62 +401,93 @@ def main():
             "fetched_at": datetime.now().isoformat(timespec="seconds"),
             "note": f"ingest จาก {path.name}",
         }
-        ok.append((path, kid, geo))
+        csv_plans.append((path, f"{kid}__{geo}", points, metadata))
 
     for path in manifest_files:
         try:
-            entries = parse_no_data_manifest(path, ids, catalog)
+            entries = parse_no_data_manifest(
+                path, ids, catalog, series_dir=SERIES_DIR, today=run_date
+            )
         except ValueError as e:
             bad.append((path, str(e)))
             print(f"REVIEW  {path.name}: {e}")
             continue
         print(f"OK      {path.name} -> ยืนยัน no_data {len(entries)} เซลล์")
+        manifest_plans.append((path, entries))
+
+    sources_by_key = {}
+    for path, key, _points, _metadata in csv_plans:
+        sources_by_key.setdefault(key, []).append(path)
+    for path, entries in manifest_plans:
+        for key, _metadata in entries:
+            sources_by_key.setdefault(key, []).append(path)
+    for key, sources in sorted(sources_by_key.items()):
+        unique_sources = list(dict.fromkeys(sources))
+        if len(sources) > 1:
+            names = ", ".join(path.name for path in unique_sources)
+            reason = f"ปลายทางซ้ำ {key} จาก {names}"
+            print(f"REVIEW  {reason}")
+            for path in unique_sources:
+                if not any(existing == path for existing, _why in bad):
+                    bad.append((path, reason))
+
+    total = len(files) + len(manifest_files)
+    if bad:
         if not args.dry_run:
-            for key, metadata in entries:
-                catalog["series"][key] = metadata
-        no_data_ok.append((path, len(entries)))
+            for path, _why in bad:
+                if path.exists():
+                    _move_to(path, indir / "review")
+        print(
+            f"\nหยุดก่อนเขียนคลัง: อ่านได้ {total - len({path for path, _why in bad})}/{total} ไฟล์ | "
+            f"ต้อง review {len({path for path, _why in bad})} ไฟล์"
+        )
+        return 1
 
     if args.dry_run:
-        total = len(files) + len(manifest_files)
-        print(f"\n(dry-run) อ่านได้ {total - len(bad)}/{total} ไฟล์")
-        return
+        print(f"\n(dry-run) อ่านได้ {total}/{total} ไฟล์")
+        return 0
 
-    # ย้ายไฟล์: สำเร็จ -> processed/, มีปัญหา -> review/
-    for path, *_detail in [*ok, *no_data_ok]:
-        dest_dir = indir / "processed"
-        dest_dir.mkdir(exist_ok=True)
-        dest = dest_dir / path.name
-        i = 1
-        while dest.exists():
-            dest = dest_dir / f"{path.stem}_dup{i}{path.suffix}"
-            i += 1
-        shutil.move(str(path), str(dest))
-    for path, _why in bad:
-        dest_dir = indir / "review"
-        dest_dir.mkdir(exist_ok=True)
-        if path.exists():
-            dest = dest_dir / path.name
-            i = 1
-            while dest.exists():
-                dest = dest_dir / f"{path.stem}_dup{i}{path.suffix}"
-                i += 1
-            shutil.move(str(path), str(dest))
-
-    if ok or no_data_ok:
+    if csv_plans or manifest_plans:
+        SERIES_DIR.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix=".ingest-", dir=SERIES_DIR.parent) as tempdir:
+            staged_dir = Path(tempdir)
+            for _path, key, points, _metadata in csv_plans:
+                _write_series_file(staged_dir / f"{key}.csv", points)
+            for _path, key, _points, metadata in csv_plans:
+                os.replace(staged_dir / f"{key}.csv", SERIES_DIR / f"{key}.csv")
+                catalog["series"][key] = metadata
+        for _path, entries in manifest_plans:
+            for key, metadata in entries:
+                catalog["series"][key] = metadata
         catalog["updated_at"] = datetime.now().isoformat(timespec="seconds")
-        CATALOG_PATH.write_text(json.dumps(catalog, ensure_ascii=False, indent=1), encoding="utf-8")
+        CATALOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with tempfile.NamedTemporaryFile(
+            "w", encoding="utf-8", dir=CATALOG_PATH.parent, delete=False
+        ) as handle:
+            json.dump(catalog, handle, ensure_ascii=False, indent=1)
+            staged_catalog = Path(handle.name)
+        os.replace(staged_catalog, CATALOG_PATH)
+
         sys.path.insert(0, str(Path(__file__).resolve().parent))
         import build_site_data
         build_site_data.build()
 
+        # Keep the source files retryable until every canonical generated file
+        # has been rebuilt successfully. A failed build returns nonzero and the
+        # next run can safely re-ingest the same full-window exports.
+        for path, *_detail in csv_plans:
+            _move_to(path, indir / "processed")
+        for path, _entries in manifest_plans:
+            _move_to(path, indir / "processed")
+
     print(
-        f"\nสรุป: CSV เข้าคลัง {len(ok)} ไฟล์ | "
-        f"no_data manifest {len(no_data_ok)} ไฟล์ | "
-        f"ต้อง review {len(bad)} ไฟล์ (ดูใน incoming/review/)"
+        f"\nสรุป: CSV เข้าคลัง {len(csv_plans)} ไฟล์ | "
+        f"no_data manifest {len(manifest_plans)} ไฟล์ | ต้อง review 0 ไฟล์"
     )
-    if ok or no_data_ok:
+    if csv_plans or manifest_plans:
         print("ก่อนเผยแพร่ต้องรัน audit --strict --require-latest และ stage เฉพาะไฟล์ข้อมูลที่ระบบสร้าง")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

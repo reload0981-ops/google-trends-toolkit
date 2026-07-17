@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Run the proven Chrome extension from an AI-friendly Python CLI.
+"""Run the Chrome extension as an isolated AI-friendly diagnostic.
 
 This is a control plane, not a second scraper implementation.  The extension
 still owns navigation, retries, CAPTCHA detection, download validation and
@@ -18,7 +18,6 @@ import argparse
 import json
 import os
 import re
-import shutil
 import sys
 import time
 from datetime import date, datetime, timezone
@@ -28,7 +27,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 EXTENSION_DIR = ROOT / "extension"
 JOBS_FILE = EXTENSION_DIR / "data" / "jobs.json"
-INCOMING_DIR = ROOT / "incoming"
 RUNNER_DIR = ROOT / ".browser-runner"
 PROFILE_DIR = RUNNER_DIR / "profile"
 DOWNLOADS_DIR = RUNNER_DIR / "downloads"
@@ -290,9 +288,9 @@ class DownloadBridge:
         try:
             filename = download.suggested_filename
             if filename.startswith("no_data_manifest__") and SAFE_DOWNLOAD_RE.fullmatch(filename):
-                INCOMING_DIR.mkdir(parents=True, exist_ok=True)
-                download.save_as(INCOMING_DIR / filename)
-                eprint(f"[download] saved {filename}")
+                CAPTURED_DIR.mkdir(parents=True, exist_ok=True)
+                download.save_as(CAPTURED_DIR / filename)
+                eprint(f"[download] saved diagnostic {filename}")
                 return
             if not is_timeseries_download_filename(filename):
                 eprint(f"[download] ปฏิเสธชื่อไฟล์นอก schema: {filename}")
@@ -332,11 +330,12 @@ class DownloadBridge:
                 eprint(f"[download] ปฏิเสธ {expected}: {exc}")
                 return
 
-            INCOMING_DIR.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(captured, INCOMING_DIR / expected)
             ack.update({"status": "valid", **details})
             self.set_ack(ack)
-            eprint(f"[download] validated and saved {expected} ({details['months']} เดือน)")
+            eprint(
+                f"[download] validated diagnostic {expected} "
+                f"({details['months']} เดือน); not copied to incoming/"
+            )
         except Exception as exc:  # Playwright event callbacks must not kill the queue.
             eprint(f"[download] save failed: {exc}")
 
@@ -478,7 +477,8 @@ def monitor_queue(page, mode, poll_seconds=2.0):
 
         if summary["complete"] and summary["extension_status"] == "idle":
             message = (
-                "queue complete; พร้อม ingest --dry-run"
+                "diagnostic complete; outputs are in .browser-runner/captured; "
+                "ห้าม ingest/publish"
                 if summary["successful"]
                 else "queue complete แต่มี FAILED jobs; ห้าม ingest/publish จน retry สำเร็จ"
             )

@@ -47,17 +47,29 @@ class BuildSiteDataTests(unittest.TestCase):
 
     def write_series(self, geo, values):
         key = f"FP001__{geo}"
-        months = ["2026-01", "2026-02"]
+        months = []
+        year, month = 2014, 1
+        while (year, month) <= (2026, 2):
+            months.append(f"{year:04d}-{month:02d}")
+            month += 1
+            if month == 13:
+                year += 1
+                month = 1
+        values = [0] * (len(months) - len(values)) + values
         path = self.root / "data" / "series" / f"{key}.csv"
         with path.open("w", encoding="utf-8", newline="") as handle:
             writer = csv.writer(handle)
             writer.writerow(["Month", "Value"])
             writer.writerows(zip(months, values))
         self.catalog["series"][key] = {
-            "months": 2,
-            "first": "2026-01",
+            "status": "available",
+            "keyword": "ทดสอบ",
+            "timeframe": "2004-01-01 2026-07-01",
+            "months": len(months),
+            "first": "2014-01",
             "last": "2026-02",
             "fetched_on": "2026-07-01",
+            "fetched_at": "2026-07-01T12:00:00",
             "note": f"source {geo}",
         }
 

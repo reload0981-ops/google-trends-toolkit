@@ -1,9 +1,11 @@
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import Mock, patch
 
+from collector import browser_runner
 from collector.browser_runner import (
-    RunnerError, is_timeseries_download_filename, summarize_state,
+    DownloadBridge, RunnerError, is_timeseries_download_filename, summarize_state,
     validate_captured_download, validate_jobs,
 )
 
@@ -20,6 +22,51 @@ def job(job_id="j0001", keyword_id="FP014", geo="TH", end="2026-07-15"):
 
 
 class BrowserRunnerSafetyTests(unittest.TestCase):
+    def test_diagnostic_download_never_enters_production_incoming(self):
+        class FakeDownload:
+            def __init__(self, payload, suggested_filename="multiTimeline.csv"):
+                self.payload = payload
+                self.suggested_filename = suggested_filename
+                self.destinations = []
+
+            def save_as(self, destination):
+                destination = Path(destination)
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                destination.write_bytes(self.payload)
+                self.destinations.append(destination)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            captured = Path(tmp) / "captured"
+            download = FakeDownload(b"x" * 200)
+            bridge = DownloadBridge()
+            bridge.controller_page = Mock()
+            with (
+                patch.object(browser_runner, "CAPTURED_DIR", captured),
+                patch.object(
+                    browser_runner,
+                    "read_extension_state",
+                    return_value={"jobs": [{**job(), "status": "RUNNING"}]},
+                ),
+                patch.object(
+                    browser_runner,
+                    "validate_captured_download",
+                    return_value={"keyword_id": "FP014", "geo_code": "TH", "months": 270},
+                ),
+            ):
+                bridge.handle(download)
+                manifest = FakeDownload(
+                    b"{}", "no_data_manifest__2026-07-17.json"
+                )
+                bridge.handle(manifest)
+
+            expected = captured / "FP014__TH.csv"
+            self.assertEqual(download.destinations, [expected])
+            self.assertTrue(expected.is_file())
+            expected_manifest = captured / manifest.suggested_filename
+            self.assertEqual(manifest.destinations, [expected_manifest])
+            self.assertTrue(expected_manifest.is_file())
+            self.assertFalse(hasattr(browser_runner, "INCOMING_DIR"))
+
     def test_valid_queue_plan_is_countable(self):
         jobs = [job(), job("j0002", "FP019", "TH-30")]
         plan = validate_jobs(jobs, canonical_end="2026-07-15")

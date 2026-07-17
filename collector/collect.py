@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Google Trends Toolkit - ตัวเก็บ/อัพเดทข้อมูล
+"""Google Trends Toolkit - pytrends diagnostic collector
 
-เก็บข้อมูล Google Trends ของคำค้นใน keywords.csv แล้วบันทึกเป็นรายเดือนลง data/series/
-จากนั้น rebuild data.js ให้หน้าแสดงผลอัตโนมัติ
+เก็บผลทดลองด้วย pytrends ไว้ใน incoming/pytrends-diagnostic/ เท่านั้น
+ไม่เขียน data/, data/catalog.json หรือ data.js และห้ามใช้ผลนี้ publish
 
 ตัวอย่างการใช้:
   python collector/collect.py --plan --all                 # ดูงานที่จะทำ ไม่ยิง API
@@ -38,9 +38,9 @@ else:
 
 ROOT = Path(__file__).resolve().parent.parent
 KEYWORDS_CSV = ROOT / "keywords.csv"
-DATA_DIR = ROOT / "data"
-SERIES_DIR = DATA_DIR / "series"
-CATALOG_PATH = DATA_DIR / "catalog.json"
+DIAGNOSTIC_DIR = ROOT / "incoming" / "pytrends-diagnostic"
+SERIES_DIR = DIAGNOSTIC_DIR / "series"
+CATALOG_PATH = DIAGNOSTIC_DIR / "catalog.json"
 
 GEOS = {
     "TH": "ประเทศไทย",
@@ -73,6 +73,7 @@ def load_catalog():
 
 def save_catalog(catalog):
     catalog["updated_at"] = datetime.now().isoformat(timespec="seconds")
+    CATALOG_PATH.parent.mkdir(parents=True, exist_ok=True)
     CATALOG_PATH.write_text(
         json.dumps(catalog, ensure_ascii=False, indent=1), encoding="utf-8"
     )
@@ -202,6 +203,7 @@ def main():
         todo.append((row, geo))
 
     print(f"งานทั้งหมด {len(jobs)} ซีรีส์ | ต้องเก็บรอบนี้ {len(todo)} | timeframe: {timeframe}")
+    print(f"DIAGNOSTIC ONLY -> {DIAGNOSTIC_DIR} (ไม่เขียน canonical data)")
     if args.plan:
         for row, geo in todo[:200]:
             print(f"  {row['Keyword_ID']:>8}  {geo:>6}  {row['Keyword_TH']}")
@@ -326,13 +328,10 @@ def _finish(catalog, ok, no_data, failed):
             print(f"  FAIL {kid} @ {geo}: {why}")
     if not ok and not no_data:
         # ไม่มีข้อมูลใหม่ = ไม่แตะไฟล์ใดๆ กัน commit ที่มีแต่ timestamp เปลี่ยน
-        print("ไม่มีข้อมูลใหม่ ไม่แตะ catalog/data.js")
+        print("ไม่มีข้อมูลวินิจฉัยใหม่ ไม่แตะไฟล์ใดๆ")
         return 1 if failed else 0
     save_catalog(catalog)
-    sys.path.insert(0, str(Path(__file__).resolve().parent))
-    import build_site_data
-    build_site_data.build()
-    print("อัพเดท data.js แล้ว ต้องผ่าน audit --strict --require-latest ก่อนเผยแพร่")
+    print(f"บันทึกผลวินิจฉัยใน {DIAGNOSTIC_DIR}; ห้าม stage/publish")
     if failed:
         print("รอบนี้มีงานล้มเหลว จึงคืน exit code 1 เพื่อห้าม workflow commit ชุดข้อมูลบางส่วน")
         return 1
