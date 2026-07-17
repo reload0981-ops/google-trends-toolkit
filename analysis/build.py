@@ -16,8 +16,25 @@ import pandas as pd
 import scipy
 import statsmodels
 
-from .core import Case, PipelineError, SCOPES, load_cases, load_scope_raw
-from .pipeline import OUTPUT_FILES, ROOT, SCHEMA_VERSION, SERIES_COLUMNS, _build_rows, _write_csv
+from .core import (
+    Case,
+    PipelineError,
+    SCOPES,
+    build_pre_sa_for_case,
+    load_cases,
+    load_scope_raw,
+    rebase_max100,
+)
+from .pipeline import (
+    OUTPUT_FILES,
+    QUALITY_COLUMNS,
+    ROOT,
+    SCHEMA_VERSION,
+    SERIES_COLUMNS,
+    _build_rows,
+    _write_csv,
+    quality_flags,
+)
 from .x13 import (
     DIAGNOSTIC_FIELDS,
     EXPECTED_SHA256,
@@ -53,7 +70,21 @@ METHOD_CONTRACT = {
     "missing_support": "fail; never pad missing months or geographies",
     "fallback": "stl",
 }
+QUALITY_CONTRACT = {
+    "execution_status": "SUCCESS|FALLBACK|NO_SIGNAL",
+    "diagnostic_status": (
+        "X-13 Accept_Status; NOT_AVAILABLE for fallback; NOT_APPLICABLE for no signal"
+    ),
+    "quality_status": "PASS only for ACCEPTED X-13; REVIEW for conditional/rejected/fallback; NO_SIGNAL explicit",
+    "geo_support": "required geographies with positive pre-SA signal",
+    "coverage_status": "FULL when Geo_Support_N equals Geo_Support_Total; otherwise PARTIAL",
+    "ma3_endpoint_provisional": "TRUE because the latest centered MA3 uses two months",
+}
 HASH_NORMALIZATION = "CRLF->LF"
+
+
+def _csv_text(value: Any) -> str:
+    return "" if pd.isna(value) else str(value).strip()
 
 
 def canonical_text_sha256(path: Path) -> str:
@@ -109,7 +140,7 @@ def prepare_output(
         raise PipelineError("keywords.csv does not define any analytical cases")
     digest, source_files = source_digest(root, cases)
     destination.mkdir(parents=True, exist_ok=True)
-    series_rows, method_rows, audit_rows, diagnostic_rows, metadata = _build_rows(
+    series_rows, method_rows, audit_rows, diagnostic_rows, quality_rows, metadata = _build_rows(
         root, cases, executable, timeout, fallback, quiet,
     )
 
@@ -130,10 +161,16 @@ def prepare_output(
             DIAGNOSTIC_COLUMNS,
             diagnostic_rows,
         ),
+        "quality_flags.csv": _write_csv(
+            destination / "quality_flags.csv",
+            QUALITY_COLUMNS,
+            quality_rows,
+        ),
     }
     manifest = {
         "schema_version": SCHEMA_VERSION,
         "method": {**METHOD_CONTRACT, "fallback": fallback},
+        "quality_flags": QUALITY_CONTRACT,
         "windows": metadata["scopes"],
         "counts": metadata["counts"],
         "source": {
@@ -242,6 +279,8 @@ def audit_outputs(root: Path = ROOT, output_dir: Path | None = None) -> dict[str
         errors.append(f"unsupported schema_version {manifest.get('schema_version')!r}")
     if manifest.get("method") != METHOD_CONTRACT:
         errors.append("manifest method contract differs from canonical policy")
+    if manifest.get("quality_flags") != QUALITY_CONTRACT:
+        errors.append("manifest quality flag contract differs from canonical policy")
     runtime = manifest.get("runtime", {})
     if runtime.get("x13_sha256") != EXPECTED_SHA256:
         errors.append("manifest does not use the canonical X-13 binary hash")
@@ -284,6 +323,7 @@ def audit_outputs(root: Path = ROOT, output_dir: Path | None = None) -> dict[str
         methods = pd.read_csv(output_dir / "method_log.csv", encoding="utf-8")
         rebases = pd.read_csv(output_dir / "rebase_audit.csv", encoding="utf-8")
         diagnostics = pd.read_csv(output_dir / "x13_diagnostics.csv", encoding="utf-8")
+        quality = pd.read_csv(output_dir / "quality_flags.csv", encoding="utf-8")
     except Exception as exc:
         errors.append(f"cannot parse derived CSV: {exc}")
     else:
@@ -292,6 +332,7 @@ def audit_outputs(root: Path = ROOT, output_dir: Path | None = None) -> dict[str
             "method_log.csv": (methods, METHOD_COLUMNS),
             "rebase_audit.csv": (rebases, AUDIT_COLUMNS),
             "x13_diagnostics.csv": (diagnostics, DIAGNOSTIC_COLUMNS),
+            "quality_flags.csv": (quality, QUALITY_COLUMNS),
         }
         for name, (frame, columns) in frames.items():
             if tuple(frame.columns) != columns:
@@ -317,6 +358,10 @@ def audit_outputs(root: Path = ROOT, output_dir: Path | None = None) -> dict[str
             errors.append("x13_diagnostics.csv must contain one row per case/scope")
         if set(zip(rebases.get("Scope", ()), rebases.get("Case_ID", ()))) != expected_pairs:
             errors.append("rebase_audit.csv case/scope coverage is incomplete")
+        if set(zip(quality.get("Scope", ()), quality.get("Case_ID", ()))) != expected_pairs:
+            errors.append("quality_flags.csv case/scope coverage is incomplete")
+        if len(quality) != len(expected_pairs) or quality.duplicated(["Scope", "Case_ID"]).any():
+            errors.append("quality_flags.csv must contain one row per case/scope")
 
         numeric_columns = (
             "Input_Rebased", "SA", "SA_Floored", "SA_Rebased", "MA3_Centered",
@@ -330,6 +375,13 @@ def audit_outputs(root: Path = ROOT, output_dir: Path | None = None) -> dict[str
             series["SA_Floored"], series["SA"].clip(lower=0), rtol=0, atol=tolerance,
         ):
             errors.append("SA_Floored does not equal max(SA, 0)")
+        expected_rebased = series.groupby(
+            ["Scope", "Case_ID"], sort=False
+        )["SA_Floored"].transform(lambda values: rebase_max100(values)[0])
+        if not np.allclose(
+            series["SA_Rebased"], expected_rebased, rtol=0, atol=tolerance,
+        ):
+            errors.append("SA_Rebased does not match max-100 rebase of SA_Floored")
         for column in ("SA_Floored", "SA_Rebased", "MA3_Centered"):
             if (series[column] < -tolerance).any():
                 errors.append(f"{column} contains negative values")
@@ -342,6 +394,8 @@ def audit_outputs(root: Path = ROOT, output_dir: Path | None = None) -> dict[str
         if not np.allclose(series["MA3_Centered"], expected_ma3, rtol=0, atol=tolerance):
             errors.append("MA3_Centered does not match centered MA3 of SA_Rebased")
 
+        expected_pre_audits: dict[tuple[str, str, str, str, str], dict[str, Any]] = {}
+        expected_geo_support: dict[tuple[str, str], tuple[int, int]] = {}
         for scope, config in SCOPES.items():
             scoped = series[series["Scope"] == scope]
             raw_map = load_scope_raw(root, cases, tuple(config["geos"]), str(config["start"]))
@@ -356,10 +410,141 @@ def audit_outputs(root: Path = ROOT, output_dir: Path | None = None) -> dict[str
             if manifest.get("windows", {}).get(scope) != expected_window:
                 errors.append(f"manifest window for {scope} differs from canonical raw")
             for case in cases:
-                actual_months = scoped.loc[scoped["Case_ID"] == case.case_id, "Month"].tolist()
+                case_rows = scoped.loc[scoped["Case_ID"] == case.case_id]
+                actual_months = case_rows["Month"].tolist()
                 if actual_months != expected_months:
                     errors.append(f"{scope}/{case.case_id} monthly support differs from canonical raw")
-                    break
+                    continue
+                pre = build_pre_sa_for_case(case, raw_map, tuple(config["geos"]))
+                if not np.allclose(
+                    case_rows["Input_Rebased"].to_numpy(dtype=float),
+                    pre["series"].to_numpy(dtype=float),
+                    rtol=0,
+                    atol=tolerance,
+                ):
+                    errors.append(
+                        f"{scope}/{case.case_id} Input_Rebased differs from canonical raw recomputation"
+                    )
+                for audit in pre["audits"]:
+                    key = (
+                        scope, case.case_id, str(audit["stage"]),
+                        str(audit["member_id"]), str(audit["geo"]),
+                    )
+                    expected_pre_audits[key] = {
+                        "Tier": case.tier,
+                        "Status": str(audit["status"]),
+                        "Pre_Max": float(audit["pre_max"]),
+                        "Contributors_N": int(audit["contributors_n"]),
+                        "Required_N": int(audit["required_n"]),
+                    }
+                    if audit["stage"] == "C_SCOPE":
+                        expected_geo_support[(scope, case.case_id)] = (
+                            int(audit["contributors_n"]), int(audit["required_n"]),
+                        )
+
+        pre_stages = {"A_MEMBER_GEO", "B_FAMILY_GEO", "C_SCOPE"}
+        unsupported_stages = set(rebases["Stage"]) - pre_stages - {"D_POST_SA"}
+        if unsupported_stages:
+            errors.append(
+                "rebase_audit.csv contains unsupported stage(s): "
+                + ", ".join(sorted(str(stage) for stage in unsupported_stages))
+            )
+        actual_pre_audits: dict[tuple[str, str, str, str, str], pd.Series] = {}
+        duplicate_pre_key = False
+        for _, row in rebases.loc[rebases["Stage"].isin(pre_stages)].iterrows():
+            key = (
+                _csv_text(row["Scope"]), _csv_text(row["Case_ID"]),
+                _csv_text(row["Stage"]), _csv_text(row["Member_ID"]),
+                _csv_text(row["Geo"]),
+            )
+            duplicate_pre_key |= key in actual_pre_audits
+            actual_pre_audits.setdefault(key, row)
+        if duplicate_pre_key:
+            errors.append("rebase_audit.csv contains duplicate A/B/C audit rows")
+        if set(actual_pre_audits) != set(expected_pre_audits):
+            errors.append("rebase_audit.csv A/B/C rows differ from canonical raw recomputation")
+        for key in sorted(set(actual_pre_audits).intersection(expected_pre_audits)):
+            actual, expected = actual_pre_audits[key], expected_pre_audits[key]
+            try:
+                matches = (
+                    _csv_text(actual["Tier"]) == expected["Tier"]
+                    and _csv_text(actual["Status"]) == expected["Status"]
+                    and math.isclose(
+                        float(actual["Pre_Max"]), expected["Pre_Max"],
+                        rel_tol=0, abs_tol=tolerance,
+                    )
+                    and int(actual["Contributors_N"]) == expected["Contributors_N"]
+                    and int(actual["Required_N"]) == expected["Required_N"]
+                )
+            except (TypeError, ValueError):
+                matches = False
+            if not matches:
+                scope, case_id, stage, member_id, geo = key
+                identity = "/".join(
+                    part for part in (scope, case_id, stage, member_id, geo) if part
+                )
+                errors.append(
+                    f"rebase_audit.csv {identity} differs from canonical raw recomputation"
+                )
+                break
+
+        method_by_pair = {
+            (_csv_text(row["Scope"]), _csv_text(row["Case_ID"])): row
+            for _, row in methods.iterrows()
+        }
+        diagnostic_by_pair = {
+            (_csv_text(row["Scope"]), _csv_text(row["Case_ID"])): row
+            for _, row in diagnostics.iterrows()
+        }
+        valid_method_status = {
+            ("X13", "OK"), ("STL_FALLBACK", "FALLBACK"),
+            ("NO_SIGNAL", "NO_SIGNAL"),
+        }
+        for pair in expected_pairs:
+            method_row = method_by_pair.get(pair)
+            diagnostic_row = diagnostic_by_pair.get(pair)
+            if method_row is None or diagnostic_row is None:
+                continue
+            method = _csv_text(method_row["Method"])
+            if (method, _csv_text(method_row["Status"])) not in valid_method_status:
+                errors.append(f"{pair[0]}/{pair[1]} method execution status is inconsistent")
+            if _csv_text(diagnostic_row["Method"]) != method:
+                errors.append(f"{pair[0]}/{pair[1]} diagnostic method is inconsistent")
+
+        actual_quality = {
+            (_csv_text(row["Scope"]), _csv_text(row["Case_ID"])): row
+            for _, row in quality.iterrows()
+        }
+        for pair, support in expected_geo_support.items():
+            method_row = method_by_pair.get(pair)
+            diagnostic_row = diagnostic_by_pair.get(pair)
+            quality_row = actual_quality.get(pair)
+            if method_row is None or diagnostic_row is None or quality_row is None:
+                continue
+            expected = quality_flags(
+                _csv_text(method_row["Method"]),
+                _csv_text(diagnostic_row["Accept_Status"]),
+                support[0],
+                support[1],
+            )
+            try:
+                matches = all(
+                    _csv_text(quality_row[field]).upper() == str(expected[field]).upper()
+                    for field in (
+                        "Execution_Status", "Diagnostic_Status", "Quality_Status",
+                        "Coverage_Status", "MA3_Endpoint_Provisional",
+                    )
+                ) and all(
+                    int(quality_row[field]) == int(expected[field])
+                    for field in ("Geo_Support_N", "Geo_Support_Total")
+                )
+            except (TypeError, ValueError):
+                matches = False
+            if not matches:
+                errors.append(
+                    f"quality_flags.csv {pair[0]}/{pair[1]} differs from canonical semantics"
+                )
+                break
 
         post_status_by_pair = methods.set_index(["Scope", "Case_ID"])["Post_SA_Status"]
         maxima = series.groupby(["Scope", "Case_ID"])["SA_Rebased"].max()

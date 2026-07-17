@@ -19,7 +19,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\bootstrap-analysis-windows.ps
 # สร้างใน staging แล้วเทียบผลแบบ byte-for-byte
 .\.venv\Scripts\python.exe -X utf8 -m analysis.build --check
 
-# ตรวจ schema, hashes, source digest และ coverage โดยไม่เรียก X-13
+# ตรวจ schema, hashes, source digest, raw→pre-SA recomputation และ coverage โดยไม่เรียก X-13
 .\.venv\Scripts\python.exe -X utf8 -m analysis.build --audit
 ```
 
@@ -34,7 +34,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\bootstrap-analysis-windows.ps
 - T2 ภาค: rebase ราย member×จังหวัด (A) → เฉลี่ย members ในจังหวัด → rebase family×จังหวัด (B) → เฉลี่ยครบ 5 จังหวัด → rebase ภาค (C)
 - ระดับประเทศใช้ลำดับเดียวกันกับ geography เดียว; T2 ยังทำ member rebase และ family rebase
 - X-13 ใช้ additive mode, `log=False`, `outlier=False`; ค่า 0 เปลี่ยนเป็น `0.001` เฉพาะสำเนาที่ส่งเข้า X-13
-- หาก X-13 ประมวลผล series หนึ่งไม่ได้ ให้ใช้ robust STL และบันทึก `STL_FALLBACK` พร้อมเหตุผล แต่ถ้าไม่พบ binary ตั้งแต่ต้น build ต้อง fail
+- ใช้ robust STL เฉพาะ timeout หรือ model error ที่ X-13 บันทึกเป็น `ERROR:` ต่อ series และบันทึก `STL_FALLBACK` พร้อมเหตุผล; process crash, output หายโดยไม่มี explicit error หรือไม่พบ binary ต้อง fail build
 - หลัง SA: floor ค่าติดลบเป็น 0 → rebase max100 → centered MA3 (`window=3`, `min_periods=1`)
 - series ดิบที่เป็นศูนย์ล้วนต้องคงเป็นศูนย์และติดสถานะ `NO_SIGNAL`; ห้ามทำ epsilon ก่อน rebase เพราะจะกลายเป็นค่าคงที่ 100
 - support รายเดือนหรือ geography ขาดต้อง fail; pipeline ไม่เดา ไม่ pad และไม่เฉลี่ยเฉพาะส่วนที่เหลือ
@@ -50,7 +50,10 @@ powershell -ExecutionPolicy Bypass -File .\scripts\bootstrap-analysis-windows.ps
 | `method_log.csv` | วิธีที่ใช้จริง, fallback reason, signal/support และ post-SA status ต่อ case×scope |
 | `rebase_audit.csv` | ค่า pre-max และจำนวน contributor ในขั้น A/B/C/D |
 | `x13_diagnostics.csv` | M1–M11, Q และ seasonality tests ที่อ่านได้จาก X-13 output |
+| `quality_flags.csv` | สถานะ execution/diagnostic/quality, geographic support, FULL/PARTIAL coverage และ flag ว่าค่า centered-MA3 เดือนปลายยัง provisional ต่อ case×scope |
 | `manifest.json` | method contract, windows, package/X-13 versions, source digest, row counts และ hashes |
+
+`quality_flags.csv` เป็น sidecar เท่านั้น ไม่เปลี่ยน schema หรือค่าตัวเลขใน `series.csv` โดย `Quality_Status=PASS` ใช้เฉพาะ X-13 ที่ diagnostics เป็น `ACCEPTED`; conditional/rejected และ STL fallback เป็น `REVIEW` (ดูวิธีรันจริงจาก `Execution_Status`) ส่วน `Coverage_Status=PARTIAL` หมายถึงมีสัญญาณจาก geography ไม่ครบ scope ค่า `MA3_Endpoint_Provisional=TRUE` ระบุว่า centered MA3 เดือนสุดท้ายใช้ข้อมูลเพียงสองเดือนและอาจเปลี่ยนเมื่อเดือนถัดไปเข้ามา
 
 `REG_ISAN5` ในชุดนี้ไม่ใช่ `ISAN` ของ dashboard: dashboard เดิมเป็น raw keyword-level composite และมี client-side rebase/trailing MA3 จึงยังไม่ควรนำ analytical series ชุดนี้ไปเสียบตรง ๆ เพราะจะเกิดการแปลงซ้ำ
 
