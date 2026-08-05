@@ -956,6 +956,17 @@ async function mainLoop() {
     const settings = readSettings();
     const idx = nextPendingIndex(state.cursor);
     if (idx === -1) {
+      const counts = getCounts();
+      if (counts.failed > 0) {
+        log(
+          `Queue incomplete: ${counts.failed} FAILED job(s) remain. Use Retry Failed/No Data before finishing.`,
+          "err"
+        );
+        state.status = "paused";
+        await saveState();
+        refreshUI();
+        return;
+      }
       log("All jobs processed.", "ok");
       try {
         await exportNoDataManifest();
@@ -1108,10 +1119,16 @@ async function retryFailedJobs() {
 
 async function reconcileDownloads() {
   if (!state) await loadState();
+  if (!state.started_at) {
+    log("Reconcile Downloads requires the current queue to be started first.", "warn");
+    return;
+  }
+  const currentRunStartedAfter = new Date(state.started_at).toISOString();
 
   let downloads;
   try {
     downloads = await chrome.downloads.search({
+      startedAfter: currentRunStartedAfter,
       filenameRegex: ".*__TH.*\\.csv$",
       state: "complete",
       exists: true,
@@ -1119,6 +1136,7 @@ async function reconcileDownloads() {
     });
   } catch (_) {
     downloads = await chrome.downloads.search({
+      startedAfter: currentRunStartedAfter,
       filenameRegex: ".*__TH.*\\.csv$",
       state: "complete",
       limit: 1000

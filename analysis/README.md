@@ -46,7 +46,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\bootstrap-analysis-windows.ps
 
 | ไฟล์ | เนื้อหา |
 |---|---|
-| `series.csv` | long-format monthly series: input rebased, SA, floor0, post-SA rebase และ centered MA3 |
+| `series.csv` | long-format monthly series: input rebased, SA, floor0, post-SA rebase และ centered MA3; ใช้เป็น Tableau data source ได้ตรง |
 | `method_log.csv` | วิธีที่ใช้จริง, fallback reason, signal/support และ post-SA status ต่อ case×scope |
 | `rebase_audit.csv` | ค่า pre-max และจำนวน contributor ในขั้น A/B/C/D |
 | `x13_diagnostics.csv` | M1–M11, Q และ seasonality tests ที่อ่านได้จาก X-13 output |
