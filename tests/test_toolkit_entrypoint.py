@@ -48,9 +48,21 @@ class ToolkitEntrypointTests(unittest.TestCase):
         self.assertIn('"--interactive", "--id-file"', self.toolkit)
         self.assertIn('Read-Host "Type FINISH', self.toolkit)
 
+    def test_a_queue_is_never_built_over_a_round_still_collecting(self):
+        # The Controller holds one queue, so a fresh import mid-round throws
+        # away everything collected so far.
+        self.assertIn("Assert-NoRoundInFlight", self.toolkit)
+        self.assertIn("still in flight", self.toolkit)
+        self.assertIn("-AllowUnfinishedRound", self.toolkit)
+        # It must fire before add-keyword writes the row, or a refused run
+        # leaves a keyword with no data and breaks the release gate.
+        guard = self.toolkit.index("Assert-NoRoundInFlight -Allow:$AllowUnfinishedRound", self.toolkit.index('"add-keyword" {'))
+        add_call = self.toolkit.index("add_keyword.py", guard)
+        self.assertLess(guard, add_call)
+
     def test_desktop_copy_is_made_from_the_canonical_queue(self):
-        self.assertIn("queue-this-month.json", self.toolkit)
         self.assertIn('GetFolderPath("Desktop")', self.toolkit)
+        self.assertIn("--desktop-kind", self.toolkit)
         self.assertIn(
             "-DesktopCopy cannot be combined with -out",
             self.toolkit,

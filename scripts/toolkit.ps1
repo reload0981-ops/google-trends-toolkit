@@ -11,6 +11,8 @@ param(
 
     [switch]$DesktopCopy,
 
+    [switch]$AllowUnfinishedRound,
+
     [Parameter(Position = 1, ValueFromRemainingArguments = $true)]
     [string[]]$Arguments = @()
 )
@@ -40,15 +42,31 @@ function Assert-VenvPython {
     }
 }
 
+function Assert-NoRoundInFlight([switch]$Allow) {
+    # The Controller holds exactly one queue, so importing a freshly built one
+    # while a round is still collecting wipes that round's progress. Downloads
+    # left in incoming\ mean the previous round has not been ingested yet.
+    if ($Allow) { return }
+    $pending = @(Get-ChildItem -LiteralPath (Join-Path $root "incoming") -Filter "*.csv" -File -ErrorAction SilentlyContinue)
+    if ($pending.Count -gt 0) {
+        throw ("A collection round is still in flight ({0} files waiting in incoming\). " -f $pending.Count) +
+              "Building a queue now would replace the running one in the Controller. " +
+              "Finish that round first, or pass -AllowUnfinishedRound if you really mean to start over."
+    }
+}
+
 function Invoke-MonthlyPrepare(
     [string[]]$QueueArguments = @(),
     [string]$OutputPath = "",
-    [switch]$CopyToDesktop
+    [string]$DesktopKind = "",
+    [switch]$AllowUnfinishedRound
 ) {
     Assert-VenvPython
-    if ($OutputPath -and $CopyToDesktop) {
+    if ($OutputPath -and $DesktopKind) {
         throw "-DesktopCopy cannot be combined with -out; the desktop copy is made from the canonical queue"
     }
+    Assert-NoRoundInFlight -Allow:$AllowUnfinishedRound
+
     $jobArguments = @($QueueArguments)
     if ($jobArguments.Count -eq 0) {
         $jobArguments = @("--all")
@@ -56,28 +74,16 @@ function Invoke-MonthlyPrepare(
     if ($OutputPath) {
         $jobArguments += @("--out", $OutputPath)
     }
+    # Python owns the desktop copy so the Thai filenames stay out of this file,
+    # which Windows PowerShell 5.1 would read as ANSI without a BOM.
+    if ($DesktopKind) {
+        $jobArguments += @("--desktop-dir", [Environment]::GetFolderPath("Desktop"), "--desktop-kind", $DesktopKind)
+    }
     Invoke-Native $venvPython (@("-X", "utf8", "collector/make_jobs.py") + $jobArguments) "Create extension queue"
-    $queuePath = Join-Path $root "extension\data\jobs.json"
-    if ($OutputPath) {
-        $queuePath = $OutputPath
-    }
-
-    # The canonical queue is what keeps the Controller dropdown honest, so it is
-    # always written first. The desktop copy exists only so the operator can pick
-    # the file without walking into extension\data\.
-    if ($CopyToDesktop) {
-        $desktopCopy = Join-Path ([Environment]::GetFolderPath("Desktop")) "queue-this-month.json"
-        Copy-Item -LiteralPath $queuePath -Destination $desktopCopy -Force
-        Write-Host ""
-        Write-Host "QUEUE READY: $desktopCopy" -ForegroundColor Green
-        Write-Host "Also refreshed the bundled queue at extension\data\jobs.json"
-        Write-Host "In Chrome Controller: Import jobs.json, choose the file above, press Start."
-        return
-    }
 
     Write-Host ""
-    Write-Host "QUEUE READY: $queuePath" -ForegroundColor Green
-    Write-Host "In Chrome Controller: Import jobs.json, press Start, and resolve CAPTCHA if prompted."
+    Write-Host "QUEUE READY" -ForegroundColor Green
+    Write-Host "In Chrome Controller: Import jobs.json, choose the file shown above, press Start."
 }
 
 function Invoke-MonthlyFinish(
@@ -109,7 +115,7 @@ function Invoke-MonthlyFinish(
 
 switch ($Action) {
     "setup" {
-        if ($Arguments.Count -ne 0 -or $RequireLatest -or $JobOutput -or $DesktopCopy) {
+        if ($Arguments.Count -ne 0 -or $RequireLatest -or $JobOutput -or $DesktopCopy -or $AllowUnfinishedRound) {
             throw "setup accepts only the optional -Python parameter"
         }
         $bootstrap = Join-Path $root "bootstrap-windows.ps1"
@@ -127,7 +133,9 @@ switch ($Action) {
         if ($RequireLatest) {
             throw "-RequireLatest is valid only with monthly-run or monthly-finish"
         }
-        Invoke-MonthlyPrepare -QueueArguments $Arguments -OutputPath $JobOutput -CopyToDesktop:$DesktopCopy
+        $kind = ""
+        if ($DesktopCopy) { $kind = "monthly" }
+        Invoke-MonthlyPrepare -QueueArguments $Arguments -OutputPath $JobOutput -DesktopKind $kind -AllowUnfinishedRound:$AllowUnfinishedRound
     }
 
     "monthly-finish" {
@@ -142,6 +150,10 @@ switch ($Action) {
             throw "add-keyword takes no extra parameters"
         }
         Assert-VenvPython
+        # Check before touching keywords.csv. Adding the row first and failing
+        # afterwards leaves an entry with no data, which fails the release gate
+        # for the round that is still collecting.
+        Assert-NoRoundInFlight -Allow:$AllowUnfinishedRound
 
         # Python owns every Thai prompt: Windows PowerShell 5.1 reads a script
         # without a BOM as ANSI, so Thai text in this file would be mojibake.
@@ -158,7 +170,7 @@ switch ($Action) {
             if (Test-Path -LiteralPath $idFile) { Remove-Item -LiteralPath $idFile -Force }
         }
 
-        Invoke-MonthlyPrepare -QueueArguments @("--ids", $keywordId) -CopyToDesktop
+        Invoke-MonthlyPrepare -QueueArguments @("--ids", $keywordId) -DesktopKind "keyword"
 
         Write-Host ""
         Write-Host "CHROME CHECKPOINT" -ForegroundColor Yellow
@@ -179,7 +191,9 @@ switch ($Action) {
     }
 
     "monthly-run" {
-        Invoke-MonthlyPrepare -QueueArguments $Arguments -OutputPath $JobOutput -CopyToDesktop:$DesktopCopy
+        $kind = ""
+        if ($DesktopCopy) { $kind = "monthly" }
+        Invoke-MonthlyPrepare -QueueArguments $Arguments -OutputPath $JobOutput -DesktopKind $kind -AllowUnfinishedRound:$AllowUnfinishedRound
         Write-Host ""
         Write-Host "CHROME CHECKPOINT" -ForegroundColor Yellow
         Write-Host "1. Import the queue shown above and press Start."
