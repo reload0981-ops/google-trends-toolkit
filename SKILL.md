@@ -14,7 +14,7 @@ description: Operate the Google Trends Toolkit - collect canonical monthly CSVs 
 | ขั้น | เจ้าของงาน |
 |---|---|
 | สร้างคิว | Agent รัน `.\scripts\toolkit.ps1 monthly-prepare` |
-| ดาวน์โหลด CSV รายเดือน | extension v0.7.2 ใน Chrome profile ที่ลงชื่อเข้าใช้ Google แล้ว |
+| ดาวน์โหลด CSV รายเดือน | extension v0.7.3 ใน Chrome profile ที่ลงชื่อเข้าใช้ Google แล้ว |
 | ขั้นที่ผู้ใช้ต้องทำ | ครั้งแรกติดตั้ง extension/ตั้ง Downloads; แต่ละรอบ Import `jobs.json` + Start; แก้ CAPTCHA เมื่อพบ |
 | ตรวจ/เข้าคลัง/publish | Agent รัน `.\scripts\toolkit.ps1 monthly-finish`, ตรวจ stage allowlist แล้วจึง commit/push |
 
@@ -41,7 +41,7 @@ description: Operate the Google Trends Toolkit - collect canonical monthly CSVs 
 | `data.js` | ข้อมูลรวมของหน้าเว็บ สร้างอัตโนมัติ ห้ามแก้มือ |
 | `analysis/` | Python pipeline แยกสำหรับ T1/T2 → X-13/STL → floor0 → rebase → centered MA3 |
 | `derived/sa_pipeline_v3/` | ผลวิเคราะห์ canonical พร้อม method/rebase/diagnostics/quality sidecar/manifest |
-| `scripts/toolkit.ps1` | entrypoint ทางการ: `setup`, `monthly-prepare`, `monthly-finish` |
+| `scripts/toolkit.ps1` | entrypoint ทางการ: `setup`, `monthly-run`, `monthly-prepare`, `monthly-finish` |
 | `scripts/bootstrap-analysis-windows.ps1` | คำสั่งระดับล่างที่ `toolkit.ps1 setup` เรียก เพื่อเตรียม pinned analysis dependencies และ X-13 Build 62 |
 | `index.html` | หน้าแสดงผล (เปิด local ได้ หรือผ่าน GitHub Pages) |
 | `.github/workflows/experimental-pytrends.yml` | manual diagnostic สำหรับ pytrends; read-only และไม่ publish |
@@ -65,10 +65,12 @@ description: Operate the Google Trends Toolkit - collect canonical monthly CSVs 
 
 ### A. Monthly update production
 
+ทางปกติให้รัน `.\scripts\toolkit.ps1 monthly-run` หรือดับเบิลคลิก `run-monthly-loop.cmd`; คำสั่งสร้างคิวแล้ว pause ที่ Chrome checkpoint และจะเรียก finish ต่อเมื่อผู้ใช้พิมพ์ `FINISH` หลัง Controller เหลือ 0 FAILED งานเท่านั้น
+
 1. `.\scripts\toolkit.ps1 monthly-prepare` สร้างคิวงานทั้งหมด (จำกัด scope ได้ เช่น `.\scripts\toolkit.ps1 monthly-prepare --ids FP014 --geo TH`)
    default timeframe = 2004-01-01 ถึงวันนี้; extension เปิด `trends.google.co.th/explore?date=all` เพื่อรับรายเดือนแท้ (จังหวัดก่อน 2014 ถูกตัดตอน ingest)
 2. ให้ผู้ใช้ทำใน Chrome: คลิกไอคอน > Open Controller > **Import jobs.json** > เลือก `extension/data/jobs.json` > **Start**
-   (ครั้งแรก: ติดตั้งแบบ Load unpacked + ตั้ง Downloads เป็น `incoming/` + ปิด Ask where to save ดู `extension/README.md`; การอัพเกรดเป็น v0.7.2 ต้อง Reload ครั้งเดียว หลังจากนั้นไม่ต้อง Reload เมื่อคิวเปลี่ยน)
+   (ครั้งแรก: ติดตั้งแบบ Load unpacked + ตั้ง Downloads เป็น `incoming/` + ปิด Ask where to save ดู `extension/README.md`; การอัพเกรดเป็น v0.7.3 ต้อง Reload ครั้งเดียว หลังจากนั้นไม่ต้อง Reload เมื่อคิวเปลี่ยน)
 3. ระหว่างรัน: หน้าต่าง Chrome ต้องอยู่หน้าสุด เจอ CAPTCHA = ผู้ใช้แก้ในแท็บที่เด้ง แล้วกด Resume
 4. คิวจบ ไฟล์ `<ID>__<GEO>.csv` จะอยู่ใน `incoming/`; คู่ NO_DATA ที่พบติดต่อกันอย่างน้อย 2 ครั้งจะมี `no_data_manifest__YYYY-MM-DD.json` อัตโนมัติ แล้วรัน:
    ```
@@ -153,7 +155,7 @@ scope อื่น: `--group FP,FU` / `--all` / `--geo TH` ส่วน `--start
 | Extension: เจอ CAPTCHA | ปกติของงานชุดใหญ่ ผู้ใช้แก้ในแท็บที่เด้งขึ้น แล้วกด Resume ห้ามปิดหน้าต่าง |
 | Extension: job FAIL หลายตัว | กด Retry Failed/No Data ก่อน ถ้ายัง FAIL ซ้ำ เปิดดูคำนั้นในหน้า GT เองว่าคำเงียบจริงไหม |
 | Python runner: `BROWSER_RUNNER_INVALID_DOWNLOAD` | เปิด `.browser-runner/captured/` ตรวจชนิด export; ถ้า header เป็น `Year` ให้หยุด ห้ามแปลงหรือ ingest เพราะไม่ใช่ canonical monthly series |
-| Python runner: `CHART_TIMEOUT`/หน้าให้ลงชื่อเข้าใช้ | Explore ใหม่ต้องใช้ authenticated profile; ใช้ extension v0.7.2 ใน Chrome ปกติ ห้าม fallback กลับหน้า classic เพื่อ publish |
+| Python runner: `CHART_TIMEOUT`/หน้าให้ลงชื่อเข้าใช้ | Explore ใหม่ต้องใช้ authenticated profile; ใช้ extension v0.7.3 ใน Chrome ปกติ ห้าม fallback กลับหน้า classic เพื่อ publish |
 | 429 / TooManyRequests (pytrends) | สคริปต์ backoff เองแล้ว ถ้ามันหยุดทั้งรอบ = พัก 1 ชม. แล้วรันซ้ำ |
 | ไฟล์เข้า `incoming/review/` | อ่านเหตุผลที่พิมพ์ไว้ อย่าเดา ถ้าคำไม่อยู่ใน keywords.csv ให้ถามผู้ใช้ก่อนเพิ่ม |
 | กราฟเส้นกระโดดผิดปกติหลังอัพเดท | สงสัย scale คนละช่วง ให้ดึงคำนั้นใหม่ทั้งช่วงเต็มแล้วแทนที่ |

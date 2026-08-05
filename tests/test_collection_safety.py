@@ -289,7 +289,9 @@ class CanonicalWindowPolicyTests(unittest.TestCase):
                 patch.object(ingest, "KEYWORDS_CSV", keywords),
                 patch.object(ingest, "CATALOG_PATH", catalog_path),
                 patch.object(ingest, "SERIES_DIR", series_dir),
+                patch.object(ingest, "date") as clock,
             ):
+                clock.today.return_value = date(2026, 7, 15)
                 exit_code = ingest.main(["--dir", str(incoming), "--dry-run"])
 
             self.assertEqual(exit_code, 1)
@@ -303,7 +305,9 @@ class CanonicalWindowPolicyTests(unittest.TestCase):
                 patch.object(ingest, "KEYWORDS_CSV", keywords),
                 patch.object(ingest, "CATALOG_PATH", catalog_path),
                 patch.object(ingest, "SERIES_DIR", series_dir),
+                patch.object(ingest, "date") as clock,
             ):
+                clock.today.return_value = date(2026, 7, 15)
                 exit_code = ingest.main(["--dir", str(incoming)])
 
             self.assertEqual(exit_code, 1)
@@ -333,7 +337,9 @@ class CanonicalWindowPolicyTests(unittest.TestCase):
                 patch.object(ingest, "KEYWORDS_CSV", keywords),
                 patch.object(ingest, "CATALOG_PATH", catalog_path),
                 patch.object(ingest, "SERIES_DIR", series_dir),
+                patch.object(ingest, "date") as clock,
             ):
+                clock.today.return_value = date(2026, 7, 15)
                 exit_code = ingest.main(["--dir", str(incoming), "--dry-run"])
 
             self.assertEqual(exit_code, 1)
@@ -360,7 +366,9 @@ class CanonicalWindowPolicyTests(unittest.TestCase):
                 patch.object(ingest, "CATALOG_PATH", catalog_path),
                 patch.object(ingest, "SERIES_DIR", series_dir),
                 patch.dict(sys.modules, {"build_site_data": SimpleNamespace(build=build)}),
+                patch.object(ingest, "date") as clock,
             ):
+                clock.today.return_value = date(2026, 7, 15)
                 exit_code = ingest.main(["--dir", str(incoming)])
 
             self.assertEqual(exit_code, 0)

@@ -33,17 +33,17 @@
 
 ### Chrome extension + Python ingest
 
-**เก็บชุดใหญ่: ใช้ Chrome extension ใน `extension/`** (พอร์ตจากตัวที่พิสูจน์แล้วในโปรเจคเดิม 300+ jobs) มันไล่โหลด CSV จากหน้า Google Trends ใน Chrome จริงตามคิวงาน พร้อมระบบ pause/retry/CAPTCHA และตั้งชื่อไฟล์ให้ ingest กินได้ทันที:
+**เก็บชุดใหญ่: ใช้ Chrome extension ใน `extension/`** (พอร์ตจากตัวที่พิสูจน์แล้วในโปรเจคเดิม 300+ jobs) มันไล่โหลด CSV จากหน้า Google Trends ใน Chrome จริงตามคิวงาน พร้อมระบบ pause/retry/CAPTCHA และตั้งชื่อไฟล์ให้ ingest กินได้ทันที ทางที่ง่ายสุดคือดับเบิลคลิก `run-monthly-loop.cmd` หรือรัน:
 
 ```powershell
-.\scripts\toolkit.ps1 monthly-prepare                # สร้างคิว 300 jobs
-# Controller > Import jobs.json > เลือก extension/data/jobs.json > Start
-.\scripts\toolkit.ps1 monthly-finish                 # ingest + ทุก release gate
+.\scripts\toolkit.ps1 monthly-run
 ```
 
-จำกัดคิวได้โดยส่ง argument เดิมของ `make_jobs.py` ต่อท้าย เช่น `.\scripts\toolkit.ps1 monthly-prepare --ids FP014 --geo TH` คำสั่งเดิมระดับล่างยังใช้ตรวจแก้ปัญหาได้ แต่รอบ production ให้เข้าผ่าน wrapper นี้เสมอ
+`monthly-run` สร้างคิวแล้วหยุดที่ Chrome checkpoint ให้ Import/Start/แก้ CAPTCHA เมื่อ Controller เหลือ 0 FAILED ให้กลับมา terminal พิมพ์ `FINISH`; wrapper จะ ingest และรันทุก release gate ต่อทันที ผลที่ Tableau อ่านได้อยู่ที่ `derived/sa_pipeline_v3/series.csv` คำสั่งนี้ไม่ stage/commit/push
 
-ตั้งแต่ v0.6.0 extension ใช้หน้า Explore รุ่นใหม่ที่ `trends.google.co.th/explore?date=all` ซึ่งยืนยันแล้วว่า full history ส่งข้อมูลรายเดือน (`Time,<keyword>`) ใน Chrome ปกติของผู้ใช้ ตั้งแต่ v0.7.0 Controller import queue จากไฟล์ได้ จึงไม่ต้อง Reload extension ทุกครั้งที่สร้างคิวใหม่ ส่วน v0.7.1 บังคับหน้าต่าง scraper ให้กว้างพอสำหรับปุ่ม time series และปฏิเสธ CSV จาก widget อื่นแบบ fail closed; v0.7.2 รับคิว `date=all` ที่สร้างวันก่อนและให้ download-validation error หยุดงานจริง การอัพเกรดเป็น v0.7.2 ต้อง Reload ครั้งเดียว
+ถ้าต้องแยกคนเก็บกับคนตรวจ ใช้ `monthly-prepare` และ `monthly-finish` แบบเดิมได้ จำกัดคิวโดยส่ง argument ของ `make_jobs.py` ต่อท้าย เช่น `.\scripts\toolkit.ps1 monthly-run --ids FP014 --geo TH`
+
+ตั้งแต่ v0.6.0 extension ใช้หน้า Explore รุ่นใหม่ที่ `trends.google.co.th/explore?date=all` ซึ่งยืนยันแล้วว่า full history ส่งข้อมูลรายเดือน (`Time,<keyword>`) ใน Chrome ปกติของผู้ใช้ ตั้งแต่ v0.7.0 Controller import queue จากไฟล์ได้ จึงไม่ต้อง Reload extension ทุกครั้งที่สร้างคิวใหม่ ส่วน v0.7.3 ไม่ประกาศว่าคิวจบถ้ายังมี FAILED และ Reconcile Downloads รับเฉพาะไฟล์จากรอบปัจจุบัน การอัพเกรดเป็น v0.7.3 ต้อง Reload ครั้งเดียว
 
 ถ้าคู่คำค้น × พื้นที่ใดไม่มีข้อมูล Controller จะลองยืนยัน **no-data ติดต่อกันอย่างน้อย 2 ครั้ง** แล้วดาวน์โหลด `no_data_manifest__YYYY-MM-DD.json` เข้า `incoming/` อัตโนมัติ; `ingest.py` จะตรวจ manifest ก่อนบันทึกสถานะ โดยไม่ยอมเปลี่ยนคู่ที่มี CSV เดิมให้เป็น no-data
 
@@ -61,7 +61,7 @@
 
 ขั้นนี้แยกจาก raw ingest ภายใน pipeline โดยตั้งใจ และไม่แก้ `data/` หรือ `data.js` แต่ `monthly-finish` จะเรียก build → byte-check → audit ให้ครบอัตโนมัติ เพื่อไม่ให้ raw กับ derived หลุดคนละ release
 
-ผลลัพธ์อยู่ใน `derived/sa_pipeline_v3/` ครบทั้ง 30 cases สำหรับ `TH` และ `REG_ISAN5` พร้อม method log, rebase audit, X-13 diagnostics, quality sidecar และ manifest ที่ผูกกับ hash ของ raw source ดูสัญญาวิธีคำนวณและกติกา fallback ฉบับเต็มที่ `analysis/README.md`
+ผลลัพธ์อยู่ใน `derived/sa_pipeline_v3/` ครบทั้ง 30 cases สำหรับ `TH` และ `REG_ISAN5` พร้อม method log, rebase audit, X-13 diagnostics, quality sidecar และ manifest ที่ผูกกับ hash ของ raw source โดย `series.csv` เป็น long-format ที่ต่อ Tableau ได้ตรง ดูสัญญาวิธีคำนวณและกติกา fallback ฉบับเต็มที่ `analysis/README.md`
 
 ### ทาง diagnostic (ห้ามใช้กับ canonical data หรือ publish)
 

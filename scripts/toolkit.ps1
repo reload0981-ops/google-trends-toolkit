@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true, Position = 0)]
-    [ValidateSet("setup", "monthly-prepare", "monthly-finish")]
+    [ValidateSet("setup", "monthly-prepare", "monthly-finish", "monthly-run")]
     [string]$Action,
 
     [string]$Python = "",
@@ -38,6 +38,55 @@ function Assert-VenvPython {
     }
 }
 
+function Invoke-MonthlyPrepare(
+    [string[]]$QueueArguments = @(),
+    [string]$OutputPath = ""
+) {
+    Assert-VenvPython
+    $jobArguments = @($QueueArguments)
+    if ($jobArguments.Count -eq 0) {
+        $jobArguments = @("--all")
+    }
+    if ($OutputPath) {
+        $jobArguments += @("--out", $OutputPath)
+    }
+    Invoke-Native $venvPython (@("-X", "utf8", "collector/make_jobs.py") + $jobArguments) "Create extension queue"
+    $queuePath = "extension\data\jobs.json"
+    if ($OutputPath) {
+        $queuePath = $OutputPath
+    }
+    Write-Host ""
+    Write-Host "QUEUE READY: $queuePath" -ForegroundColor Green
+    Write-Host "In Chrome Controller: Import jobs.json, press Start, and resolve CAPTCHA if prompted."
+}
+
+function Invoke-MonthlyFinish(
+    [string]$LatestMonth = ""
+) {
+    Assert-VenvPython
+    Invoke-Native $venvPython @("-X", "utf8", "collector/ingest.py", "--dry-run") "Validate incoming files (dry run)"
+    Invoke-Native $venvPython @("-X", "utf8", "collector/ingest.py") "Ingest incoming files"
+    Invoke-Native $venvPython @("-X", "utf8", "collector/audit.py", "--strict") "Audit raw dataset structure"
+
+    $freshnessArguments = @("-X", "utf8", "collector/audit.py", "--strict", "--require-latest")
+    if ($LatestMonth) {
+        $freshnessArguments += $LatestMonth
+    }
+    Invoke-Native $venvPython $freshnessArguments "Audit raw dataset freshness"
+    Invoke-Native $venvPython @("-X", "utf8", "collector/build_site_data.py", "--check") "Verify generated site data"
+    Invoke-Native $venvPython @("-X", "utf8", "-m", "analysis.build") "Build analytical outputs"
+    Invoke-Native $venvPython @("-X", "utf8", "-m", "analysis.build", "--check") "Byte-check analytical outputs"
+    Invoke-Native $venvPython @("-X", "utf8", "-m", "analysis.build", "--audit") "Audit analytical outputs"
+    Invoke-Native $venvPython @("-X", "utf8", "-m", "unittest", "discover", "-s", "tests", "-v") "Run full test suite"
+
+    $git = Get-Command "git" -ErrorAction Stop
+    Invoke-Native $git.Source @("status", "--short") "Show release working tree"
+    Write-Host ""
+    Write-Host "MONTHLY CHECKS PASSED" -ForegroundColor Green
+    Write-Host "Tableau source: derived\sa_pipeline_v3\series.csv"
+    Write-Host "Nothing was staged, committed, pushed, or deployed. Review git status before publishing."
+}
+
 switch ($Action) {
     "setup" {
         if ($Arguments.Count -ne 0 -or $RequireLatest -or $JobOutput) {
@@ -56,51 +105,31 @@ switch ($Action) {
 
     "monthly-prepare" {
         if ($RequireLatest) {
-            throw "-RequireLatest is valid only with monthly-finish"
+            throw "-RequireLatest is valid only with monthly-run or monthly-finish"
         }
-        Assert-VenvPython
-        $jobArguments = @($Arguments)
-        if ($jobArguments.Count -eq 0) {
-            $jobArguments = @("--all")
-        }
-        if ($JobOutput) {
-            $jobArguments += @("--out", $JobOutput)
-        }
-        Invoke-Native $venvPython (@("-X", "utf8", "collector/make_jobs.py") + $jobArguments) "Create extension queue"
-        $queuePath = "extension\data\jobs.json"
-        if ($JobOutput) {
-            $queuePath = $JobOutput
-        }
-        Write-Host ""
-        Write-Host "QUEUE READY: $queuePath" -ForegroundColor Green
-        Write-Host "In Chrome Controller: Import jobs.json, press Start, and resolve CAPTCHA if prompted."
+        Invoke-MonthlyPrepare -QueueArguments $Arguments -OutputPath $JobOutput
     }
 
     "monthly-finish" {
         if ($Arguments.Count -ne 0 -or $JobOutput) {
             throw "monthly-finish accepts only the optional -RequireLatest YYYY-MM parameter"
         }
-        Assert-VenvPython
+        Invoke-MonthlyFinish -LatestMonth $RequireLatest
+    }
 
-        Invoke-Native $venvPython @("-X", "utf8", "collector/ingest.py", "--dry-run") "Validate incoming files (dry run)"
-        Invoke-Native $venvPython @("-X", "utf8", "collector/ingest.py") "Ingest incoming files"
-        Invoke-Native $venvPython @("-X", "utf8", "collector/audit.py", "--strict") "Audit raw dataset structure"
-
-        $freshnessArguments = @("-X", "utf8", "collector/audit.py", "--strict", "--require-latest")
-        if ($RequireLatest) {
-            $freshnessArguments += $RequireLatest
-        }
-        Invoke-Native $venvPython $freshnessArguments "Audit raw dataset freshness"
-        Invoke-Native $venvPython @("-X", "utf8", "collector/build_site_data.py", "--check") "Verify generated site data"
-        Invoke-Native $venvPython @("-X", "utf8", "-m", "analysis.build") "Build analytical outputs"
-        Invoke-Native $venvPython @("-X", "utf8", "-m", "analysis.build", "--check") "Byte-check analytical outputs"
-        Invoke-Native $venvPython @("-X", "utf8", "-m", "analysis.build", "--audit") "Audit analytical outputs"
-        Invoke-Native $venvPython @("-X", "utf8", "-m", "unittest", "discover", "-s", "tests", "-v") "Run full test suite"
-
-        $git = Get-Command "git" -ErrorAction Stop
-        Invoke-Native $git.Source @("status", "--short") "Show release working tree"
+    "monthly-run" {
+        Invoke-MonthlyPrepare -QueueArguments $Arguments -OutputPath $JobOutput
         Write-Host ""
-        Write-Host "MONTHLY CHECKS PASSED" -ForegroundColor Green
-        Write-Host "Nothing was staged, committed, pushed, or deployed. Review git status before publishing."
+        Write-Host "CHROME CHECKPOINT" -ForegroundColor Yellow
+        Write-Host "1. Import the queue shown above and press Start."
+        Write-Host "2. Resolve CAPTCHA if prompted."
+        Write-Host "3. Continue only when the Controller has 0 FAILED jobs and the CSV files are in incoming\."
+        $confirmation = Read-Host "Type FINISH to ingest, validate, and build the Tableau output"
+        if ($confirmation -cne "FINISH") {
+            Write-Host "MONTHLY LOOP STOPPED before ingest. Re-run monthly-run when ready." -ForegroundColor Yellow
+            break
+        }
+        Invoke-MonthlyFinish -LatestMonth $RequireLatest
+        Write-Host "MONTHLY LOOP COMPLETE" -ForegroundColor Green
     }
 }

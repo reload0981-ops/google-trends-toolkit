@@ -49,8 +49,23 @@ class ExtensionReleaseSafetyTests(unittest.TestCase):
 
     def test_manifest_version_matches_release_behavior(self):
         manifest = json.loads((EXTENSION / "manifest.json").read_text(encoding="utf-8"))
-        self.assertEqual(manifest["version"], "0.7.2")
+        self.assertEqual(manifest["version"], "0.7.3")
         self.assertIn("downloads", manifest["permissions"])
+
+    def test_queue_completion_fails_closed_when_jobs_failed(self):
+        self.assertIn("if (counts.failed > 0)", self.controller)
+        self.assertIn("Queue incomplete:", self.controller)
+        self.assertLess(
+            self.controller.index("if (counts.failed > 0)"),
+            self.controller.index('log("All jobs processed.", "ok")'),
+        )
+
+    def test_reconcile_uses_only_current_run_downloads(self):
+        self.assertIn("if (!state.started_at)", self.controller)
+        self.assertEqual(
+            self.controller.count("startedAfter: currentRunStartedAfter"),
+            2,
+        )
 
     def test_new_trends_ui_is_the_primary_monthly_export_path(self):
         manifest = json.loads((EXTENSION / "manifest.json").read_text(encoding="utf-8"))
