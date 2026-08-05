@@ -103,6 +103,31 @@ class CheckKeywordTest(unittest.TestCase):
         self.assertFalse(result["collected"])
         self.assertIsNone(result["suggested_tier"])
 
+    def test_incoming_mode_refuses_to_judge_a_half_finished_download(self):
+        # A queue that has only reached the national job looks identical to a
+        # keyword with no regional signal at all. Judging it there would reject
+        # good keywords for being slow rather than for being weak.
+        incoming = self.root / "incoming"
+        incoming.mkdir()
+        months = month_sequence(271, 2004, 1)
+        rows = "\n".join(f"{month},1.0" for month in months)
+        (incoming / "FP014__TH.csv").write_text(f"Month,Value\n{rows}\n", encoding="utf-8")
+
+        result = check_keyword("FP014", self.root, from_incoming=True)
+
+        self.assertFalse(result["collected"])
+        self.assertIsNone(result["suggested_tier"])
+        self.assertIn("1/6", result["reason"])
+        self.assertIn("TH-30", result["reason"])
+
+    def test_incoming_mode_reports_when_nothing_has_arrived(self):
+        (self.root / "incoming").mkdir()
+
+        result = check_keyword("FP014", self.root, from_incoming=True)
+
+        self.assertFalse(result["collected"])
+        self.assertIn("incoming", result["reason"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -51,10 +51,59 @@ def _read_series(root: Path, keyword_id: str, geo: str) -> tuple[list[str], list
     return months, values
 
 
-def check_keyword(keyword_id: str, root: Path = ROOT) -> dict:
+def _read_incoming(root: Path, keyword_id: str) -> dict[str, tuple[list[str], list[float]]]:
+    """Parse a candidate's freshly downloaded CSVs without touching the archive.
+
+    Screening has to happen before ingest. Once a keyword is in data/series and
+    data/catalog.json, backing out a candidate that failed means cleaning three
+    places by hand, so the whole point of this mode is that a rejected candidate
+    costs one deleted row and a few deleted downloads.
+    """
+
+    from collector.ingest import load_keyword_map, parse_file  # noqa: E402
+
+    kw_to_id, ids = load_keyword_map()
+    found: dict[str, tuple[list[str], list[float]]] = {}
+    incoming = root / "incoming"
+    if not incoming.is_dir():
+        return found
+    for path in sorted(incoming.glob("*.csv")):
+        try:
+            parsed_id, geo, points = parse_file(path, kw_to_id, ids)
+        except Exception:
+            continue
+        if parsed_id.upper() != keyword_id.upper():
+            continue
+        found[geo] = ([month for month, _ in points], [value for _, value in points])
+    return found
+
+
+def check_keyword(keyword_id: str, root: Path = ROOT, *, from_incoming: bool = False) -> dict:
     """Return the three screening-gate verdicts for one keyword."""
 
-    months, values = _read_series(root, keyword_id, "TH")
+    if from_incoming:
+        collected = _read_incoming(root, keyword_id)
+        # A half-finished download looks exactly like a keyword with no regional
+        # signal, so refuse to judge until every area has arrived. Rejecting a
+        # good keyword because its province files were still queued would be the
+        # worst possible failure of this check.
+        if collected and len(collected) < len(RAW_GEOS):
+            missing = [geo for geo in RAW_GEOS if geo not in collected]
+            return {
+                "keyword_id": keyword_id,
+                "collected": False,
+                "national_pass": None,
+                "regional_support": None,
+                "suggested_tier": None,
+                "reason": (
+                    f"เก็บมาแล้ว {len(collected)}/{len(RAW_GEOS)} พื้นที่ ยังขาด {', '.join(missing)} "
+                    "รอให้คิวเก็บครบทุกพื้นที่ก่อนแล้วค่อยตรวจ"
+                ),
+            }
+        months, values = collected.get("TH", ([], []))
+    else:
+        collected = None
+        months, values = _read_series(root, keyword_id, "TH")
     if not months:
         return {
             "keyword_id": keyword_id,
@@ -62,7 +111,11 @@ def check_keyword(keyword_id: str, root: Path = ROOT) -> dict:
             "national_pass": None,
             "regional_support": None,
             "suggested_tier": None,
-            "reason": "ยังไม่มีข้อมูลระดับประเทศ ต้องเก็บก่อนถึงจะตรวจได้",
+            "reason": (
+                "ยังไม่พบไฟล์ระดับประเทศใน incoming/ ต้องเก็บก่อนถึงจะตรวจได้"
+                if from_incoming
+                else "ยังไม่มีข้อมูลระดับประเทศ ต้องเก็บก่อนถึงจะตรวจได้"
+            ),
         }
 
     tier, zeros, window = classify_signal(values, months)
@@ -70,7 +123,10 @@ def check_keyword(keyword_id: str, root: Path = ROOT) -> dict:
 
     support = []
     for geo in PROVINCES:
-        _, province_values = _read_series(root, keyword_id, geo)
+        if collected is not None:
+            _, province_values = collected.get(geo, ([], []))
+        else:
+            _, province_values = _read_series(root, keyword_id, geo)
         if province_values and max(province_values) > 0:
             support.append(geo)
 
@@ -126,6 +182,11 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("keyword_ids", nargs="*", help="Keyword_ID ที่ต้องการตรวจ")
     parser.add_argument("--all", action="store_true", help="ตรวจทุกคำใน keywords.csv")
+    parser.add_argument(
+        "--incoming",
+        action="store_true",
+        help="ตรวจจากไฟล์ที่เพิ่งโหลดมาใน incoming/ ก่อนเอาเข้าคลัง (ใช้กับคำใหม่)",
+    )
     parser.add_argument("--json", action="store_true", help="พิมพ์ผลแบบ JSON")
     parser.add_argument("--root", type=Path, default=ROOT, help=argparse.SUPPRESS)
     args = parser.parse_args(argv)
@@ -138,7 +199,9 @@ def main(argv: list[str] | None = None) -> int:
     if not keyword_ids:
         parser.error("ระบุ Keyword_ID อย่างน้อยหนึ่งตัว หรือใช้ --all")
 
-    results = [check_keyword(kid, args.root) for kid in keyword_ids]
+    results = [
+        check_keyword(kid, args.root, from_incoming=args.incoming) for kid in keyword_ids
+    ]
     if args.json:
         print(json.dumps(results, ensure_ascii=False, indent=2))
     else:
