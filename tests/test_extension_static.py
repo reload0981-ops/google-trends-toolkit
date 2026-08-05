@@ -16,6 +16,17 @@ class ExtensionReleaseSafetyTests(unittest.TestCase):
         cls.content = (EXTENSION / "content.js").read_text(encoding="utf-8")
         cls.controller = (EXTENSION / "controller.js").read_text(encoding="utf-8")
 
+    def test_elapsed_clock_ticks_and_freezes_when_the_round_ends(self):
+        markup = (EXTENSION / "controller.html").read_text(encoding="utf-8")
+        self.assertIn('id="stat-elapsed"', markup)
+        self.assertIn('statElapsed: $("stat-elapsed")', self.controller)
+        # A 300-job round can sit on one keyword for minutes, so the clock needs
+        # its own tick rather than waiting for the next state change.
+        self.assertIn("setInterval(renderElapsed, 1000)", self.controller)
+        self.assertIn("const end = state.finished_at || Date.now();", self.controller)
+        self.assertIn("finished_at: null,", self.controller)
+        self.assertIn("state.finished_at = Date.now();", self.controller)
+
     def test_stale_filename_queue_is_replaced_not_appended(self):
         self.assertIn("pendingFilenames = [msg.filename]", self.background)
         self.assertNotIn("pendingFilenames.push(msg.filename)", self.background)
@@ -49,7 +60,7 @@ class ExtensionReleaseSafetyTests(unittest.TestCase):
 
     def test_manifest_version_matches_release_behavior(self):
         manifest = json.loads((EXTENSION / "manifest.json").read_text(encoding="utf-8"))
-        self.assertEqual(manifest["version"], "0.7.3")
+        self.assertEqual(manifest["version"], "0.7.4")
         self.assertIn("downloads", manifest["permissions"])
 
     def test_queue_completion_fails_closed_when_jobs_failed(self):

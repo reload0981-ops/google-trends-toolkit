@@ -9,6 +9,8 @@ param(
     [Alias("out")]
     [string]$JobOutput = "",
 
+    [switch]$DesktopCopy,
+
     [Parameter(Position = 1, ValueFromRemainingArguments = $true)]
     [string[]]$Arguments = @()
 )
@@ -40,9 +42,13 @@ function Assert-VenvPython {
 
 function Invoke-MonthlyPrepare(
     [string[]]$QueueArguments = @(),
-    [string]$OutputPath = ""
+    [string]$OutputPath = "",
+    [switch]$CopyToDesktop
 ) {
     Assert-VenvPython
+    if ($OutputPath -and $CopyToDesktop) {
+        throw "-DesktopCopy cannot be combined with -out; the desktop copy is made from the canonical queue"
+    }
     $jobArguments = @($QueueArguments)
     if ($jobArguments.Count -eq 0) {
         $jobArguments = @("--all")
@@ -51,10 +57,24 @@ function Invoke-MonthlyPrepare(
         $jobArguments += @("--out", $OutputPath)
     }
     Invoke-Native $venvPython (@("-X", "utf8", "collector/make_jobs.py") + $jobArguments) "Create extension queue"
-    $queuePath = "extension\data\jobs.json"
+    $queuePath = Join-Path $root "extension\data\jobs.json"
     if ($OutputPath) {
         $queuePath = $OutputPath
     }
+
+    # The canonical queue is what keeps the Controller dropdown honest, so it is
+    # always written first. The desktop copy exists only so the operator can pick
+    # the file without walking into extension\data\.
+    if ($CopyToDesktop) {
+        $desktopCopy = Join-Path ([Environment]::GetFolderPath("Desktop")) "queue-this-month.json"
+        Copy-Item -LiteralPath $queuePath -Destination $desktopCopy -Force
+        Write-Host ""
+        Write-Host "QUEUE READY: $desktopCopy" -ForegroundColor Green
+        Write-Host "Also refreshed the bundled queue at extension\data\jobs.json"
+        Write-Host "In Chrome Controller: Import jobs.json, choose the file above, press Start."
+        return
+    }
+
     Write-Host ""
     Write-Host "QUEUE READY: $queuePath" -ForegroundColor Green
     Write-Host "In Chrome Controller: Import jobs.json, press Start, and resolve CAPTCHA if prompted."
@@ -89,7 +109,7 @@ function Invoke-MonthlyFinish(
 
 switch ($Action) {
     "setup" {
-        if ($Arguments.Count -ne 0 -or $RequireLatest -or $JobOutput) {
+        if ($Arguments.Count -ne 0 -or $RequireLatest -or $JobOutput -or $DesktopCopy) {
             throw "setup accepts only the optional -Python parameter"
         }
         $bootstrap = Join-Path $root "bootstrap-windows.ps1"
@@ -107,18 +127,18 @@ switch ($Action) {
         if ($RequireLatest) {
             throw "-RequireLatest is valid only with monthly-run or monthly-finish"
         }
-        Invoke-MonthlyPrepare -QueueArguments $Arguments -OutputPath $JobOutput
+        Invoke-MonthlyPrepare -QueueArguments $Arguments -OutputPath $JobOutput -CopyToDesktop:$DesktopCopy
     }
 
     "monthly-finish" {
-        if ($Arguments.Count -ne 0 -or $JobOutput) {
+        if ($Arguments.Count -ne 0 -or $JobOutput -or $DesktopCopy) {
             throw "monthly-finish accepts only the optional -RequireLatest YYYY-MM parameter"
         }
         Invoke-MonthlyFinish -LatestMonth $RequireLatest
     }
 
     "monthly-run" {
-        Invoke-MonthlyPrepare -QueueArguments $Arguments -OutputPath $JobOutput
+        Invoke-MonthlyPrepare -QueueArguments $Arguments -OutputPath $JobOutput -CopyToDesktop:$DesktopCopy
         Write-Host ""
         Write-Host "CHROME CHECKPOINT" -ForegroundColor Yellow
         Write-Host "1. Import the queue shown above and press Start."

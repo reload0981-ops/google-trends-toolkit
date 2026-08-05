@@ -23,9 +23,13 @@
 1. สร้างคิวงาน:
    ```powershell
    .\scripts\toolkit.ps1 monthly-prepare                          # ทุกคำทุกพื้นที่ (300 jobs)
+   .\scripts\toolkit.ps1 monthly-prepare -DesktopCopy             # เหมือนข้างบน แล้วคัดลอกไปวางบน Desktop ด้วย
    .\scripts\toolkit.ps1 monthly-prepare --ids FP014              # เฉพาะบางคำ
    .\scripts\toolkit.ps1 monthly-prepare --group FP --geo TH
    ```
+
+   `-DesktopCopy` เขียนคิวที่ตำแหน่งมาตรฐานก่อนเสมอ แล้วค่อยคัดลอกไป Desktop สำเนาบน Desktop มีไว้ให้กด Import ง่ายๆ เท่านั้น ส่วนตัวที่ทำให้ดรอปดาวน์ใน Controller ไม่ค้างของเก่าคือตัวที่ตำแหน่งมาตรฐาน
+   **ห้ามใช้ `--out` กับคิว production** เพราะคิวที่ออกนอกที่มาตรฐานจะไม่อัพเดต `jobs_index.json` ตามกติกาใน `make_jobs.py` แล้วดรอปดาวน์จะค้างชี้คิวเก่าซึ่งกดแล้วทับคิวที่กำลังวิ่งอยู่
 2. คลิกไอคอน extension > Open Controller
 3. กด **Import jobs.json** แล้วเลือก `extension/data/jobs.json` ที่เพิ่งสร้าง
 4. กด **Start**
@@ -60,5 +64,6 @@
 - v0.7.1 เปิดหน้าต่าง scraper แบบ maximized, เลือกปุ่มดาวน์โหลดเฉพาะใน time-series widget และ rename เฉพาะไฟล์ `time_series_<GEO>_*.csv` ที่ตรงกับ job เพื่อไม่ให้ CSV ของ Top searches ถูกนับเป็นงานสำเร็จ
 - v0.7.2 รับคิว `date=all` ที่สร้างวันก่อนโดย normalize วันสังเกตจริง และเปลี่ยน download-validation exception เป็น ERROR แบบ fail closed
 - v0.7.3 ไม่ประกาศว่าคิวจบถ้ายังมี FAILED และ Reconcile Downloads รับเฉพาะไฟล์ที่เริ่มดาวน์โหลดหลังรอบปัจจุบันเริ่ม
+- v0.7.4 เพิ่มช่อง **Elapsed** ในแถบสถิติ นับเวลาตั้งแต่กด Start (รวมเวลาที่รอแก้ CAPTCHA และตอน pause เพราะสิ่งที่ผู้ใช้ต้องรู้คือรอบนี้เปิดมานานแค่ไหน) แล้วหยุดนิ่งเมื่อคิวจบหรือกด Stop
 - ข้อจำกัดที่พบ 2026-07-15: profile แยกของ Python runner ติด auth gate ของ Explore ใหม่หากยังไม่ลงชื่อเข้าใช้ Google จึงยังใช้ publish ไม่ได้ ให้รัน extension ใน Chrome profile ปกติที่ลงชื่อเข้าใช้แล้วเป็นเส้นทางหลัก
 - `data/jobs.json` และ `data/jobs_index.json` เป็นไฟล์ generate จาก `make_jobs.py` ไม่ commit เข้า git
