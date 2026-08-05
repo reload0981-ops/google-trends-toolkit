@@ -25,6 +25,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from collector.check_keyword import check_keyword  # noqa: E402
+from collector.round_guard import assert_no_round_in_flight  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 KEYWORDS_CSV = ROOT / "keywords.csv"
@@ -134,6 +135,9 @@ def interactive_add(id_file: Path | None = None) -> int:
     5.1 reads a script without a BOM as ANSI, which would turn every Thai line
     into mojibake.
     """
+
+    # ตรวจก่อนถามอะไรทั้งนั้น จะได้ไม่ให้คนพิมพ์คำเสร็จแล้วค่อยบอกว่าทำไม่ได้
+    assert_no_round_in_flight(ROOT)
 
     print("เพิ่มคำค้นใหม่")
     print()

@@ -31,6 +31,9 @@ function Invoke-Native(
 ) {
     Write-Host "==> $Label"
     & $Executable @ArgumentList
+    # 9 means a guard stopped on purpose and already explained itself in Thai.
+    # Re-raising it would bury that explanation under a PowerShell stack trace.
+    if ($LASTEXITCODE -eq 9) { exit 9 }
     if ($LASTEXITCODE -ne 0) {
         throw "$Label failed with exit code $LASTEXITCODE"
     }
@@ -39,19 +42,6 @@ function Invoke-Native(
 function Assert-VenvPython {
     if (-not (Test-Path -LiteralPath $venvPython -PathType Leaf)) {
         throw "Analysis environment not found. Run '.\scripts\toolkit.ps1 setup' first."
-    }
-}
-
-function Assert-NoRoundInFlight([switch]$Allow) {
-    # The Controller holds exactly one queue, so importing a freshly built one
-    # while a round is still collecting wipes that round's progress. Downloads
-    # left in incoming\ mean the previous round has not been ingested yet.
-    if ($Allow) { return }
-    $pending = @(Get-ChildItem -LiteralPath (Join-Path $root "incoming") -Filter "*.csv" -File -ErrorAction SilentlyContinue)
-    if ($pending.Count -gt 0) {
-        throw ("A collection round is still in flight ({0} files waiting in incoming\). " -f $pending.Count) +
-              "Building a queue now would replace the running one in the Controller. " +
-              "Finish that round first, or pass -AllowUnfinishedRound if you really mean to start over."
     }
 }
 
@@ -65,8 +55,6 @@ function Invoke-MonthlyPrepare(
     if ($OutputPath -and $DesktopKind) {
         throw "-DesktopCopy cannot be combined with -out; the desktop copy is made from the canonical queue"
     }
-    Assert-NoRoundInFlight -Allow:$AllowUnfinishedRound
-
     $jobArguments = @($QueueArguments)
     if ($jobArguments.Count -eq 0) {
         $jobArguments = @("--all")
@@ -76,6 +64,9 @@ function Invoke-MonthlyPrepare(
     }
     # Python owns the desktop copy so the Thai filenames stay out of this file,
     # which Windows PowerShell 5.1 would read as ANSI without a BOM.
+    if ($AllowUnfinishedRound) {
+        $jobArguments += @("--allow-unfinished-round")
+    }
     if ($DesktopKind) {
         $jobArguments += @("--desktop-dir", [Environment]::GetFolderPath("Desktop"), "--desktop-kind", $DesktopKind)
     }
@@ -150,10 +141,7 @@ switch ($Action) {
             throw "add-keyword takes no extra parameters"
         }
         Assert-VenvPython
-        # Check before touching keywords.csv. Adding the row first and failing
-        # afterwards leaves an entry with no data, which fails the release gate
-        # for the round that is still collecting.
-        Assert-NoRoundInFlight -Allow:$AllowUnfinishedRound
+        # add_keyword.py runs the same guard before it writes the row.
 
         # Python owns every Thai prompt: Windows PowerShell 5.1 reads a script
         # without a BOM as ANSI, so Thai text in this file would be mojibake.

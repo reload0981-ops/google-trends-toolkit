@@ -48,17 +48,14 @@ class ToolkitEntrypointTests(unittest.TestCase):
         self.assertIn('"--interactive", "--id-file"', self.toolkit)
         self.assertIn('Read-Host "Type FINISH', self.toolkit)
 
-    def test_a_queue_is_never_built_over_a_round_still_collecting(self):
-        # The Controller holds one queue, so a fresh import mid-round throws
-        # away everything collected so far.
-        self.assertIn("Assert-NoRoundInFlight", self.toolkit)
-        self.assertIn("still in flight", self.toolkit)
+    def test_a_deliberate_stop_is_not_dressed_up_as_a_crash(self):
+        # A guard that prints a PowerShell stack trace and tells the maintainer
+        # to report it teaches people to ignore guards.
+        self.assertIn("if ($LASTEXITCODE -eq 9) { exit 9 }", self.toolkit)
         self.assertIn("-AllowUnfinishedRound", self.toolkit)
-        # It must fire before add-keyword writes the row, or a refused run
-        # leaves a keyword with no data and breaks the release gate.
-        guard = self.toolkit.index("Assert-NoRoundInFlight -Allow:$AllowUnfinishedRound", self.toolkit.index('"add-keyword" {'))
-        add_call = self.toolkit.index("add_keyword.py", guard)
-        self.assertLess(guard, add_call)
+        for name in ("เริ่มเก็บข้อมูลเดือนนี้.cmd", "เพิ่มคำใหม่.cmd"):
+            launcher = (ROOT / name).read_text(encoding="utf-8")
+            self.assertIn('if "%toolkit_exit%"=="9" goto :done', launcher)
 
     def test_desktop_copy_is_made_from_the_canonical_queue(self):
         self.assertIn('GetFolderPath("Desktop")', self.toolkit)
