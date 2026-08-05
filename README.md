@@ -123,7 +123,8 @@ wrapper จะรัน ingest dry-run → ingest จริง → raw structura
 - `--strict` fail เมื่อไฟล์ที่มีอยู่มี schema/ลำดับเดือนไม่ถูกต้อง, catalog ไม่สอดคล้อง หรือหลักฐาน no-data ผิดรูป; คู่ที่ยัง missing จะแสดงใน coverage แยก
 - `--require-latest` คือ complete-release gate: ทั้ง 300 คู่ต้องเป็นซีรีส์ที่ถึงเดือนกำหนด หรือ confirmed no-data จาก canonical window หลังเดือนนั้น; missing, invalid, stale data และ stale no-data ทำให้ fail ระบุเดือนเองได้ เช่น `--require-latest 2026-06`
 - `collector/audit.py --json` แสดงรายงาน machine-readable สำหรับตรวจต่อหรือเก็บหลักฐาน
-- signal tier คำนวณจาก 64 เดือนล่าสุดของแต่ละซีรีส์: `VERY_GOOD` = ไม่มีเดือนศูนย์, `ACCEPTABLE` = 1–16 เดือนศูนย์, `WEAK` = มากกว่า 16 เดือนศูนย์ ซีรีส์ศูนย์ตลอดถูกระบุแยกด้วย
+- signal tier คำนวณจากช่วง **2014-01 ถึงเดือนล่าสุด** ของแต่ละซีรีส์ (จุดที่ข้อมูลระดับจังหวัดเริ่มใช้ได้ ทำให้ด่าน National และ Regional อ่านช่วงเดียวกัน): `VERY_GOOD` = ไม่มีเดือนศูนย์, `ACCEPTABLE` = เดือนศูนย์ไม่เกิน 25% ของช่วง, `WEAK` = เกินกว่านั้น ซีรีส์ศูนย์ตลอดถูกระบุแยกด้วย
+- `collector/audit.py` เป็นตัวคำนวณ signal tier ส่วน `collector/check_keyword.py` เอาตัวเลขชุดเดียวกันมาตัดสินด่านคัดกรองคำ (อ่านอย่างเดียวทั้งคู่)
 
 ถ้าทุก gate ผ่านและ `git status --short` มีเฉพาะ generated data ที่คาดไว้ ให้ stage แบบ allowlist แล้ว publish:
 

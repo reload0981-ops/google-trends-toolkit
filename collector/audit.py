@@ -25,17 +25,20 @@ import sys
 from collections import Counter
 from datetime import date, datetime
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Iterable, Sequence
 
 
 ROOT = Path(__file__).resolve().parent.parent
 RAW_GEOS = ("TH", "TH-30", "TH-31", "TH-34", "TH-40", "TH-41")
-SIGNAL_WINDOW_MONTHS = 64
 SIGNAL_TIERS = ("VERY_GOOD", "ACCEPTABLE", "WEAK")
 MONTH_RE = re.compile(r"^(\d{4})-(\d{2})$")
 CANONICAL_START = "2004-01-01"
 CANONICAL_START_MONTH = "2004-01"
 PROVINCE_START_MONTH = "2014-01"
+# Signal quality is scored from the month provincial data becomes usable, so the
+# national and regional keyword gates read the same span and stay comparable.
+SIGNAL_WINDOW_START = PROVINCE_START_MONTH
+SIGNAL_ZERO_SHARE_MAX = 0.25
 
 
 def _month_number(month: str) -> int | None:
@@ -132,22 +135,36 @@ def _validate_no_data_meta(
     return errors, fields
 
 
-def classify_signal(values: Iterable[float], window_months: int = SIGNAL_WINDOW_MONTHS) -> tuple[str, int, int]:
-    """Return ``(tier, zero_count, observed_count)`` for the latest window.
+def classify_signal(
+    values: Iterable[float],
+    months: Sequence[str] | None = None,
+    *,
+    start: str = SIGNAL_WINDOW_START,
+) -> tuple[str, int, int]:
+    """Return ``(tier, zero_count, observed_count)`` for the scoring window.
 
-    Tiers are methodology constants: no zeroes is VERY_GOOD, 1..16 zeroes is
-    ACCEPTABLE, and more than 16 zeroes is WEAK.
+    The window runs from ``start`` to the end of the series rather than over a
+    trailing month count, because provincial series only begin in 2014-01 and the
+    national and regional keyword gates must read the same span to be comparable.
+
+    Tiers are methodology constants: no zero months is VERY_GOOD, zero months
+    within ``SIGNAL_ZERO_SHARE_MAX`` of the window is ACCEPTABLE, and anything
+    beyond that share is WEAK.
     """
 
-    recent = list(values)[-window_months:]
-    zeros = sum(value == 0 for value in recent)
+    window = list(values)
+    if months is not None:
+        window = [value for month, value in zip(months, window) if month >= start]
+    if not window:
+        return "WEAK", 0, 0
+    zeros = sum(value == 0 for value in window)
     if zeros == 0:
         tier = "VERY_GOOD"
-    elif zeros <= 16:
+    elif zeros <= SIGNAL_ZERO_SHARE_MAX * len(window):
         tier = "ACCEPTABLE"
     else:
         tier = "WEAK"
-    return tier, zeros, len(recent)
+    return tier, zeros, len(window)
 
 
 def _read_keywords(path: Path, errors: list[str]) -> dict[str, str]:
@@ -280,7 +297,7 @@ def _read_series(path: Path, key: str, errors: list[str]) -> dict[str, Any] | No
     if not valid:
         return None
 
-    tier, zero_count, observed_count = classify_signal(values)
+    tier, zero_count, observed_count = classify_signal(values, months)
     all_zero = all(value == 0 for value in values)
     return {
         "status": "available",
@@ -289,7 +306,7 @@ def _read_series(path: Path, key: str, errors: list[str]) -> dict[str, Any] | No
         "months": len(months),
         "signal_status": "ALL_ZERO" if all_zero else "OBSERVED",
         "signal_tier": tier,
-        "recent_window_months": SIGNAL_WINDOW_MONTHS,
+        "recent_window_months": observed_count,
         "recent_observed_months": observed_count,
         "recent_zeros": zero_count,
     }
@@ -355,7 +372,7 @@ def audit_dataset(root: str | Path = ROOT) -> dict[str, Any]:
                     "months": 0,
                     "signal_status": signal_status,
                     "signal_tier": None,
-                    "recent_window_months": SIGNAL_WINDOW_MONTHS,
+                    "recent_window_months": 0,
                     "recent_observed_months": 0,
                     "recent_zeros": None,
                     **no_data_fields,
@@ -374,7 +391,7 @@ def audit_dataset(root: str | Path = ROOT) -> dict[str, Any]:
                 "months": 0,
                 "signal_status": "MISSING",
                 "signal_tier": None,
-                "recent_window_months": SIGNAL_WINDOW_MONTHS,
+                "recent_window_months": 0,
                 "recent_observed_months": 0,
                 "recent_zeros": None,
                 "timeframe": meta.get("timeframe") if isinstance(meta, dict) else None,
@@ -396,7 +413,7 @@ def audit_dataset(root: str | Path = ROOT) -> dict[str, Any]:
                 "months": 0,
                 "signal_status": "INVALID",
                 "signal_tier": None,
-                "recent_window_months": SIGNAL_WINDOW_MONTHS,
+                "recent_window_months": 0,
                 "recent_observed_months": 0,
                 "recent_zeros": None,
                 "timeframe": meta.get("timeframe") if isinstance(meta, dict) else None,
@@ -491,7 +508,7 @@ def audit_dataset(root: str | Path = ROOT) -> dict[str, Any]:
         "data_end": max(data_ends) if data_ends else None,
         "data_end_distribution": dict(sorted(data_end_distribution.items())),
         "catalog_updated_at": catalog_updated_at,
-        "signal_window_months": SIGNAL_WINDOW_MONTHS,
+        "signal_window_start": SIGNAL_WINDOW_START,
         "signal_tiers": {tier: signal_tiers[tier] for tier in SIGNAL_TIERS},
         "structural_ok": not errors,
         "structural_error_count": len(errors),
@@ -589,7 +606,7 @@ def _human_report(report: dict[str, Any], gate: dict[str, Any]) -> str:
         ),
         f"Range: {report['data_start'] or '-'} to {report['data_end'] or '-'} | catalog: {report['catalog_updated_at'] or '-'}",
         (
-            f"Last {report['signal_window_months']} months: "
+            f"Signal from {report['signal_window_start']}: "
             f"VERY_GOOD {tiers['VERY_GOOD']} | ACCEPTABLE {tiers['ACCEPTABLE']} | "
             f"WEAK {tiers['WEAK']} | all-zero {report['all_zero_raw_series']}"
         ),
