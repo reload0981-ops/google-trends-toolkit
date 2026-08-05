@@ -109,7 +109,56 @@ def prior_attempt(keyword: str) -> dict | None:
     return None
 
 
-def add(keyword: str, prefix: str, *, force: bool = False) -> int:
+GROUP_MENU = [
+    ("FP", "งานในระบบ - ดึงเข้าตลาดแรงงาน", "สมัครงาน, หางาน, สอบครูผู้ช่วย"),
+    ("FU", "งานในระบบ - ผลักออกจากงาน", "ลาออกจากงาน, ลงทะเบียนว่างงาน"),
+    ("NP", "นอกระบบแบบใหม่ - ดึงเข้า", "สมัครแกร็บ, สมัครไรเดอร์"),
+    ("NU", "นอกระบบแบบใหม่ - ผลักออก", ""),
+    ("TP", "นอกระบบดั้งเดิม - ดึงเข้า", "รถเข็นขายของ, ตลาดนัดขายของ"),
+    ("TU", "นอกระบบดั้งเดิม - ผลักออก", "ปิดร้าน, เซ้งร้าน, ขายของไม่ดี"),
+]
+
+
+def _ask(prompt: str) -> str:
+    try:
+        return input(prompt).strip()
+    except (EOFError, KeyboardInterrupt):
+        print()
+        return ""
+
+
+def interactive_add(id_file: Path | None = None) -> int:
+    """Ask the two questions a person actually has to answer, in Thai.
+
+    The prompts live here rather than in toolkit.ps1 because Windows PowerShell
+    5.1 reads a script without a BOM as ANSI, which would turn every Thai line
+    into mojibake.
+    """
+
+    print("เพิ่มคำค้นใหม่")
+    print()
+    keyword = _ask("คำที่อยากเพิ่ม (พิมพ์ให้ตรงกับที่คนค้นจริง): ")
+    if not keyword:
+        print("ยกเลิก")
+        return 1
+
+    print()
+    print("คำนี้อยู่กลุ่มไหน")
+    for number, (_, label, examples) in enumerate(GROUP_MENU, start=1):
+        suffix = f"   เช่น {examples}" if examples else ""
+        print(f"  {number}) {label}{suffix}")
+    print()
+    choice = _ask("เลือก 1-6: ")
+    if not choice.isdigit() or not 1 <= int(choice) <= len(GROUP_MENU):
+        print("ต้องเลือกเลข 1 ถึง 6")
+        return 1
+
+    prefix = GROUP_MENU[int(choice) - 1][0]
+    print()
+    return add(keyword, prefix, id_file=id_file)
+
+
+def add(keyword: str, prefix: str, *, force: bool = False, id_file: Path | None = None) -> int:
     prefix = prefix.strip().upper()
     if prefix not in PREFIXES:
         print(f"prefix ต้องเป็นหนึ่งใน {sorted(PREFIXES)}")
@@ -146,11 +195,11 @@ def add(keyword: str, prefix: str, *, force: bool = False) -> int:
 
     print(f"เพิ่มแล้ว: {keyword_id}  {keyword.strip()}  [{segment} / {factor}]")
     print(f"สำรองไฟล์เดิมไว้ที่ {backup.relative_to(ROOT)}")
-    print()
-    print("ขั้นถัดไป")
-    print(f"  1. .\\scripts\\toolkit.ps1 monthly-prepare --ids {keyword_id}")
-    print("  2. เก็บใน Chrome ให้ครบทั้ง 6 พื้นที่")
-    print(f"  3. .venv\\Scripts\\python.exe -X utf8 collector\\add_keyword.py --finalize {keyword_id}")
+    # Stable machine-readable line so toolkit.ps1 can pick the id up without
+    # parsing Thai output.
+    print(f"NEW_KEYWORD_ID={keyword_id}")
+    if id_file is not None:
+        id_file.write_text(keyword_id, encoding="utf-8")
     return 0
 
 
@@ -188,14 +237,23 @@ def finalize(keyword_id: str, family_id: str | None) -> int:
     if suggested == "T2":
         families = _families(rows, verdict_segment=target["Segment"], verdict_factor=target["Factor"])
         if not family_id:
-            print("คำนี้ต้องเข้าครอบครัว เลือกหนึ่งอันแล้วรันซ้ำด้วย --family <ID>")
-            if families:
-                for fid, name, count in families:
-                    print(f"  {fid}  {name}  ({count} คำ)")
-            else:
-                print("  ยังไม่มีครอบครัวที่ Segment/Factor ตรงกัน")
-                print("  ต้องตั้งครอบครัวใหม่ ซึ่งต้องมีอย่างน้อย 2 คำ จึงต้องเพิ่มคำที่สองพร้อมกัน")
-            return 1
+            if not families:
+                print("คำนี้ต้องเข้าครอบครัว แต่ยังไม่มีครอบครัวที่กลุ่มและทิศทางตรงกัน")
+                print("ครอบครัวใหม่ต้องมีอย่างน้อย 2 คำ จึงต้องเพิ่มคำที่สองที่ความหมายใกล้กันพร้อมกัน")
+                return 3
+            print("คำนี้มีสัญญาณไม่ครบ 5 จังหวัด จึงต้องเข้าครอบครัว")
+            for number, (fid, name, count) in enumerate(families, start=1):
+                print(f"  {number}) {fid}  {name}  ({count} คำ)")
+            if not sys.stdin.isatty():
+                print()
+                print("เลือกแล้วรันซ้ำด้วย --family <ID>")
+                return 3
+            print()
+            choice = _ask(f"เลือก 1-{len(families)}: ")
+            if not choice.isdigit() or not 1 <= int(choice) <= len(families):
+                print("ยกเลิก ยังไม่ได้เปลี่ยนอะไร")
+                return 3
+            family_id = families[int(choice) - 1][0]
         family_id = family_id.strip().upper()
         members = [row for row in rows if row["Family_ID"].strip().upper() == family_id]
         if not members:
@@ -265,15 +323,20 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--finalize", metavar="ID", help="อ่านผลด่านคัดกรองแล้วตั้ง Tier ให้ถูก")
     parser.add_argument("--family", metavar="ID", help="ครอบครัวที่จะเข้า ใช้คู่กับ --finalize")
     parser.add_argument("--remove", metavar="ID", help="ถอนคำที่ยังไม่เข้าคลัง")
+    parser.add_argument("--interactive", action="store_true", help="ถามทีละข้อเป็นภาษาไทย")
+    parser.add_argument("--id-file", metavar="PATH", help=argparse.SUPPRESS)
     args = parser.parse_args(argv)
 
     if args.remove:
         return remove(args.remove)
     if args.finalize:
         return finalize(args.finalize, args.family)
+    id_file = Path(args.id_file) if args.id_file else None
+    if args.interactive:
+        return interactive_add(id_file)
     if args.keyword and args.prefix:
-        return add(args.keyword, args.prefix, force=args.force)
-    parser.error('ต้องระบุ "คำ" พร้อม --prefix หรือใช้ --finalize / --remove')
+        return add(args.keyword, args.prefix, force=args.force, id_file=id_file)
+    parser.error('ต้องระบุ "คำ" พร้อม --prefix หรือใช้ --interactive / --finalize / --remove')
 
 
 if __name__ == "__main__":

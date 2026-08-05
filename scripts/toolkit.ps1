@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true, Position = 0)]
-    [ValidateSet("setup", "monthly-prepare", "monthly-finish", "monthly-run")]
+    [ValidateSet("setup", "monthly-prepare", "monthly-finish", "monthly-run", "add-keyword")]
     [string]$Action,
 
     [string]$Python = "",
@@ -135,6 +135,47 @@ switch ($Action) {
             throw "monthly-finish accepts only the optional -RequireLatest YYYY-MM parameter"
         }
         Invoke-MonthlyFinish -LatestMonth $RequireLatest
+    }
+
+    "add-keyword" {
+        if ($Arguments.Count -ne 0 -or $RequireLatest -or $JobOutput) {
+            throw "add-keyword takes no extra parameters"
+        }
+        Assert-VenvPython
+
+        # Python owns every Thai prompt: Windows PowerShell 5.1 reads a script
+        # without a BOM as ANSI, so Thai text in this file would be mojibake.
+        # It hands the allocated id back through a file because capturing stdout
+        # here would hide the prompts from the person answering them.
+        $idFile = Join-Path ([IO.Path]::GetTempPath()) ("gt-new-keyword-" + [Guid]::NewGuid().ToString("N") + ".txt")
+        try {
+            Invoke-Native $venvPython @("-X", "utf8", "collector/add_keyword.py", "--interactive", "--id-file", $idFile) "Add the keyword"
+            if (-not (Test-Path -LiteralPath $idFile)) {
+                throw "The keyword was not added"
+            }
+            $keywordId = (Get-Content -LiteralPath $idFile -Raw).Trim()
+        } finally {
+            if (Test-Path -LiteralPath $idFile) { Remove-Item -LiteralPath $idFile -Force }
+        }
+
+        Invoke-MonthlyPrepare -QueueArguments @("--ids", $keywordId) -CopyToDesktop
+
+        Write-Host ""
+        Write-Host "CHROME CHECKPOINT" -ForegroundColor Yellow
+        Write-Host "1. Import the queue shown above and press Start."
+        Write-Host "2. Resolve CAPTCHA if prompted."
+        Write-Host "3. Continue only when all 6 areas are collected and FAILED is 0."
+        $confirmation = Read-Host "Type FINISH to screen this keyword and set its tier"
+        if ($confirmation -cne "FINISH") {
+            Write-Host "STOPPED before screening. The row stays in keywords.csv." -ForegroundColor Yellow
+            Write-Host "Remove it with: collector\add_keyword.py --remove $keywordId"
+            break
+        }
+
+        Invoke-Native $venvPython @("-X", "utf8", "collector/add_keyword.py", "--finalize", $keywordId) "Screen the keyword and set its tier"
+        Invoke-MonthlyFinish
+        Write-Host "NEW KEYWORD READY" -ForegroundColor Green
+        Write-Host "Publish with keywords.csv included in the staged allowlist."
     }
 
     "monthly-run" {

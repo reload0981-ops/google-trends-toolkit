@@ -46,6 +46,17 @@ class AddKeywordTest(unittest.TestCase):
         with self.keywords.open(encoding="utf-8-sig", newline="") as handle:
             return list(csv.DictReader(handle))
 
+    def test_the_menu_offers_every_group_and_maps_to_the_same_prefixes(self):
+        # The menu is what a novice actually sees, so it must not drift from the
+        # prefix table that fills Segment and Factor.
+        self.assertEqual(len(ak.GROUP_MENU), len(ak.PREFIXES))
+        self.assertEqual(
+            [prefix for prefix, _, _ in ak.GROUP_MENU], sorted(ak.PREFIXES, key="FP FU NP NU TP TU".split().index)
+        )
+        for prefix, label, _ in ak.GROUP_MENU:
+            self.assertIn(prefix, ak.PREFIXES)
+            self.assertTrue(label.strip())
+
     def test_prefix_decides_segment_and_factor(self):
         self.assertEqual(ak.PREFIXES["FP"], ("Formal", "Pull"))
         self.assertEqual(ak.PREFIXES["TU"], ("Informal-Traditional", "Push"))

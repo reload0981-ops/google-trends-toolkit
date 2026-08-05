@@ -39,6 +39,15 @@ class ToolkitEntrypointTests(unittest.TestCase):
         self.assertNotIn("--out", operator)
         self.assertNotIn("-out ", operator)
 
+    def test_adding_a_keyword_has_a_clickable_entry_point(self):
+        launcher = (ROOT / "เพิ่มคำใหม่.cmd").read_text(encoding="utf-8")
+        self.assertIn("add-keyword", launcher)
+        self.assertIn(r"scripts\toolkit.ps1", launcher)
+        # Thai prompts live in Python because Windows PowerShell 5.1 reads a
+        # script without a BOM as ANSI.
+        self.assertIn('"--interactive", "--id-file"', self.toolkit)
+        self.assertIn('Read-Host "Type FINISH', self.toolkit)
+
     def test_desktop_copy_is_made_from_the_canonical_queue(self):
         self.assertIn("queue-this-month.json", self.toolkit)
         self.assertIn('GetFolderPath("Desktop")', self.toolkit)
