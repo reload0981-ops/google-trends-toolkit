@@ -1,33 +1,33 @@
 {
   "counts": {
-    "case_scope_series": 60,
-    "cases": 30,
+    "case_scope_series": 62,
+    "cases": 31,
     "no_signal": 0,
     "stl_fallback": 1,
-    "t1_cases": 22,
+    "t1_cases": 23,
     "t2_cases": 8,
-    "x13": 59
+    "x13": 61
   },
   "files": {
     "method_log.csv": {
-      "rows": 60,
-      "sha256": "0215c6360729665bac793cf2144ec3280e2323291ded26922560e35939f0c27b"
+      "rows": 62,
+      "sha256": "cd7c43dba536772668148919a7829c6cd1a068f217ce091903bc6038b739a9ea"
     },
     "quality_flags.csv": {
-      "rows": 60,
-      "sha256": "f34704089fff45f38780f8f9fbb9d64118520843734d962991f12a69bf7e68b8"
+      "rows": 62,
+      "sha256": "15923be62b494d99dc289646317cbdbb59cf93d10fc2bf69c9e6d20151d18394"
     },
     "rebase_audit.csv": {
-      "rows": 468,
-      "sha256": "c55f2844ff22fb670b7869801e4edf3923b0f9cfbac5089ec24ebb77216cbf5c"
+      "rows": 478,
+      "sha256": "e79cb53575f5a34f9083ccd94fe89845e57ef5148c4c23feffd1d11f8b246774"
     },
     "series.csv": {
-      "rows": 10140,
-      "sha256": "339670c7faffcd5fda5aca2d496ccd841e5c020a997dbc513b3a6760ee544395"
+      "rows": 10478,
+      "sha256": "32ec0bcb39aa0e4276bd4f941d06edb0bec49e6ed92b4ec041c283d2a1782f98"
     },
     "x13_diagnostics.csv": {
-      "rows": 60,
-      "sha256": "9bccc425e0e786b3409c3eb2221bebd70b0f5a99e51e4b4c6fc36fa18e9d53b4"
+      "rows": 62,
+      "sha256": "a57fb2142775fdecfde1a3bd4e35c1d30cb3d31a4da115e79f931be610277d44"
     }
   },
   "implementation": {
@@ -67,10 +67,10 @@
   },
   "schema_version": "sa-pipeline-v3-portable-2",
   "source": {
-    "digest_sha256": "802179e836e8689ae3ab83f3199ab5eaf5509465fe0e1276fd5a697709ea7750",
-    "files": 301,
+    "digest_sha256": "179a3941d7eee24337a587c947c52cb597acd098138677c7e1341cc1aa4f4432",
+    "files": 307,
     "hash_normalization": "CRLF->LF",
-    "keywords_sha256": "be2a5074b864534c5f29369f80eb995b1019f63fba058f1f83f02c08d83e04fd"
+    "keywords_sha256": "9c4262ca61131f8398b64b9531e6ab6dfd663da2c0cf4ce75ff0b7894352235e"
   },
   "windows": {
     "REG_ISAN5": {

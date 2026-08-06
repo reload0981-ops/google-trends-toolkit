@@ -3299,7 +3299,73 @@
    "fetched_on": "2026-08-06",
    "fetched_at": "2026-08-06T07:44:21",
    "note": "ingest จาก TU069__TH-41.csv"
+  },
+  "TP129__TH-30": {
+   "status": "available",
+   "keyword": "งานเกาหลี",
+   "timeframe": "2004-01-01 2026-08-06",
+   "months": 151,
+   "first": "2014-01",
+   "last": "2026-07",
+   "fetched_on": "2026-08-06",
+   "fetched_at": "2026-08-06T09:57:38",
+   "note": "ingest จาก TP129__TH-30.csv"
+  },
+  "TP129__TH-31": {
+   "status": "available",
+   "keyword": "งานเกาหลี",
+   "timeframe": "2004-01-01 2026-08-06",
+   "months": 151,
+   "first": "2014-01",
+   "last": "2026-07",
+   "fetched_on": "2026-08-06",
+   "fetched_at": "2026-08-06T09:57:38",
+   "note": "ingest จาก TP129__TH-31.csv"
+  },
+  "TP129__TH-34": {
+   "status": "available",
+   "keyword": "งานเกาหลี",
+   "timeframe": "2004-01-01 2026-08-06",
+   "months": 151,
+   "first": "2014-01",
+   "last": "2026-07",
+   "fetched_on": "2026-08-06",
+   "fetched_at": "2026-08-06T09:57:38",
+   "note": "ingest จาก TP129__TH-34.csv"
+  },
+  "TP129__TH-40": {
+   "status": "available",
+   "keyword": "งานเกาหลี",
+   "timeframe": "2004-01-01 2026-08-06",
+   "months": 151,
+   "first": "2014-01",
+   "last": "2026-07",
+   "fetched_on": "2026-08-06",
+   "fetched_at": "2026-08-06T09:57:38",
+   "note": "ingest จาก TP129__TH-40.csv"
+  },
+  "TP129__TH-41": {
+   "status": "available",
+   "keyword": "งานเกาหลี",
+   "timeframe": "2004-01-01 2026-08-06",
+   "months": 151,
+   "first": "2014-01",
+   "last": "2026-07",
+   "fetched_on": "2026-08-06",
+   "fetched_at": "2026-08-06T09:57:38",
+   "note": "ingest จาก TP129__TH-41.csv"
+  },
+  "TP129__TH": {
+   "status": "available",
+   "keyword": "งานเกาหลี",
+   "timeframe": "2004-01-01 2026-08-06",
+   "months": 271,
+   "first": "2004-01",
+   "last": "2026-07",
+   "fetched_on": "2026-08-06",
+   "fetched_at": "2026-08-06T09:57:38",
+   "note": "ingest จาก TP129__TH.csv"
   }
  },
- "updated_at": "2026-08-06T07:44:21"
+ "updated_at": "2026-08-06T09:57:38"
 }
