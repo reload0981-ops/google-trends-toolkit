@@ -296,13 +296,48 @@ FP690,คำใหม่ของคุณ,T2,Formal,Pull,FPF03,family_member,FP
 
 ## 5. ตั้งเครื่องใหม่
 
+เครื่องเปล่าที่ยังไม่มีอะไรเลย ให้ทำ 3 ช่วงนี้ตามลำดับ ห้ามสลับ
+
+### ช่วงที่ 1 ลงของ 4 อย่าง
+
+เปิด PowerShell แล้ววางทีละบรรทัด
+
 ```powershell
+winget install Python.Python.3.13
+winget install Git.Git
+winget install Google.Chrome
+winget install GitHub.cli
+```
+
+ลงเสร็จ **ปิดหน้าต่าง PowerShell แล้วเปิดใหม่** ไม่งั้นคำสั่งที่เพิ่งลงจะยังเรียกไม่ได้
+
+### ช่วงที่ 2 ตั้งตัวตนแล้วโคลน
+
+```powershell
+git config --global user.name "Nattaya S"
+git config --global user.email "nattaya.s@example.com"
+gh auth login
+gh auth setup-git
 git clone https://github.com/reload0981-ops/google-trends-toolkit
 cd google-trends-toolkit
 powershell -ExecutionPolicy Bypass -File .\scripts\toolkit.ps1 setup
 ```
 
-**คำสั่ง `setup` เป็นตัวตรวจ ไม่ใช่ตัวติดตั้ง** ถ้าขาดอะไรมันจะฟ้องแล้วหยุด ต้องมีของครบ 4 อย่างก่อน
+สองบรรทัดแรกใส่ชื่อกับอีเมลจริงของคนที่ดูแล ไม่ใช่ของตัวอย่าง เพราะมันจะไปโผล่ในประวัติการเผยแพร่ว่าใครเป็นคนอัพเดทเดือนไหน
+
+`gh auth login` จะถาม 5 ข้อ ตอบตามนี้
+
+| มันถาม | ตอบ |
+|---|---|
+| What account do you want to log into? | `GitHub.com` |
+| What is your preferred protocol for Git operations? | `HTTPS` |
+| Authenticate Git with your GitHub credentials? | `Y` |
+| How would you like to authenticate GitHub CLI? | `Login with a web browser` |
+| First copy your one-time code: `ABCD-1234` | จำโค้ดไว้ กด Enter แล้วเบราว์เซอร์จะเปิดเอง เอาโค้ดไปวางแล้วกด Authorize |
+
+`gh auth login` ต้องมาก่อน `git clone` เสมอ
+
+**คำสั่ง `setup` ตรวจของ 4 อย่างในช่วงที่ 1 ให้ ไม่ได้ลงให้** ถ้าขาดอะไรมันจะฟ้องแล้วหยุด
 
 | ต้องมีก่อน | ถ้าไม่มีจะเจอ |
 |---|---|
@@ -313,12 +348,23 @@ powershell -ExecutionPolicy Bypass -File .\scripts\toolkit.ps1 setup
 
 > **ข้อควรระวัง** ถ้ายังไม่ได้ล็อกอิน GitHub ระบบจะ**ข้ามการตรวจสุขภาพทั้งชุดไปเงียบๆ** แล้วเราจะไม่รู้เลยว่าเครื่องนั้นใช้งานได้จริงไหม เพราะฉะนั้นต้องล็อกอินให้เรียบร้อยก่อนรัน `setup`
 
-**แล้วตั้ง Chrome ด้วยมืออีก 4 อย่าง** ส่วนนี้อัตโนมัติไม่ได้ และเป็นส่วนที่พังบ่อยที่สุด
+### ช่วงที่ 3 ตั้ง Chrome ด้วยมือ
+
+ช่วงนี้พิมพ์คำสั่งแทนไม่ได้ และเป็นส่วนที่พังบ่อยที่สุด **ตอน `setup` จบมันพิมพ์ path ที่ต้องใช้ให้ครบแล้ว ลอกจากหน้าจอไปเลย ไม่ต้องพิมพ์เอง**
+
+```
+MACHINE READY
+1. Load unpacked extension from: C:\Users\nattaya\google-trends-toolkit\extension
+2. Allow trends.google.co.th and set Chrome Downloads to: C:\Users\nattaya\google-trends-toolkit\incoming
+3. Turn off 'Ask where to save each file'
+```
 
 1. ใช้ Chrome ที่ลงชื่อเข้าใช้ Google แล้ว
-2. `chrome://extensions` เปิด Developer mode แล้วกด Load unpacked เลือกโฟลเดอร์ `extension`
-3. `chrome://settings/downloads` ตั้งที่เก็บดาวน์โหลดเป็นโฟลเดอร์ `incoming` ของ repo นี้
-4. ปิดตัวเลือก **Ask where to save each file**
+2. ไป `chrome://extensions` เปิด Developer mode มุมขวาบน กด Load unpacked แล้วเลือกโฟลเดอร์ตามข้อ 1 บนหน้าจอ
+3. ไป `chrome://settings/downloads` กด Change แล้ววาง path ตามข้อ 2 บนหน้าจอ
+4. ปิดสวิตช์ **Ask where to save each file**
+
+### แล้วพิสูจน์ว่าเครื่องใช้ได้จริง
 
 **`setup` ไม่รู้ว่าตั้ง Chrome ถูกหรือยัง** มันเช็คแค่ว่ามี Chrome อยู่ในเครื่อง การทดสอบจริงข้อเดียวที่มีคือรันคิวคำเดียว
 
