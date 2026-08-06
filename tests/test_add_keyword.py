@@ -112,6 +112,27 @@ class AddKeywordTest(unittest.TestCase):
 
         self.assertEqual(self.keywords.read_bytes(), before)
 
+    def test_existing_line_endings_survive_a_write(self):
+        # Windows checkouts carry CRLF and Linux ones LF. Rewriting to whichever
+        # the tool prefers would turn a one-row change into a 51-line diff.
+        for terminator in (b"\r\n", b"\n"):
+            with self.subTest(terminator=terminator):
+                body = self.keywords.read_bytes().replace(b"\r\n", b"\n")
+                if terminator == b"\r\n":
+                    body = body.replace(b"\n", b"\r\n")
+                self.keywords.write_bytes(body)
+
+                ak.add("คำวัดบรรทัด", "TU")
+                added = self.rows()[-1]["Keyword_ID"]
+                written = self.keywords.read_bytes()
+                self.assertEqual(ak.remove(added), 0)
+
+                other = b"\n" if terminator == b"\r\n" else b"\r\n"
+                self.assertIn(terminator, written)
+                if other == b"\r\n":
+                    self.assertNotIn(other, written)
+                self.assertEqual(self.keywords.read_bytes(), body)
+
     def test_removal_refuses_once_the_keyword_reached_the_archive(self):
         ak.add("คำที่เข้าคลังแล้ว", "FP")
         added = self.rows()[-1]["Keyword_ID"]

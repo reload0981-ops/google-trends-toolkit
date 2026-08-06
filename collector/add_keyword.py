@@ -56,10 +56,21 @@ def _read_rows() -> tuple[list[dict], list[str]]:
         return list(reader), list(reader.fieldnames or [])
 
 
+def _line_terminator() -> str:
+    """Keep whatever the file already uses.
+
+    Hardcoding one would rewrite every line on a checkout that uses the other,
+    turning a one-row change into a whole-file diff.
+    """
+
+    return "\r\n" if b"\r\n" in KEYWORDS_CSV.read_bytes() else "\n"
+
+
 def _write_rows(rows: list[dict], columns: list[str]) -> Path:
     """Back up first, then rewrite. keywords.csv is the authority for what may
     enter the archive, so every write keeps a restorable copy."""
 
+    terminator = _line_terminator()
     BACKUP_DIR.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     # Two edits inside the same second must not overwrite each other's backup,
@@ -71,7 +82,7 @@ def _write_rows(rows: list[dict], columns: list[str]) -> Path:
         backup = BACKUP_DIR / f"keywords-{stamp}-{attempt}.csv"
     shutil.copy2(KEYWORDS_CSV, backup)
     with KEYWORDS_CSV.open("w", encoding="utf-8-sig", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=columns, lineterminator="\r\n")
+        writer = csv.DictWriter(handle, fieldnames=columns, lineterminator=terminator)
         writer.writeheader()
         writer.writerows(rows)
     return backup
