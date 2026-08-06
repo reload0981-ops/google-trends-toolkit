@@ -30,7 +30,7 @@ OUTPUT_FILES = (
 SERIES_COLUMNS = (
     "Month", "Scope", "Case_ID", "Tier", "Case_Type", "Segment", "Factor",
     "Case_Name_TH", "Input_Rebased", "SA", "SA_Floored", "SA_Rebased",
-    "MA3_Centered",
+    "MA3_Centered", "Quality_Status",
 )
 QUALITY_COLUMNS = (
     "Case_ID", "Scope", "Execution_Status", "Diagnostic_Status",
@@ -129,6 +129,16 @@ def _build_rows(
             floored = sa.clip(lower=0)
             rebased, post_audit = rebase_max100(floored)
             ma3 = centered_ma3(rebased)
+            scope_audit = next(audit for audit in pre["audits"] if audit["stage"] == "C_SCOPE")
+            # Carried onto every series row as well, so a chart can filter on it
+            # without joining quality_flags.csv. Province scopes are mostly
+            # REVIEW, and a reader who never opens the sidecar would not know.
+            flags = quality_flags(
+                adjustment.method,
+                str(adjustment.diagnostics.get("Accept_Status", "")),
+                int(scope_audit["contributors_n"]),
+                int(scope_audit["required_n"]),
+            )
             for month in index:
                 series_rows.append({
                     "Month": month.strftime("%Y-%m"), "Scope": scope_name,
@@ -139,6 +149,7 @@ def _build_rows(
                     "SA": _number(sa.loc[month]), "SA_Floored": _number(floored.loc[month]),
                     "SA_Rebased": _number(rebased.loc[month]),
                     "MA3_Centered": _number(ma3.loc[month]),
+                    "Quality_Status": flags["Quality_Status"],
                 })
             method_rows.append({
                 "Case_ID": case.case_id, "Scope": scope_name, "Tier": case.tier,
@@ -168,16 +179,8 @@ def _build_rows(
                 **{field: _number(adjustment.diagnostics.get(field)) for field in DIAGNOSTIC_FIELDS},
                 "Accept_Status": adjustment.diagnostics.get("Accept_Status", ""),
             })
-            scope_audit = next(audit for audit in pre["audits"] if audit["stage"] == "C_SCOPE")
             quality_rows.append({
-                "Case_ID": case.case_id,
-                "Scope": scope_name,
-                **quality_flags(
-                    adjustment.method,
-                    str(adjustment.diagnostics.get("Accept_Status", "")),
-                    int(scope_audit["contributors_n"]),
-                    int(scope_audit["required_n"]),
-                ),
+                "Case_ID": case.case_id, "Scope": scope_name, **flags,
             })
             if not quiet:
                 print(f"{scope_name:10s} {case.case_id:8s} {adjustment.method}")

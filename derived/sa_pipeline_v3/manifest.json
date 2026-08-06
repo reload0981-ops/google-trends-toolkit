@@ -1,37 +1,37 @@
 {
   "counts": {
-    "case_scope_series": 62,
+    "case_scope_series": 217,
     "cases": 31,
-    "no_signal": 0,
-    "stl_fallback": 1,
+    "no_signal": 2,
+    "stl_fallback": 5,
     "t1_cases": 23,
     "t2_cases": 8,
-    "x13": 61
+    "x13": 210
   },
   "files": {
     "method_log.csv": {
-      "rows": 62,
-      "sha256": "cd7c43dba536772668148919a7829c6cd1a068f217ce091903bc6038b739a9ea"
+      "rows": 217,
+      "sha256": "29c1a7fdeadb0086ac81e2c02d668f5348c7096641ca35b58f6cecd024fa2780"
     },
     "quality_flags.csv": {
-      "rows": 62,
-      "sha256": "15923be62b494d99dc289646317cbdbb59cf93d10fc2bf69c9e6d20151d18394"
+      "rows": 217,
+      "sha256": "699ff64757958195949bc9910c0614c5e7422563e6597bab14440570a579ddba"
     },
     "rebase_audit.csv": {
-      "rows": 478,
-      "sha256": "e79cb53575f5a34f9083ccd94fe89845e57ef5148c4c23feffd1d11f8b246774"
+      "rows": 1083,
+      "sha256": "597cbe6de5ef2857da9f1708d37c4c7a4c1839ec655ff327255af64836b6dd3f"
     },
     "series.csv": {
-      "rows": 10478,
-      "sha256": "32ec0bcb39aa0e4276bd4f941d06edb0bec49e6ed92b4ec041c283d2a1782f98"
+      "rows": 33883,
+      "sha256": "770e387558a4122cdaaa1f00b78576df773dbdf71aa64def91f0378ee1904c31"
     },
     "x13_diagnostics.csv": {
-      "rows": 62,
-      "sha256": "a57fb2142775fdecfde1a3bd4e35c1d30cb3d31a4da115e79f931be610277d44"
+      "rows": 217,
+      "sha256": "894194f61befa4ee8e10663f850e2755240f74fc119a37437d141d052a7bdb95"
     }
   },
   "implementation": {
-    "digest_sha256": "a772798feff07cbddbccac0d2077c084b78432dce9c96c7c6bbe0745bc7dc47b",
+    "digest_sha256": "bdf1ddeb4590e8377230f58bbb67a9e6332ca840bf5ff5f31ace3f23f52311e0",
     "files": [
       "analysis/core.py",
       "analysis/pipeline.py",
@@ -94,6 +94,51 @@
       "months": 187,
       "required_geographies_n": 1,
       "start": "2011-01"
+    },
+    "TH-30": {
+      "end": "2026-07",
+      "geographies": [
+        "TH-30"
+      ],
+      "months": 151,
+      "required_geographies_n": 1,
+      "start": "2014-01"
+    },
+    "TH-31": {
+      "end": "2026-07",
+      "geographies": [
+        "TH-31"
+      ],
+      "months": 151,
+      "required_geographies_n": 1,
+      "start": "2014-01"
+    },
+    "TH-34": {
+      "end": "2026-07",
+      "geographies": [
+        "TH-34"
+      ],
+      "months": 151,
+      "required_geographies_n": 1,
+      "start": "2014-01"
+    },
+    "TH-40": {
+      "end": "2026-07",
+      "geographies": [
+        "TH-40"
+      ],
+      "months": 151,
+      "required_geographies_n": 1,
+      "start": "2014-01"
+    },
+    "TH-41": {
+      "end": "2026-07",
+      "geographies": [
+        "TH-41"
+      ],
+      "months": 151,
+      "required_geographies_n": 1,
+      "start": "2014-01"
     }
   }
 }
