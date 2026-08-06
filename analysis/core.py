@@ -15,6 +15,9 @@ ISAN5 = ("TH-30", "TH-31", "TH-34", "TH-40", "TH-41")
 SCOPES = {
     "TH": {"geos": ("TH",), "start": "2011-01"},
     "REG_ISAN5": {"geos": ISAN5, "start": "2014-01"},
+    # จังหวัดเดี่ยวมีสัญญาณบางกว่ามาก ส่วนใหญ่จะติดธง REVIEW
+    # series.csv จึงพก Quality_Status ไปด้วยเพื่อให้กรองได้ตั้งแต่ในกราฟ
+    **{geo: {"geos": (geo,), "start": "2014-01"} for geo in ISAN5},
 }
 
 
