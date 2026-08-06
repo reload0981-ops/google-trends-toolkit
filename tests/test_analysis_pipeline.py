@@ -161,15 +161,18 @@ class PreSeasonalAggregationTests(unittest.TestCase):
 
 @unittest.skipIf(ANALYSIS_IMPORT_ERROR, "optional analytical dependencies are not installed")
 class KeywordMetadataTests(unittest.TestCase):
-    def test_current_keywords_define_22_t1_and_8_t2_cases(self):
-        cases = load_cases(ROOT / "keywords.csv")
-        tier_counts = {
-            tier: sum(case_field(case, "tier") == tier for case in cases)
-            for tier in ("T1", "T2")
-        }
+    # The set grows every time a maintainer adds a keyword that passed the
+    # screening gates, so pinning the exact counts would fail the suite on a
+    # routine addition. Assert the shape plus a floor instead: 30 is the size
+    # at the SA pipeline's first release, and the set is only ever added to.
+    BASELINE_CASE_COUNT = 30
 
-        self.assertEqual(tier_counts, {"T1": 22, "T2": 8})
-        self.assertEqual(len(cases), 30)
+    def test_current_keywords_are_all_tiered_and_never_shrink(self):
+        cases = load_cases(ROOT / "keywords.csv")
+        tiers = [case_field(case, "tier") for case in cases]
+
+        self.assertEqual(sorted(set(tiers)), ["T1", "T2"])
+        self.assertGreaterEqual(len(cases), self.BASELINE_CASE_COUNT)
 
     def test_duplicate_keyword_id_fails_closed(self):
         source = (ROOT / "keywords.csv").read_text(encoding="utf-8-sig")

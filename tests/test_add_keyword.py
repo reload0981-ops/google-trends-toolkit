@@ -1,8 +1,11 @@
 import csv
+import io
 import shutil
 import tempfile
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
+from unittest.mock import patch
 
 from collector import add_keyword as ak
 
@@ -93,14 +96,43 @@ class AddKeywordTest(unittest.TestCase):
 
     def test_a_keyword_already_in_the_set_is_refused(self):
         existing = self.rows()[0]["Keyword_TH"]
-        self.assertEqual(ak.add(existing, "FP"), 1)
+        self.assertEqual(ak.add(existing, "FP"), ak.STOPPED_ON_PURPOSE)
 
     def test_a_keyword_that_already_died_is_refused_unless_forced(self):
-        self.assertEqual(ak.add("คำที่เคยตาย", "FP"), 1)
+        self.assertEqual(ak.add("คำที่เคยตาย", "FP"), ak.STOPPED_ON_PURPOSE)
         self.assertEqual(ak.add("คำที่เคยตาย", "FP", force=True), 0)
 
     def test_unknown_prefix_is_refused(self):
+        # A prefix is only reachable by typing the CLI flag, never from the
+        # menu, so this stays a real error rather than a deliberate stop.
         self.assertEqual(ak.add("อะไรก็ได้", "XX"), 2)
+
+    def test_a_refused_keyword_stops_on_purpose_instead_of_looking_broken(self):
+        # toolkit.ps1 and the .cmd files stay quiet on 9 and print "send it to
+        # the maintainer" on anything else. A screening verdict is an answer,
+        # not a crash, so it must never leave through a code that reads as one.
+        ak.add("คำสัญญาณบาง", "TU")
+        keyword_id = self.rows()[-1]["Keyword_ID"]
+        rejected = {
+            "collected": True,
+            "national_pass": False,
+            "national_zero_months": 90,
+            "national_window_months": 151,
+            "national_max_allowed": 37,
+            "regional_support": 0,
+            "regional_support_total": 5,
+            "suggested_tier": "ไม่ผ่าน",
+            "reason": "ตกด่าน National สัญญาณบางเกินไปแม้ที่ระดับประเทศ",
+        }
+
+        printed = io.StringIO()
+        with patch.object(ak, "check_keyword", return_value=rejected):
+            with redirect_stdout(printed):
+                status = ak.finalize(keyword_id, None)
+
+        self.assertEqual(status, 9)
+        self.assertEqual(status, ak.STOPPED_ON_PURPOSE)
+        self.assertIn("ไม่ใช่ข้อผิดพลาด", printed.getvalue())
 
     def test_add_then_remove_restores_the_file_byte_for_byte(self):
         before = self.keywords.read_bytes()
@@ -141,8 +173,9 @@ class AddKeywordTest(unittest.TestCase):
         )
 
         # Dropping the row alone would leave a series no keyword owns, which is a
-        # structural error the release audit fails on.
-        self.assertEqual(ak.remove(added), 1)
+        # structural error the release audit fails on. The guard says so in Thai
+        # and hands back the deliberate-stop code rather than a crash code.
+        self.assertEqual(ak.remove(added), ak.STOPPED_ON_PURPOSE)
         self.assertIn(added, {r["Keyword_ID"] for r in self.rows()})
 
     def test_backups_in_the_same_second_do_not_overwrite_each_other(self):

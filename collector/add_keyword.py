@@ -5,6 +5,10 @@
 คนตัดสินแค่ 2 อย่าง: คำนี้อยู่กลุ่มไหนทิศไหน (prefix) และถ้าออกมาเป็น T2 จะเข้าครอบครัวไหน
 ที่เหลือสคริปต์เติมให้จากตาราง prefix และจากผลด่านคัดกรอง
 
+รหัสจบงาน: 0 คือสำเร็จ, 9 คือหยุดเองโดยตั้งใจและอธิบายเป็นไทยไว้แล้ว (คำไม่ผ่านด่าน
+คำซ้ำ ต้องเข้าครอบครัว ผู้ใช้ยกเลิก) ตัวเลขอื่นคือของพังจริงที่ต้องให้คนแก้
+คนคุมงานจึงแยกออกได้ว่าจอแดงเป็นคำตอบของด่าน ไม่ใช่ระบบเสีย
+
 Examples:
   python -X utf8 collector/add_keyword.py "หางาน ต่างประเทศ" --prefix FP
   python -X utf8 collector/add_keyword.py --finalize FP690
@@ -25,7 +29,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from collector.check_keyword import check_keyword  # noqa: E402
-from collector.round_guard import assert_no_round_in_flight  # noqa: E402
+from collector.round_guard import STOPPED_ON_PURPOSE, assert_no_round_in_flight  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 KEYWORDS_CSV = ROOT / "keywords.csv"
@@ -155,7 +159,7 @@ def interactive_add(id_file: Path | None = None) -> int:
     keyword = _ask("คำที่อยากเพิ่ม (พิมพ์ให้ตรงกับที่คนค้นจริง): ")
     if not keyword:
         print("ยกเลิก")
-        return 1
+        return STOPPED_ON_PURPOSE
 
     print()
     print("คำนี้อยู่กลุ่มไหน")
@@ -166,7 +170,7 @@ def interactive_add(id_file: Path | None = None) -> int:
     choice = _ask("เลือก 1-6: ")
     if not choice.isdigit() or not 1 <= int(choice) <= len(GROUP_MENU):
         print("ต้องเลือกเลข 1 ถึง 6")
-        return 1
+        return STOPPED_ON_PURPOSE
 
     prefix = GROUP_MENU[int(choice) - 1][0]
     print()
@@ -183,14 +187,14 @@ def add(keyword: str, prefix: str, *, force: bool = False, id_file: Path | None 
     for row in rows:
         if _norm(row["Keyword_TH"]) == _norm(keyword):
             print(f"มีคำนี้อยู่แล้วในชุด: {row['Keyword_ID']} {row['Keyword_TH']}")
-            return 1
+            return STOPPED_ON_PURPOSE
 
     tried = prior_attempt(keyword)
     if tried and not force:
         print(f"เคยลองคำนี้แล้ว: {tried.get('keyword_id')}")
         print(f"  ไปได้ไกลสุด: {tried.get('best_stage')}")
         print("ถ้ายืนยันว่าจะลองใหม่ ให้ใส่ --force")
-        return 1
+        return STOPPED_ON_PURPOSE
 
     segment, factor = PREFIXES[prefix]
     keyword_id = next_free_id(prefix)
@@ -231,7 +235,7 @@ def finalize(keyword_id: str, family_id: str | None) -> int:
         verdict = check_keyword(keyword_id, ROOT)
     if not verdict["collected"]:
         print(f"{keyword_id}: {verdict['reason']}")
-        return 1
+        return STOPPED_ON_PURPOSE
 
     suggested = verdict["suggested_tier"]
     print(f"ด่าน 1 National : {'ผ่าน' if verdict['national_pass'] else 'ไม่ผ่าน'} "
@@ -255,19 +259,19 @@ def finalize(keyword_id: str, family_id: str | None) -> int:
             if not families:
                 print("คำนี้ต้องเข้าครอบครัว แต่ยังไม่มีครอบครัวที่กลุ่มและทิศทางตรงกัน")
                 print("ครอบครัวใหม่ต้องมีอย่างน้อย 2 คำ จึงต้องเพิ่มคำที่สองที่ความหมายใกล้กันพร้อมกัน")
-                return 3
+                return STOPPED_ON_PURPOSE
             print("คำนี้มีสัญญาณไม่ครบ 5 จังหวัด จึงต้องเข้าครอบครัว")
             for number, (fid, name, count) in enumerate(families, start=1):
                 print(f"  {number}) {fid}  {name}  ({count} คำ)")
             if not sys.stdin.isatty():
                 print()
                 print("เลือกแล้วรันซ้ำด้วย --family <ID>")
-                return 3
+                return STOPPED_ON_PURPOSE
             print()
             choice = _ask(f"เลือก 1-{len(families)}: ")
             if not choice.isdigit() or not 1 <= int(choice) <= len(families):
                 print("ยกเลิก ยังไม่ได้เปลี่ยนอะไร")
-                return 3
+                return STOPPED_ON_PURPOSE
             family_id = families[int(choice) - 1][0]
         family_id = family_id.strip().upper()
         members = [row for row in rows if row["Family_ID"].strip().upper() == family_id]
@@ -278,7 +282,7 @@ def finalize(keyword_id: str, family_id: str | None) -> int:
         if head["Segment"] != target["Segment"] or head["Factor"] != target["Factor"]:
             print(f"เข้าครอบครัวนี้ไม่ได้: {family_id} เป็น {head['Segment']}/{head['Factor']} "
                   f"แต่คำนี้เป็น {target['Segment']}/{target['Factor']}")
-            return 1
+            return STOPPED_ON_PURPOSE
         target.update(Tier="T2", Case_ID=family_id, Case_Type="family_member",
                       Family_ID=family_id, Family_Name_TH=head["Family_Name_TH"])
         backup = _write_rows(rows, columns)
@@ -289,7 +293,9 @@ def finalize(keyword_id: str, family_id: str | None) -> int:
 
     print(f"คำนี้ไม่ควรเข้าชุด ({verdict['reason']})")
     print(f"ถอนออกด้วย: python -X utf8 collector/add_keyword.py --remove {keyword_id}")
-    return 1
+    print()
+    print("(ไม่ใช่ข้อผิดพลาด ด่านคัดกรองตัดสินว่าคำนี้สัญญาณบางเกินไป)")
+    return STOPPED_ON_PURPOSE
 
 
 def _families(rows: list[dict], *, verdict_segment: str, verdict_factor: str) -> list[tuple[str, str, int]]:
@@ -316,7 +322,7 @@ def remove(keyword_id: str) -> int:
         print(f"หยุดก่อน: {keyword_id} เข้าคลังไปแล้ว {len(archived)} ไฟล์")
         print("การถอนคำที่อยู่ในคลังต้องลบไฟล์ใน data/series และรายการใน data/catalog.json ด้วย")
         print("ดู MAINTAINER-GUIDE.md หัวข้อ 'ถอนคำออก' หรือให้ AI agent ทำให้")
-        return 1
+        return STOPPED_ON_PURPOSE
 
     backup = _write_rows(kept, columns)
     print(f"ลบแถว {keyword_id} แล้ว สำรองไว้ที่ {backup.relative_to(ROOT)}")

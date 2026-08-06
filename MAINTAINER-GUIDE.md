@@ -232,7 +232,7 @@ FP690,คำใหม่ของคุณ,T1,Formal,Pull,FP690,keyword,,,active
 FP690,คำใหม่ของคุณ,T2,Formal,Pull,FPF03,family_member,FPF03,หางานโรงงาน,active_current_official
 ```
 
-**เลข ID ต้องไม่ซ้ำทั้งใน `keywords.csv` และ `keywords_tried.csv`** เลขที่ใช้ไปสูงสุดแล้วคือ FP 689, FU 160, NP 116, NU 126, TP 128, TU 124 ส่วนครอบครัวใช้รูป `<คำนำหน้า>F<เลขสองหลัก>` เช่น `FPF03`
+**เลข ID ต้องไม่ซ้ำทั้งใน `keywords.csv` และ `keywords_tried.csv`** เลขที่ใช้ไปสูงสุดแล้วคือ FP 689, FU 160, NP 116, NU 126, TP 129, TU 124 ส่วนครอบครัวใช้รูป `<คำนำหน้า>F<เลขสองหลัก>` เช่น `FPF03`
 
 ### แล้วเก็บเฉพาะคำนั้น
 

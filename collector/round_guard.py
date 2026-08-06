@@ -15,7 +15,10 @@ import sys
 from pathlib import Path
 
 # ต่างจาก error ทั่วไป ตัวเรียกใช้รหัสนี้แยกได้ว่าเป็นการหยุดตามตั้งใจ ไม่ใช่ของพัง
-ROUND_IN_FLIGHT_EXIT = 9
+# ใช้ร่วมกันทุกที่ที่ "หยุดเองแล้วอธิบายเป็นไทยไว้แล้ว" ไม่ใช่แค่รอบเก็บที่ค้าง
+# toolkit.ps1 กับไฟล์ .cmd เห็นรหัสนี้แล้วจะจบเงียบ ไม่ขึ้นให้ส่งหา maintainer
+STOPPED_ON_PURPOSE = 9
+ROUND_IN_FLIGHT_EXIT = STOPPED_ON_PURPOSE
 
 
 def pending_downloads(root: Path) -> list[Path]:
