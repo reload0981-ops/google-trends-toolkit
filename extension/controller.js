@@ -59,6 +59,7 @@ const els = {
   statRetry: $("stat-retry"),
   statPending: $("stat-pending"),
   statTotal: $("stat-total"),
+  statElapsed: $("stat-elapsed"),
   jobFilter: $("job-filter"),
   jobCountLabel: $("job-count-label"),
   geoSummary: $("geo-summary"),
@@ -260,6 +261,7 @@ async function resetStateFromJobs(jobs, source) {
     completed: 0,
     failed: 0,
     started_at: null,
+    finished_at: null,
     last_block_at: null,
     scraper_window_id: null,
     captcha_tab_id: null,
@@ -526,8 +528,31 @@ function renderStatus() {
   els.statusPill.className = `pill ${statusClass(state.status)}`;
 }
 
+function formatElapsed(ms) {
+  const total = Math.max(0, Math.floor(ms / 1000));
+  const hours = Math.floor(total / 3600);
+  const minutes = Math.floor((total % 3600) / 60);
+  const seconds = total % 60;
+  const pad = (value) => String(value).padStart(2, "0");
+  return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+}
+
+// Wall clock since Start, including CAPTCHA waits and pauses, because what the
+// operator needs to know is how long this round has been open. It freezes once
+// the round ends so the final duration stays readable.
+function renderElapsed() {
+  if (!els.statElapsed) return;
+  if (!state || !state.started_at) {
+    els.statElapsed.textContent = "-";
+    return;
+  }
+  const end = state.finished_at || Date.now();
+  els.statElapsed.textContent = formatElapsed(end - state.started_at);
+}
+
 function renderStats() {
   if (!state) return;
+  renderElapsed();
   const counts = getCounts();
   const processed = counts.done + counts.failed + counts.noData;
   const pct = counts.total ? Math.round((processed * 100) / counts.total) : 0;
@@ -939,6 +964,7 @@ async function mainLoop() {
   state.status = "running";
   state.fatal_error = null;
   if (!state.started_at) state.started_at = Date.now();
+  state.finished_at = null;
   await saveState();
   refreshUI();
 
@@ -967,6 +993,7 @@ async function mainLoop() {
         refreshUI();
         return;
       }
+      state.finished_at = Date.now();
       log("All jobs processed.", "ok");
       try {
         await exportNoDataManifest();
@@ -1281,6 +1308,7 @@ els.btnStop.addEventListener("click", async () => {
   if (!state) return;
   abortRequested = true;
   state.status = "idle";
+  if (state.started_at && !state.finished_at) state.finished_at = Date.now();
   await saveState();
   log("Stop requested; current wait/job will finish before loop exits", "warn");
   refreshUI();
@@ -1457,6 +1485,9 @@ if (els.btnImportJobs && els.jobsFileInput) {
   }
   await populateJobsSourceUI();
   refreshUI();
+  // The rest of the UI only repaints on state changes, and a 300-job round can
+  // sit on one keyword for minutes, so the clock needs its own tick.
+  setInterval(renderElapsed, 1000);
 })().catch(e => {
   log(`BOOT FATAL: ${e.message || e}`, "err");
 });

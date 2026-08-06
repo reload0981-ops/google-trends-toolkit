@@ -88,6 +88,22 @@ class AuditDatasetTests(unittest.TestCase):
         self.assertEqual(classify_signal([0] * 16 + [1] * 48), ("ACCEPTABLE", 16, 64))
         self.assertEqual(classify_signal([0] * 17 + [1] * 47), ("WEAK", 17, 64))
 
+    def test_signal_window_ignores_months_before_province_data(self):
+        # National series reach back to 2004, but scoring starts where provincial
+        # data becomes usable so both keyword gates read the same span.
+        months = month_sequence(160, 2013, 1)
+        values = [0.0] * 12 + [1.0] * 148
+        self.assertEqual(classify_signal(values, months), ("VERY_GOOD", 0, 148))
+
+    def test_signal_share_threshold_scales_with_window_length(self):
+        months = month_sequence(100, 2014, 1)
+        self.assertEqual(
+            classify_signal([0.0] * 25 + [1.0] * 75, months), ("ACCEPTABLE", 25, 100)
+        )
+        self.assertEqual(
+            classify_signal([0.0] * 26 + [1.0] * 74, months), ("WEAK", 26, 100)
+        )
+
     def test_missing_is_distinct_from_valid_all_zero_signal(self):
         self.write_series("TH", [0] * 64)
         self.write_series("TH-30", [1] * 64)

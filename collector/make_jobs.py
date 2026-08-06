@@ -19,13 +19,25 @@ default เริ่ม 2004-01-01 (จุดเริ่มข้อมูล G
 
 import argparse
 import csv
+import shutil
 import json
 import sys
 from datetime import date
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from collector.round_guard import assert_no_round_in_flight  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 KEYWORDS_CSV = ROOT / "keywords.csv"
+
+# สำเนาบน Desktop ตั้งชื่อจากที่นี่ ไม่ใช่จาก toolkit.ps1 เพราะ Windows PowerShell 5.1
+# อ่านสคริปต์ที่ไม่มี BOM เป็น ANSI ภาษาไทยในไฟล์นั้นจะกลายเป็นตัวยึกยือ
+DESKTOP_NAMES = {
+    "monthly": "คิวรายเดือน.json",
+    "keyword": "คิวคำใหม่.json",
+}
 OUT = ROOT / "extension" / "data" / "jobs.json"
 
 GEOS = {
@@ -60,7 +72,20 @@ def main():
     ap.add_argument("--start", default=CANONICAL_START, help=f"วันเริ่ม (ต้องเป็น {CANONICAL_START} ตามนโยบายข้อมูลหลัก)")
     ap.add_argument("--end", default=str(date.today()), help="วันจบ (default วันนี้)")
     ap.add_argument("--out", default=str(OUT), help="ที่เขียน jobs.json")
+    ap.add_argument("--desktop-dir", help="ถ้าระบุ จะวางสำเนาคิวไว้ที่โฟลเดอร์นี้ด้วย")
+    ap.add_argument("--allow-unfinished-round", action="store_true",
+                    help="สร้างคิวใหม่ทั้งที่รอบเดิมยังไม่จบ (ตั้งใจเริ่มใหม่เท่านั้น)")
+    ap.add_argument("--desktop-kind", choices=sorted(DESKTOP_NAMES),
+                    help="ชนิดของคิว ใช้ตั้งชื่อสำเนาบน Desktop")
     args = ap.parse_args()
+
+    # Only the canonical queue is what an operator imports, so that is the one
+    # worth protecting. A custom --out is import-only and experimental; guarding
+    # it too would block diagnostics for the whole length of a round.
+    writes_canonical_queue = Path(args.out).resolve() == OUT.resolve()
+    assert_no_round_in_flight(
+        ROOT, allow=args.allow_unfinished_round or not writes_canonical_queue
+    )
 
     try:
         validate_collection_window(args.start, args.end)
@@ -129,6 +154,13 @@ def main():
         }]
         (out.parent / "jobs_index.json").write_text(
             json.dumps(index, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    if args.desktop_dir:
+        kind = args.desktop_kind or "monthly"
+        copy_path = Path(args.desktop_dir) / DESKTOP_NAMES[kind]
+        copy_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(out, copy_path)
+        print(f"สำเนาไว้ที่ {copy_path}")
 
     print(f"เขียน {out} : {len(jobs)} jobs ({len(geos)} พื้นที่ x {len(rows)} คำ) timeframe: {timeframe}")
     print("ขั้นถัดไป: เปิด extension Controller > กด 'Import jobs.json' >")

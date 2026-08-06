@@ -140,7 +140,8 @@ scope อื่น: `--group FP,FU` / `--all` / `--geo TH` ส่วน `--start
 ### G. อ่านผล data health ให้ถูก
 
 - `collector/audit.py --json` ให้รายงาน machine-readable ทั้ง coverage, range, catalog, structural errors, freshness และสุขภาพรายซีรีส์
-- signal tier ใช้ 64 เดือนล่าสุด: `VERY_GOOD` = 0 เดือนที่ค่าเป็นศูนย์, `ACCEPTABLE` = 1–16 เดือน, `WEAK` = มากกว่า 16 เดือน; all-zero ระบุแยก
+- signal tier ใช้ช่วง **2014-01 ถึงเดือนล่าสุด** (`SIGNAL_WINDOW_START` ใน `audit.py`): `VERY_GOOD` = 0 เดือนที่ค่าเป็นศูนย์, `ACCEPTABLE` = เดือนศูนย์ไม่เกิน 25% ของช่วง, `WEAK` = เกินกว่านั้น; all-zero ระบุแยก
+- ด่านคัดกรองคำใหม่ใช้ตัวเลขชุดเดียวกัน: `python -X utf8 collector/check_keyword.py <ID>` บอก National / Regional / Tier ที่ควรเป็น (อ่านอย่างเดียว ต้องเก็บข้อมูลคำนั้นก่อน)
 - `WEAK`, all-zero หรือ no-data คือข้อจำกัดของสัญญาณค้นหา **ไม่ใช่หลักฐานว่าไม่มีอุปสงค์แรงงาน**
 - `--strict` ตรวจ schema/ลำดับเดือน/catalog และรูปหลักฐาน no-data; valid no-data แยกจาก missing/all-zero
 - `--require-latest` เป็น complete-release gate: ทุกคู่ต้องมีข้อมูลถึงเดือนกำหนด หรือ confirmed no-data ที่เก็บจาก canonical window หลังเดือนนั้น; missing/invalid/stale ทุกชนิดทำให้ fail
